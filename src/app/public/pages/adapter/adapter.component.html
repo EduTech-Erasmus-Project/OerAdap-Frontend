@@ -1,0 +1,47 @@
+<div class="main-content">
+    <h3>Adaptador de Objetos de Aprendizaje</h3>
+
+    <div class="dop-zone">
+
+        <ngx-dropzone *ngIf="!loader" (change)="onSelect($event)" accept=".zip,.rar">
+            
+            <ngx-dropzone-label>
+                <h4>Arrastre o seleccione un archivo.</h4>
+                <p-button label="Seleccionar archivo" icon="pi pi-cloud-upload" styleClass="p-button-lg"></p-button>
+            </ngx-dropzone-label>
+            <ngx-dropzone-preview  *ngIf="file" (removed)="onRemove()" [removable]="true"
+                ngProjectAs="ngx-dropzone-preview" [file]="file">
+                <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
+                
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+
+        <div class="button">
+            <p-button *ngIf="file && !loader" (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
+            </p-button>
+        </div>
+
+        <div class="spiner" *ngIf="loader">
+            <p-progressSpinner></p-progressSpinner>
+            <p>Cargando archivo por favor espere...
+                <span>
+                    <ng-container *ngIf="progress < 100; else uploadProgress">
+                        {{progress}}%
+                    </ng-container>
+                    <ng-template #uploadProgress>
+                        Completo
+                    </ng-template>
+                </span>
+            </p>
+            <p-progressBar [style]="{'color': '#FFF'}" [value]="progress" color="danger"></p-progressBar>
+        </div>
+
+    </div>
+    <!-- *ngIf="upload" -->
+    <app-file-upload></app-file-upload>
+
+
+
+
+
+</div>

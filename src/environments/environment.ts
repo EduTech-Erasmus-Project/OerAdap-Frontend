@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: true,
+  baseUrl: 'http://localhost:8000/api',
+  cryptoSecretKey: "@OER-QYpTatEMVQ3tem_0573d65be7efe43b07935a27220b61199ad90060@"
 };
 
 /*

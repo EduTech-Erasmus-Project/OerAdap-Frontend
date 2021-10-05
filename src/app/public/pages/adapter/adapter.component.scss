@@ -1,0 +1,51 @@
+.main-content{
+    min-height: 81vh;
+    //text-align: center;
+    h3{
+        padding-top: 15px;
+        text-align: center;
+    }
+    .dop-zone{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
+        .spiner{
+            text-align: center;
+            width: 50%;
+            margin-bottom: 15px;
+        }
+        
+        ngx-dropzone{
+            width: 50%;
+            margin: 15px 0;
+        }
+    }
+}
+
+.button{
+    margin-bottom: 15px;
+}
+
+ngx-dropzone{
+    display: flex;
+    justify-content: center;
+    &:focus{
+        background-color: red;
+    }
+}
+
+ngx-dropzone-preview{  
+    width: 100%;
+    min-width: 90% !important;
+    margin: 0;
+ 
+}
+
+@media (max-width: 765px) {
+    ngx-dropzone{
+        width: 100% !important;
+    }
+  }
