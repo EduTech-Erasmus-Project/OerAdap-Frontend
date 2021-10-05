@@ -1,0 +1,88 @@
+<div class="info">
+    <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-4">
+            <p-card>
+                <h5>Información del archivo</h5>
+                <p>Se encontraron N parrafos</p>
+                <p>Se encontraron N imágenes</p>
+                <p>Se encontraron N videos</p>
+                <p>Se encontraron N audios</p>
+            </p-card>
+        </div>
+        <div class="p-col-12 p-md-6 p-lg-8">
+            <p-card>
+                <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
+                    <h5>Método de adaptación</h5>
+                    <div class="methods">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="methods" value="handbook" inputId="handbook" formControlName="methods">
+                            </p-radioButton>
+                            <label for="handbook">Manual</label>
+                        </div>
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="methods" value="automatic" inputId="automatic"
+                                formControlName="methods"></p-radioButton>
+                            <label for="automatic">Automático</label>
+                        </div>
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="methods" value="mixed" inputId="mixed" formControlName="methods">
+                            </p-radioButton>
+                            <label for="mixed">Mixta</label>
+                        </div>
+                    </div>
+
+                    <h5>Seleccione las áreas a automatizar.</h5>
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-6 p-lg-4" *ngFor="let checkbox of checkboxs">
+                            <div class="p-field-checkbox">
+                                <p-checkbox formControlName="areas" [value]="checkbox.value" [inputId]="checkbox"
+                                    (onChange)="onCheckChange(checkbox.value, $event)"></p-checkbox>
+                                <label [for]="checkbox.value">{{checkbox.description}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="button">
+                        <p-button type="submit" label="Continuar" icon="pi pi-check"></p-button>
+                    </div>
+                </form>
+
+
+            </p-card>
+        </div>
+    </div>
+
+</div>
+
+
+
+<p-card class="file-desc">
+
+
+    <div class="description">
+
+        <h3>¿Cuál elegir?</h3>
+
+        <h5>Manual</h5>
+        <p>
+            Si desea modificar uno a uno cada elemento del objeto
+            de aprendizaje según su criterio.
+        </p>
+
+        <h5>Automático</h5>
+        <p>
+            Si desea que nuestro algoritmo modifique el objeto de
+            aprendizaje; puede seleccionar los elementos que desea
+            adaptar.
+        </p>
+        <h5>Mixto</h5>
+        <p>
+            Una combinación de los dos métodos anteriores.
+            Seleccione qué elementos desea que el algoritmo
+            adapte y cuáles no; podrá modificar los elementos si el
+            resultado no es el esperado.
+        </p>
+
+    </div>
+
+</p-card>

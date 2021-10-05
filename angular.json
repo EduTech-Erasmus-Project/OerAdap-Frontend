@@ -1,45 +1,43 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": "c963aea8-d8a0-478f-af6a-c331df52cf96"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "OerAdap-Frontend": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
-        }
-      },
+    "mirage": {
       "root": "",
       "sourceRoot": "src",
+      "projectType": "application",
+      "schematics": {},
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/OerAdap-Frontend",
+            "outputPath": "dist/mirage",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
+            "aot": false,
             "assets": [
               "src/favicon.ico",
+              "src/upload.php",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css"
+              "node_modules/animate.css/animate.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-typescript.js",
+            ],
+            "allowedCommonJsDependencies": [
+              "@fullcalendar/daygrid",
+              "@fullcalendar/timegrid",
+              "@fullcalendar/interaction",
+              "chart.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -52,20 +50,17 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
+              "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ]
             }
@@ -74,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "OerAdap-Frontend:build"
+            "browserTarget": "mirage:build",
           },
           "configurations": {
             "production": {
-              "browserTarget": "OerAdap-Frontend:build:production"
+              "browserTarget": "mirage:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "OerAdap-Frontend:build"
+            "browserTarget": "mirage:build"
           }
         },
         "test": {
@@ -97,6 +92,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
+              "src/upload.php",
               "src/assets"
             ],
             "styles": [
@@ -122,16 +118,24 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "OerAdap-Frontend:serve"
+            "devServerTarget": "mirage:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "OerAdap-Frontend:serve:production"
+              "devServerTarget": "mirage:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "OerAdap-Frontend"
+  "defaultProject": "mirage",
+  "cli": {
+    "analytics": "f334591a-e154-4a27-ad27-306a6d39825b"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
