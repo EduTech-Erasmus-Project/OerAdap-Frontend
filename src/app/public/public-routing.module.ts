@@ -94,9 +94,20 @@ const routes: Routes = [
         path: "adapter",
         loadChildren: () =>
           import("./pages/adapter/adapter.module").then((m) => m.AdapterModule),
+        data: {
+          breadcrumb: "Adaptador",
+        },
+      },
+      {
+        path: "adapter/:id",
+        loadChildren: () =>
+          import("./pages/adapterDetail/adapter-detail.module").then(
+            (m) => m.AdapterDetailModule
+          ),
           data: {
             breadcrumb: "Adaptador",
           },
+          
       },
       {
         path: "information",
@@ -104,17 +115,17 @@ const routes: Routes = [
           import("./pages/information/information.module").then(
             (m) => m.InformationModule
           ),
-          data: {
-            breadcrumb: "Información",
-          },
+        data: {
+          breadcrumb: "Información",
+        },
       },
       {
         path: "contact",
         loadChildren: () =>
           import("./pages/conatct/contact.module").then((m) => m.ContactModule),
-          data: {
-            breadcrumb: "Contacto",
-          },
+        data: {
+          breadcrumb: "Contacto",
+        },
       },
     ],
   },

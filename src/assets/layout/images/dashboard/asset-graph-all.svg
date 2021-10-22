@@ -31,28 +31,28 @@
         </filter>
     </defs>
     <g fill="none" fill-rule="evenodd">
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="25" y="230">Jan</tspan>
         </text>
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="96" y="230">Feb</tspan>
         </text>
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="166" y="230">Mar</tspan>
         </text>
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="237" y="230">Apr</tspan>
         </text>
         <text fill="#3B4252" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="13" font-weight="400">
             <tspan x="309" y="230">May</tspan>
         </text>
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="380" y="230">Jun</tspan>
         </text>
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="451" y="230">Jul</tspan>
         </text>
-        <text fill="#4C566A" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
+        <text fill="#111334" font-family="HelveticaNeue, Helvetica Neue" font-size="13">
             <tspan x="524" y="230">Aug</tspan>
         </text>
         <g>
@@ -84,7 +84,7 @@
                     <tspan x="16" y="16" fill="#9199A9">30 Jun</tspan>
                 </text>
                 <text font-family="HelveticaNeue, Helvetica Neue" font-size="14" transform="translate(394 2)">
-                    <tspan x="12.5" y="33" fill="#4C566A">$569.0</tspan>
+                    <tspan x="12.5" y="33" fill="#111334">$569.0</tspan>
                 </text>
             </g>
         </g>

@@ -1,0 +1,43 @@
+<div class="content">
+    <h6>Información del OA</h6>
+    <p *ngIf="oa_detail.title"><span>Titulo: </span> {{oa_detail.title}}</p>
+    <p *ngIf="oa_detail.author"><span>Autor: </span> {{oa_detail.author}}</p>
+    <p *ngIf="oa_detail.license"><span>Licencia: </span> {{oa_detail.license}}</p>
+    <p *ngIf="oa_detail.version"><span>Versión: </span> {{oa_detail.version}}</p>
+    <h6>Información del Archivo</h6>
+    <p><span>Paginas: </span> {{file_detail.pages}}</p>
+    <p><span>Imagenes: </span> {{file_detail.images}}</p>
+    <p><span>Parrafos: </span> {{file_detail.paragraphs}}</p>
+    <p><span>Videos: </span> {{file_detail.videos}}</p>
+    <p><span>Audios: </span> {{file_detail.audios}}</p>
+    <h6>Configuración de Adaptabilidad</h6>
+    <p><span>Tipo de adaptación: </span> {{method}}</p>
+    <div class="content-switch">
+        <p-inputSwitch (onChange)="onChangeButton()" [(ngModel)]="button"></p-inputSwitch>
+        <p><span>Botón de adaptabilidad</span></p>
+    </div>
+    <div class="content-switch">
+        <p-inputSwitch (onChange)="onChangeImage()"  [(ngModel)]="image"></p-inputSwitch>
+        <p><span>Imagenes</span></p>
+    </div>
+    <div class="content-switch">
+        <p-inputSwitch (onChange)="onChangeParagraph()"  [(ngModel)]="paragraph"></p-inputSwitch>
+        <p><span>Parrafos</span></p>
+        
+    </div>
+    <div class="content-switch">
+        <p-inputSwitch (onChange)="onChangeVideo()"  [(ngModel)]="video"></p-inputSwitch>
+        <p><span>Videos</span></p>
+        
+    </div>
+    <div class="content-switch">
+        <p-inputSwitch (onChange)="onChangeAudio()"  [(ngModel)]="audio"></p-inputSwitch>
+        <p><span>Audios</span></p>
+        
+    </div>
+
+    <div class="button">
+        <p-button label="Descargar OA adaptado" icon="pi pi-cloud-download"></p-button>
+    </div>
+    
+</div>

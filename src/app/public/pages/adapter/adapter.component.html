@@ -1,47 +1,124 @@
 <div class="main-content">
-    <h3>Adaptador de Objetos de Aprendizaje</h3>
+    <!-- <h3>Adaptador de Objetos de Aprendizaje</h3> -->
 
     <div class="dop-zone">
 
-        <ngx-dropzone *ngIf="!loader" (change)="onSelect($event)" accept=".zip,.rar">
-            
-            <ngx-dropzone-label>
-                <h4>Arrastre o seleccione un archivo.</h4>
-                <p-button label="Seleccionar archivo" icon="pi pi-cloud-upload" styleClass="p-button-lg"></p-button>
-            </ngx-dropzone-label>
-            <ngx-dropzone-preview  *ngIf="file" (removed)="onRemove()" [removable]="true"
-                ngProjectAs="ngx-dropzone-preview" [file]="file">
-                <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
-                
-            </ngx-dropzone-preview>
-        </ngx-dropzone>
+        <div class="p-grid">
+            <ngx-dropzone class="p-col-12 p-md-6 p-lg-5" *ngIf="!loader" (change)="onSelect($event)" accept=".zip,.rar">
 
-        <div class="button">
-            <p-button *ngIf="file && !loader" (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
-            </p-button>
+                <ngx-dropzone-label>
+                    <h4>Arrastre o seleccione un archivo.</h4>
+                    <p-button label="Seleccionar archivo" icon="pi pi-cloud-upload" styleClass="p-button-lg"></p-button>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview *ngIf="file" (removed)="onRemove()" [removable]="true"
+                    ngProjectAs="ngx-dropzone-preview" [file]="file">
+                    <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
+
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
         </div>
 
-        <div class="spiner" *ngIf="loader">
-            <p-progressSpinner></p-progressSpinner>
-            <p>Cargando archivo por favor espere...
-                <span>
-                    <ng-container *ngIf="progress < 100; else uploadProgress">
-                        {{progress}}%
-                    </ng-container>
-                    <ng-template #uploadProgress>
-                        Completo
-                    </ng-template>
-                </span>
-            </p>
-            <p-progressBar [style]="{'color': '#FFF'}" [value]="progress" color="danger"></p-progressBar>
+
+        <div class="p-grid" *ngIf="file && !loader" >
+            <!-- *ngIf="file && !loader" -->
+
+            <form class="p-col-12 p-md-6 p-lg-5" [formGroup]="settingsForm" (ngSubmit)="showConditionModal()">
+                <h6>Método de adaptación</h6>
+                <div class="methods">
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="handbook" inputId="handbook" formControlName="method">
+                        </p-radioButton>
+                        <label for="handbook">Manual</label>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="automatic" inputId="automatic" formControlName="method">
+                        </p-radioButton>
+                        <label for="automatic">Automático</label>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="mixed" inputId="mixed" formControlName="method">
+                        </p-radioButton>
+                        <label for="mixed">Mixta</label>
+                    </div>
+                </div>
+
+                <h6>Seleccione las áreas a automatizar.</h6>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let checkbox of checkboxs">
+                        <div class="p-field-checkbox">
+                            <p-checkbox formControlName="areas" [value]="checkbox.value" [inputId]="checkbox"
+                                (onChange)="onCheckChange(checkbox.value, $event)"></p-checkbox>
+                            <label [for]="checkbox.value">{{checkbox.description}}</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <p-button type="submit" label="Cargar" icon="pi pi-cloud-upload"></p-button>
+                </div>
+                <!-- <p-button  (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
+            </p-button> -->
+            </form>
+        </div>
+
+
+
+        <div class="p-grid">
+            <div class="spiner" *ngIf="loader">
+                <p-progressSpinner *ngIf="!navigateId"></p-progressSpinner>
+                
+                <p>
+                    Cargando archivo por favor espere...
+                    <span>
+                        <ng-container *ngIf="progress < 100; else uploadProgress">
+                            {{progress}}%
+                        </ng-container>
+                        <ng-template #uploadProgress>
+                            <span>Completo</span>
+                        </ng-template>
+                    </span>
+                </p>
+                <p *ngIf="navigateId">Tu archivo esta listo para editar pulsa en continuar para editarlo</p>
+                <p-progressBar [style]="{'color': '#FFF'}" [value]="progress" color="danger"></p-progressBar>
+                <p-button *ngIf="navigateId" (click)="navigate()" type="submit" label="Continuar" iconPos="right" icon="pi pi-angle-right"></p-button>
+            </div>
         </div>
 
     </div>
     <!-- *ngIf="upload" -->
-    <app-file-upload></app-file-upload>
-
-
-
-
-
+    
 </div>
+
+<p-dialog header="Términos y condiciones de uso" [(visible)]="displayConditions" [style]="{width: '50vw'}">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+        aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+        qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+        incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+        quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
+        autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+
+    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+        corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+        similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem
+        rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+        cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+        repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+        eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente
+        delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
+        repellat.</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayConditions=false" label="Cancelar" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="onUpload()" label="Aceptar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<app-file-upload></app-file-upload>

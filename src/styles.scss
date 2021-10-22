@@ -22,6 +22,7 @@ $gutter: 0.5rem; //for primeflex grid system
     right: 0;
     background-color: var(--primary-color) !important;
     color: #FFF !important;
+    z-index: 200;
   }
 }
 

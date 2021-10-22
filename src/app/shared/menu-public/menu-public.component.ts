@@ -49,14 +49,7 @@ export class MenuPublicComponent implements OnInit {
         routerLinkActiveOptions: {
           exact: true,
         },
-      },
-      {
-        label: "Quiénes Somos", //translate.translations.menu.aboutUs,
-        routerLink: "about-us",
-        routerLinkActiveOptions: {
-          exact: true,
-        },
-      },
+      }, 
       {
         label: "Adaptador", //translate.translations.menu.services,
         routerLink: "adapter",
@@ -65,11 +58,26 @@ export class MenuPublicComponent implements OnInit {
         },
       },
       {
+        label: "API", //translate.translations.menu.contact,
+        routerLink: "#",
+        routerLinkActiveOptions: {
+          exact: true,
+          //styleClass: "active",
+        },
+      },
+      {
         label: "Información", //translate.translations.menu.contact,
         routerLink: "information",
         routerLinkActiveOptions: {
           exact: true,
           //styleClass: "active",
+        },
+      },
+      {
+        label: "Quiénes Somos", //translate.translations.menu.aboutUs,
+        routerLink: "about-us",
+        routerLinkActiveOptions: {
+          exact: true,
         },
       },
       {

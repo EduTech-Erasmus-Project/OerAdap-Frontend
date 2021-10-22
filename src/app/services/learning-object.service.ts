@@ -10,13 +10,26 @@ const baseUrl = environment.baseUrl;
 export class LearningObjectService {
   constructor(private http: HttpClient) {}
 
-  uploadObject(file: File) {
+  uploadObject(data:any) {
+    //console.log(data)
     let formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", data.file);
+    formData.append("areas", data.areas);
+    formData.append("method", data.method);
+    //console.log(formData)
     return this.http.post(`${baseUrl}/learning_objects/`, formData, {
       reportProgress: true,
       observe: "events",
       responseType: "json",
     });
+  }
+
+  getLearningsObjects(){
+
+  }
+
+  getLearningObject(id:number){
+    //console.log("id ref", id)
+    return this.http.get(`${baseUrl}/learning_objects/${id}`)
   }
 }

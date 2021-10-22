@@ -435,7 +435,7 @@
         }
 
         .highlited {
-            color: #4c566a;
+            color: #111334;
             font-weight: 500;
         }
     }
@@ -564,7 +564,7 @@
                         }
 
                         &.icon-twitter {
-                            background-color: #3B5B68;
+                            background-color: #006CE1;
 
                             &:hover{
                                 background-color:  #456184;
@@ -606,7 +606,7 @@
         h5 {
             padding-top: 18px;
             font-size: 18px;
-            color: #4c566a;
+            color: #111334;
         }
         .graph {
             position: relative;
@@ -720,7 +720,7 @@
 
             .graph {
                 .graph-border {
-                    @include background-gradient-left2right(#4c566a, #2e3440);
+                    @include background-gradient-left2right(#111334, #2e3440);
                 }
             }
         }
