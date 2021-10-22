@@ -45,6 +45,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { CookieService } from "ngx-cookie-service";
 import { FormBuilder } from "@angular/forms";
 import { MenuService } from './services/app.menu.service';
+import { BlobsanitizerPipe } from './pipes/blobsanitizer.pipe';
 
 @NgModule({
   imports: [
@@ -79,7 +80,7 @@ import { MenuService } from './services/app.menu.service';
     QuicklinkModule,
     
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, BlobsanitizerPipe],
   //PathLocationStrategy
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

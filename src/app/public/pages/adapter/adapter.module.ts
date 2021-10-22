@@ -6,6 +6,7 @@ import { AdapterComponent } from './adapter.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SharedModule } from '../../../shared/shared.module';
 import { ComponentsModule } from '../../components/components.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ComponentsModule } from '../../components/components.module';
     AdapterRoutingModule,
     NgxDropzoneModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdapterModule { }

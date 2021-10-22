@@ -2,15 +2,18 @@
   padding: 15px 0 0;
   
   
+  
 }
+
 :host ::ng-deep .p-menubar.p-component {
   padding: 5px 0;
   //background-color: #FFF !important;
+  background-color: #fff;
 }
 
 :host ::ng-deep .p-menuitem-link-active {
   .p-menuitem-text {
-    //color: #3B5B68; //Declarar en variable
+    //color: #006CE1; //Declarar en variable
     //background-color: red;
     color: var(--primary-color);
   }
@@ -51,8 +54,10 @@
 
 :host ::ng-deep .p-menuitem-link-active{
   background-color: var(--primary-color);
+  color: #fff;
   span{
     color: #FFF !important;
+    //color: #fff;
   }
   &:hover{
     background-color: var(--primary-color) !important;

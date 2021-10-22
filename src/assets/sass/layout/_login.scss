@@ -206,7 +206,7 @@
                         }
 
                         label {
-                            color: #4c566a;
+                            color: #111334;
                         }
                     }
 
@@ -226,7 +226,7 @@
                             }
 
                             &:enabled:hover{
-                                background-color: #314750;
+                                background-color: #0054AD;
                                 @include transition (background-color $transitionDuration);
                             }
                         }

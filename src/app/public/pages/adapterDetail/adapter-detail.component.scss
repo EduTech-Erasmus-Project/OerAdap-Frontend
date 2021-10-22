@@ -1,0 +1,29 @@
+.card{
+    padding-top: 10px;
+}
+.oa-info{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    .p-col-12{
+        margin: 0;
+        padding: 0;
+    }
+    .sidebar{
+        //padding: 10px;
+        .card{
+            padding: 10px 5px;
+            height: 100%;
+        }
+    }
+}
+
+.oa-info{
+    z-index: 100;
+    position: relative;
+}
+
+
+:host ::ng-deep .p-tabview-panels{
+    padding: 0;
+}

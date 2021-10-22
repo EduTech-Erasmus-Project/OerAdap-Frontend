@@ -90,6 +90,8 @@ import { UrlsanitizerPipe } from '../pipes/urlsanitizer.pipe';
 import { MomentPipe } from '../pipes/moment.pipe';
 import { BreadcrumbPublicComponent } from './breadcrumb-public/breadcrumb-public.component';
 import { MenuPublicComponent } from './menu-public/menu-public.component';
+import { NotfoundComponent } from "./notfound/notfound.component";
+import { BlobsanitizerPipe } from '../pipes/blobsanitizer.pipe';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -100,8 +102,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FooterComponent,
     MenuPublicComponent,
     UrlsanitizerPipe,
+    BlobsanitizerPipe,
     MomentPipe,
-    BreadcrumbPublicComponent
+    BreadcrumbPublicComponent,
+    NotfoundComponent
   ],
   exports: [
     BreadcrumbPublicComponent,
@@ -192,6 +196,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlsanitizerPipe,
     MomentPipe,
     ProgressSpinnerModule,
+    BlobsanitizerPipe
   ],
   imports: [
     ProgressSpinnerModule,
