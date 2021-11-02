@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { Page } from "src/app/models/LearningObject";
 
 @Component({
@@ -8,6 +8,7 @@ import { Page } from "src/app/models/LearningObject";
 })
 export class WebviewComponent implements OnInit {
   @Input() pages: Page[];
+  @Output() eventPage:EventEmitter<any> = new EventEmitter();
   @ViewChild("webView") webView: ElementRef;
   public fullScreen: boolean = false;
 
@@ -27,8 +28,10 @@ export class WebviewComponent implements OnInit {
       id: filterIndex[0].id,
     };
 
+    //this.eventPage.emit(this.selectedPage)
 
-    console.log("selectedPage", this.selectedPage)
+
+    //console.log("selectedPage", this.selectedPage)
 
     this.pagesSelect = this.pages.map((page: Page) => {
       return { name: page.title, code: page.preview_path, id: page.id };
@@ -61,5 +64,6 @@ export class WebviewComponent implements OnInit {
 
   onChange(evt) {
     console.log("change", evt)
+    this.eventPage.emit(evt.value)
   }
 }

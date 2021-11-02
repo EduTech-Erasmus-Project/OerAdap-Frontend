@@ -1,7 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
-import { NgAudioRecorderService, OutputFormat, RecorderState } from "ng-audio-recorder";
+import {
+  NgAudioRecorderService,
+  OutputFormat,
+  RecorderState,
+} from "ng-audio-recorder";
+import { ParagraphService } from "src/app/services/paragraph.service";
 import { v4 as uuidv4 } from "uuid";
+import { Paragraph } from "../../../models/Page";
 
 declare var MediaRecorder: any;
 
@@ -13,6 +19,7 @@ declare var MediaRecorder: any;
 export class ParagraphComponent implements OnInit {
   @ViewChild("recordPlayer") recordPlayer: ElementRef;
   @ViewChild("audioDownload") audioDownload: ElementRef;
+  @Input() paragraph: Paragraph;
 
   public edit = false;
   public htmlContent: any;
@@ -33,7 +40,12 @@ export class ParagraphComponent implements OnInit {
 
   public audioURL: any;
 
-  private interval:any;
+  private interval: any;
+
+  public loaderAdapted: boolean = false;
+  public audioPreviwe: string;
+
+  public paragraphAdapted: Paragraph;
 
   public editorConfig: AngularEditorConfig = {
     editable: true,
@@ -60,18 +72,18 @@ export class ParagraphComponent implements OnInit {
       [
         //'undo',
         //'redo',
-        //'bold',
-        //'italic',
-        //'underline',
+        "bold",
+        "italic",
+        "underline",
         "strikeThrough",
         "subscript",
         "superscript",
-        //'justifyLeft',
-        //'justifyCenter',
-        //'justifyRight',
-        //'justifyFull',
-        //'indent',
-        //'outdent',
+        "justifyLeft",
+        "justifyCenter",
+        "justifyRight",
+        "justifyFull",
+        "indent",
+        "outdent",
         "insertUnorderedList",
         "insertOrderedList",
         "heading",
@@ -93,17 +105,57 @@ export class ParagraphComponent implements OnInit {
     ],
   };
 
-  constructor(private audioRecorderService: NgAudioRecorderService) {
+  constructor(
+    private audioRecorderService: NgAudioRecorderService,
+    private paragraphService: ParagraphService
+  ) {
     this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
       // Handle Error
       console.log("recorderErrorCase", recorderErrorCase);
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log("paragraph", this.paragraph);
+  }
 
   onSave() {
-    this.edit = false;
+    if (this.htmlContent || this.file || this.fileRecord) {
+      //console.log("on save", this.file || this.fileRecord);
+      let data: any = {
+        text: this.htmlContent,
+        html_text: `<p>${this.htmlContent}</p>`,
+        tag_page_learning_object: this.paragraph.id,
+        file: this.file || this.fileRecord,
+      };
+
+      //console.log(this.file || this.fileRecord)
+
+      if (this.paragraphAdapted) {
+        //updates
+        //console.log("update data");
+        let updateParagraphSub = this.paragraphService
+          .updateTagAdapted(data, this.paragraphAdapted.id)
+          .subscribe(
+            (res: any) => {
+              //console.log(res);
+              this.paragraphAdapted = res;
+            },
+            (err) => console.log(err)
+          );
+      } else {
+        //create
+        let createParagraphSub = this.paragraphService
+          .createTagAdapted(data)
+          .subscribe(
+            (res: any) => {
+              //console.log(res);
+              this.paragraphAdapted = res;
+            },
+            (err) => console.log(err)
+          );
+      }
+    }
   }
 
   onSelect(evt) {
@@ -145,22 +197,23 @@ export class ParagraphComponent implements OnInit {
       this.audioRecorderService.startRecording();
 
       this.interval = setInterval(() => {
-
         //console.log("record status", RecorderState.PAUSED)
-       if(RecorderState.PAUSED != this.audioRecorderService.getRecorderState()){
-        this.secRecord += 1;
-        if (this.secRecord === 60) {
-          this.secRecord = 0;
-          this.minRecord += 1;
+        if (
+          RecorderState.PAUSED != this.audioRecorderService.getRecorderState()
+        ) {
+          this.secRecord += 1;
+          if (this.secRecord === 60) {
+            this.secRecord = 0;
+            this.minRecord += 1;
+          }
+          if (this.minRecord === 60) {
+            this.minRecord = 0;
+            this.hourRecord += 1;
+          }
+          if (this.hourRecord === 24) {
+            this.stopRecord();
+          }
         }
-        if (this.minRecord === 60) {
-          this.minRecord = 0;
-          this.hourRecord += 1;
-        }
-        if (this.hourRecord === 24) {
-          this.stopRecord();
-        }
-       }
       }, 1000);
     }
   }
@@ -169,11 +222,12 @@ export class ParagraphComponent implements OnInit {
     clearInterval(this.interval);
     this.audioRecorderService
       .stopRecording(OutputFormat.WEBM_BLOB_URL)
-      .then((output) => {
+      .then(async (output) => {
         //console.log(output)
         this.rec = false;
         this.recording = false;
         this.audioURL = output;
+        this.fileRecord = await this.transforBlob(output);
       })
       .catch((errrorCase) => {
         // Handle Error
@@ -189,6 +243,28 @@ export class ParagraphComponent implements OnInit {
       return file;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async editParagraph() {
+    this.edit = !this.edit;
+    console.log(this.edit);
+    if (this.edit) {
+      this.loaderAdapted = true;
+      let paragraphSub = await this.paragraphService
+        .getTagAdaptedByIdParagraph(this.paragraph.id)
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            this.paragraphAdapted = res;
+            this.loaderAdapted = false;
+            this.htmlContent = res.text;
+          },
+          (err) => {
+            console.log(err);
+            this.loaderAdapted = false;
+          }
+        );
     }
   }
 }

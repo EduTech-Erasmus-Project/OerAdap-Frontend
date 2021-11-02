@@ -36,7 +36,7 @@ export class OaInfoComponent implements OnInit {
     this.button = this.getValueCheck("button");
     this.paragraph = this.getValueCheck("paragraph");
 
-    console.log(this.config_adaptability);
+    //console.log(this.config_adaptability);
   }
 
   getValueCheck(value: string) {

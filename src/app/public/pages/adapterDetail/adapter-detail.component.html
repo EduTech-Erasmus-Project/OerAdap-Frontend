@@ -7,14 +7,14 @@
                         <!-- <i class="pi pi-calendar"></i> -->
                         <span>Objeto de aprendizaje original</span>
                     </ng-template>
-                    <app-webview [pages]="learningObject.pages"></app-webview>
+                    <app-webview (eventPage)="eventPage($event)" [pages]="learningObject.pages"></app-webview>
                 </p-tabPanel>
                 <p-tabPanel header="Header II">
                     <ng-template pTemplate="header">
                         <!-- <i class="pi pi-user"></i> -->
                         <span>Objeto de aprendizaje adaptado</span>
                     </ng-template>
-                    <app-webview [pages]="learningObject.pages"></app-webview>
+                    <app-webview (eventPage)="eventPage($event)" [pages]="learningObject.pages"></app-webview>
                 </p-tabPanel>
             </p-tabView>
         </div>
@@ -43,13 +43,13 @@
 </div>
 
 <div class="card main-content oa-adaptability">
-    <p-tabView styleClass="webview-container">
-        <p-tabPanel header="Parrafos" *ngIf="paragraph">
+    <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
+        <p-tabPanel id="parrafo"  header="Parrafos" *ngIf="paragraph">
             <ng-template pTemplate="header">
                 <i class="pi pi-align-center"></i>
                 <span>Parrafos</span>
             </ng-template>
-            <app-paragraph-content></app-paragraph-content>
+            <app-paragraph-content *ngIf="paragraphs" [paragraphs]="paragraphs"></app-paragraph-content>
         </p-tabPanel>
         <p-tabPanel header="Imagenes" *ngIf="image">
             <ng-template pTemplate="header">
@@ -58,14 +58,14 @@
             </ng-template>
             <app-image-content></app-image-content>
         </p-tabPanel>
-        <p-tabPanel header="Audios" *ngIf="audio">
+        <p-tabPanel  header="Audios" *ngIf="audio">
             <ng-template pTemplate="header">
                 <i class="pi pi-play"></i>
                 <span>Audios</span>
             </ng-template>
             <app-audio-content></app-audio-content>
         </p-tabPanel>
-        <p-tabPanel header="Videos" *ngIf="video">
+        <p-tabPanel  header="Videos" *ngIf="video">
             <ng-template pTemplate="header">
                 <i class="pi pi-video"></i>
                 <span>Videos</span>

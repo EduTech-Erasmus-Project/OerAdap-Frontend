@@ -87,11 +87,13 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { UrlsanitizerPipe } from '../pipes/urlsanitizer.pipe';
-import { MomentPipe } from '../pipes/moment.pipe';
+
 import { BreadcrumbPublicComponent } from './breadcrumb-public/breadcrumb-public.component';
-import { MenuPublicComponent } from './menu-public/menu-public.component';
+
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { BlobsanitizerPipe } from '../pipes/blobsanitizer.pipe';
+import { MenuPublicComponent } from './menu-public/menu-public.component';
+import { MomentPipe } from '../pipes/moment.pipe';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
