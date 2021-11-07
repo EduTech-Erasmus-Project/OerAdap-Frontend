@@ -56,7 +56,7 @@
                 <i class="pi pi-image"></i>
                 <span>Imagenes</span>
             </ng-template>
-            <app-image-content></app-image-content>
+            <app-image-content [imagesGroup]=imagesGroup [nFoundImage]=nFoundImage></app-image-content>
         </p-tabPanel>
         <p-tabPanel  header="Audios" *ngIf="audio">
             <ng-template pTemplate="header">
