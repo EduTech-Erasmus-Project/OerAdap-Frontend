@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { LanguageService } from "../../services/language.service";
-import { LoginService } from "../../services/login.service";
 import { PublicComponent } from "../../public/public.component";
 import { Router, NavigationExtras } from "@angular/router";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-menu-public",
@@ -22,7 +21,6 @@ export class MenuPublicComponent implements OnInit {
   constructor(
     public appMain: PublicComponent,
     private languageService: LanguageService,
-    public loginService: LoginService,
     private router: Router
   ) {
     // if (
@@ -36,11 +34,9 @@ export class MenuPublicComponent implements OnInit {
   ngOnInit(): void {
     this.translate = this.languageService.translate;
     this.loadMenu();
-
   }
 
   loadMenu() {
-
     //this.translate.onLangChange.subscribe((translate: LangChangeEvent) => {
     this.tieredItems = [
       {
@@ -49,7 +45,7 @@ export class MenuPublicComponent implements OnInit {
         routerLinkActiveOptions: {
           exact: true,
         },
-      }, 
+      },
       {
         label: "Adaptador", //translate.translations.menu.services,
         routerLink: "adapter",
@@ -106,10 +102,4 @@ export class MenuPublicComponent implements OnInit {
     this.appMain.megaMenuMobileClick = true;
     this.activeItem = this.activeItem === index ? null : index;
   }
-
-  logOut() {
-    //console.log("saliendo")
-    this.loginService.signOut();
-  }
-
 }
