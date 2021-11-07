@@ -18,6 +18,8 @@ export class WebviewComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+
+    //console.log("pages", this.pages)
     
 
     let filterIndex = this.pages.filter(page => page.preview_path.includes('index.html'))

@@ -50,7 +50,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       .getLearningObject(this.id)
       .subscribe(
         (res: any) => {
-          //console.log(res);
+          console.log("learningObject", res);
           this.learningObject = res;
           let filterIndex = res.pages.filter(page => page.preview_path.includes('index.html'))
           this.currentPageId= filterIndex[0].id;

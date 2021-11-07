@@ -12,8 +12,6 @@
 //     align-items: center;
 //     flex-direction: column;
 
-
-
 //     ngx-dropzone {
 //       width: 50%;
 //       margin: 15px 0;
@@ -72,8 +70,12 @@
   justify-content: space-between;
 }
 
-    .spiner {
-      text-align: center;
-      //width: 50%;
-      margin-bottom: 15px;
-    }
+.spiner {
+  text-align: center;
+  //width: 50%;
+  margin-bottom: 15px;
+}
+
+btn-next {
+  margin-top: 15px;
+}

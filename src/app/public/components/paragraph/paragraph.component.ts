@@ -123,8 +123,8 @@ export class ParagraphComponent implements OnInit {
     if (this.htmlContent || this.file || this.fileRecord) {
       //console.log("on save", this.file || this.fileRecord);
       let data: any = {
-        text: this.htmlContent,
-        html_text: `<p>${this.htmlContent}</p>`,
+        text: this.htmlContent || '',
+        html_text: this.htmlContent ? `<p>${this.htmlContent}</p>` : '',
         tag_page_learning_object: this.paragraph.id,
         file: this.file || this.fileRecord,
       };
@@ -134,12 +134,15 @@ export class ParagraphComponent implements OnInit {
       if (this.paragraphAdapted) {
         //updates
         //console.log("update data");
+        
         let updateParagraphSub = this.paragraphService
           .updateTagAdapted(data, this.paragraphAdapted.id)
           .subscribe(
             (res: any) => {
               //console.log(res);
-              this.paragraphAdapted = res;
+              //console.log("respuesta", res)
+              //this.paragraphAdapted = res.body;
+              console.log(res);
             },
             (err) => console.log(err)
           );
@@ -149,8 +152,8 @@ export class ParagraphComponent implements OnInit {
           .createTagAdapted(data)
           .subscribe(
             (res: any) => {
-              //console.log(res);
-              this.paragraphAdapted = res;
+              console.log(res);
+              //this.paragraphAdapted = res.body;
             },
             (err) => console.log(err)
           );
@@ -239,7 +242,7 @@ export class ParagraphComponent implements OnInit {
     try {
       const response = await fetch(ulr);
       const blob = await response.blob();
-      const file = new File([blob], "audio/webm", { type: blob.type });
+      const file = new File([blob], "audio/mp3", { type: blob.type });
       return file;
     } catch (error) {
       console.log(error);
@@ -248,7 +251,7 @@ export class ParagraphComponent implements OnInit {
 
   async editParagraph() {
     this.edit = !this.edit;
-    console.log(this.edit);
+    ///console.log(this.edit);
     if (this.edit) {
       this.loaderAdapted = true;
       let paragraphSub = await this.paragraphService
@@ -265,6 +268,7 @@ export class ParagraphComponent implements OnInit {
             this.loaderAdapted = false;
           }
         );
+      
     }
   }
 }
