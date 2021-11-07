@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { LearningObjectService } from 'src/app/services/learning-object.service';
 
 @Component({
   selector: 'app-image-content',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImageContentComponent implements OnInit {
 
+ @Input() imagesGroup: any[];
+@Input() nFoundImage : boolean ;
   constructor() { }
 
   ngOnInit(): void {
+   
   }
-
+  
 }
