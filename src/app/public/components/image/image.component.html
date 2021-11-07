@@ -1,1 +1,30 @@
-<p>image works!</p>
+
+    <p-card  [style]="{'margin-bottom': '2em'}">
+        <div *ngFor="let aux of item.items">
+            <img src="{{aux.link}}" alt="">
+        </div>
+        <h1>{{mensaje}}</h1>
+        <h6>Descripcion de la imagen :</h6>
+        <div class="text-description" *ngIf="!edit">
+            <h6 > {{item.text}}</h6>
+        </div>
+        <form action="" [formGroup]="angForm" id="formAdapte" *ngIf="edit">
+          <input type="text" formControlName="{{item.id}}" pInputText >
+        </form>
+
+        <ng-template pTemplate="footer" class="container-buttons">
+            <ng-container *ngIf="edit; else buttonTemplate" class="container-buttons">
+                <div class="btn-sucessfull">
+                    <p-button (click)="onSave()" label="Guardar" icon="pi pi-check" ></p-button>
+                </div>
+                <div class="btn-cancel">
+                    <button pButton (click)="edit=false" pRipple type="button" label="Cancelar" class="p-button-danger" icon ="pi pi-times"></button>
+                </div>
+               </ng-container>
+            <ng-template #buttonTemplate>
+                <p-button (click)="edit = true && cliclEdit(item.text)" label="Editar" icon="pi pi-check"></p-button>
+            </ng-template>
+        </ng-template>
+        
+    </p-card>
+

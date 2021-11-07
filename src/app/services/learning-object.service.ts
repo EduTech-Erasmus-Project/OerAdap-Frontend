@@ -1,5 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
+import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 
 const baseUrl = environment.baseUrl;
@@ -9,6 +11,15 @@ const baseUrl = environment.baseUrl;
 })
 export class LearningObjectService {
   constructor(private http: HttpClient) {}
+
+  mensaje :string;
+  private enviarMensajeSubject = new Subject<string>();
+enviarMensajeObservable = this.enviarMensajeSubject.asObservable();
+
+enviarMensaje(mensaje : string){
+  this.mensaje =mensaje;
+  this.enviarMensajeSubject.next(mensaje);
+}
 
   uploadObject(data:any) {
     //console.log(data)
@@ -32,4 +43,12 @@ export class LearningObjectService {
     //console.log("id ref", id)
     return this.http.get(`${baseUrl}/learning_objects/${id}`)
   }
+
+  getImagesForPge(id: number){
+    return this.http.get(`${baseUrl}/page/image/${id}`).pipe(map((data:any) => data ));
+  }
+
+
+
+
 }

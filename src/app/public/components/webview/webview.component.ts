@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { Page } from "src/app/models/LearningObject";
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { LearningObject, Page } from "src/app/models/LearningObject";
+import { LearningObjectService } from "src/app/services/learning-object.service";
 
 @Component({
   selector: "app-webview",
@@ -10,14 +11,22 @@ export class WebviewComponent implements OnInit {
   @Input() pages: Page[];
   @ViewChild("webView") webView: ElementRef;
   public fullScreen: boolean = false;
-
+  public idEnviar : number;
   pagesSelect: any[];
   selectedPage: any;
 
-  constructor() {}
+  private  mensajeID : string ;
+
+  constructor(
+    private learningObjectService: LearningObjectService
+  ) {
+  }
 
   ngOnInit(): void {
     
+    this.learningObjectService.enviarMensajeObservable.subscribe(mensaje => {
+      this.mensajeID = mensaje
+    });
 
     let filterIndex = this.pages.filter(page => page.preview_path.includes('index.html'))
 
@@ -29,13 +38,15 @@ export class WebviewComponent implements OnInit {
 
 
     console.log("selectedPage", this.selectedPage)
-
+    this.learningObjectService.enviarMensaje(this.selectedPage.id)
+   
     this.pagesSelect = this.pages.map((page: Page) => {
       return { name: page.title, code: page.preview_path, id: page.id };
     });
 
-    //console.log("pages", this.pages);
+   // console.log("pages", this.pages);
   }
+
 
   openFullscreen() {
     const elem = this.webView.nativeElement;
@@ -60,6 +71,10 @@ export class WebviewComponent implements OnInit {
   }
 
   onChange(evt) {
-    console.log("change", evt)
+    this.mensajeID = evt.value.id;
+    //console.log("Es el id",this.mensajeID)
+    this.learningObjectService.enviarMensaje(this.mensajeID)
   }
+
+
 }

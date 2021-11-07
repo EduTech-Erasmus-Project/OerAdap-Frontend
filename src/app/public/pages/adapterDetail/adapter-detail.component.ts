@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, ViewChild } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { LearningObject } from "src/app/models/LearningObject";
 import { LearningObjectService } from "src/app/services/learning-object.service";
+import { WebviewComponent } from "../../components/webview/webview.component";
 
 @Component({
   selector: "app-adapter-detail",
@@ -14,21 +16,35 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   private id: number;
   public learningObject: LearningObject;
 
+  private idPagina: number;
+
   public image: boolean;
   public video: boolean;
   public audio: boolean;
   public button: boolean;
   public paragraph: boolean;
 
+  private mensajeID: string;
+  public imagesGroup: any[];
+  public subscribes: Subscription[] = [];
+  public nFoundImage: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
-    private learningObjectService: LearningObjectService
-  ) {}
+    private learningObjectService: LearningObjectService,
+    private fb: FormBuilder,
+  ) { }
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   ngOnInit(): void {
+
+    this.learningObjectService.enviarMensajeObservable.subscribe(IDpage => {
+      this.mensajeID = IDpage;
+      this.loadDataI(Number(this.mensajeID));
+    })
+
     let subRouter = this.route.params.subscribe((params) => {
       this.id = +params["id"];
       this.loadData();
@@ -68,4 +84,38 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.audio = evt.audio;
     this.paragraph = evt.paragraph;
   }
+
+
+
+  async loadDataI(id: number) {
+    let groupImages = await this.learningObjectService.getImagesForPge(id).subscribe(
+      (response) => {
+
+        this.imagesGroup = response.map(image => {
+          return {
+            id: image.id,
+            text: image.text,
+            items: image.atributes.map((attribute: any) => {
+              return {
+                id: attribute.id,
+                link: attribute.data_atribute,
+              }
+            })
+          }
+        })
+
+        this.imagesGroup = this.imagesGroup;
+        this.nFoundImage = false;
+      },(err) => {
+        this.nFoundImage = true;
+      });
+    this.subscribes.push(groupImages);
+  }
+
+  onSave(evt) {
+    console.log("onSave " + evt);
+
+  }
+
+
 }
