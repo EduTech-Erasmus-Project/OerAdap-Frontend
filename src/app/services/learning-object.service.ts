@@ -55,7 +55,7 @@ export class LearningObjectService {
   }
 
   updateImage(data: any, id: any) {
-    return this.http.put(`${baseUrl}/page/image/${id}`, data);
+    return this.http.put(`${baseUrl}/page/image/${id}`, data).pipe(map((data: any) => data));
   }
 
 }
