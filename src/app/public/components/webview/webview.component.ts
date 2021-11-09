@@ -80,7 +80,7 @@ export class WebviewComponent implements OnInit {
     this.eventPage.emit(evt.value)
 
     this.mensajeID = evt.value.id;
-    //console.log("Es el id",this.mensajeID)
+    console.log("Es el id",this.mensajeID)
     this.learningObjectService.enviarMensaje(this.mensajeID)
 
   }
