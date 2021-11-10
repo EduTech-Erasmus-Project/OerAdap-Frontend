@@ -1,3 +1,7 @@
+.spinn{
+    display: flex;
+    justify-content: center;
+}
 .audio-content{
     text-align: center;
     //background-color: red !important;
@@ -58,3 +62,12 @@
        margin: 10px 0;
    }
 }
+
+.footer-buttons{
+    p-button{
+        margin-right: 10px;
+    }
+}
+
+
+

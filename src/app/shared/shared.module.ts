@@ -198,7 +198,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlsanitizerPipe,
     MomentPipe,
     ProgressSpinnerModule,
-    BlobsanitizerPipe
+    BlobsanitizerPipe,
   ],
   imports: [
     ProgressSpinnerModule,

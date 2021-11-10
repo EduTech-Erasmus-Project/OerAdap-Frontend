@@ -1,13 +1,10 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { Component, OnInit, OnDestroy} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
-import { LearningObject } from "src/app/models/LearningObject";
+import { LearningObject, Page } from 'src/app/models/LearningObject';
 import { Paragraph } from "src/app/models/Page";
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { PageService } from "src/app/services/page.service";
-import { WebviewComponent } from "../../components/webview/webview.component";
-
 
 @Component({
   selector: "app-adapter-detail",
@@ -19,8 +16,6 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   public paragraphs:Paragraph[];
   private id: number;
   public learningObject: LearningObject;
-
-  private idPagina: number;
 
   public image: boolean;
   public video: boolean;
@@ -36,6 +31,10 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   public imagesGroup: any[];
   public subscribes: Subscription[] = [];
   public nFoundImage: boolean = false;
+
+  public curremtPage:Page;
+
+  public tabAdapted = true;
 
 
   constructor(
@@ -70,13 +69,16 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
         (res: any) => {
           console.log("learningObject", res);
           this.learningObject = res;
-          let filterIndex = res.pages.filter(page => page.preview_path.includes('index.html'))
-          this.currentPageId= filterIndex[0].id;
+          let filterIndex = res.pages_adapted.filter(page => page.preview_path.includes('index.html'))
+          this.currentPageId = filterIndex[0].id;
           this.image = this.getValueCheck("image");
           this.video = this.getValueCheck("video");
           this.audio = this.getValueCheck("audio");
           this.paragraph = this.getValueCheck("paragraph");
+          
+          //this.loadPageInfo();
           this.loadParagraph();
+
         },
         (err) => {
           console.log(err);
@@ -86,14 +88,27 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(learningObjectSub);
   }
 
+  // async loadPageInfo(){
+  //   let pageSub = await this.pageService.getPageInfo(this.currentPageId).subscribe((res:any)=>{
+  //     console.log("res loadPageInfo", res);
+  //     this.curremtPage = res;
+  //   }, err =>{
+
+  //     console.log("err")
+  //   });
+  //   this.subscriptions.push(pageSub);
+  // }
+
   async loadParagraph() {
     //console.log("loadParagraph page", this.currentPageId);
+    this.paragraphs = [];
     let paragraphSub = await this.pageService.getParagraph(this.currentPageId).subscribe((res:any)=>{
         
-        this.paragraphs = res;
-        //console.log("res loadParagraph", this.paragraphs)
+      console.log("res loadParagraph", this.paragraphs)
+      this.paragraphs = res;
+
     }, err =>{
-      this.paragraph = false;
+      //this.paragraph = false;
     });
     this.subscriptions.push(paragraphSub);
   }
@@ -121,15 +136,16 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
 
   eventPage(evt) {
-    //console.log("event page", evt);
-    this.currentPageId = evt.id;
-    this.reLoadData(this.tabIndex);
+    if(evt.type === "adapted"){
+      this.currentPageId = evt.id;
+      this.reLoadData(this.tabIndex);
+    }
   }
 
   onChangeTab(evt) {
     this.tabIndex = evt.index;
     this.reLoadData(this.tabIndex);
-    //console.log("evt", evt);
+    console.log("evt", evt);
   }
 
   private reLoadData(idx){
@@ -177,6 +193,15 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   onSave(evt) {
     console.log("onSave " + evt);
 
+  }
+
+  onChangeWebview(evt) {
+    console.log("onChangeWebview ", evt);
+    if(evt.index===0){
+      this.tabAdapted = true;
+    }else{
+      this.tabAdapted = false;
+    }
   }
 
 }
