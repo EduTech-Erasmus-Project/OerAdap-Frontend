@@ -104,5 +104,6 @@ export class WebviewComponent implements OnInit {
     this.mensajeID = evt.value.id;
     //console.log("Es el id",this.mensajeID)
     this.learningObjectService.enviarMensaje(this.mensajeID);
+
   }
 }

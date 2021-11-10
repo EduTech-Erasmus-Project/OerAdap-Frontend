@@ -1,0 +1,13 @@
+.img-col{
+    width:100%;
+    padding: 10px 10px;
+}
+.content-info p{
+    text-align: justify;
+}
+.content-info{
+    padding: 10px 10px;
+}
+.p-grid{
+min-height: 80vh;
+}

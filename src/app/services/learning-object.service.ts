@@ -10,18 +10,24 @@ const baseUrl = environment.baseUrl;
   providedIn: "root",
 })
 export class LearningObjectService {
-  constructor(private http: HttpClient) {}
-
-  mensaje :string;
+  constructor(private http: HttpClient) { }
+  
+  //Paso de datos mediante servicios
+  mensaje: string;
   private enviarMensajeSubject = new Subject<string>();
-enviarMensajeObservable = this.enviarMensajeSubject.asObservable();
+  enviarMensajeObservable = this.enviarMensajeSubject.asObservable();
 
-enviarMensaje(mensaje : string){
-  this.mensaje =mensaje;
-  this.enviarMensajeSubject.next(mensaje);
-}
+  enviarMensaje(mensaje: string) {
+    this.mensaje = mensaje;
+    this.enviarMensajeSubject.next(mensaje);
+  }
 
-  uploadObject(data:any) {
+  
+  //**************************************
+
+
+
+  uploadObject(data: any) {
     //console.log(data)
     let formData = new FormData();
     formData.append("file", data.file);
@@ -35,20 +41,21 @@ enviarMensaje(mensaje : string){
     });
   }
 
-  getLearningsObjects(){
+  getLearningsObjects() {
 
   }
 
-  getLearningObject(id:number){
+  getLearningObject(id: number) {
     //console.log("id ref", id)
     return this.http.get(`${baseUrl}/learning_objects/${id}`)
   }
 
-  getImagesForPge(id: number){
-    return this.http.get(`${baseUrl}/page/image/${id}`).pipe(map((data:any) => data ));
+  getImagesForPge(id: number) {
+    return this.http.get(`${baseUrl}/page/image/${id}`).pipe(map((data: any) => data));
   }
 
-
-
+  updateImage(data: any, id: any) {
+    return this.http.put(`${baseUrl}/page/image/${id}`, data).pipe(map((data: any) => data));
+  }
 
 }
