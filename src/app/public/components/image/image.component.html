@@ -1,9 +1,7 @@
 
 <p-toast></p-toast>
-   <p-card  [style]="{'margin-bottom': '2em'}">
-        <div *ngFor="let aux of item.items">
-            <img src="{{aux.link}}" alt="">
-        </div>
+   <p-card  [style]="{'margin-bottom': '2em'}">  
+            <img src="{{item.link}}" alt="">
         <h1>{{mensaje}}</h1>
         <h6>Descripcion alt de la imagen :</h6>
         <div class="text-description" *ngIf="!edit">
