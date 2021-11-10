@@ -11,6 +11,10 @@ export class PageService {
 
   constructor(private http:HttpClient) { }
 
+  getPageInfo(pageId:number){
+    return this.http.get(`${baseUrl}/page/${pageId}`)
+  }
+
   getParagraph(pageId:number){
     return this.http.get(`${baseUrl}/page/paragraph/${pageId}`)
   }

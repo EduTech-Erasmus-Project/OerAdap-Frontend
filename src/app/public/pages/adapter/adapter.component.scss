@@ -76,6 +76,13 @@
   margin-bottom: 15px;
 }
 
-btn-next {
+.btn-next{
+  display: flex;
+  justify-content: center;
   margin-top: 15px;
+}
+
+
+.main-content{
+  //min-height: 80vh;
 }

@@ -2,10 +2,20 @@
 
     <p>{{paragraph.text}}</p>
 
+
+
+
     <div class="editor" *ngIf="edit">
+
+        <p-messages [(value)]="messges" [enableService]="false"></p-messages>
+
         <ng-container *ngIf="loaderAdapted; else loaderTemplate">
-            <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
-                fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+
+            <div class="spinn">
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+                    fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+            </div>
+
         </ng-container>
         <ng-template #loaderTemplate>
             <p-tabView styleClass="webview-container">
@@ -102,18 +112,22 @@
     </div>
 
     <ng-template pTemplate="footer">
-        <div class="buttons">
+        <div class="footer-buttons">
             <ng-container *ngIf="edit; else buttonTemplate">
                 <!-- file || !fileRecord ||  -->
-                <p-button [disabled]="!htmlContent && (!fileRecord && !file)" (click)="onSave()" label="Guardar"
-                    icon="pi pi-check"></p-button>
+                <p-button [disabled]="(!htmlContent && (!fileRecord && !file)) || updateParagraph" (click)="onSave()"
+                    [label]="updateParagraph ? 'Guardando...' : 'Guardar'" icon="pi pi-check"
+                    [loading]="updateParagraph"></p-button>
+
                 <button (click)="edit = false" pButton pRipple type="button" icon="pi pi-times" label="Cerrar"
                     class="p-button-danger"></button>
             </ng-container>
             <ng-template #buttonTemplate>
-                <p-button (click)="editParagraph()" label="Editar" icon="pi pi-check"></p-button>
+                <p-button (click)="editParagraph()" label="Editar" icon="pi pi-check" [loading]="updateParagraph">
+                </p-button>
+
             </ng-template>
         </div>
     </ng-template>
-    
+
 </p-card>

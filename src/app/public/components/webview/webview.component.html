@@ -1,5 +1,5 @@
 <div #webView class="web-view animate__animated animate__fadeIn">
-    <iframe target="_parent" [title]="'object.titleIframe' | translate"
+    <iframe id="web-view" target="_parent" [title]="'object.titleIframe' | translate"
         [src]="selectedPage.code | urlsanitizer" frameborder="0" allowfullscreen></iframe>
     <div class="controls">
        

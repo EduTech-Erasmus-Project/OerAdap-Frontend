@@ -8,7 +8,8 @@ export interface LearningObject {
   preview_adapted?: string;
   file_detail?: FileDetail;
   config_adaptability?: ConfigAdaptability;
-  pages?: Page[];
+  pages_adapted?: Page[];
+  pages_origin?: Page[];
   file_adapted?: null;
 }
 
@@ -37,4 +38,13 @@ export interface Page {
   id?: number;
   title?: string;
   preview_path?: string;
+  type?: string;
+  count_data?: CountData;
+}
+
+export interface CountData {
+  images?: number;
+  paragraphs?: number;
+  videos?: number;
+  audios?: number;
 }
