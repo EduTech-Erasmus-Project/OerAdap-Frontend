@@ -58,4 +58,8 @@ export class LearningObjectService {
     return this.http.put(`${baseUrl}/page/image/${id}`, data).pipe(map((data: any) => data));
   }
 
+  getAudiosForPge(id: number) {
+    return this.http.get(`${baseUrl}/page/audio/${id}`).pipe(map((data: any) => data));
+  }
+
 }

@@ -1,0 +1,12 @@
+:host ::ng-deep .p-card .p-card-footer {
+        display: flex;
+}
+.btn-sucessfull{
+    margin: 5px;
+}
+textarea{
+    width: 100%;
+}
+.bnt-edit{
+    display: flex;
+}

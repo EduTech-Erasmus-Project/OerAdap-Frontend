@@ -1,1 +1,40 @@
-<p>audio works!</p>
+<p-card [style]="{'margin-bottom': '2em'}">
+    <audio class="audio" controls="" preload="none" src="{{item.link}}"></audio>
+    <p-messages></p-messages>
+
+    <div class="container-edit" *ngIf="editTextArea">
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="textEdit"></textarea>
+        <div class="bnt-edit">
+            <ng-container class="container-but" >
+                <div class="btn-sucessfull" *ngIf ="!cliclEdit(item.text)" >
+                    <p-button (click)="onSave(item.id)" label="Actualizar" icon="pi pi-check"></p-button>
+                </div>
+                <div class="btn-sucessfull" *ngIf ="cliclEdit(item.text)"> 
+                    <p-button (click)="onSave(item.id)" label="Crear" icon="pi pi-save"></p-button>
+                </div>
+                <div class="btn-sucessfull">
+                    <button pButton (click)="cancel()" pRipple type="button" label="Cancelar" class="p-button-danger"
+                        icon="pi pi-times"></button>
+                </div>
+            </ng-container>
+        </div> 
+    </div>
+
+    <ng-template pTemplate="footer" class="container-buttons">
+        <ng-container class="container-but" *ngIf="cliclEdit(item.text) && !editTextArea">
+            <div class="btn-sucessfull">
+                <button pButton pRipple type="button" label="Automático" class="p-button-success"></button>
+            </div>
+            <div class="btn-sucessfull">
+                <p-button (click)="createText()" label="Crear" icon="pi pi-check"></p-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!cliclEdit(item.text) && !editTextArea">
+            <div class="btn-sucessfull">
+                <p-button (click)="editar()" label="Editar" icon="pi pi-pencil"></p-button>
+            </div>
+        </ng-container>
+
+    </ng-template>
+</p-card>
