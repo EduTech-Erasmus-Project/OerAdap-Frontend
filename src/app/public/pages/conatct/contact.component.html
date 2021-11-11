@@ -1,7 +1,27 @@
-<div class="forms">
-    <form autocomplete="off" [formGroup]="angForm" (ngSubmit)="validateUser()" id="loginForm">
-        <div class="p-grid">
-            <div class="p-col-12 p-md-6 p-lg-6">
+<div class="contact-us" style='background-image: url("assets/img/bruce-mars.jpg");'>
+    <div class="p-grid">
+
+        <div class="p-col-11 p-md-6 p-lg-6 content-info">
+            <div class="text main-content">
+                <!-- <h2>Construyendo un mundo mejor</h2> -->
+                <h2>Contáctenos</h2>
+                <p>Nos gustaría saber tu opinión, dudas o sugerencias o simplemente nos quiere saludar, nos encantaría
+                    atender su mensaje.</p>
+            </div>
+        </div>
+        <div class="p-col-1 p-md-6 p-lg-6">
+            <!-- <img class="img-col" src="assets/img/undraw_status_update_re_dm9y.svg" alt="Icono nosotros"> -->
+        </div>
+    </div>
+
+</div>
+
+
+<div class="contact-forms main-content">
+
+    <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-5">
+            <form autocomplete="off" [formGroup]="angForm" (ngSubmit)="validateUser()" id="loginForm">
                 <div class="p-field p-fluid">
                     <label for="firstnamelabel">Nombre:</label>
                     <input type="text" formControlName="name" pInputText>
@@ -27,16 +47,17 @@
                         <small id="name " class="p-error" *ngIf="message.errors.required">Campo Obligatorio</small>
                     </div>
                 </div>
-            </div>
-            <!-- Estruct 2-->
-            <div class="p-col-12 p-md-6 p-lg-6">
-                <img src="/assets/img/undraw_new_message_re_fp03.svg" alt="mirage-layout"
-                    style="width: 100%;height: 100%;" />
-            </div>
-            <span class="p-buttonset">
-                <button pButton pRipple type="submit" label="Enviar" icon="pi pi-check"></button>
-            </span>
+                <button pButton pRipple type="submit" label="Enviar" icon="pi pi-send"></button>
+            </form>
         </div>
-    </form>
+        <div class="p-col-0 p-md-0 p-lg-2">
+
+        </div>
+        <div class="p-col-0 p-md-6 p-lg-5">
+            <img src="/assets/img/undraw_new_message_re_fp03.svg" alt="Imagen de contacto"
+                style="width: 100%;height: 100%;" />
+        </div>
+    </div>
+
 </div>
 <p-toast></p-toast>

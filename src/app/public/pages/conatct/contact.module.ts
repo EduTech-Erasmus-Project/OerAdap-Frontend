@@ -6,6 +6,8 @@ import { ContactComponent } from './contact.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [ContactComponent],
@@ -14,7 +16,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ContactRoutingModule,
     InputTextModule,
     ButtonModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class ContactModule { }

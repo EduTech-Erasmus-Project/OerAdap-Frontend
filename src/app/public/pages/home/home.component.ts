@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public translate: TranslateService;
   public loading: boolean = false;
   private subscribes: Subscription[] = [];
+  public displayModal: boolean;
 
   constructor(
     private languageService: LanguageService,
@@ -42,6 +43,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     // });
     // this.subscribes.push(popularsSub);
   }
+
+  showModalDialog() {
+    this.displayModal = true;
+}
 
 
 }
