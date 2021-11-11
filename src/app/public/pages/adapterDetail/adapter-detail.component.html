@@ -186,7 +186,7 @@
                 <i class="pi pi-play"></i>
                 <span>Audios</span>
             </ng-template>
-            <app-audio-content></app-audio-content>
+            <app-audio-content  [audiosGroup]=audiosGroup [nFoundAudio]=nFoundAudio ></app-audio-content>
         </p-tabPanel>
         <p-tabPanel header="Videos" *ngIf="video">
             <ng-template pTemplate="header">

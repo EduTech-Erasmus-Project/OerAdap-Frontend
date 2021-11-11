@@ -48,21 +48,21 @@ export class ImageComponent implements OnInit {
     this.answers = {
       text: new_text_alt
     }
-    console.log("onSave " + this.angForm.get(item.toString()).value);
-
-    let sendDescription = await this.learning_ObjectService.updateImage(this.answers, item).subscribe(response => {
-      console.log(response)
-      if (response.message = "update successful") {
+    let sendDescription = await this.learning_ObjectService.updateImage(this.answers, item).subscribe(response => { 
+      if (response) {
         this.showSuccess("Los datos se actualizaron con exito");
+        this.item.text =response.text;
+        this.angForm.controls[item.toString()].setValue(new_text_alt);
+        this.edit = false;
       }
     }, (err) => {
       if (err.status == 304) {
-        this.showError('Error datos no modificados')
+        this.showError('Datos no modificados')
+        this.item.text = this.textAux;
+        this.angForm.controls[item.toString()].setValue(this.textAux);
+        this.edit = false;
       }
     })
-    this.angForm.controls[item.toString()].setValue(new_text_alt);
-    this.edit = false;
-
   }
 
   cliclEdit(identificador, texto) {

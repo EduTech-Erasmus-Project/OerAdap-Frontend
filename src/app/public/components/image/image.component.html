@@ -1,5 +1,5 @@
 
-<p-toast></p-toast>
+
    <p-card  [style]="{'margin-bottom': '2em'}">  
             <img src="{{item.link}}" alt="">
         <h1>{{mensaje}}</h1>
@@ -10,6 +10,8 @@
         <form action="" [formGroup]="angForm" id="formAdapte" *ngIf="edit">
           <input style="width:100%" type="text" formControlName="{{item.id}}" pInputText >
         </form>
+
+        <p-messages></p-messages>
 
         <ng-template pTemplate="footer" class="container-buttons">
             <ng-container *ngIf="edit; else buttonTemplate" class="container-buttons">

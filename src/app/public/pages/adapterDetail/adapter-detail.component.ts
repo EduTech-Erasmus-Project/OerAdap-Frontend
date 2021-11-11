@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { LearningObject, Page } from 'src/app/models/LearningObject';
@@ -13,7 +13,7 @@ import { PageService } from "src/app/services/page.service";
 })
 export class AdapterDetailComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  public paragraphs:Paragraph[];
+  public paragraphs: Paragraph[];
   private id: number;
   public learningObject: LearningObject;
 
@@ -25,14 +25,17 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
 
   private currentPageId: number;
-  private tabIndex:number = 0;
+  private tabIndex: number = 0;
 
   private mensajeID: string;
   public imagesGroup: any[];
+  public audiosGroup: any[];
+
   public subscribes: Subscription[] = [];
   public nFoundImage: boolean = false;
+  public nFoundAudio: boolean = false;
 
-  public curremtPage:Page;
+  public curremtPage: Page;
 
   public tabAdapted = true;
 
@@ -40,8 +43,8 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private learningObjectService: LearningObjectService,
-    private pageService:PageService
-  ) {}
+    private pageService: PageService
+  ) { }
 
 
   ngOnDestroy(): void {
@@ -49,11 +52,6 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.learningObjectService.enviarMensajeObservable.subscribe(IDpage => {
-      this.mensajeID = IDpage;
-      this.loadDataI(Number(this.mensajeID));
-    })
 
     let subRouter = this.route.params.subscribe((params) => {
       this.id = +params["id"];
@@ -75,7 +73,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
           this.video = this.getValueCheck("video");
           this.audio = this.getValueCheck("audio");
           this.paragraph = this.getValueCheck("paragraph");
-          
+
           //this.loadPageInfo();
           this.loadParagraph();
 
@@ -102,21 +100,24 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   async loadParagraph() {
     //console.log("loadParagraph page", this.currentPageId);
     this.paragraphs = [];
-    let paragraphSub = await this.pageService.getParagraph(this.currentPageId).subscribe((res:any)=>{
-        
+    let paragraphSub = await this.pageService.getParagraph(this.currentPageId).subscribe((res: any) => {
+
       console.log("res loadParagraph", this.paragraphs)
       this.paragraphs = res;
 
-    }, err =>{
+    }, err => {
       //this.paragraph = false;
     });
     this.subscriptions.push(paragraphSub);
   }
   loadImage() {
     console.log("loadImage page", this.currentPageId);
+    this.loadDataI(Number(this.currentPageId));
   }
   loadAudio() {
     console.log("loadAudio page", this.currentPageId);
+    this.loadDataA(Number(this.currentPageId));
+
   }
   loadVideo() {
     console.log("loadVideo page", this.currentPageId);
@@ -127,7 +128,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
 
   eventAdaptabilit(evt) {
-   // console.log("father event ", evt);
+    // console.log("father event ", evt);
     this.image = evt.image;
     this.video = evt.video;
     this.audio = evt.audio;
@@ -136,7 +137,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
 
   eventPage(evt) {
-    if(evt.type === "adapted"){
+    if (evt.type === "adapted") {
       this.currentPageId = evt.id;
       this.reLoadData(this.tabIndex);
     }
@@ -148,7 +149,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     console.log("evt", evt);
   }
 
-  private reLoadData(idx){
+  private reLoadData(idx) {
     switch (idx) {
       case 0:
         this.loadParagraph();
@@ -168,24 +169,47 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   async loadDataI(id: number) {
     let groupImages = await this.learningObjectService.getImagesForPge(id).subscribe(
       (response) => {
-        console.log('Datos', response);
-        this.imagesGroup = response.map((image:any) => {
+        //console.log('Datos', response);
+        this.imagesGroup = response.map((image: any) => {
           return {
             id: image.id,
-                id_tag_adapated: image.tags_adapted.id,
-                link: image.tags_adapted.path_src,
-                ref : image.tags_adapted.id_ref,
-                text : image.tags_adapted.text
+            id_tag_adapated: image.tags_adapted.id,
+            link: image.tags_adapted.path_src,
+            ref: image.tags_adapted.id_ref,
+            text: image.tags_adapted.text
           }
         })
         this.imagesGroup = this.imagesGroup;
-        
+
         this.nFoundImage = false;
 
-      },(err) => {
+      }, (err) => {
         this.nFoundImage = true;
       });
     this.subscribes.push(groupImages);
+  }
+
+  async loadDataA(id: number) {
+    let groupAudios = await this.learningObjectService.getAudiosForPge(id).subscribe(
+      response => {
+        console.log("Audios", response, "id pagina" + id);
+
+        this.audiosGroup = response.map((audio: any) => {
+          return {
+            id: audio.id,
+            id_tag_adapated: audio.tags_adapted.id,
+            link: audio.tags_adapted.path_src,
+            ref: audio.tags_adapted.id_ref,
+            text: audio.tags_adapted.text
+          }
+        })
+        this.audiosGroup = this.audiosGroup;
+        this.nFoundAudio = false;
+      }, (err) => {
+        this.nFoundAudio = true;
+      });
+    this.subscribes.push(groupAudios);
+
   }
 
   onSave(evt) {
@@ -195,9 +219,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
   onChangeWebview(evt) {
     console.log("onChangeWebview ", evt);
-    if(evt.index===0){
+    if (evt.index === 0) {
       this.tabAdapted = true;
-    }else{
+    } else {
       this.tabAdapted = false;
     }
   }
