@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
   public angForm: FormGroup;
@@ -34,8 +34,8 @@ export class ContactComponent implements OnInit {
   showSuccess() {
     this.messageService.add({
       severity: "success",
-      summary: "Success",
-      detail: "Datos enviados correctamente",
+      summary: "Gracias",
+      detail: "Su mensaje se ah enviado correctamente",
     });
   }
   markTouchForm() {
