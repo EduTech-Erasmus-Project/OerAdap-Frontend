@@ -55,7 +55,7 @@ export class MenuPublicComponent implements OnInit {
       },
       {
         label: "API", //translate.translations.menu.contact,
-        routerLink: "#",
+        routerLink: "api",
         routerLinkActiveOptions: {
           exact: true,
           //styleClass: "active",

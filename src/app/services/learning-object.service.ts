@@ -62,4 +62,12 @@ export class LearningObjectService {
     return this.http.get(`${baseUrl}/page/audio/${id}`).pipe(map((data: any) => data));
   }
 
+  sentCreateAudio(data:any){
+    return this.http.post(`${baseUrl}/page/audio`,data).pipe(map((data: any) => data));
+  }
+
+  updateAudio(data: any, id: any) {
+    return this.http.put(`${baseUrl}/page/audio/${id}`, data).pipe(map((data: any) => data));
+  }
+
 }

@@ -127,8 +127,17 @@ const routes: Routes = [
           breadcrumb: "Contacto",
         },
       },
+      { 
+        path: 'api',
+         loadChildren: () => 
+         import('./pages/api/api.module').then(m => m.ApiModule),
+         data: {
+          breadcrumb: "Contacto",
+        },
+        },
     ],
   },
+ 
 ];
 
 @NgModule({

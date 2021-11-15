@@ -117,7 +117,6 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   loadAudio() {
     console.log("loadAudio page", this.currentPageId);
     this.loadDataA(Number(this.currentPageId));
-
   }
   loadVideo() {
     console.log("loadVideo page", this.currentPageId);
@@ -192,15 +191,21 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   async loadDataA(id: number) {
     let groupAudios = await this.learningObjectService.getAudiosForPge(id).subscribe(
       response => {
-        console.log("Audios", response, "id pagina" + id);
-
         this.audiosGroup = response.map((audio: any) => {
           return {
             id: audio.id,
-            id_tag_adapated: audio.tags_adapted.id,
-            link: audio.tags_adapted.path_src,
-            ref: audio.tags_adapted.id_ref,
-            text: audio.tags_adapted.text
+            html_text : audio.html_text,
+            attributes: audio.attributes.map((attribute: any) =>{
+              console.log('Se muestrra'+attribute)
+                return{
+                  path_src : attribute.data_attribute,
+                }
+            }),
+            id_class_ref : audio.id_class_ref,
+            id_tag_adapated:audio.tags_adapted?.id ,
+            link: audio.tags_adapted?.path_src,
+            ref: audio.tags_adapted?.id_ref,
+            text: audio.tags_adapted?.text 
           }
         })
         this.audiosGroup = this.audiosGroup;
