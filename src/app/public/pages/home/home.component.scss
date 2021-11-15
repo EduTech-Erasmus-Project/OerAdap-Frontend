@@ -15,7 +15,7 @@
   h2 {
     color: var(--primary-color);
   }
-  button {
+  a {
     width: 15rem;
     text-transform: uppercase;
   }
@@ -32,7 +32,7 @@
   background-color: var(--primary-color);
   text-align: center;
   .text-cintent{
-    button{
+    a{
       color: #fff;
       text-transform: uppercase;
       
@@ -112,19 +112,22 @@
 
 .contact-us{
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-attachment: fixed;
   padding: 0;
   .bg{
     width: 100%;
-    min-height: 25vh;
+    min-height: 40vh;
     background-color: rgba($color: #fff, $alpha: 0.7);
     .main-content{
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 25vh;
+      min-height: 40vh;
+      a{
+        text-transform: uppercase;
+      }
       h3{
         color: var(--primary-color);
       }

@@ -22,6 +22,7 @@ export class PageService {
     
   }
   getVideo(pageId:number){
+    return this.http.get(`${baseUrl}/page/video/${pageId}`)
     
   }
   getAudio(pageId:number){

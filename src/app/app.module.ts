@@ -83,7 +83,7 @@ import { BlobsanitizerPipe } from './pipes/blobsanitizer.pipe';
   declarations: [AppComponent, BlobsanitizerPipe],
   //PathLocationStrategy
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
     MenuService,
     BreadcrumbService,
     MessageService,

@@ -1,8 +1,10 @@
 <div class="content p-grid">
     <div class="p-col-12 p-md-6 p-lg-6 title main-content">
         <h2>Mejora la educación online con recursos educativos adaptados, para una educación sin frontera. </h2>
-        <button pButton pRipple type="button" label="Comenzar ahora"
-            class="p-button-outlined p-button-rounded p-button-secondary" styleClass="p-button-lg"></button>
+        <a [routerLink]="['/adapter']"  pButton pRipple type="button" label="Comenzar ahora"
+            class="p-button-rounded" styleClass="p-button-lg"></a>
+            
+
     </div>
     <div class="p-col-12 p-md-6 p-lg-6 img">
         <img src="assets/img/svg3.svg" alt="Imagen de portada">
@@ -29,8 +31,8 @@
                     aprendizaje son una gran herramienta de educación por esto deben estar disponibles para todo el
                     publico de forma que cada persona pueda acceder a estos recursos sin limitación alguna, ayuda a
                     construir una educación de alta calidad.</p>
-                <button pButton pRipple type="button" label="Mas información"
-                    class="p-button-outlined p-button-rounded p-button-info" styleClass="p-button-lg"></button>
+                <a [routerLink]="['/about-us']"  pButton pRipple type="button" label="Mas información"
+                    class="p-button-outlined p-button-rounded p-button-info" styleClass="p-button-lg"></a>
             </div>
         </div>
         <svg class="wave-bott" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -49,15 +51,15 @@
     </div>
 
 
-    <div class="p-col-12 p-md-12 p-lg-12 contact-us" style='background-image: url("assets/img/yannis.jpg");'>
+    <div class="p-col-12 p-md-12 p-lg-12 contact-us" style='background-image: url("assets/img/cdc.jpg");'>
         <div class="bg">
             <div class="main-content">
                 <h3>
                     Contactanos
                 </h3>
                 <p>Nos gustaría saber tu opinión sobre este proyecto.</p>
-                <button pButton pRipple type="button" label="Contactanos"
-                    class="p-button-outlined p-button-rounded" styleClass="p-button-lg"></button>
+                <a [routerLink]="['/contact']" pButton pRipple type="button" label="Contactanos"
+                    class="p-button-outlined p-button-rounded" styleClass="p-button-lg"></a>
             </div>
         </div>
 
