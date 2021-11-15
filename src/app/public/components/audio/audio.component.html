@@ -1,5 +1,8 @@
 <p-card [style]="{'margin-bottom': '2em'}">
-    <audio class="audio" controls="" preload="none" src="{{item.link}}"></audio>
+    <div class="audio_src" *ngFor="let data of item.attributes">
+        <audio class="audio" controls="" preload="none" src="{{data.path_src}}"></audio>
+    </div>
+ 
     <p-messages></p-messages>
 
     <div class="container-edit" *ngIf="editTextArea">
@@ -7,10 +10,10 @@
         <div class="bnt-edit">
             <ng-container class="container-but" >
                 <div class="btn-sucessfull" *ngIf ="!cliclEdit(item.text)" >
-                    <p-button (click)="onSave(item.id)" label="Actualizar" icon="pi pi-check"></p-button>
+                    <p-button (click)="actualizar()" label="Actualizar" icon="pi pi-check"></p-button>
                 </div>
                 <div class="btn-sucessfull" *ngIf ="cliclEdit(item.text)"> 
-                    <p-button (click)="onSave(item.id)" label="Crear" icon="pi pi-save"></p-button>
+                    <p-button (click)="createAudios()" label="Crear" icon="pi pi-save"></p-button>
                 </div>
                 <div class="btn-sucessfull">
                     <button pButton (click)="cancel()" pRipple type="button" label="Cancelar" class="p-button-danger"
