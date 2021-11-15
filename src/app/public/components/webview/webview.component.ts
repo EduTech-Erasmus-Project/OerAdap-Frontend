@@ -68,9 +68,13 @@ export class WebviewComponent implements OnInit {
     //console.log("sub event")
     this.eventService.getEvent().subscribe((event) => {
       if (this.selectedPage.type === "adapted") {
-        console.log(this.selectedPage.code);
-        var iframe: any = document.getElementById("web-view");
-        iframe.src = this.selectedPage.code;
+        try {
+          console.log(this.selectedPage.code);
+          var iframe: any = document.getElementById("web-view");
+          iframe.src = this.selectedPage.code;
+        } catch (error) {
+          console.log("error reload iframe", error);
+        }
       }
     });
   }
@@ -104,6 +108,5 @@ export class WebviewComponent implements OnInit {
     this.mensajeID = evt.value.id;
     //console.log("Es el id",this.mensajeID)
     this.learningObjectService.enviarMensaje(this.mensajeID);
-
   }
 }

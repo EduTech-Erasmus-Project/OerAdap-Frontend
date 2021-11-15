@@ -1,1 +1,24 @@
-<p>video works!</p>
+<p-card [style]="{'margin-bottom': '2em'}">
+    <!-- <p>{{video | json}}</p> -->
+    <p>Fuente: {{video.attributes[0].source}}</p>
+    <iframe (onload)="functionLoad()" class="video" [src]="video.attributes[0].path_preview | urlsanitizer" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="YouTube video player"
+        autoplay="false" frameborder="0"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+
+        <!-- <video class="video" width="320" height="240" autoplay="false" controls>
+            <source [src]="video.attributes[0].path_preview | urlsanitizer" type="video/mp4">
+        </video> -->
+
+        <p>Este vídeo no tiene con subtítulos</p>
+        <div class="content-buttons">
+            <p>Agregar subtitulos</p>
+            <button pButton type="button" icon="fa fa-plus" label="Automatico"></button>
+            <span>O</span>
+            <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload>
+
+        </div>
+
+
+</p-card>

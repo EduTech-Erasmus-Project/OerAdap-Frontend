@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { LearningObject, Page } from 'src/app/models/LearningObject';
-import { Paragraph } from "src/app/models/Page";
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { PageService } from "src/app/services/page.service";
+import { Paragraph, Video } from '../../../models/Page';
 
 @Component({
   selector: "app-adapter-detail",
@@ -14,6 +14,7 @@ import { PageService } from "src/app/services/page.service";
 export class AdapterDetailComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public paragraphs:Paragraph[];
+  public videos:Video[];
   private id: number;
   public learningObject: LearningObject;
 
@@ -120,6 +121,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
   loadVideo() {
     console.log("loadVideo page", this.currentPageId);
+    this.videos = [];
+    let videoSub = this.pageService.getVideo(this.currentPageId).subscribe((res:any)=>{
+      console.log("res loadVideo", res)
+      this.videos = res;
+    }, err =>console.log(err));  
+    this.subscriptions.push(videoSub);
   }
 
   getValueCheck(value: string) {

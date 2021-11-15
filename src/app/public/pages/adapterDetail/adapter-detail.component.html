@@ -177,7 +177,7 @@
         <p-tabPanel header="Imagenes" *ngIf="image">
             <ng-template pTemplate="header">
                 <i class="pi pi-image"></i>
-                <span>Imagenes</span>
+                <span>Imágenes</span>
             </ng-template>
             <app-image-content [imagesGroup]=imagesGroup [nFoundImage]=nFoundImage></app-image-content>
         </p-tabPanel>
@@ -188,12 +188,19 @@
             </ng-template>
             <app-audio-content></app-audio-content>
         </p-tabPanel>
-        <p-tabPanel header="Videos" *ngIf="video">
+        <p-tabPanel header="Vídeos" *ngIf="video">
             <ng-template pTemplate="header">
                 <i class="pi pi-video"></i>
-                <span>Videos</span>
+                <span>Vídeos</span>
             </ng-template>
-            <app-video-content></app-video-content>
+
+            <ng-container *ngIf="videos?.length > 0; else videosTemplate">
+                <app-video-content [videos]="videos" ></app-video-content>
+            </ng-container>
+            <ng-template #videosTemplate>
+                <h5 class="no-content">Esta página no contiene vídeos</h5>
+            </ng-template>
+            
         </p-tabPanel>
     </p-tabView>
 </div>

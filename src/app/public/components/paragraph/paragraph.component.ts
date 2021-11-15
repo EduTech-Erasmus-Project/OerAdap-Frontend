@@ -9,7 +9,7 @@ import { ParagraphService } from "src/app/services/paragraph.service";
 import { v4 as uuidv4 } from "uuid";
 import { Paragraph } from "../../../models/Page";
 import { Message, MessageService } from "primeng/api";
-import { EventService } from '../../../services/event.service';
+import { EventService } from "../../../services/event.service";
 
 declare var MediaRecorder: any;
 
@@ -115,7 +115,7 @@ export class ParagraphComponent implements OnInit {
     private audioRecorderService: NgAudioRecorderService,
     private paragraphService: ParagraphService,
     private messageService: MessageService,
-    private eventService:EventService
+    private eventService: EventService
   ) {
     this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
       // Handle Error
@@ -127,7 +127,7 @@ export class ParagraphComponent implements OnInit {
     //console.log("paragraph", this.paragraph);
   }
 
-  onSave() {
+  async onSave() {
     this.messges = [];
     this.updateParagraph = true;
     if (this.htmlContent || this.file || this.fileRecord) {
@@ -145,25 +145,29 @@ export class ParagraphComponent implements OnInit {
         //updates
         //console.log("update data");
 
-        let updateParagraphSub = this.paragraphService
+        let updateParagraphSub = await this.paragraphService
           .updateTagAdapted(data, this.paragraphAdapted.id)
           .subscribe(
             (res: any) => {
-              console.log(res);
-              //console.log("respuesta", res)
+              //console.log(res);
+              console.log("respuesta", res);
               this.paragraphAdapted = res.body;
               console.log(res);
               this.updateParagraph = false;
               this.onCancelSelection();
               this.fileRecord = undefined;
               //this.edit = false;
+
+              if (this.messges.length <= 0) {
+                this.messges.push({
+                  severity: "success",
+                  //summary: "Guardado",
+                  detail:
+                    "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
+                });
+              }
+
               this.eventService.emitEvent(true);
-              
-              this.messges.push({
-                severity: "success",
-                //summary: "Guardado",
-                detail: "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-              });
             },
             (err) => {
               console.log(err);
@@ -176,7 +180,7 @@ export class ParagraphComponent implements OnInit {
           );
       } else {
         //create
-        let createParagraphSub = this.paragraphService
+        let createParagraphSub = await this.paragraphService
           .createTagAdapted(data)
           .subscribe(
             (res: any) => {
@@ -186,13 +190,17 @@ export class ParagraphComponent implements OnInit {
               this.onCancelSelection();
               this.fileRecord = undefined;
               //this.edit = false;
+
+              if (this.messges.length <= 0) {
+                this.messges.push({
+                  severity: "success",
+                  //summary: "Guardado",
+                  detail:
+                    "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
+                });
+              }
+
               this.eventService.emitEvent(true);
-              
-              this.messges.push({
-                severity: "success",
-                //summary: "Guardado",
-                detail: "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-              });
             },
             (err) => {
               this.messges.push({
