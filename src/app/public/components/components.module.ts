@@ -12,6 +12,7 @@ import { ParagraphComponent } from "./paragraph/paragraph.component";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { NgAudioRecorderModule } from "ng-audio-recorder";
+import { IframeComponent } from './iframe/iframe.component';
 @NgModule({
   declarations: [
     FileUploadComponent,
@@ -21,6 +22,7 @@ import { NgAudioRecorderModule } from "ng-audio-recorder";
     ImageComponent,
     VideoComponent,
     ParagraphComponent,
+    IframeComponent,
   ],
   imports: [
     CommonModule,

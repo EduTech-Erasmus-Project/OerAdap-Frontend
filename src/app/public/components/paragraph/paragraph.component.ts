@@ -165,9 +165,10 @@ export class ParagraphComponent implements OnInit {
                   detail:
                     "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
                 });
+                this.eventService.emitEvent(true);
               }
 
-              this.eventService.emitEvent(true);
+              
             },
             (err) => {
               console.log(err);
@@ -180,6 +181,7 @@ export class ParagraphComponent implements OnInit {
           );
       } else {
         //create
+        console.log(data)
         let createParagraphSub = await this.paragraphService
           .createTagAdapted(data)
           .subscribe(
@@ -198,9 +200,10 @@ export class ParagraphComponent implements OnInit {
                   detail:
                     "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
                 });
+                this.eventService.emitEvent(true);
               }
 
-              this.eventService.emitEvent(true);
+              
             },
             (err) => {
               this.messges.push({

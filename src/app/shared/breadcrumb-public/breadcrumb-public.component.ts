@@ -28,7 +28,7 @@ export class BreadcrumbPublicComponent implements OnInit {
 
   private createBreadcrumbs(
     route: ActivatedRoute,
-    url: string = "#",
+    url: string = "",
     breadcrumbs: MenuItem[] = []
   ): MenuItem[] {
     const children: ActivatedRoute[] = route.children;

@@ -11,6 +11,17 @@ const routes: Routes = [
       breadcrumb: null,
     },
   },
+  {
+    path: ":id",
+    loadChildren: () =>
+      import("../adapterDetail/adapter-detail.module").then(
+        (m) => m.AdapterDetailModule
+      ),
+      data: {
+        breadcrumb: "Edición de objeto de aprendizaje",
+      },
+      
+  },
 ];
 
 @NgModule({
