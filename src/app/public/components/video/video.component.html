@@ -1,24 +1,108 @@
 <p-card [style]="{'margin-bottom': '2em'}">
+
+    
+    
     <!-- <p>{{video | json}}</p> -->
-    <p>Fuente: {{video.attributes[0].source}}</p>
-    <iframe (onload)="functionLoad()" class="video" [src]="video.attributes[0].path_preview | urlsanitizer" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="YouTube video player"
-        autoplay="false" frameborder="0"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    <p>Fuente: <span>{{video.attributes[0].source}}</span></p>
+    <iframe (onload)="functionLoad()" class="video" [src]="video.attributes[0].path_preview | urlsanitizer"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="YouTube video player" autoplay="false"
+        frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
     </iframe>
 
-        <!-- <video class="video" width="320" height="240" autoplay="false" controls>
+    <!-- <video class="video" width="320" height="240" autoplay="false" controls>
             <source [src]="video.attributes[0].path_preview | urlsanitizer" type="video/mp4">
         </video> -->
 
-        <p>Este vídeo no tiene con subtítulos</p>
+    <p *ngIf="video.tags_adapted?.transcript?.length <= 0">Este vídeo no tiene con subtítulos</p>
+
+    <p-messages *ngIf="messages.length > 0" [(value)]="messages" [enableService]="false"></p-messages>
+
+
+    <div class="content-subtitle" *ngIf="transcript?.length > 0">
+        <h5>Subtitulos</h5>
+        <ul>
+            <li *ngFor="let item of transcript">
+                <div class="description">
+                    <p>Idiaoma: </p> <span>{{item.label}} - {{item.srclang}}</span> <br>
+                    <span>{{item.source}}</span>
+                </div>
+                <p-button (click)="jsonToString(item.id)" label="Ver" styleClass="p-button-sm"></p-button>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+    <div class="add-subtitle" *ngIf="selectFile">
         <div class="content-buttons">
-            <p>Agregar subtitulos</p>
-            <button pButton type="button" icon="fa fa-plus" label="Automatico"></button>
-            <span>O</span>
-            <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload>
+
+
+
+            <ng-container *ngIf="loaderGenerateSubtitle || loader; else spinnerTemplate">
+                <div class="spinner-progress">
+                    <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+                        strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+                    <p>{{loaderGenerateSubtitle? 'Generando':'Cargando'}} subtítulos por favor espere...</p>
+                </div>
+            </ng-container>
+            <ng-template #spinnerTemplate>
+
+                <p-button *ngIf="transcript?.length <= 0" label="Generar subtítulo" (onClick)="onGenerateSubtitle()">
+                </p-button>
+
+                <!-- <span *ngIf="transcript?.length <= 0">O</span>
+                <p-button label="Agregar subtítulo" (onClick)="onAddForSubtitle()"></p-button>
+                <div class="form-subtitle p-grid">
+                    <div class="p-col-12 p-md-5 p-lg-5">
+                        <p-dropdown [options]="language" placeholder="Idioma" optionLabel="name" [showClear]="true">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-12 p-md-5 p-lg-5">
+                        <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"
+                            maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload>
+                    </div>
+                    <div class="p-col-12 p-md-2 p-lg-2">
+                        <button pButton pRipple type="button" icon="pi pi-times"
+                            class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </div> -->
+
+            </ng-template>
+
+
 
         </div>
+    </div>
 
-
+    <ng-template pTemplate="footer">
+        <div class="footer-buttons">
+            <p-button (click)="selectFile = true" label="Editar" icon="pi pi-check">
+            </p-button>
+            <button *ngIf="selectFile" (click)="onCancelSelection()" pButton pRipple type="button" icon="pi pi-times"
+                label="Cancelar" class="p-button-danger"></button>
+        </div>
+    </ng-template>
 </p-card>
+
+<p-dialog header="Traducción" [(visible)]="displaySubtitle" [style]="{width: '50vw'}">
+    <ng-container *ngIf="!loaderJson; else jsonTemplate">
+        <p>{{jsonString}}</p>
+    </ng-container>
+    <ng-template #jsonTemplate>
+        <div class="spinner-progress">
+            <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+                animationDuration=".5s"></p-progressSpinner>
+            <p>Cargando subtítulo por favor espere...</p>
+        </div>
+    </ng-template>
+
+
+
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displaySubtitle=false" label="Cerrar" styleClass="p-button-text">
+        </p-button>
+    </ng-template>
+</p-dialog>

@@ -1,7 +1,11 @@
 <div #webView class="web-view animate__animated animate__fadeIn">
-    <iframe id="web-view" target="_parent" [title]="'object.titleIframe' | translate"
-        [src]="selectedPage.code | urlsanitizer" frameborder="0" allowfullscreen></iframe>
+    <!-- <iframe id="web-view" target="_parent" [title]="'object.titleIframe' | translate"
+        [src]="selectedPage.code | urlsanitizer" frameborder="0" allowfullscreen></iframe> -->
+        <div class="iframe">
+            <app-iframe [page]="selectedPage"></app-iframe>
+        </div>
     <div class="controls">
+
        
             <div class="dropdown">
                 <h5>Página: </h5>
