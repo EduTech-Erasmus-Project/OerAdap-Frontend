@@ -44,6 +44,11 @@
 // }
 
 .dop-zone {
+  min-height: 75vh;
+  //@debug: red;
+  display: flex;
+  align-items: center;
+
   h6 {
     margin: 10px 0;
   }
@@ -83,6 +88,3 @@
 }
 
 
-.main-content{
-  //min-height: 80vh;
-}

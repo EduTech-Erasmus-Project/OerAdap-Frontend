@@ -28,7 +28,7 @@ export class OaInfoComponent implements OnInit {
   public paragraph: boolean;
 
   public checked1: boolean = false;
-  private displayResponsive:boolean = false;
+  public displayResponsive:boolean = false;
   constructor(
     private learningObjectService: LearningObjectService,
   ) {}
