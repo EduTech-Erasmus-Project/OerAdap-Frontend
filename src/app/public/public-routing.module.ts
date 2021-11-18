@@ -122,7 +122,7 @@ const routes: Routes = [
          loadChildren: () => 
          import('./pages/api/api.module').then(m => m.ApiModule),
          data: {
-          breadcrumb: "Contacto",
+          breadcrumb: "Api",
         },
         },
     ],
