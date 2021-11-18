@@ -1,0 +1,52 @@
+.about-us {
+  background-size: cover;
+  background-position: center;
+  .p-grid {
+    min-height: 80vh;
+  }
+}
+
+.p-grid {
+  margin: 0;
+}
+
+.content-info {
+  padding: 10px;
+  //background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  overflow: visible;
+  text-align: right;
+  font-size: 1.2em;
+}
+
+.text-values {
+  padding: 25px 0;
+  text-align: center;
+  .our-mission{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-content {
+    margin: 50px 0;
+  }
+  .our-values{
+    background-color: #fff;
+    padding: 50px 0;
+  }
+  h2 {
+    text-transform: uppercase;
+    color: var(--primary-color);
+  }
+  p {
+    font-size: 1.2em;
+  }
+}

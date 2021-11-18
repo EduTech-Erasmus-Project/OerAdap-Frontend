@@ -1,0 +1,25 @@
+.main-content{
+    margin-top: 50px;
+    .info-type{
+        background-color: rgba($color: #056CE2, $alpha: 0.04);
+        border-radius: 25px;
+        padding: 25px;
+    }
+    .text-title{
+        display: flex;
+        justify-content: center;
+        h4{
+            text-align: center;
+            span{
+                color: var(--primary-color);
+            }   
+        }
+    }
+    .description{
+        p:nth-child(1){
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    }
+    
+}

@@ -1,0 +1,32 @@
+<div #webView class="web-view animate__animated animate__fadeIn">
+    <!-- <iframe id="web-view" target="_parent" [title]="'object.titleIframe' | translate"
+        [src]="selectedPage.code | urlsanitizer" frameborder="0" allowfullscreen></iframe> -->
+        <div class="iframe">
+            <app-iframe [page]="selectedPage"></app-iframe>
+        </div>
+    <div class="controls">
+
+       
+            <div class="dropdown">
+                <h5>Página: </h5>
+                <p-dropdown (onChange)="onChange($event)" [options]="pagesSelect" [(ngModel)]="selectedPage" optionLabel="name"
+                [showClear]="true"></p-dropdown>
+            </div>
+            <div>
+                <ng-container *ngIf="fullScreen; else elseTemplate">
+                    <button aria-label="Boton de salir de la pantalla completa" (click)="closeFullscreen()" pButton pRipple
+                        type="button" icon="pi pi-window-minimize" class="p-button-rounded p-button-outlined"></button>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <button aria-label="Boton de pantalla completa" (click)="openFullscreen()" pButton pRipple type="button"
+                        icon="pi pi-window-maximize" class="p-button-rounded p-button-outlined"
+                        [pTooltip]="'object.btnFullScreen'| translate "></button>
+    
+                </ng-template>
+            </div>
+
+
+
+      
+    </div>
+</div>

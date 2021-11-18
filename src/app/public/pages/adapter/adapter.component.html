@@ -1,0 +1,118 @@
+<div class="main-content">
+    <!-- <h3>Adaptador de Objetos de Aprendizaje</h3> -->
+
+    <div class="dop-zone p-grid ">
+
+        <div class="p-col-1 p-md-3 p-lg-3">
+
+        </div>
+
+        <div class="p-col-10 p-md-6 p-lg-6">
+            <ngx-dropzone  *ngIf="!loader" (change)="onSelect($event)" accept=".zip,.rar">
+
+                <ngx-dropzone-label>
+                    <h4>Arrastre o seleccione un archivo.</h4>
+                    <p-button label="Seleccionar archivo" icon="pi pi-cloud-upload" styleClass="p-button-lg"></p-button>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview *ngIf="file" (removed)="onRemove()" [removable]="true"
+                    ngProjectAs="ngx-dropzone-preview" [file]="file">
+                    <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
+
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+        </div>
+
+        <div class="p-col-1 p-md-3 p-lg-3">
+
+        </div>
+
+
+        <div class="p-col-12 p-md-12 p-lg-12 p-grid" *ngIf="file && !loader">
+            <!-- *ngIf="file && !loader" -->
+
+            <form class="p-col-12 p-md-6 p-lg-5" [formGroup]="settingsForm" (ngSubmit)="showConditionModal()">
+                <h6>Método de adaptación</h6>
+                <div class="methods">
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="handbook" inputId="handbook" formControlName="method">
+                        </p-radioButton>
+                        <label for="handbook">Manual</label>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="automatic" inputId="automatic" formControlName="method">
+                        </p-radioButton>
+                        <label for="automatic">Automático</label>
+                    </div>
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="mixed" inputId="mixed" formControlName="method">
+                        </p-radioButton>
+                        <label for="mixed">Mixta</label>
+                    </div>
+                </div>
+
+                <h6>Seleccione las áreas a automatizar.</h6>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let checkbox of checkboxs">
+                        <div class="p-field-checkbox">
+                            <p-checkbox formControlName="areas" [value]="checkbox.value" [inputId]="checkbox"
+                                (onChange)="onCheckChange(checkbox.value, $event)"></p-checkbox>
+                            <label [for]="checkbox.value">{{checkbox.description}}</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <p-button type="submit" label="Cargar" icon="pi pi-cloud-upload"></p-button>
+                </div>
+                <!-- <p-button  (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
+            </p-button> -->
+            </form>
+        </div>
+
+
+
+        <div class="p-grid">
+            <div class="spiner" *ngIf="loader">
+                <p-progressSpinner *ngIf="!navigateId"></p-progressSpinner>
+
+                <p>
+                    Cargando archivo por favor espere...
+                    <span>
+                        <ng-container *ngIf="progress < 100; else uploadProgress">
+                            {{progress}}%
+                        </ng-container>
+                        <ng-template #uploadProgress>
+                            <span>Completo</span>
+                        </ng-template>
+                    </span>
+                </p>
+                <p *ngIf="navigateId">Tu archivo esta listo para editar pulsa en continuar para editarlo</p>
+                <p-progressBar [style]="{'color': '#FFF'}" [value]="progress" color="danger"></p-progressBar>
+                <div class="btn-next">
+                    <p-button *ngIf="navigateId" (click)="navigate()" type="submit" label="Continuar" iconPos="right"
+                    icon="pi pi-angle-right"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *ngIf="upload" -->
+</div>
+
+<p-dialog header="Términos y condiciones de uso" [(visible)]="displayConditions" [style]="{width: '50vw'}">
+    <p>La Universidad Politécnica Salesiana conjunto con el grupo de investigación EduTech pone a disposición de esta plataforma de forma gratuita y sin ánimos de lucro, para el desarrollo de la educación equitativa.</p>
+
+    <p>Al aceptar estos términos y condiciones de uso de la aplicación el usuario acepta de forma voluntaria los siguientes términos:</p>
+
+    <p>Los datos registrados y recopilados del objeto de aprendizaje se destruyen en 24 horas por lo que el sistema no guarda datos de ningún objeto de aprendizaje subido a la plataforma.</p>
+    <p>Los datos que se guardan son solo información de navegación como información del navegador y datos estadísticos sobre el resumen de lo realizado en esta aplicación con la finalidad re recopilar datos estadísticos para mejorar la aplicación.</p>
+    <p>Este sistema no guarda datos personales de ningún usuario que navegue o que haga uso de esta plataforma.</p>
+    <p>Los archivos subidos no se compartirán con ninguna persona o institución publica o privada de igual manera los archivos generados pertenecen solo al usuario de la sesión actual que está navegando.</p>
+    <p>El usuario esta en su responsabilidad de subir archivos únicamente recursos educativos (Objetos de Aprendizaje), se admiten solo archivos comprimidos con formato zip.</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayConditions=false" label="Cancelar" styleClass="p-button-text">
+        </p-button>
+        <p-button icon="pi pi-check" (click)="onUpload()" label="Aceptar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<app-file-upload></app-file-upload>
