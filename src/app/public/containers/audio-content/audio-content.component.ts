@@ -12,7 +12,7 @@ export class AudioContentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Estos audios"+this.audiosGroup);
+    //console.log("Estos audios"+this.audiosGroup);
   }
 
 }

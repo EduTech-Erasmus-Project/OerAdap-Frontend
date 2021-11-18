@@ -15,7 +15,7 @@ export class IframeComponent implements OnInit, OnDestroy {
 
   constructor(private eventService: EventService) {}
   ngOnDestroy(): void {
-    console.log("unsuscribe iframe event")
+    //console.log("unsuscribe iframe event")
     this.subscription.unsubscribe();
 
   }
@@ -25,7 +25,7 @@ export class IframeComponent implements OnInit, OnDestroy {
   }
 
   loadEvent(){
-    console.log("page", this.page)
+    //.log("page", this.page)
     this.subscription = this.eventService.getEvent().subscribe((event) => {
       if (this.page.type === "adapted") {
         console.log("event refresh", this.page)

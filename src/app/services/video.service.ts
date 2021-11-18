@@ -12,7 +12,7 @@ export class VideoService {
   constructor(private http:HttpClient) { }
 
   getVidoTranscript(id:number){
-    console.log("id get", id)
+    //console.log("id get", id)
     return this.http.get(`${baseUrl}/adapter/gettranscript/${id}`);
   }
 

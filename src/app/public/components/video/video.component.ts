@@ -75,7 +75,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   functionLoad() {
-    console.log("load");
+    //console.log("load");
   }
 
   onCancelSelection() {
@@ -90,7 +90,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           if (res.status === "ready_tag_adapted") {
-            console.log(res);
+            //console.log(res);
 
             this.messages.push({
               severity: "warn",
@@ -120,7 +120,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.loaderGenerateSubtitle = false;
         },
         (error) => {
-          console.log(error);
+          //console.log(error);
           this.messages.push({
             severity: "error",
             summary: "Error",
@@ -141,7 +141,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.displaySubtitle = true;
     this.loaderJson = true;
 
-    console.log(jsonId);
+    //console.log(jsonId);
 
     let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
       (res: any) => {
