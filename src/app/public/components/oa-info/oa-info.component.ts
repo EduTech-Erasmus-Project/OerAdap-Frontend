@@ -16,6 +16,7 @@ export class OaInfoComponent implements OnInit {
   @Input() oa_detail: OaDetail;
   @Input() file_detail: FileDetail;
   @Input() config_adaptability: ConfigAdaptability;
+  @Input() oa_id:number;
   @Output() eventAdaptabilit:EventEmitter<any> = new EventEmitter();
 
   //public configs:any[];
@@ -75,7 +76,7 @@ export class OaInfoComponent implements OnInit {
 
  async descargar(){
 
-    let paht_download = await this.learningObjectService.getDownloadFileZip(1).subscribe(
+    let paht_download = await this.learningObjectService.getDownloadFileZip(this.oa_id).subscribe(
       response =>{
         console.log(response);
         if(response){

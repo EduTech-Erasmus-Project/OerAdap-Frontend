@@ -11,9 +11,9 @@
        
         <div class="p-col-11 p-md-6 p-lg-6  forms-content">
             <div class="p-grid-n">
-                <form autocomplete="off" [formGroup]="angForm" (ngSubmit)="validateUser()" id="loginForm">
+                <form autocomplete="off" [formGroup]="formApi" (ngSubmit)="validateUser()" id="loginForm">
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">Correo Electronico :</label>
+                        <label for="firstnamelabel">Correo electrónico</label>
                         <input type="text" formControlName="name" pInputText>
                         <div *ngIf="name.invalid && (name.dirty || name.touched)">
                             <small id="name " class="p-error" *ngIf="name.errors.required">Campo
@@ -21,14 +21,14 @@
                         </div>
                     </div>
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">Institucion :</label>
+                        <label for="firstnamelabel">Institución</label>
                         <input type="text" formControlName="email" pInputText>
                         <div *ngIf="email.invalid && (name.dirty || email.touched)">
                             <small id="name " class="p-error" *ngIf="email.errors.required">Campo Obligatorio</small>
                         </div>
                     </div>
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API ?</label>
+                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API?</label>
                         <div>
                             <textarea name="" id="" rows="5" cols="30" style="width: 100%;" formControlName="message"
                                 pInputTextarea></textarea>
@@ -37,7 +37,9 @@
                             <small id="name " class="p-error" *ngIf="message.errors.required">Campo Obligatorio</small>
                         </div>
                     </div>
-                    <button pButton pRipple type="submit" label="Enviar" icon="pi pi-send"></button>
+                    <div class="button">
+                        <button pButton pRipple type="submit" label="Enviar" icon="pi pi-send"></button>
+                    </div>
                 </form>
             </div>
         </div>
