@@ -1,54 +1,68 @@
 .contact-us {
-    background-size: cover;
-    background-position: center;
-    height: 75vh;
-    .p-grid{
-        height: 100%;
-    }
-  }
-  
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
   .p-grid {
-    margin: 0;
+    height: 100%;
   }
+}
 
-  .text.main-content {
- text-align: justify;
-  }
-  .content-info {
-    padding: 10px;
-    //background-color: aliceblue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    overflow: visible;
-    text-align: left;
-    font-size: 1.2em;
-  }
+.p-grid {
+  margin: 0;
+}
 
-.forms-content{
-    margin: 25px 0;
-    margin-top: 15%;
-    .p-grid-n{
-        display: flex;
-        align-items: center;
-        justify-self: center;
-        textarea{
-            resize: vertical;
-            min-height: 100px;
-        }
-    } 
+.text.main-content {
+  text-align: justify;
+}
+.content-info {
+  padding: 10px;
+  //background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  overflow: visible;
+  text-align: left;
+  font-size: 1.2em;
+}
+
+.forms-content {
+  //background-color: red;
+  //margin: 25px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+
+  
+}
+
+.p-grid-n{
+  
+  padding: 25px;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  border-radius: 5px;
+  .button{
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .p-field {
-    label{
+  label {
     color: white;
-    background: #006CE1;
-    padding: 5px;
-    border-radius: 50px;
-    }
+    //background: #006ce1;
+    // padding: 10px;
+    // border-radius: 50px;
+    // width: 100%;
+  }
+  textarea{
+    resize: vertical;
+    max-height: 200px;
+    min-height: 100px;
+  }
 }

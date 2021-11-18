@@ -87,11 +87,8 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { UrlsanitizerPipe } from '../pipes/urlsanitizer.pipe';
-
 import { BreadcrumbPublicComponent } from './breadcrumb-public/breadcrumb-public.component';
-
 import { NotfoundComponent } from "./notfound/notfound.component";
-import { BlobsanitizerPipe } from '../pipes/blobsanitizer.pipe';
 import { MenuPublicComponent } from './menu-public/menu-public.component';
 import { MomentPipe } from '../pipes/moment.pipe';
 
@@ -104,7 +101,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FooterComponent,
     MenuPublicComponent,
     UrlsanitizerPipe,
-    BlobsanitizerPipe,
     MomentPipe,
     BreadcrumbPublicComponent,
     NotfoundComponent
@@ -198,7 +194,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlsanitizerPipe,
     MomentPipe,
     ProgressSpinnerModule,
-    BlobsanitizerPipe,
   ],
   imports: [
     ProgressSpinnerModule,

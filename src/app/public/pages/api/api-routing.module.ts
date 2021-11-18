@@ -5,8 +5,7 @@ import { ApiComponent } from './api.component';
 
 const routes: Routes = [{ path: '', component: ApiComponent, data: {
   breadcrumb: null,
-},
-},];
+}, }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

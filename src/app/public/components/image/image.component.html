@@ -1,7 +1,11 @@
 
 
    <p-card  [style]="{'margin-bottom': '2em'}">  
-            <img src="{{item.link}}" alt="">
+
+            <div class="image-content">
+                <img src="{{item.link}}" alt="">
+            </div>
+
         <h6>Descripcion alt de la imagen :</h6>
         <div class="text-description" *ngIf="!edit">
             <p> {{item.text}}</p>
