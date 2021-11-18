@@ -1,1 +1,46 @@
-<p>api works!</p>
+<div class="contact-us" style='background-image: url("assets/img/startup.jpg");'>
+    <div class="p-grid">
+
+        <div class="p-col-11 p-md-6 p-lg-6 content-info">
+            <div class="text main-content">
+                <!-- <h2>Construyendo un mundo mejor</h2> -->
+                <h2>Cuándo  usar</h2>
+                <p>OER adapter es un API REST  en línea gratuita que tiene como finalidad el uso unicamente educativo. Para solicitar acceso a nuestro servicio puedes llenar el siguiente formulario.</p>
+            </div>
+        </div>
+       
+        <div class="p-col-11 p-md-6 p-lg-6  forms-content">
+            <div class="p-grid-n">
+                <form autocomplete="off" [formGroup]="angForm" (ngSubmit)="validateUser()" id="loginForm">
+                    <div class="p-field p-fluid">
+                        <label for="firstnamelabel">Correo Electronico :</label>
+                        <input type="text" formControlName="name" pInputText>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                            <small id="name " class="p-error" *ngIf="name.errors.required">Campo
+                                Obligatorio</small>
+                        </div>
+                    </div>
+                    <div class="p-field p-fluid">
+                        <label for="firstnamelabel">Institucion :</label>
+                        <input type="text" formControlName="email" pInputText>
+                        <div *ngIf="email.invalid && (name.dirty || email.touched)">
+                            <small id="name " class="p-error" *ngIf="email.errors.required">Campo Obligatorio</small>
+                        </div>
+                    </div>
+                    <div class="p-field p-fluid">
+                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API ?</label>
+                        <div>
+                            <textarea name="" id="" rows="5" cols="30" style="width: 100%;" formControlName="message"
+                                pInputTextarea></textarea>
+                        </div>
+                        <div *ngIf="message.invalid && (message.dirty || message.touched)">
+                            <small id="name " class="p-error" *ngIf="message.errors.required">Campo Obligatorio</small>
+                        </div>
+                    </div>
+                    <button pButton pRipple type="submit" label="Enviar" icon="pi pi-send"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

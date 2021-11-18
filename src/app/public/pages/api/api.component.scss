@@ -1,0 +1,54 @@
+.contact-us {
+    background-size: cover;
+    background-position: center;
+    height: 75vh;
+    .p-grid{
+        height: 100%;
+    }
+  }
+  
+  .p-grid {
+    margin: 0;
+  }
+
+  .text.main-content {
+ text-align: justify;
+  }
+  .content-info {
+    padding: 10px;
+    //background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    overflow: visible;
+    text-align: left;
+    font-size: 1.2em;
+  }
+
+.forms-content{
+    margin: 25px 0;
+    margin-top: 15%;
+    .p-grid-n{
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        textarea{
+            resize: vertical;
+            min-height: 100px;
+        }
+    } 
+}
+
+.p-field {
+    label{
+    color: white;
+    background: #006CE1;
+    padding: 5px;
+    border-radius: 50px;
+    }
+}

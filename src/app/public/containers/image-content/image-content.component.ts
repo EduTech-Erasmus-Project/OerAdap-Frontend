@@ -10,7 +10,6 @@ import { LearningObjectService } from 'src/app/services/learning-object.service'
 export class ImageContentComponent implements OnInit {
 
  @Input() imagesGroup: any[];
-@Input() nFoundImage : boolean ;
   constructor() { }
 
   ngOnInit(): void {

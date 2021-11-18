@@ -1,12 +1,6 @@
 
-<div class="card-view" *ngIf="nFoundAudio == false">
-    <div class="p-grid">
+   <div class="p-grid">
         <div class="p-col-12 p-md-6 p-lg-4" *ngFor="let item of audiosGroup">
             <app-audio [item]=item></app-audio>
-
         </div>
     </div>
-</div>
-<div class="card-view" *ngIf="nFoundIAudio == true">
-    <h5 style="text-align:center; color:gray; padding: 20px;">Esta pagina no contiene imagenes</h5>
-</div>

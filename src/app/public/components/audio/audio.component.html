@@ -1,43 +1,55 @@
 <p-card [style]="{'margin-bottom': '2em'}">
+
     <div class="audio_src" *ngFor="let data of item.attributes">
         <audio class="audio" controls="" preload="none" src="{{data.path_src}}"></audio>
     </div>
- 
+   
+    <div class="view_text"  >
+        <h6>Descripción de audio:</h6>
+        <div class="view_text_p" *ngIf="!editTextArea">
+            <p>{{item.text}}</p>
+        </div>        
+    </div>
+
     <p-messages></p-messages>
+
 
     <div class="container-edit" *ngIf="editTextArea">
         <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="textEdit"></textarea>
         <div class="bnt-edit">
-            <ng-container class="container-but" >
-                <div class="btn-sucessfull" *ngIf ="!cliclEdit(item.text)" >
+            <ng-container class="container-but">
+                <div class="btn-sucessfull" *ngIf="!cliclEdit(item.text)">
                     <p-button (click)="actualizar()" label="Actualizar" icon="pi pi-check"></p-button>
                 </div>
-                <div class="btn-sucessfull" *ngIf ="cliclEdit(item.text)"> 
+                <div class="btn-sucessfull" *ngIf="cliclEdit(item.text)">
                     <p-button (click)="createAudios()" label="Crear" icon="pi pi-save"></p-button>
                 </div>
                 <div class="btn-sucessfull">
-                    <button pButton (click)="cancel()" pRipple type="button" label="Cancelar" class="p-button-danger"
+                    <button pButton (click)="cancel(item.text)" pRipple type="button" label="Cancelar" class="p-button-danger"
                         icon="pi pi-times"></button>
                 </div>
             </ng-container>
-        </div> 
+        </div>
     </div>
-
     <ng-template pTemplate="footer" class="container-buttons">
         <ng-container class="container-but" *ngIf="cliclEdit(item.text) && !editTextArea">
             <div class="btn-sucessfull">
-                <button pButton pRipple type="button" label="Automático" class="p-button-success"></button>
+                <button pButton pRipple type="button" label="Generar texto" class="p-button-success"
+                  (click)="generarTexto(item)" [disabled]="generate_text" icon="pi pi-save"></button>
             </div>
             <div class="btn-sucessfull">
-                <p-button (click)="createText()" label="Crear" icon="pi pi-check"></p-button>
+                <p-button (click)="createText()" [disabled]="generate_text"  label="Crear" icon="pi pi-check"></p-button>
             </div>
         </ng-container>
-
         <ng-container *ngIf="!cliclEdit(item.text) && !editTextArea">
             <div class="btn-sucessfull">
                 <p-button (click)="editar()" label="Editar" icon="pi pi-pencil"></p-button>
             </div>
         </ng-container>
-
     </ng-template>
+    <div class="progress_bar" *ngIf="generate_text">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+        <p>Generando texto descriptivo ...</p>
+    </div>
+    
 </p-card>
