@@ -37,7 +37,7 @@ export class WebviewComponent implements OnInit {
       this.mensajeID = mensaje;
     });
 
-    console.log("This",this.pages)
+    //console.log("This",this.pages)
     let filterIndex = this.pages.filter((page) =>
       page.preview_path.includes("index.html")
     );
@@ -86,7 +86,7 @@ export class WebviewComponent implements OnInit {
   }
 
   onChange(evt) {
-    console.log("change", evt);
+    //console.log("change", evt);
     this.eventPage.emit(evt.value);
 
     this.mensajeID = evt.value.id;
