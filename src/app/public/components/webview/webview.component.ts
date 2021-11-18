@@ -7,9 +7,8 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { LearningObject, Page } from "src/app/models/LearningObject";
+import { Page } from "src/app/models/LearningObject";
 import { LearningObjectService } from "src/app/services/learning-object.service";
-import { EventService } from "../../../services/event.service";
 
 @Component({
   selector: "app-webview",
@@ -29,7 +28,6 @@ export class WebviewComponent implements OnInit {
 
   constructor(
     private learningObjectService: LearningObjectService,
-    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +37,7 @@ export class WebviewComponent implements OnInit {
       this.mensajeID = mensaje;
     });
 
-    console.log("This",this.pages)
+    //console.log("This",this.pages)
     let filterIndex = this.pages.filter((page) =>
       page.preview_path.includes("index.html")
     );
@@ -62,21 +60,6 @@ export class WebviewComponent implements OnInit {
         id: page.id,
         type: page.type,
       };
-    });
-
-    // console.log("pages", this.pages);
-
-    //console.log("sub event")
-    this.eventService.getEvent().subscribe((event) => {
-      if (this.selectedPage.type === "adapted") {
-        try {
-          console.log(this.selectedPage.code);
-          var iframe: any = document.getElementById("web-view");
-          iframe.src = this.selectedPage.code;
-        } catch (error) {
-          console.log("error reload iframe", error);
-        }
-      }
     });
   }
 
@@ -103,7 +86,7 @@ export class WebviewComponent implements OnInit {
   }
 
   onChange(evt) {
-    console.log("change", evt);
+    //console.log("change", evt);
     this.eventPage.emit(evt.value);
 
     this.mensajeID = evt.value.id;

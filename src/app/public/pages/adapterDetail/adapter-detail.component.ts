@@ -68,7 +68,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       .getLearningObject(this.id)
       .subscribe(
         (res: any) => {
-          console.log("learningObject", res);
+          //console.log("learningObject", res);
           this.learningObject = res;
           let filterIndex = res.pages_adapted.filter(page => page.preview_path.includes('index.html'))
           this.currentPageId = filterIndex[0].id;
@@ -105,7 +105,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.paragraphs = [];
     let paragraphSub = await this.pageService.getParagraph(this.currentPageId).subscribe((res: any) => {
 
-      console.log("res loadParagraph", this.paragraphs)
+      //console.log("res loadParagraph", this.paragraphs)
       this.paragraphs = res;
 
     }, err => {
@@ -114,18 +114,18 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(paragraphSub);
   }
   loadImage() {
-    console.log("loadImage page", this.currentPageId);
+    //console.log("loadImage page", this.currentPageId);
     this.loadDataI(Number(this.currentPageId));
   }
   loadAudio() {
-    console.log("loadAudio page", this.currentPageId);
+    //console.log("loadAudio page", this.currentPageId);
     this.loadDataA(Number(this.currentPageId));
   }
   loadVideo() {
-    console.log("loadVideo page", this.currentPageId);
+    //console.log("loadVideo page", this.currentPageId);
     this.videos = [];
     let videoSub = this.pageService.getVideo(this.currentPageId).subscribe((res:any)=>{
-      console.log("res loadVideo", res)
+      //console.log("res loadVideo", res)
       this.videos = res;
     }, err =>console.log(err));  
     this.subscriptions.push(videoSub);
@@ -154,7 +154,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   onChangeTab(evt) {
     this.tabIndex = evt.index;
     this.reLoadData(this.tabIndex);
-    console.log("evt", evt);
+    //console.log("evt", evt);
   }
 
   private reLoadData(idx) {
@@ -227,12 +227,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
 
   onSave(evt) {
-    console.log("onSave " + evt);
+    //console.log("onSave " + evt);
 
   }
 
   onChangeWebview(evt) {
-    console.log("onChangeWebview ", evt);
+    //console.log("onChangeWebview ", evt);
     if (evt.index === 0) {
       this.tabAdapted = true;
     } else {

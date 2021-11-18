@@ -97,7 +97,7 @@ export class AdapterComponent implements OnInit {
     this.loader = true;
     this.learningObjectService.uploadObject(data).subscribe(
       (res: any) => {
-        console.log(res.body);
+        //console.log(res.body);
         if (res.body?.id) {
           this.navigateId = res.body.id;
         }

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: "",
     component: AdapterDetailComponent,
     data: {
-      breadcrumb: "Detalle de OA",
+      breadcrumb: null,
     },
   },
 ];

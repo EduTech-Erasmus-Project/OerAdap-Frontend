@@ -98,17 +98,7 @@ const routes: Routes = [
           breadcrumb: "Adaptador",
         },
       },
-      {
-        path: "adapter/:id",
-        loadChildren: () =>
-          import("./pages/adapterDetail/adapter-detail.module").then(
-            (m) => m.AdapterDetailModule
-          ),
-          data: {
-            breadcrumb: "Adaptador",
-          },
-          
-      },
+     
       {
         path: "information",
         loadChildren: () =>

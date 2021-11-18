@@ -119,7 +119,7 @@ export class ParagraphComponent implements OnInit {
   ) {
     this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
       // Handle Error
-      console.log("recorderErrorCase", recorderErrorCase);
+      //console.log("recorderErrorCase", recorderErrorCase);
     });
   }
 
@@ -150,9 +150,9 @@ export class ParagraphComponent implements OnInit {
           .subscribe(
             (res: any) => {
               //console.log(res);
-              console.log("respuesta", res);
+              //console.log("respuesta", res);
               this.paragraphAdapted = res.body;
-              console.log(res);
+              //console.log(res);
               this.updateParagraph = false;
               this.onCancelSelection();
               this.fileRecord = undefined;
@@ -165,9 +165,10 @@ export class ParagraphComponent implements OnInit {
                   detail:
                     "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
                 });
+                this.eventService.emitEvent(true);
               }
 
-              this.eventService.emitEvent(true);
+              
             },
             (err) => {
               console.log(err);
@@ -180,11 +181,12 @@ export class ParagraphComponent implements OnInit {
           );
       } else {
         //create
+        //console.log(data)
         let createParagraphSub = await this.paragraphService
           .createTagAdapted(data)
           .subscribe(
             (res: any) => {
-              console.log(res);
+              //console.log(res);
               this.paragraphAdapted = res.body;
               this.updateParagraph = false;
               this.onCancelSelection();
@@ -198,9 +200,10 @@ export class ParagraphComponent implements OnInit {
                   detail:
                     "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
                 });
+                this.eventService.emitEvent(true);
               }
 
-              this.eventService.emitEvent(true);
+              
             },
             (err) => {
               this.messges.push({
@@ -218,7 +221,7 @@ export class ParagraphComponent implements OnInit {
   onSelect(evt) {
     this.selectFile = true;
     this.file = evt.addedFiles[0];
-    console.log(this.file);
+    //console.log(this.file);
   }
   onRemove() {
     this.file = undefined;
@@ -312,13 +315,13 @@ export class ParagraphComponent implements OnInit {
         .getTagAdaptedByIdParagraph(this.paragraph.id)
         .subscribe(
           (res: any) => {
-            console.log(res);
+            //console.log(res);
             this.paragraphAdapted = res;
             this.loaderAdapted = false;
             this.htmlContent = res.text;
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
             this.loaderAdapted = false;
           }
         );

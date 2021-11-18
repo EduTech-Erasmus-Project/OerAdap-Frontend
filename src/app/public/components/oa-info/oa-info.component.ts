@@ -57,7 +57,7 @@ export class OaInfoComponent implements OnInit {
   }
 
   onChangeButton() {
-    console.log(this.button);
+    //console.log(this.button);
   }
 
   private emittEvent(){
@@ -96,19 +96,19 @@ export class OaInfoComponent implements OnInit {
     window.open(data);
   }
   onChangeImage() {
-    console.log(this.image);
+    //console.log(this.image);
     this.emittEvent();
   }
   onChangeVideo() {
-    console.log(this.video);
+    //console.log(this.video);
     this.emittEvent();
   }
   onChangeAudio() {
-    console.log(this.audio);
+    //console.log(this.audio);
     this.emittEvent();
   }
   onChangeParagraph() {
-    console.log(this.paragraph);
+    //console.log(this.paragraph);
     this.emittEvent();
   }
 }

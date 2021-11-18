@@ -639,7 +639,7 @@ var fluid_1_5 = fluid_1_5 || {};
 
         // Hard coded URL to amara here; see http://amara.readthedocs.org/en/latest/api.html
         var url = encodeURI("http://amara.org/api/videos/?video_url=" + videoUrl);
-        console.log(url);
+        //console.log(url);
         $.getJSON(url, function( data ) {
             var captionUrl = encodeURI("http://amara.org/api/videos/"+data.objects[0].id+"/languages/" + lang + "/subtitles/");
             $.getJSON(captionUrl, callback);
