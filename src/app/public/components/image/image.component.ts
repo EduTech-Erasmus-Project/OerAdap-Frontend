@@ -16,7 +16,7 @@ export class ImageComponent implements OnInit {
 
 
   public angForm: FormGroup;
-  private edit: boolean = false;
+  public edit: boolean = false;
   private textAux: string;
   private mensajeID: string;
   public answers: any;
