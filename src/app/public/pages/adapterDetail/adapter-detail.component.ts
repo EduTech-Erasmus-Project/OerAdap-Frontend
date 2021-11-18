@@ -205,9 +205,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
             id: audio.id,
             html_text : audio.html_text,
             attributes: audio.attributes.map((attribute: any) =>{
-              //console.log('Se muestrra'+attribute)
                 return{
                   path_src : attribute.data_attribute,
+                  path_system : attribute.path_system 
                 }
             }),
             id_class_ref : audio.id_class_ref,

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { LearningObjectService } from "src/app/services/learning-object.service";
 
 import {
   OaDetail,
@@ -26,8 +27,10 @@ export class OaInfoComponent implements OnInit {
   public paragraph: boolean;
 
   public checked1: boolean = false;
-
-  constructor() {}
+  private displayResponsive:boolean = false;
+  constructor(
+    private learningObjectService: LearningObjectService,
+  ) {}
 
   ngOnInit(): void {
     this.image = this.getValueCheck("image");
@@ -66,6 +69,32 @@ export class OaInfoComponent implements OnInit {
     });
   }
 
+  showResponsiveDialog(){
+    this.displayResponsive = true
+  }
+
+ async descargar(){
+
+    let paht_download = await this.learningObjectService.getDownloadFileZip(1).subscribe(
+      response =>{
+        console.log(response);
+        if(response){
+          this.downloadFile(response.path)
+          this.displayResponsive=false;
+        }
+      
+      }
+    )
+  }
+  downloadFile(data: any) {
+    console.log(data)
+    /*const blob = new Blob([data], {
+      type: "application/zip"
+    });*/
+    //const url = window.URL.createObjectURL(blob);
+
+    window.open(data);
+  }
   onChangeImage() {
     //console.log(this.image);
     this.emittEvent();

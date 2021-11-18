@@ -179,14 +179,24 @@
                 <i class="pi pi-image"></i>
                 <span>Imágenes</span>
             </ng-template>
+            <ng-container *ngIf="!nFoundImage; else imagesTemplate">
             <app-image-content [imagesGroup]=imagesGroup [nFoundImage]=nFoundImage></app-image-content>
+            </ng-container>
+            <ng-template #imagesTemplate>
+                <h5 class="no-content">Esta página no contiene imágenes</h5>
+            </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Audios" *ngIf="audio">
             <ng-template pTemplate="header">
                 <i class="pi pi-play"></i>
                 <span>Audios</span>
             </ng-template>
-            <app-audio-content  [audiosGroup]=audiosGroup [nFoundAudio]=nFoundAudio ></app-audio-content>
+            <ng-container *ngIf="!nFoundAudio; else audioTemplate">
+                <app-audio-content  [audiosGroup]=audiosGroup></app-audio-content>
+            </ng-container>
+            <ng-template #audioTemplate>
+                <h5 class="no-content">Esta página no contiene imágenes</h5>
+            </ng-template>
         </p-tabPanel>
         <p-tabPanel header="Vídeos" *ngIf="video">
             <ng-template pTemplate="header">

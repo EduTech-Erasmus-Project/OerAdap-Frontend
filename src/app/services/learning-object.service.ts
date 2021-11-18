@@ -70,4 +70,7 @@ export class LearningObjectService {
     return this.http.put(`${baseUrl}/page/audio/${id}`, data).pipe(map((data: any) => data));
   }
 
+  getDownloadFileZip(id :any) {
+    return this.http.get(`${baseUrl}/compress/learningObject/${id}`).pipe(map((data: any) => data));
+  }
 }

@@ -12,6 +12,7 @@ export class AudioComponent implements OnInit {
 
   private edit: boolean = false;
   private editTextArea = false;
+  private generate_text = false;
   private textEdit : string;
   public answers: any;
 
@@ -30,11 +31,43 @@ export class AudioComponent implements OnInit {
       return this.edit = false;
     }
   }
+  
+  async generarTexto(item){
+    this.generate_text = true;
+    console.log(item.attributes[0].path_src);
+
+    this.answers = {
+      tag_page_learning_object: item.id,
+      type: 'audio',
+      html_text: item.html_text,
+      id_ref : item.id_class_ref,
+      method:'automatic',
+      path_src: item.attributes[0].path_src,
+      path_system: item.attributes[0].path_system,
+    }
+
+    let generate_text_audio = await this.learningObjectService.sentCreateAudio(this.answers).subscribe(
+      response=>{
+        console.log('respuesta'+response)
+        if(response){
+          this.showSuccess('Se genero la descripción del audio con exito')
+          this.editTextArea = false;
+          this.textEdit = response.text;
+          this.item.text =this.textEdit;
+          this.generate_text = false;
+        }
+      },(err)=>{
+        this.showError("Error al generar la descripción")
+      }
+    )
+  }
+ 
   editar() {
     this.editTextArea = true;
   }
-  cancel(){
+  cancel(texto){
     this.editTextArea = false;
+    this.textEdit = texto;
   }
 
   createText(){
@@ -50,6 +83,7 @@ export class AudioComponent implements OnInit {
         this.textEdit = response.text;
           this.showSuccess("Los datos se actualizaron con exito");
           this.editTextArea = false;
+          this.item.text = this.textEdit
       }
     }, (err) => {
       if (err.status == 304) {
@@ -75,6 +109,7 @@ export class AudioComponent implements OnInit {
         this.showSuccess("Los datos se agregaron con exito");
         this.editTextArea = false;
         this.edit = true;
+        this.item.text = audios.text;
       }
     },(err)=>{
       this.showError("Error al guardar los datos")
