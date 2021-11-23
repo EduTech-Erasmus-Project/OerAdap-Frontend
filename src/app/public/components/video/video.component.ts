@@ -89,6 +89,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       .generateAutomaticTranscript(this.video.id)
       .subscribe(
         (res: any) => {
+          console.log("res video",res)
           if (res.status === "ready_tag_adapted") {
             //console.log(res);
 
@@ -145,9 +146,10 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
       (res: any) => {
-        //console.log(res)
+        console.log("res video",res)
         let text = res.transcript.map((data) => data.text);
-        this.jsonString = text.join(" ");
+        this.jsonString = text.join("\r\n");
+        console.log(this.jsonString)
         this.loaderJson = false;
       },
       (error) => console.log(error)
