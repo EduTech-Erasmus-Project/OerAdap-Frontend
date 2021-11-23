@@ -86,9 +86,9 @@
     </ng-template>
 </p-card>
 
-<p-dialog header="Traducción" [(visible)]="displaySubtitle" [style]="{width: '50vw'}">
+<p-dialog header="Traducción" [(visible)]="displaySubtitle" [style]="{width: '20vw'}">
     <ng-container *ngIf="!loaderJson; else jsonTemplate">
-        <p>{{jsonString}}</p>
+        <p class="jsonToString">{{jsonString}}</p>
     </ng-container>
     <ng-template #jsonTemplate>
         <div class="spinner-progress">
