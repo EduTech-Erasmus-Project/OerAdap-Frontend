@@ -45,7 +45,6 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { CookieService } from "ngx-cookie-service";
 import { FormBuilder } from "@angular/forms";
 import { MenuService } from './services/app.menu.service';
-import { BlobsanitizerPipe } from './pipes/blobsanitizer.pipe';
 import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
 
 
