@@ -186,7 +186,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (event.checked) {
       this.saveEmail();
     } else {
-      this.storageService.removeCookieItem("userEmail");
+      this.storageService.removeStorageItem("userEmail");
     }
   }
 

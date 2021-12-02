@@ -73,6 +73,9 @@
     },
     "browser": {
         "crypto": false,
-        "stream": false
+        "stream": false,
+        "fs": false,
+        "path": false,
+        "child_process": false
     }
 }

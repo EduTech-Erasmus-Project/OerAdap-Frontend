@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+} from "@angular/core";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
 import {
   NgAudioRecorderService,
@@ -10,6 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Paragraph } from "../../../models/Page";
 import { Message, MessageService } from "primeng/api";
 import { EventService } from "../../../services/event.service";
+import { Subscription } from "rxjs";
 
 declare var MediaRecorder: any;
 
@@ -18,7 +26,7 @@ declare var MediaRecorder: any;
   templateUrl: "./paragraph.component.html",
   styleUrls: ["./paragraph.component.scss"],
 })
-export class ParagraphComponent implements OnInit {
+export class ParagraphComponent implements OnInit, OnDestroy {
   @ViewChild("recordPlayer") recordPlayer: ElementRef;
   @ViewChild("audioDownload") audioDownload: ElementRef;
   @Input() paragraph: Paragraph;
@@ -50,6 +58,8 @@ export class ParagraphComponent implements OnInit {
   public paragraphAdapted: Paragraph;
 
   public updateParagraph: boolean = false;
+
+  private subscriptions: Subscription[] = [];
 
   public editorConfig: AngularEditorConfig = {
     editable: true,
@@ -122,6 +132,9 @@ export class ParagraphComponent implements OnInit {
       //console.log("recorderErrorCase", recorderErrorCase);
     });
   }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
   ngOnInit(): void {
     //console.log("paragraph", this.paragraph);
@@ -130,6 +143,9 @@ export class ParagraphComponent implements OnInit {
   async onSave() {
     this.messges = [];
     this.updateParagraph = true;
+
+    console.log("id", this.paragraph.id);
+
     if (this.htmlContent || this.file || this.fileRecord) {
       //console.log("on save", this.file || this.fileRecord);
       let data: any = {
@@ -139,82 +155,39 @@ export class ParagraphComponent implements OnInit {
         file: this.file || this.fileRecord,
       };
 
-      //console.log(this.file || this.fileRecord)
+      let paragraphSub = await this.paragraphService
+        .tagAdapted(data, this.paragraph.id)
+        .subscribe(
+          (res: any) => {
+            console.log(res);
+            console.log("respuesta", res);
+            this.paragraphAdapted = res.body;
+            //console.log(res);
+            this.updateParagraph = false;
+            this.onCancelSelection();
+            this.fileRecord = undefined;
+            //this.edit = false;
 
-      if (this.paragraphAdapted) {
-        //updates
-        //console.log("update data");
-
-        let updateParagraphSub = await this.paragraphService
-          .updateTagAdapted(data, this.paragraphAdapted.id)
-          .subscribe(
-            (res: any) => {
-              //console.log(res);
-              //console.log("respuesta", res);
-              this.paragraphAdapted = res.body;
-              //console.log(res);
-              this.updateParagraph = false;
-              this.onCancelSelection();
-              this.fileRecord = undefined;
-              //this.edit = false;
-
-              if (this.messges.length <= 0) {
-                this.messges.push({
-                  severity: "success",
-                  //summary: "Guardado",
-                  detail:
-                    "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-                });
-                this.eventService.emitEvent(true);
-              }
-
-              
-            },
-            (err) => {
-              console.log(err);
+            if (this.messges.length <= 0) {
               this.messges.push({
-                severity: "error",
-                summary: "Error",
-                detail: err,
+                severity: "success",
+                //summary: "Guardado",
+                detail:
+                  "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
               });
+              this.eventService.emitEvent(true);
             }
-          );
-      } else {
-        //create
-        //console.log(data)
-        let createParagraphSub = await this.paragraphService
-          .createTagAdapted(data)
-          .subscribe(
-            (res: any) => {
-              //console.log(res);
-              this.paragraphAdapted = res.body;
-              this.updateParagraph = false;
-              this.onCancelSelection();
-              this.fileRecord = undefined;
-              //this.edit = false;
-
-              if (this.messges.length <= 0) {
-                this.messges.push({
-                  severity: "success",
-                  //summary: "Guardado",
-                  detail:
-                    "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-                });
-                this.eventService.emitEvent(true);
-              }
-
-              
-            },
-            (err) => {
-              this.messges.push({
-                severity: "error",
-                summary: "Error",
-                detail: err,
-              });
-              console.log(err);
-            }
-          );
-      }
+          },
+          (err) => {
+            console.log(err);
+            this.messges.push({
+              severity: "error",
+              summary: "Error",
+              detail: err,
+            });
+          }
+        );
+      this.subscriptions.push(paragraphSub);
     }
   }
 
@@ -315,7 +288,7 @@ export class ParagraphComponent implements OnInit {
         .getTagAdaptedByIdParagraph(this.paragraph.id)
         .subscribe(
           (res: any) => {
-            //console.log(res);
+            console.log(res);
             this.paragraphAdapted = res;
             this.loaderAdapted = false;
             this.htmlContent = res.text;
@@ -325,6 +298,26 @@ export class ParagraphComponent implements OnInit {
             this.loaderAdapted = false;
           }
         );
+      this.subscriptions.push(paragraphSub);
     }
+  }
+  async onGenerateAudio() {
+    this.messges = [];
+    this.loaderAdapted = true;
+    let convertTextSub = await this.paragraphService
+      .convertTextToAudio(this.paragraph.id)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.paragraphAdapted = res;
+        this.messges.push({
+          severity: "success",
+          //summary: "Guardado",
+          detail:
+            "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
+        });
+        this.eventService.emitEvent(true);
+        this.loaderAdapted = false;
+      });
+    this.subscriptions.push(convertTextSub);
   }
 }

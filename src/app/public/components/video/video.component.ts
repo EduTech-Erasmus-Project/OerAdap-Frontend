@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { error } from "@angular/compiler/src/util";
 import { map } from "rxjs/operators";
 import { Message, MessageService } from "primeng/api";
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: "app-video",
@@ -43,7 +44,7 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   constructor(
     private videoService: VideoService,
-    private messageService: MessageService
+    private eventService: EventService
   ) {}
   ngOnDestroy(): void {
     this.subscrition.forEach((sub) => sub.unsubscribe());
@@ -97,7 +98,7 @@ export class VideoComponent implements OnInit, OnDestroy {
               severity: "warn",
               summary: "",
               detail:
-                "La fuente de vídeo no soporta o tiene traducciones pero seguimos desarrollando.",
+                "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
             });
           } else {
             this.video.tags_adapted = res;
@@ -117,7 +118,7 @@ export class VideoComponent implements OnInit, OnDestroy {
               });
             }
           }
-
+          this.eventService.emitEvent(true);
           this.loaderGenerateSubtitle = false;
         },
         (error) => {
