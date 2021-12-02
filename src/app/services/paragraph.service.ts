@@ -14,7 +14,9 @@ export class ParagraphService {
     return this.http.get(`${baseUrl}/adapter/paragraph/${id}`);
   }
 
-  createTagAdapted(data: any) {
+
+
+  tagAdapted(data: any, id: number) {
     let formData = new FormData();
 
     if (data.file) {
@@ -25,28 +27,14 @@ export class ParagraphService {
     formData.append("tag_page_learning_object", data.tag_page_learning_object);
     //console.log(formData)
 
-    return this.http.post(`${baseUrl}/adapter/paragraph/`, formData, {
+    return this.http.post(`${baseUrl}/adapter/paragraph/${id}`, formData, {
       reportProgress: false,
       observe: "events",
       responseType: "json",
     });
   }
 
-  updateTagAdapted(data: any, id: number) {
-    let formData = new FormData();
-
-    if (data.file) {
-      formData.append("file", data.file);
-    }
-    formData.append("text", data.text);
-    formData.append("html_text", data.html_text);
-    formData.append("tag_page_learning_object", data.tag_page_learning_object);
-    //console.log(formData)
-
-    return this.http.put(`${baseUrl}/adapter/paragraph/${id}`, formData, {
-      reportProgress: false,
-      observe: "events",
-      responseType: "json",
-    });
+  convertTextToAudio(id: number) {
+    return this.http.get(`${baseUrl}/convert/paragraph/${id}`);
   }
 }

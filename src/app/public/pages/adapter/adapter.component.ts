@@ -1,22 +1,26 @@
 import { HttpEventType, HttpResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MessageService } from "primeng/api";
 import { LearningObjectService } from "../../../services/learning-object.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { StorageService } from "../../../services/storage.service";
+import { LearningObject } from "../../../models/LearningObject";
 
 @Component({
   selector: "app-adapter",
   templateUrl: "./adapter.component.html",
   styleUrls: ["./adapter.component.scss"],
 })
-export class AdapterComponent implements OnInit {
+export class AdapterComponent implements OnInit, OnDestroy {
   public file?: File;
   public progress: number = 0;
   public upload: boolean = false;
   public loader: boolean = false;
   public displayConditions: boolean;
   private navigateId: number;
+  public learningObjects?: LearningObject[];
+  private subscriptions: Subscription[] = [];
 
   public settingsForm: FormGroup;
   private areas: string[] = [
@@ -62,10 +66,10 @@ export class AdapterComponent implements OnInit {
   ];
 
   constructor(
-    private messageService: MessageService,
     private learningObjectService: LearningObjectService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {
     this.settingsForm = this.fb.group({
       method: ["handbook", Validators.required],
@@ -74,8 +78,13 @@ export class AdapterComponent implements OnInit {
 
     //this.
   }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadLearningsObjects();
+  }
 
   onSelect(event: any) {
     this.file = event.addedFiles[0];
@@ -87,7 +96,7 @@ export class AdapterComponent implements OnInit {
     this.file = undefined;
   }
 
-  onUpload() {
+  async onUpload() {
     this.displayConditions = false;
     //console.log("upload", this.settingsForm.value)
     let data = {
@@ -95,26 +104,30 @@ export class AdapterComponent implements OnInit {
       ...this.settingsForm.value,
     };
     this.loader = true;
-    this.learningObjectService.uploadObject(data).subscribe(
-      (res: any) => {
-        //console.log(res.body);
-        if (res.body?.id) {
-          this.navigateId = res.body.id;
-        }
+    let umploadSub = await this.learningObjectService
+      .uploadObject(data)
+      .subscribe(
+        (res: any) => {
+          console.log("res upload", res.body);
+          if (res.body?.id) {
+            this.navigateId = res.body.id;
+            this.storageService.saveStorageItem("user_ref", res.body.user_ref);
+          }
 
-        if (res.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round((100 * res.loaded) / res.total);
-        } else if (res instanceof HttpResponse) {
-          this.upload = true;
+          if (res.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round((100 * res.loaded) / res.total);
+          } else if (res instanceof HttpResponse) {
+            this.upload = true;
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.upload = false;
+          this.loader = false;
+          this.progress = 0;
         }
-      },
-      (err) => {
-        console.log(err);
-        this.upload = false;
-        this.loader = false;
-        this.progress = 0;
-      }
-    );
+      );
+    this.subscriptions.push(umploadSub);
   }
 
   onCheckChange(evt, event) {
@@ -144,7 +157,28 @@ export class AdapterComponent implements OnInit {
     this.displayConditions = true;
   }
 
-  navigate() {
-    this.router.navigate(["/adapter", this.navigateId]);
+  navigate(id:number = this.navigateId) {
+    this.router.navigate(["/adapter", id]);
+  }
+
+  async loadLearningsObjects() {
+    let learningsObjectsSub = await this.learningObjectService
+      .getLearningsObjects()
+      .subscribe((res: any) => {
+        this.learningObjects = res;
+
+        console.log("object", this.learningObjects)
+
+        this.screenShot("https://www.google.com");
+
+        res.forEach((item) => {
+          //const s = new Screenshot('http://google.com').width(800)
+        });
+      });
+    this.subscriptions.push(learningsObjectsSub);
+  }
+
+  async screenShot(url) {
+    
   }
 }
