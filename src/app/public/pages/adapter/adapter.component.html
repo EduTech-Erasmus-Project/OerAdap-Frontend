@@ -90,7 +90,7 @@
                 <p-progressBar [style]="{'color': '#FFF'}" [value]="progress" color="danger"></p-progressBar>
                 <div class="btn-next">
                     <p-button *ngIf="navigateId" (click)="navigate()" type="submit" label="Continuar" iconPos="right"
-                    icon="pi pi-angle-right"></p-button>
+                        icon="pi pi-angle-right"></p-button>
                 </div>
             </div>
         </div>
@@ -99,15 +99,22 @@
 </div>
 
 <p-dialog header="Términos y condiciones de uso" [(visible)]="displayConditions" [style]="{width: '50vw'}">
-    <p>La Universidad Politécnica Salesiana conjunto con el grupo de investigación EduTech pone a disposición de esta plataforma de forma gratuita y sin ánimos de lucro, para el desarrollo de la educación equitativa.</p>
+    <p>La Universidad Politécnica Salesiana conjunto con el grupo de investigación EduTech pone a disposición de esta
+        plataforma de forma gratuita y sin ánimos de lucro, para el desarrollo de la educación equitativa.</p>
 
-    <p>Al aceptar estos términos y condiciones de uso de la aplicación el usuario acepta de forma voluntaria los siguientes términos:</p>
+    <p>Al aceptar estos términos y condiciones de uso de la aplicación el usuario acepta de forma voluntaria los
+        siguientes términos:</p>
 
-    <p>Los datos registrados y recopilados del objeto de aprendizaje se destruyen en 24 horas por lo que el sistema no guarda datos de ningún objeto de aprendizaje subido a la plataforma.</p>
-    <p>Los datos que se guardan son solo información de navegación como información del navegador y datos estadísticos sobre el resumen de lo realizado en esta aplicación con la finalidad re recopilar datos estadísticos para mejorar la aplicación.</p>
+    <p>Los datos registrados y recopilados del objeto de aprendizaje se destruyen en 24 horas por lo que el sistema no
+        guarda datos de ningún objeto de aprendizaje subido a la plataforma.</p>
+    <p>Los datos que se guardan son solo información de navegación como información del navegador y datos estadísticos
+        sobre el resumen de lo realizado en esta aplicación con la finalidad re recopilar datos estadísticos para
+        mejorar la aplicación.</p>
     <p>Este sistema no guarda datos personales de ningún usuario que navegue o que haga uso de esta plataforma.</p>
-    <p>Los archivos subidos no se compartirán con ninguna persona o institución publica o privada de igual manera los archivos generados pertenecen solo al usuario de la sesión actual que está navegando.</p>
-    <p>El usuario esta en su responsabilidad de subir archivos únicamente recursos educativos (Objetos de Aprendizaje), se admiten solo archivos comprimidos con formato zip.</p>
+    <p>Los archivos subidos no se compartirán con ninguna persona o institución publica o privada de igual manera los
+        archivos generados pertenecen solo al usuario de la sesión actual que está navegando.</p>
+    <p>El usuario esta en su responsabilidad de subir archivos únicamente recursos educativos (Objetos de Aprendizaje),
+        se admiten solo archivos comprimidos con formato zip.</p>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-times" (click)="displayConditions=false" label="Cancelar" styleClass="p-button-text">
         </p-button>
@@ -115,4 +122,21 @@
     </ng-template>
 </p-dialog>
 
+<div class="p-grid main-content" *ngIf="learningObjects?.length > 0">
+    <div class="p-col-12 p-md-12 p-lg-12 tittle">
+        <h3>Objetos de Aprendizaje recientes</h3>
+    </div>
+    
+
+    <div class="p-col-12 p-md-3 p-lg-3" *ngFor="let item of learningObjects">
+        <p-card [header]="item.title" >
+
+            <p>Creado: <span>{{item.created_at | date:'short'}}</span></p>
+            <p>Expira: <span>{{item.expires_at | date:'short'}}</span></p>
+            <ng-template pTemplate="footer">
+                <p-button (click)="navigate(item.id)" label="Continuar Editar" icon="pi pi-pencil"></p-button>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
 <app-file-upload></app-file-upload>
