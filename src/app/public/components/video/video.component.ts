@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { error } from "@angular/compiler/src/util";
 import { map } from "rxjs/operators";
 import { Message, MessageService } from "primeng/api";
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: "app-video",
@@ -43,7 +44,7 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   constructor(
     private videoService: VideoService,
-    private messageService: MessageService
+    private eventService: EventService
   ) {}
   ngOnDestroy(): void {
     this.subscrition.forEach((sub) => sub.unsubscribe());
@@ -89,6 +90,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       .generateAutomaticTranscript(this.video.id)
       .subscribe(
         (res: any) => {
+          console.log("res video",res)
           if (res.status === "ready_tag_adapted") {
             //console.log(res);
 
@@ -96,7 +98,7 @@ export class VideoComponent implements OnInit, OnDestroy {
               severity: "warn",
               summary: "",
               detail:
-                "La fuente de vídeo no soporta o tiene traducciones pero seguimos desarrollando.",
+                "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
             });
           } else {
             this.video.tags_adapted = res;
@@ -116,7 +118,7 @@ export class VideoComponent implements OnInit, OnDestroy {
               });
             }
           }
-
+          this.eventService.emitEvent(true);
           this.loaderGenerateSubtitle = false;
         },
         (error) => {
@@ -145,9 +147,10 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
       (res: any) => {
-        //console.log(res)
+        console.log("res video",res)
         let text = res.transcript.map((data) => data.text);
-        this.jsonString = text.join(" ");
+        this.jsonString = text.join("\r\n");
+        console.log(this.jsonString)
         this.loaderJson = false;
       },
       (error) => console.log(error)

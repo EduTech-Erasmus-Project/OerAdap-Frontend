@@ -42,7 +42,7 @@ export class LearningObjectService {
   }
 
   getLearningsObjects() {
-
+    return this.http.get(`${baseUrl}/learning_objects/`);
   }
 
   getLearningObject(id: number) {

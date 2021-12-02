@@ -4,10 +4,9 @@
 
 
 
-
+    <p-messages [(value)]="messges" [enableService]="false"></p-messages>
+    
     <div class="editor" *ngIf="edit">
-
-        <p-messages [(value)]="messges" [enableService]="false"></p-messages>
 
         <ng-container *ngIf="loaderAdapted; else loaderTemplate">
 
@@ -66,8 +65,12 @@
                         <div class="or-selectction" *ngIf="!file && !recordAudio">
                             <span>O</span>
 
+                           <div class="buttons-options">
+                            <button id="audio-recor" (click)="onGenerateAudio()" pButton pRipple type="button"
+                            label="Generar audio" class="p-button-outlined"></button>
                             <button id="audio-recor" (click)="onRecorAudio()" pButton pRipple type="button"
-                                label="Grabe un audio" class="p-button-text"></button>
+                            label="Grabe un audio" class="p-button-text"></button>
+                           </div>
                         </div>
 
                         <div class="record-audio" *ngIf="recordAudio">

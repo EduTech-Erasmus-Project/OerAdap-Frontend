@@ -46,6 +46,8 @@ import { CookieService } from "ngx-cookie-service";
 import { FormBuilder } from "@angular/forms";
 import { MenuService } from './services/app.menu.service';
 import { BlobsanitizerPipe } from './pipes/blobsanitizer.pipe';
+import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
+
 
 @NgModule({
   imports: [
@@ -80,7 +82,7 @@ import { BlobsanitizerPipe } from './pipes/blobsanitizer.pipe';
     QuicklinkModule,
     
   ],
-  declarations: [AppComponent, BlobsanitizerPipe],
+  declarations: [AppComponent],
   //PathLocationStrategy
   providers: [
     { provide: LocationStrategy, useClass: PathLocationStrategy },
@@ -89,7 +91,12 @@ import { BlobsanitizerPipe } from './pipes/blobsanitizer.pipe';
     MessageService,
     CookieService,
     FormBuilder,
-    ConfirmationService
+    ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenRefInterceptor,
+      multi: true,
+    },
 
   ],
   bootstrap: [AppComponent],

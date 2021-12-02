@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: ' http://165.227.212.214/api/v1',
-  cryptoSecretKey: "@ROA-QYpTatEMVQ3tem_A5ZHrglKBPuxe9IQjT@"
+  baseUrl: 'https://oeradap.edutech-project.org/api',
+  cryptoSecretKey: "@OER-ADAP-E45SJkshWnn10Sk_ASjNHS856SOLSJMLAS2@"
 };

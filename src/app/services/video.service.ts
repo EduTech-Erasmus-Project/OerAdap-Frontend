@@ -17,7 +17,11 @@ export class VideoService {
   }
 
   generateAutomaticTranscript(id:number){
-    return this.http.post(`${baseUrl}/adapter/video/subtitle/generate/${id}`,{});
+    return this.http.post(`${baseUrl}/adapter/video/subtitle/generate/${id}`,{
+      reportProgress: true,
+      observe: "events",
+      responseType: "json",
+    });
   }
 
 

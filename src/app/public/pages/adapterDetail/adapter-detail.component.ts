@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from "rxjs";
 import { LearningObject, Page } from 'src/app/models/LearningObject';
 import { LearningObjectService } from "src/app/services/learning-object.service";
@@ -46,7 +46,8 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private learningObjectService: LearningObjectService,
-    private pageService: PageService
+    private pageService: PageService,
+    private router:Router
   ) { }
 
 
@@ -82,8 +83,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
           //redirigir a 404
+          this.router.navigate(["/404"]);
         }
       );
     this.subscriptions.push(learningObjectSub);
