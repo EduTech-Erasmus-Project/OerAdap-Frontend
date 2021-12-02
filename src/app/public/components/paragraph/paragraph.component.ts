@@ -159,12 +159,7 @@ export class ParagraphComponent implements OnInit {
               //this.edit = false;
 
               if (this.messges.length <= 0) {
-                this.messges.push({
-                  severity: "success",
-                  //summary: "Guardado",
-                  detail:
-                    "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-                });
+                
                 this.eventService.emitEvent(true);
               }
 

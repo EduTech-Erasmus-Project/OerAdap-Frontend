@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService,Message } from 'primeng/api';
 import { LearningObjectService } from 'src/app/services/learning-object.service';
 
 @Component({
@@ -15,9 +15,9 @@ export class AudioComponent implements OnInit {
   private generate_text = false;
   private textEdit : string;
   public answers: any;
+  public messages: Message[];
 
   constructor(private learningObjectService:LearningObjectService,
-    private messageServicee: MessageService
     ) { }
 
   ngOnInit(): void {
@@ -33,6 +33,7 @@ export class AudioComponent implements OnInit {
   }
   
   async generarTexto(item){
+    this.messages =[];
     this.generate_text = true;
     console.log(item.attributes[0].path_src);
 
@@ -74,7 +75,8 @@ export class AudioComponent implements OnInit {
     this.editTextArea = true;
   }
  async actualizar(){
-  
+  this.messages =[];
+
     this.answers = {
       text: this.textEdit,
     }
@@ -93,6 +95,8 @@ export class AudioComponent implements OnInit {
   }
 
   async createAudios(){
+    this.messages =[];
+    
     this.answers = {
       text: this.textEdit,
       tag_page_learning_object: this.item.id,
@@ -106,7 +110,12 @@ export class AudioComponent implements OnInit {
       if(audios){
         //console.log(audios)
         this.textEdit = audios.text;  
-        this.showSuccess("Los datos se agregaron con exito");
+        this.messages.push({
+                  severity: "success",
+                  //summary: "Guardado",
+                  detail:
+                    "Se ha editado el texto y el audio de ayuda al Objeto de Aprendizaje.",
+                });
         this.editTextArea = false;
         this.edit = true;
         this.item.text = audios.text;
@@ -119,17 +128,17 @@ export class AudioComponent implements OnInit {
 
   
   showError(message) {
-    this.messageServicee.add({
+    this.messages.push({
       severity: "error",
-      summary: "Error",
+      //summary: "Error",
       detail: message,
     });
   }
 
   showSuccess(message) {
-    this.messageServicee.add({
+    this.messages.push({
       severity: "success",
-      summary: "Success",
+      //summary: "Success",
       detail: message,
     });
   }
