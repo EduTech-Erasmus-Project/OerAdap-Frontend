@@ -1,10 +1,14 @@
 <div class="main-content">
     <!-- <h3>Adaptador de Objetos de Aprendizaje</h3> -->
 
-    <div class="dop-zone">
+    <div class="dop-zone p-grid ">
 
-        <div class="p-grid">
-            <ngx-dropzone class="p-col-12 p-md-6 p-lg-5" *ngIf="!loader" (change)="onSelect($event)" accept=".zip,.rar">
+        <div class="p-col-1 p-md-3 p-lg-3">
+
+        </div>
+
+        <div class="p-col-10 p-md-6 p-lg-6">
+            <ngx-dropzone  *ngIf="!loader" (change)="onSelect($event)" accept=".zip,.rar">
 
                 <ngx-dropzone-label>
                     <h4>Arrastre o seleccione un archivo.</h4>
@@ -18,8 +22,12 @@
             </ngx-dropzone>
         </div>
 
+        <div class="p-col-1 p-md-3 p-lg-3">
 
-        <div class="p-grid" *ngIf="file && !loader">
+        </div>
+
+
+        <div class="p-col-12 p-md-12 p-lg-12 p-grid" *ngIf="file && !loader">
             <!-- *ngIf="file && !loader" -->
 
             <form class="p-col-12 p-md-6 p-lg-5" [formGroup]="settingsForm" (ngSubmit)="showConditionModal()">

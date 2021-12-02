@@ -10,9 +10,9 @@ import { LearningObjectService } from 'src/app/services/learning-object.service'
 export class AudioComponent implements OnInit {
   @Input() item: any;
 
-  private edit: boolean = false;
-  private editTextArea = false;
-  private generate_text = false;
+  public edit: boolean = false;
+  public editTextArea = false;
+  public generate_text = false;
   private textEdit : string;
   public answers: any;
 
