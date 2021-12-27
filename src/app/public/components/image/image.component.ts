@@ -7,6 +7,7 @@ import {
 import { Message } from 'primeng/api';
 import { Subscription } from "rxjs";
 import { LearningObjectService } from "src/app/services/learning-object.service";
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: "app-image",
@@ -26,6 +27,7 @@ export class ImageComponent implements OnInit, OnDestroy {
   constructor(
     private learning_ObjectService: LearningObjectService,
     private fb: FormBuilder,
+    private eventService: EventService
   ) {
     this.createForm();
   }
@@ -65,6 +67,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             this.item.text = response.text;
             this.angForm.controls[item.toString()].setValue(new_text_alt);
             this.edit = false;
+            this.eventService.emitEvent(true);
           }
         },
         (err) => {
