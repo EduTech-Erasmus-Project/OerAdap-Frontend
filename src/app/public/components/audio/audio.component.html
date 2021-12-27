@@ -13,7 +13,6 @@
 
     <p-messages *ngIf="messages.length > 0" [(value)]="messages" [enableService]="false"></p-messages>
 
-
     <div class="container-edit" *ngIf="editTextArea">
         <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="textEdit"></textarea>
         <div class="bnt-edit">

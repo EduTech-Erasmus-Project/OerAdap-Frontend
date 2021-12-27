@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, PlatformRef, StaticProvider } from "@angular/core";
 import { LearningObjectService } from "src/app/services/learning-object.service";
 
 import {
@@ -26,9 +26,11 @@ export class OaInfoComponent implements OnInit {
   public audio: boolean;
   public button: boolean;
   public paragraph: boolean;
-
+  public navegador : string;
   public checked1: boolean = false;
   public displayResponsive:boolean = false;
+  private latitude :any;
+  private longitude : any;
   constructor(
     private learningObjectService: LearningObjectService,
   ) {}
@@ -76,7 +78,42 @@ export class OaInfoComponent implements OnInit {
 
  async descargar(){
 
-    let paht_download = await this.learningObjectService.getDownloadFileZip(this.oa_id).subscribe(
+    const agent = window.navigator.userAgent.toLowerCase()
+    switch (true) {
+      case agent.indexOf('edge') > -1:
+        this. navegador='Edge' 
+        break;
+      case agent.indexOf('opr') > -1 && !!(<any>window).opr:
+        this. navegador='Opera'
+        break;
+      case agent.indexOf('chrome') > -1 && !!(<any>window).chrome:
+        this. navegador='Chrome'
+        break;
+      case agent.indexOf('trident') > -1:
+        this. navegador='Trident'
+        break;
+      case agent.indexOf('firefox') > -1:
+        this. navegador='Firefox'
+        break;
+      case agent.indexOf('safari') > -1:
+        this. navegador='Safari'
+        break;
+    }
+
+    //this.getLocation()
+    this.learningObjectService.getPosition().then(pos => {
+      this.latitude = pos.lat;
+      this.longitude = pos.lng;
+      console.log(this.latitude,this.longitude)
+  });
+
+    let answers = {
+        browser : this.navegador,
+        longitude: this.longitude,
+        latitude: this.latitude
+    }
+    console.log('id'+this.oa_id);
+    let paht_download = await this.learningObjectService.getDownloadFileZip(this.oa_id, answers).subscribe(
       response =>{
         console.log(response);
         if(response){
@@ -87,13 +124,16 @@ export class OaInfoComponent implements OnInit {
       }
     )
   }
-  downloadFile(data: any) {
-    console.log(data)
-    /*const blob = new Blob([data], {
-      type: "application/zip"
-    });*/
-    //const url = window.URL.createObjectURL(blob);
 
+  getLocation() {
+    this.learningObjectService.getPosition().then(pos => {
+        this.latitude = pos.lat;
+        this.longitude = pos.lng;
+        //console.log(this.latitude,this.longitude)
+    });
+  }
+
+  downloadFile(data: any) {
     window.open(data);
   }
   onChangeImage() {

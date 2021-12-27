@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { MessageService, Message } from "primeng/api";
-import { LearningObjectService } from "src/app/services/learning-object.service";
-import { EventService } from "../../../services/event.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { MessageService,Message } from 'primeng/api';
+import { EventService } from 'src/app/services/event.service';
+import { LearningObjectService } from 'src/app/services/learning-object.service';
+
 
 @Component({
   selector: "app-audio",
@@ -16,6 +17,7 @@ export class AudioComponent implements OnInit {
   public generate_text = false;
   private textEdit: string;
   public answers: any;
+
   public messages: Message[] = [];
 
   constructor(
@@ -37,6 +39,7 @@ export class AudioComponent implements OnInit {
 
   async generarTexto(item) {
     this.messages = [];
+
     this.generate_text = true;
     console.log(item.attributes[0].path_src);
 
@@ -49,6 +52,7 @@ export class AudioComponent implements OnInit {
       path_src: item.attributes[0].path_src,
       path_system: item.attributes[0].path_system,
     };
+
 
     let generate_text_audio = await this.learningObjectService
       .sentCreateAudio(this.answers)
@@ -81,6 +85,7 @@ export class AudioComponent implements OnInit {
   createText() {
     this.editTextArea = true;
   }
+
   async actualizar() {
     this.messages = [];
     this.answers = {
@@ -117,6 +122,7 @@ export class AudioComponent implements OnInit {
       method: "create",
     };
 
+
     let sendAudios = await this.learningObjectService
       .sentCreateAudio(this.answers)
       .subscribe(
@@ -140,7 +146,7 @@ export class AudioComponent implements OnInit {
   showError(message) {
     this.messages.push({
       severity: "error",
-      summary: "Error",
+      //summary: "Error",
       detail: message,
     });
   }
@@ -148,7 +154,7 @@ export class AudioComponent implements OnInit {
   showSuccess(message) {
     this.messages.push({
       severity: "success",
-      summary: "Success",
+      //summary: "Success",
       detail: message,
     });
   }

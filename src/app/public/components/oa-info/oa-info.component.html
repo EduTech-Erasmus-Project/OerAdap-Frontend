@@ -38,11 +38,11 @@
 
     <div class="button">
         <p-button (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="Descargar OA adaptado"></p-button>
-        <p-dialog header="Información de descarga" [(visible)]="displayResponsive"
-            [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+        <p-dialog header="Información de descarga" [(visible)]="displayResponsive" [modal]="true"
+             [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
             <div class="text_description">
-                <h6 style="text-align: justify; color: black;">A continuación se muestra un resumen de los elementos que el sistema 
-                    detecto para adaptar su objeto de aprendizaje: </h6>
+                <p style="text-align: justify; color: black;">A continuación se muestra un resumen de los elementos que el sistema 
+                    detecto para adaptar su objeto de aprendizaje: </p>
                 <p>
                 <span style="font-weight: bold;line-height: 1.5;">Párrafos totales en el Objeto de Aprendizaje:</span>
                 <br>
@@ -67,10 +67,22 @@
                     <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span>
                     <br>
                     Se encontraron {{file_detail.pages}} Páginas.
-                </p>              
-                           
+                </p>  
+                <br>            
+                  
             </div>
             <ng-template pTemplate="footer">
+
+                <p style="text-align: justify;opacity: 0.8;font-size: 15px;">
+                    <strong>¿Terminaste de adaptar tu Objeto de Aprendizaje? </strong> 
+                    <br>
+                     Recuerda que, una vez descargado el Objeto de Aprendizaje adaptado 
+                     para tu seguridad y no crear conflictos dentro del OA te
+                      recomendamos verificar si has hecho los cambios necesarios antes de descargarlo, 
+                      tambien te recomendamos no subir tu OA adaptado para
+                       no generar errores sobre el mismo. 
+                 </p>  
+                <br>
                 <button pButton  (click)="displayResponsive=false" label="No" class="p-button-danger"
                 icon="pi pi-times" ></button>
                 <button pButton (click)="descargar()" label="Descargar" styleClass="p-button-text" icon="pi pi-check"></button>

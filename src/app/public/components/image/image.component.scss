@@ -4,7 +4,8 @@
     display: flex;
     justify-content: center;
     img{
-        height: 100%;
+        width: 100%;
+        max-height: 253.78px;
     }
 }
 
@@ -86,3 +87,46 @@ h6{
 .text-description{
     text-align: center;
 }
+
+/*.pi{
+    font-size:1.5rem;
+    position: absolute;
+    color: #006CE1;
+    visibility: hidden;
+}*/
+
+.photo-product{ 
+    align-items: center;
+    display: flex;   
+    
+}
+
+:host ::ng-deep .p-ripple{
+margin-top: 5px;
+}
+
+.botones{
+    display: flex;
+}
+
+.label-input{
+    margin-top: 5px;
+}
+.conjunto-img-input{
+    display: flex;
+    .image-content-img{
+        width: 50%;
+        height: 25vh;
+        display: flex;
+        justify-content: center;
+        img{
+            width: 100%;
+            max-height: 253.78px;
+        }
+    }
+}
+
+/*
+.photo-product:hover .pi{
+    visibility: visible;
+}*/
