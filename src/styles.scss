@@ -14,15 +14,18 @@ $gutter: 0.5rem; //for primeflex grid system
   padding: 0 75px;
 }
 
-.fl-panelBar{
-  position: relative;
+.fl-prefsEditor-buttons{
+  z-index: 50000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0 25px !important;
+  border: none !important;
+  background-color: var(--primary-color) !important;
+  box-shadow: none !important;
   button{
-    position: absolute;
-    top: 3px;
-    right: 0;
     background-color: var(--primary-color) !important;
     color: #FFF !important;
-    z-index: 200;
   }
 }
 
