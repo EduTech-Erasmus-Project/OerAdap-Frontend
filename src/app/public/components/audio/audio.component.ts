@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MessageService,Message } from 'primeng/api';
+import { EventService } from 'src/app/services/event.service';
 import { LearningObjectService } from 'src/app/services/learning-object.service';
 
 @Component({
@@ -17,7 +18,9 @@ export class AudioComponent implements OnInit {
   public answers: any;
   public messages: Message[];
 
-  constructor(private learningObjectService:LearningObjectService,
+  constructor(
+    private learningObjectService:LearningObjectService,
+    private eventService: EventService
     ) { }
 
   ngOnInit(): void {
@@ -56,6 +59,7 @@ export class AudioComponent implements OnInit {
           this.textEdit = response.text;
           this.item.text =this.textEdit;
           this.generate_text = false;
+          this.eventService.emitEvent(true);
         }
       },(err)=>{
         this.showError("Error al generar la descripción")
@@ -86,6 +90,7 @@ export class AudioComponent implements OnInit {
           this.showSuccess("Los datos se actualizaron con exito");
           this.editTextArea = false;
           this.item.text = this.textEdit
+          this.eventService.emitEvent(true);
       }
     }, (err) => {
       if (err.status == 304) {
@@ -96,7 +101,7 @@ export class AudioComponent implements OnInit {
 
   async createAudios(){
     this.messages =[];
-    
+    console.log('Id_ref',this.item.id_class_ref)
     this.answers = {
       text: this.textEdit,
       tag_page_learning_object: this.item.id,
@@ -119,6 +124,8 @@ export class AudioComponent implements OnInit {
         this.editTextArea = false;
         this.edit = true;
         this.item.text = audios.text;
+        this.eventService.emitEvent(true);
+        
       }
     },(err)=>{
       this.showError("Error al guardar los datos")
