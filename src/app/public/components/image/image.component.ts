@@ -1,3 +1,4 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
@@ -12,21 +13,22 @@ import { LearningObjectService } from 'src/app/services/learning-object.service'
   styleUrls: ['./image.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ImageComponent implements OnInit {
-  // public subscribes: Subscription[] = [];
-  @Input() item: any;
 
+export class ImageComponent implements OnInit, OnDestroy {
+  private subscribes: Subscription[] = [];
+  @Input() item: any;
 
   public angForm: FormGroup;
   public edit: boolean = false;
   private textAux: string;
-  private mensajeID: string;
   public answers: any;
+
   public url: any;
   public generateTableDinamic: boolean = false;
   public displayModal: boolean;
   public activeButtons: boolean = false;
   public activateButtonOk : boolean = false;
+
 
 
   constructor(
@@ -35,16 +37,16 @@ export class ImageComponent implements OnInit {
     private messageService: MessageService,
     private eventService: EventService,
     private confirmationService: ConfirmationService,
+
   ) {
     this.createForm();
   }
+  ngOnDestroy(): void {
+    this.subscribes.forEach((sub) => sub.unsubscribe());
+  }
 
   ngOnInit(): void {
-
-    this.angForm.addControl(
-      this.item.id,
-      new FormControl(this.item.text)
-    );
+    this.angForm.addControl(this.item.id, new FormControl(this.item.text));
   }
 
 
@@ -52,10 +54,10 @@ export class ImageComponent implements OnInit {
     this.angForm = this.fb.group({});
   }
 
-
   async onSave(item) {
+    this.messages = [];
 
-    let new_text_alt = this.angForm.get(item.toString()).value
+    let new_text_alt = this.angForm.get(item.toString()).value;
     this.answers = {
       text: new_text_alt,
       method: 'img-alt'
@@ -76,6 +78,7 @@ export class ImageComponent implements OnInit {
         this.edit = false;
       }
     })
+
   }
 
   cliclEdit(identificador, texto) {
@@ -89,7 +92,6 @@ export class ImageComponent implements OnInit {
     //console.log("cancel -" + this.angForm.get(item.toString()).value);
     this.angForm.controls[item.toString()].setValue(this.textAux);
   }
-
 
   showError(message) {
     this.messageService.add({
@@ -151,5 +153,4 @@ export class ImageComponent implements OnInit {
         }
     });
 }
-
 }

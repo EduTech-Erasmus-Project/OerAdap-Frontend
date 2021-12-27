@@ -1,4 +1,5 @@
 <p-card [style]="{'margin-bottom': '2em'}">
+
     <div class="image-content">
         <div class="photo-product">
             <a href="{{item.link}}" class="fancybox " data-lightbox="gallery1">
@@ -18,7 +19,9 @@
         <input style="width:100%" type="text" formControlName="{{item.id}}" pInputText>
     </form>
 
-
+    <div class="image-content">
+        <img src="{{item.link}}" alt="">
+    </div>
 
     <p-dialog header="Crea tu propia tabla HMTL" [(visible)]="displayModal" [modal]="true" [style]="{width: '70vw'}"
         [draggable]="false" [resizable]="false">
@@ -85,6 +88,7 @@
 
     <ng-template pTemplate="footer" class="container-buttons">
 
+
         <ng-container *ngIf="edit; else buttonTemplate" class="container-buttons">
             <div class="btn-sucessfull">
                 <p-button (click)="onSave(item.id)" label="Guardar" icon="pi pi-check"></p-button>
@@ -94,8 +98,6 @@
                     icon="pi pi-times"></button>
             </div>
         </ng-container>
-
-
 
         <ng-template #buttonTemplate>
             <div class="btn-sucessfull">
@@ -109,5 +111,6 @@
             </div>
         </ng-template>
     </ng-template>
+
 
 </p-card>

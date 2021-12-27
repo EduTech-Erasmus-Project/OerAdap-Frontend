@@ -108,7 +108,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
       .uploadObject(data)
       .subscribe(
         (res: any) => {
-          console.log("res upload", res.body);
+          console.log("res upload", res);
           if (res.body?.id) {
             this.navigateId = res.body.id;
             this.storageService.saveStorageItem("user_ref", res.body.user_ref);
@@ -169,7 +169,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
         console.log("object", this.learningObjects)
 
-        this.screenShot("https://www.google.com");
+        //this.screenShot("https://www.google.com");
 
         res.forEach((item) => {
           //const s = new Screenshot('http://google.com').width(800)
