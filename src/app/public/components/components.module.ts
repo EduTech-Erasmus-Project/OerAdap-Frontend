@@ -13,6 +13,9 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { NgAudioRecorderModule } from "ng-audio-recorder";
 import { IframeComponent } from './iframe/iframe.component';
+import { FormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 @NgModule({
   declarations: [
     FileUploadComponent,
@@ -31,6 +34,8 @@ import { IframeComponent } from './iframe/iframe.component';
     AngularEditorModule,
     NgxDropzoneModule,
     NgAudioRecorderModule,
+    FormsModule,
+    CKEditorModule
   ],
   exports: [
     FileUploadComponent,

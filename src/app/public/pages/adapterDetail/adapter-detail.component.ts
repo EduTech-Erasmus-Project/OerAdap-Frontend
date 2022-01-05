@@ -209,6 +209,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
               link: image.tags_adapted.path_src,
               ref: image.tags_adapted.id_ref,
               text: image.tags_adapted.text,
+              text_table: image.tags_adapted.text_table
             };
           });
           this.imagesGroup = this.imagesGroup;

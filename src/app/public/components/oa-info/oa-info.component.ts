@@ -31,6 +31,8 @@ export class OaInfoComponent implements OnInit {
   public displayResponsive:boolean = false;
   private latitude :any;
   private longitude : any;
+  public tag_adapted: {};
+
   constructor(
     private learningObjectService: LearningObjectService,
   ) {}
@@ -72,8 +74,17 @@ export class OaInfoComponent implements OnInit {
     });
   }
 
-  showResponsiveDialog(){
-    this.displayResponsive = true
+  async showResponsiveDialog(){
+
+    //Servicio de retorno de objetos adaptados
+    let objetos_adaptados = await this.learningObjectService.getTagAdapted(this.oa_id).subscribe(
+      response => {
+        if(response){
+          this.tag_adapted = response;
+          this.displayResponsive = true
+        } 
+      }
+    )
   }
 
  async descargar(){
@@ -115,10 +126,10 @@ export class OaInfoComponent implements OnInit {
     console.log('id'+this.oa_id);
     let paht_download = await this.learningObjectService.getDownloadFileZip(this.oa_id, answers).subscribe(
       response =>{
-        console.log(response);
         if(response){
           this.downloadFile(response.path)
           this.displayResponsive=false;
+         
         }
       
       }

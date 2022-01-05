@@ -1,27 +1,30 @@
 <p-card [style]="{'margin-bottom': '2em'}">
 
-    <div class="image-content">
-        <div class="photo-product">
-            <a href="{{item.link}}" class="fancybox " data-lightbox="gallery1">
-                <!-- <div class="iono-eye">
-                    <i class="pi pi-eye" id ="icono"></i>
-                </div> -->
-                <img src="{{item.link}}" alt="{{item.text}}" (click)="show()" pTooltip="Previsualizar imagen"
-                    tooltipPosition="bottom">
-            </a>
+    <div class="contenedor-desc-img" *ngIf="!item.text_table && !flag_text_table">
+        <div class="image-content">
+            <div class="photo-product">
+                <a href="{{item.link}}" class="fancybox " data-lightbox="gallery1">
+                    <!-- <div class="iono-eye">
+                        <i class="pi pi-eye" id ="icono"></i>
+                    </div> -->
+                    <img src="{{item.link}}" alt="{{item.text}}" (click)="show()" pTooltip="Previsualizar imagen"
+                        tooltipPosition="bottom">
+                </a>
+            </div>
+        </div>
+        <h6>Descripcion alt de la imagen :</h6>
+        <div class="text-description" *ngIf="!edit">
+            <p> {{item.text}}</p>
+
         </div>
     </div>
-    <h6>Descripcion alt de la imagen :</h6>
-    <div class="text-description" *ngIf="!edit">
-        <p> {{item.text}}</p>
+    <div class="contenedor-desc-table" *ngIf="item.text_table || flag_text_table ">
+        <div [innerHTML]="item.text_table"></div>
     </div>
+
     <form action="" [formGroup]="angForm" id="formAdapte" *ngIf="edit">
         <input style="width:100%" type="text" formControlName="{{item.id}}" pInputText>
     </form>
-
-    <div class="image-content">
-        <img src="{{item.link}}" alt="">
-    </div>
 
     <p-dialog header="Crea tu propia tabla HMTL" [(visible)]="displayModal" [modal]="true" [style]="{width: '70vw'}"
         [draggable]="false" [resizable]="false">
@@ -38,52 +41,29 @@
                     </a>
                 </div>
             </div>
-
-
             <div class="create-table">
-                <div class="label-input">
-                    <label for="fila"> Ingrese el numero de filas: </label>
-                    <br>
-                    <input type="number" id="numFilas" min="1" value="1" pInputText>
-                </div>
-                <div class="label-input">
-                    <label for="columna"> Ingrese el numero de columnas: </label>
-                    <br>
-                    <input style=" margin-top:5px;" type="number" id="numColumnas" min="1" value="1" pInputText>
-                </div>
+                <label for="name" style="color:gray; padding:10px 10px" > Click en insertar tabla para crear una tabla nueva:</label>
                 <br>
-                <div class="botones">
-                    <div class="btn-sucessfull">
-                        <p-button onclick="generarTabla()" (click)="generateTableActiveButton()" icon="pi pi-check"
-                            label="Generar tabla"></p-button>
-                    </div>
+                <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="table_result"></ckeditor>
 
-                </div>
-            </div>
-
-        </div>
-
-        <hr>
-        <div id="contenedorTabla"></div>
-
-        <div class="botones" style="align-items: center;" *ngIf="generateTableDinamic">
-            <div class="button-editar">
-                <button pButton pRipple onclick="editarTabla1();" label="Editar" icon="pi pi-check"></button>
-            </div>
-            <div class="btn-cancel">
-                <button pButton pRipple type="button" label="Cancelar" class="p-button-danger"
-                    (click)="cancelGenerate()" icon="pi pi-times"></button>
             </div>
         </div>
         <ng-template pTemplate="footer">
-            <p-toast></p-toast>
-            <p-confirmPopup></p-confirmPopup>
-            <button pButton pRipple icon="pi pi-check" (click)="confirm($event)" [(disabled)]="!activateButtonOk" label="Guardar Tabla" styleClass="p-button-text"></button>
+            <div class="bt-list" style="display:flex">
+                <div class="btn-cancel">
+                    <button pButton pRipple type="button" label="Cancelar" class="p-button-danger"
+                        (click)="cancelGenerate()" icon="pi pi-times"></button>
+                </div>
+                <div class="btn-save">
+
+                    <p-confirmPopup></p-confirmPopup>
+                    <button pButton pRipple icon="pi pi-check" (click)="confirm($event, item.id)" label="Guardar Tabla"
+                        styleClass="p-button-text"></button>
+                </div>
+            </div>
         </ng-template>
     </p-dialog>
-
-
-
+    <p-toast></p-toast>
     <p-messages></p-messages>
 
     <ng-template pTemplate="footer" class="container-buttons">
@@ -98,19 +78,24 @@
                     icon="pi pi-times"></button>
             </div>
         </ng-container>
-
         <ng-template #buttonTemplate>
-            <div class="btn-sucessfull">
-                <p-button (click)="cliclEdit(item.id,item.text)" label="Editar descripcion" icon="pi pi-check">
-                </p-button>
-            </div>
+            <div class="principal-buttons" *ngIf="!item.text_table && !flag_text_table">
+                <div class="btn-sucessfull">
+                    <p-button (click)="cliclEdit(item.id,item.text)" label="Editar descripcion" icon="pi pi-check">
+                    </p-button>
+                </div>
 
-            <div class="btn-sucessfull" *ngIf="!edit ">
-                <button pButton pRipple (click)="showModalDialog()" class="p-button-success" label="Crear Tabla"
-                    icon="pi pi-save"></button>
+                <div class="btn-sucessfull" *ngIf="!edit ">
+                    <button pButton pRipple (click)="showModalDialog()" class="p-button-success" label="Crear Tabla"
+                        icon="pi pi-save"></button>
+                </div>
+            </div>
+            <div class="second-button" *ngIf="item.text_table || flag_text_table">
+                <div class="btn-sucessfull">
+                    <p-button (click)="showModalDialogEdit()" label="Editar tabla" icon="pi pi-check">
+                    </p-button>
+                </div>
             </div>
         </ng-template>
     </ng-template>
-
-
 </p-card>
