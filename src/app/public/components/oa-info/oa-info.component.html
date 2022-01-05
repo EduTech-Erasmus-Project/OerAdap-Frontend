@@ -40,33 +40,32 @@
         <p-button (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="Descargar OA adaptado"></p-button>
         <p-dialog header="Información de descarga" [(visible)]="displayResponsive" [modal]="true"
              [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
-            <div class="text_description">
-                <p style="text-align: justify; color: black;">A continuación se muestra un resumen de los elementos que el sistema 
-                    detecto para adaptar su objeto de aprendizaje: </p>
+            <div class="text_description" *ngIf="displayResponsive == true">
+                <p style="text-align: justify; color: black;">Elementos adaptados en el objeto de aprendizaje: </p>
                 <p>
-                <span style="font-weight: bold;line-height: 1.5;">Párrafos totales en el Objeto de Aprendizaje:</span>
+                <span style="font-weight: bold;line-height: 1.5;">Párrafos adaptados:</span>
                 <br>
-                Se encontraron {{file_detail.paragraphs}} párrafos.
+                Se encontraron {{tag_adapted.tag_adapted.paragraphs}} párrafos.
                 </p>
                 <p>
-                    <span style="font-weight: bold;line-height: 1.5;">Imágenes totales en el Objeto de Aprendizaje:</span>
+                    <span style="font-weight: bold;line-height: 1.5;">Imágenes adaptadas:</span>
                     <br>    
-                    Se encontraron {{file_detail.images}} imágenes.
+                    Se encontraron {{tag_adapted.tag_adapted.images}} imágenes.
                 </p>
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Audios totales en el Objeto de Aprendizaje:</span>
+                    <span style="font-weight: bold; line-height: 1.5;">Audios adaptados:</span>
                     <br>
-                    Se encontraron {{file_detail.audios}} audios.
+                    Se encontraron {{tag_adapted.tag_adapted.audios}} audios.
                 </p>
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Videos totales en el Objeto de Aprendizaje:</span>
+                    <span style="font-weight: bold; line-height: 1.5;">Videos adaptados:</span>
                     <br>
-                    Se encontraron {{file_detail.videos}} videos.
+                    Se encontraron {{tag_adapted.tag_adapted.videos}} videos.
                 </p>
                 <p>
                     <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span>
                     <br>
-                    Se encontraron {{file_detail.pages}} Páginas.
+                    Se encontraron un total de {{file_detail.pages}} Páginas.
                 </p>  
                 <br>            
                   

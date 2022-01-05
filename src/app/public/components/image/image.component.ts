@@ -5,6 +5,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { LearningObjectService } from 'src/app/services/learning-object.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-image',
@@ -20,13 +21,21 @@ export class ImageComponent implements OnInit {
   public angForm: FormGroup;
   public edit: boolean = false;
   private textAux: string;
+  private textAux_Edit: string;
   private mensajeID: string;
   public answers: any;
   public url: any;
-  public generateTableDinamic: boolean = false;
   public displayModal: boolean;
-  public activeButtons: boolean = false;
-  public activateButtonOk : boolean = false;
+  public flag_text_table: boolean = false;
+
+  title = 'Tets-table';
+  config = {
+    toolbar: ['insertTable'],
+    language: 'es'
+  }
+
+  public table_result: string = '';
+  public Editor = ClassicEditor;
 
 
   constructor(
@@ -40,7 +49,10 @@ export class ImageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (this.item.text_table) {
+      this.table_result = this.item.text_table
+      this.flag_text_table = true;
+    }
     this.angForm.addControl(
       this.item.id,
       new FormControl(this.item.text)
@@ -107,49 +119,79 @@ export class ImageComponent implements OnInit {
     });
   }
 
-  generateTableActiveButton() {
-    this.generateTableDinamic = true;
-    this.activateButtonOk= true;
-  }
-
   cancelGenerate() {
-    console.log("cancel")
     this.displayModal = false;
-    this.generateTableDinamic = false;
+    this.table_result = this.textAux_Edit
   }
 
   showModalDialog() {
     this.displayModal = true;
+    this.flag_text_table = false;
   }
 
-  view() {
-    let table_atribute = document.getElementById('table1');
-    this.validateTable();
-    console.log("html " + table_atribute.outerHTML);
-  }
-
-  validateTable() {
-    let table_atribute = document.getElementById('table') as HTMLTableRowElement;
-    let numColumnas = (<HTMLInputElement>document.getElementById('numColumnas')).value;
-    let numFilas = (<HTMLInputElement>document.getElementById('numFilas')).value;
-
-    console.log("html index "+ numColumnas);
-    
-  }
-
-
-  confirm(event: Event) {
+  async confirm(event: Event, id) {
+    console.log("evt" + this.table_result)
     this.confirmationService.confirm({
-        target: event.target,
-        message: 'Are you sure that you want to proceed?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
-        },
-        reject: () => {
-            this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+      target: event.target,
+      message: 'Esta seguro que desea guardar los cambios ?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        if (this.flag_text_table == false) {
+          console.log('Se crea')
+          //Aceptar primera añadir tabla
+          this.answers = {
+            text_table: this.table_result,
+            method: 'transform-table'
+          }
+          let sendDescription = await this.learning_ObjectService.updateImage(this.answers, id).subscribe(response => {
+            if (response) {
+
+              this.item.text_table = response.text_table
+              this.eventService.emitEvent(true);
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Su tabla se a creado' });
+              this.displayModal = false;
+              this.flag_text_table = true;
+
+            }
+          }, (err) => {
+            if (err.status == 304) {
+              this.showError('Datos no modificados')
+            }
+          })
+        } else if (this.flag_text_table == true) {
+          //editar tabla la segunda
+          this.answers = {
+            text_table: this.table_result,
+            method: 'update-table'
+          }
+          let sendDescription = await this.learning_ObjectService.updateImage(this.answers, id).subscribe(response => {
+            if (response) {
+
+              this.eventService.emitEvent(true);
+              this.displayModal = false;
+              this.item.text_table = response.text_table;
+
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Has aceptado' });
+            }
+          }, (err) => {
+            if (err.status == 304) {
+              this.showError('Datos no modificados')
+            }
+          })
         }
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      }
     });
-}
+  }
+
+  showModalDialogEdit() {
+    this.displayModal = true;
+
+    this.textAux_Edit = this.table_result;
+
+    this.flag_text_table = true;
+  }
 
 }

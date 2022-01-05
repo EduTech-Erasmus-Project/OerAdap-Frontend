@@ -179,14 +179,15 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   async loadDataI(id: number) {
     let groupImages = await this.learningObjectService.getImagesForPge(id).subscribe(
       (response) => {
-        //console.log('Datos', response);
+        console.log('Datos', response);
         this.imagesGroup = response.map((image: any) => {
           return {
             id: image.id,
             id_tag_adapated: image.tags_adapted.id,
             link: image.tags_adapted.path_src,
             ref: image.tags_adapted.id_ref,
-            text: image.tags_adapted.text
+            text: image.tags_adapted.text,
+            text_table: image.tags_adapted.text_table
           }
         })
         this.imagesGroup = this.imagesGroup;
