@@ -88,6 +88,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   onSelect(event: any) {
     this.file = event.addedFiles[0];
+    
   }
 
   onRemove() {
@@ -96,12 +97,28 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.file = undefined;
   }
 
+  getmethod(idx) {
+    if (this.learningObjects[idx].config_adaptability[0].method === "handbook") {
+      return "Manual";
+    } else if (this.learningObjects[idx].config_adaptability[0].method === "automatic") {
+      return "Automatica";
+    } else if (this.learningObjects[idx].config_adaptability[0].method === "mixed") {
+      return "Mixta";
+    }
+  }
+
+  getareas(idx){
+    return this.learningObjects[idx].config_adaptability[0].areas.join(', ')
+  }
+
   async onUpload() {
     this.displayConditions = false;
     //console.log("upload", this.settingsForm.value)
+    let dataForm = this.settingsForm.value;
+    dataForm.areas.splice(dataForm.areas.indexOf('all'), 1);
     let data = {
       file: this.file,
-      ...this.settingsForm.value,
+      ...dataForm,
     };
     this.loader = true;
     let umploadSub = await this.learningObjectService
@@ -166,6 +183,9 @@ export class AdapterComponent implements OnInit, OnDestroy {
       .getLearningsObjects()
       .subscribe((res: any) => {
         this.learningObjects = res;
+        this.learningObjects.sort((a, b) => {
+          return b.id - a.id;
+      });
 
         console.log("object", this.learningObjects)
 

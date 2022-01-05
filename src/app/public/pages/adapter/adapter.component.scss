@@ -78,6 +78,7 @@
 .spiner {
   text-align: center;
   //width: 50%;
+  width: 35rem;
   margin-bottom: 15px;
 }
 
@@ -103,4 +104,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.progress {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

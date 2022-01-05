@@ -55,12 +55,13 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       transcriptions: this.fb.array([]),
     });
-    this.addTranscription();
+    //this.addTranscription();
   }
 
   ngOnInit(): void {
     this.loadTranscript();
     this.messages = [];
+    console.log("video", this.video);
   }
 
   ngOnDestroy(): void {
@@ -117,6 +118,27 @@ export class VideoComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           console.log("res video", res);
+          if(res.code === "developing"){
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail: "La generación de subtitulado automática está en desarrollo.",
+            });
+            this.loaderGenerateSubtitle = false;
+            return 
+          }
+
+          if(res.code === "video_not_found"){
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail: "El video no se puede descargar, por favor intente con otra fuente.",
+            });
+            this.loaderGenerateSubtitle = false;
+            return 
+          }
+
+          this.video = res.data
           if (res.status === "ready_tag_adapted") {
             //console.log(res);
 
@@ -126,15 +148,16 @@ export class VideoComponent implements OnInit, OnDestroy {
               detail:
                 "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
             });
+
           } else {
-            this.video.tags_adapted = res;
+            //this.video.tags_adapted = res.data.tags_adapted;
             this.loadTranscript();
 
-            if (res.code === "no_suported_transcript") {
+            if (res.code === "no_supported_transcript") {
               this.messages.push({
                 severity: "warn",
                 //summary: "",
-                detail: "La fuente de vídeo no soporta tiene traducciones.",
+                detail: "La fuente de vídeo no soporta o no tiene traducciones.",
               });
             } else {
               this.messages.push({
