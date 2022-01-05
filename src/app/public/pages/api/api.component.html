@@ -14,7 +14,7 @@
             <div class="p-grid-n">
                 <form autocomplete="off" [formGroup]="formApi" (ngSubmit)="validateForm()" id="loginForm">
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">Correo electrónico</label>
+                        <label for="firstnamelabel">Correo electrónico *</label>
                         <input type="email" formControlName="email" pInputText>
                         <div *ngIf="email.invalid && (email.dirty || email.touched)">
                             <small class="p-error" *ngIf="email.errors.required">Campo
@@ -23,14 +23,14 @@
                         </div>
                     </div>
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">Institución</label>
+                        <label for="firstnamelabel">Institución *</label>
                         <input type="text" formControlName="institution" pInputText>
                         <div *ngIf="institution.invalid && (institution.dirty || institution.touched)">
                             <small class="p-error" *ngIf="institution.errors.required">Campo Obligatorio</small>
                         </div>
                     </div>
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API?</label>
+                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API? *</label>
                         <div>
                             <textarea name="" id="" rows="5" cols="30" style="width: 100%;"
                                 formControlName="purpose_use" pInputTextarea></textarea>
@@ -213,9 +213,8 @@
     </table>
     <h2>Ejemplos subir un objeto de aprendizaje</h2>
     <p>Para subir un objeto de aprendizaje:</p>
-    <p>Path:
-        <span
-            class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/upload?api_key=TU_API_KEY&adaptation=image,audio,video,paragraph,button</span>
+    <p style="text-align:start;">Path:
+        <span class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/upload?api_key=TU_API_KEY&adaptation=image,audio,video,paragraph,button</span>
     </p>
     <p><span>Método:</span> POST</p>
     <p><span>Parametro en Form-Data:</span> file</p>

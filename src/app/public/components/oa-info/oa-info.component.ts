@@ -163,4 +163,5 @@ export class OaInfoComponent implements OnInit {
     //console.log(this.paragraph);
     this.emittEvent();
   }
+
 }
