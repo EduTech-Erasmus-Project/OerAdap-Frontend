@@ -7,7 +7,7 @@ export interface LearningObject {
   preview_origin?: string;
   preview_adapted?: string;
   file_detail?: FileDetail;
-  config_adaptability?: ConfigAdaptability;
+  config_adaptability?: any;
   pages_adapted?: Page[];
   pages_origin?: Page[];
   file_adapted?: null;

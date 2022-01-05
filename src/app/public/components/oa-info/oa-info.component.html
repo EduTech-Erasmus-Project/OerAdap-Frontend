@@ -12,30 +12,28 @@
     <p><span>Audios: </span> {{file_detail.audios}}</p>
     <h6>Configuración de Adaptabilidad</h6>
     <p><span>Tipo de adaptación: </span> {{method}}</p>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeButton()" [(ngModel)]="button"></p-inputSwitch> -->
-        <p><span>Botón de adaptabilidad</span></p>
-    </div>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeImage()"  [(ngModel)]="image"></p-inputSwitch> -->
-        <p><span>Imagenes</span></p>
-    </div>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeParagraph()"  [(ngModel)]="paragraph"></p-inputSwitch> -->
-        <p><span>Parrafos</span></p>
-
-    </div>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeVideo()"  [(ngModel)]="video"></p-inputSwitch> -->
-        <p><span>Videos</span></p>
-
-    </div>
-    <div class="content-switch">
+    <p><span>Areas de optimización:</span></p>
+    <div class="content-switch" *ngIf="getValueCheck('audio')">
         <!-- <p-inputSwitch (onChange)="onChangeAudio()"  [(ngModel)]="audio"></p-inputSwitch> -->
-        <p><span>Audios</span></p>
-
+        <p>Audios</p>
     </div>
-
+    <div class="content-switch" *ngIf="getValueCheck('button')">
+        <!-- <p-inputSwitch (onChange)="onChangeButton()" [(ngModel)]="button"></p-inputSwitch> -->
+        <p>Botón de adaptabilidad</p>
+    </div>
+    <div class="content-switch" *ngIf="getValueCheck('image')">
+        <!-- <p-inputSwitch (onChange)="onChangeImage()"  [(ngModel)]="image"></p-inputSwitch> -->
+        <p>Imágenes</p>
+    </div>
+    <div class="content-switch" *ngIf="getValueCheck('paragraph')">
+        <!-- <p-inputSwitch (onChange)="onChangeParagraph()"  [(ngModel)]="paragraph"></p-inputSwitch> -->
+        <p>Párrafos</p>
+    </div>
+    <div class="content-switch" *ngIf="getValueCheck('video')">
+        <!-- <p-inputSwitch (onChange)="onChangeVideo()"  [(ngModel)]="video"></p-inputSwitch> -->
+        <p>Videos</p>
+    </div>
+    
     <div class="button">
         <p-button (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="Descargar OA adaptado"></p-button>
         <p-dialog header="Información de descarga" [(visible)]="displayResponsive" [modal]="true"

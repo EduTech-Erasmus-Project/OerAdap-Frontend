@@ -23,7 +23,7 @@
         <div class="p-col-12 p-md-6 p-lg-5">
             <form autocomplete="off" [formGroup]="angForm" (ngSubmit)="validateUser()" id="loginForm">
                 <div class="p-field p-fluid">
-                    <label for="firstnamelabel">Nombre:</label>
+                    <label for="firstnamelabel">Nombre: *</label>
                     <input type="text" formControlName="name" pInputText>
                     <div *ngIf="name.invalid && (name.dirty || name.touched)">
                         <small id="name " class="p-error" *ngIf="name.errors.required">Campo
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="p-field p-fluid">
-                    <label for="firstnamelabel">Email:</label>
+                    <label for="firstnamelabel">Email: *</label>
                     <input type="text" formControlName="email" pInputText>
                     <div *ngIf="email.invalid && (name.dirty || email.touched)">
                         <small id="name " class="p-error" *ngIf="email.errors.required">Campo Obligatorio</small>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="p-field p-fluid">
-                    <label for="firstnamelabel">Escriba un mensaje</label>
+                    <label for="firstnamelabel">Escriba un mensaje: *</label>
                     <div>
                         <textarea name="" id="" rows="5" cols="30" style="width: 100%;" formControlName="message"
                             pInputTextarea></textarea>
