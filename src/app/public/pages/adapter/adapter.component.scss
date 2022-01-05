@@ -44,7 +44,7 @@
 // }
 
 .dop-zone {
-  min-height: 75vh;
+  //min-height: 75vh;
   //@debug: red;
   display: flex;
   align-items: center;
@@ -98,3 +98,9 @@
   margin: 25px 0;
 }
 
+
+.loader-object{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

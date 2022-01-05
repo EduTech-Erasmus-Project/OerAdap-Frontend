@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -13,17 +14,19 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./image.component.scss'],
   providers: [ConfirmationService, MessageService]
 })
-export class ImageComponent implements OnInit {
-  // public subscribes: Subscription[] = [];
-  @Input() item: any;
 
+export class ImageComponent implements OnInit, OnDestroy {
+  private subscribes: Subscription[] = [];
+  @Input() item: any;
 
   public angForm: FormGroup;
   public edit: boolean = false;
   private textAux: string;
   private textAux_Edit: string;
   private mensajeID: string;
+  public messages:any;
   public answers: any;
+
   public url: any;
   public displayModal: boolean;
   public flag_text_table: boolean = false;
@@ -38,17 +41,23 @@ export class ImageComponent implements OnInit {
   public Editor = ClassicEditor;
 
 
+
   constructor(
     private learning_ObjectService: LearningObjectService,
     private fb: FormBuilder,
     private messageService: MessageService,
     private eventService: EventService,
     private confirmationService: ConfirmationService,
+
   ) {
     this.createForm();
   }
+  ngOnDestroy(): void {
+    this.subscribes.forEach((sub) => sub.unsubscribe());
+  }
 
   ngOnInit(): void {
+
     if (this.item.text_table) {
       this.table_result = this.item.text_table
       this.flag_text_table = true;
@@ -57,6 +66,9 @@ export class ImageComponent implements OnInit {
       this.item.id,
       new FormControl(this.item.text)
     );
+
+    this.angForm.addControl(this.item.id, new FormControl(this.item.text));
+
   }
 
 
@@ -64,10 +76,10 @@ export class ImageComponent implements OnInit {
     this.angForm = this.fb.group({});
   }
 
-
   async onSave(item) {
+    this.messages = [];
 
-    let new_text_alt = this.angForm.get(item.toString()).value
+    let new_text_alt = this.angForm.get(item.toString()).value;
     this.answers = {
       text: new_text_alt,
       method: 'img-alt'
@@ -88,6 +100,7 @@ export class ImageComponent implements OnInit {
         this.edit = false;
       }
     })
+
   }
 
   cliclEdit(identificador, texto) {
@@ -101,7 +114,6 @@ export class ImageComponent implements OnInit {
     //console.log("cancel -" + this.angForm.get(item.toString()).value);
     this.angForm.controls[item.toString()].setValue(this.textAux);
   }
-
 
   showError(message) {
     this.messageService.add({

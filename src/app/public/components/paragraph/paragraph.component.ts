@@ -44,23 +44,16 @@ export class ParagraphComponent implements OnInit, OnDestroy {
 
   public rec: boolean = false;
   public recording: boolean = false;
-
   public permis: boolean = true;
+  public generateAudio:boolean = false;
   // public permisText: string;
-
   public audioURL: any;
-
   private interval: any;
-
   public loaderAdapted: boolean = false;
   public audioPreviwe: string;
-
   public paragraphAdapted: Paragraph;
-
   public updateParagraph: boolean = false;
-
   private subscriptions: Subscription[] = [];
-
   public editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -119,12 +112,11 @@ export class ParagraphComponent implements OnInit, OnDestroy {
     ],
   };
 
-  public messges: Message[];
+  public messages: Message[];
 
   constructor(
     private audioRecorderService: NgAudioRecorderService,
     private paragraphService: ParagraphService,
-    private messageService: MessageService,
     private eventService: EventService
   ) {
     this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
@@ -141,13 +133,12 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   }
 
   async onSave() {
-    this.messges = [];
-    this.updateParagraph = true;
-
-    console.log("id", this.paragraph.id);
-
+    this.messages = [];
+    
     if (this.htmlContent || this.file || this.fileRecord) {
       //console.log("on save", this.file || this.fileRecord);
+      this.updateParagraph = true;
+
       let data: any = {
         text: this.htmlContent || "",
         html_text: this.htmlContent ? `<p>${this.htmlContent}</p>` : "",
@@ -168,8 +159,8 @@ export class ParagraphComponent implements OnInit, OnDestroy {
             this.fileRecord = undefined;
             //this.edit = false;
 
-            if (this.messges.length <= 0) {
-              this.messges.push({
+            if (this.messages.length <= 0) {
+              this.messages.push({
                 severity: "success",
                 //summary: "Guardado",
                 detail:
@@ -180,7 +171,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
           },
           (err) => {
             console.log(err);
-            this.messges.push({
+            this.messages.push({
               severity: "error",
               summary: "Error",
               detail: err,
@@ -302,21 +293,29 @@ export class ParagraphComponent implements OnInit, OnDestroy {
     }
   }
   async onGenerateAudio() {
-    this.messges = [];
-    this.loaderAdapted = true;
+    this.messages = [];
+    this.generateAudio = true;
     let convertTextSub = await this.paragraphService
       .convertTextToAudio(this.paragraph.id)
       .subscribe((res: any) => {
         console.log(res);
         this.paragraphAdapted = res;
-        this.messges.push({
+        this.messages.push({
           severity: "success",
           //summary: "Guardado",
           detail:
             "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
         });
         this.eventService.emitEvent(true);
-        this.loaderAdapted = false;
+        this.generateAudio = false;
+      }, error => {
+        this.messages.push({
+          severity: "error",
+          //summary: "Guardado",
+          detail:
+            "Se produjo un error al generar el audio de ayuda.",
+        });
+        this.generateAudio = false;
       });
     this.subscriptions.push(convertTextSub);
   }
