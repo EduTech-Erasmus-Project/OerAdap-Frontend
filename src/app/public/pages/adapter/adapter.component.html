@@ -161,7 +161,7 @@
         <p-card [header]="item.oa_detail.title">
 
 
-            <ng-container *ngIf="item.config_adaptability[0].method == 'automatic' && !item.complete_adaptation; else progresTemplate">
+            <ng-container *ngIf="item.config_adaptability.method == 'automatic' && !item.complete_adaptation; else progresTemplate">
                 <div class="progress">
                     <p>Boton de adaptabilidad...</p> <span><i
                         [ngClass]="{'pi-spin pi-spinner': !item.button_adaptation, 'pi-check': item.button_adaptation}"
