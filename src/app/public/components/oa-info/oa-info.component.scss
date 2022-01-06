@@ -13,7 +13,13 @@
     }
     .content-switch{
         display: flex;
+        justify-content: space-between;
         align-items: center;
+        padding-right: 2em;
+        i{
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
         p{
             margin: 4px 0;
             //margin-left: 10px;
@@ -54,4 +60,8 @@ p {
 
 :host ::ng-deep .p-dialog .p-button {
     min-width: 6rem;
+}
+
+.footer-spin{
+    margin:1em 0;
 }

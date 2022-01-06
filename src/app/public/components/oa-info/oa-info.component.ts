@@ -1,23 +1,25 @@
-import { Component, EventEmitter, Input, OnInit, Output, PlatformRef, StaticProvider } from "@angular/core";
-import { LearningObjectService } from "src/app/services/learning-object.service";
-
 import {
-  OaDetail,
-  FileDetail,
-  ConfigAdaptability,
-} from "../../../models/LearningObject";
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  PlatformRef,
+  StaticProvider,
+  OnDestroy,
+} from "@angular/core";
+import { LearningObjectService } from "src/app/services/learning-object.service";
+import { LearningObject } from "../../../models/LearningObject";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-oa-info",
   templateUrl: "./oa-info.component.html",
   styleUrls: ["./oa-info.component.scss"],
 })
-export class OaInfoComponent implements OnInit {
-  @Input() oa_detail: OaDetail;
-  @Input() file_detail: FileDetail;
-  @Input() config_adaptability: ConfigAdaptability;
-  @Input() oa_id:number;
-  @Output() eventAdaptabilit:EventEmitter<any> = new EventEmitter();
+export class OaInfoComponent implements OnInit, OnDestroy {
+  @Input() learningObject: LearningObject;
+  @Output() eventAdaptabilit: EventEmitter<any> = new EventEmitter();
 
   //public configs:any[];
 
@@ -26,16 +28,19 @@ export class OaInfoComponent implements OnInit {
   public audio: boolean;
   public button: boolean;
   public paragraph: boolean;
-  public navegador : string;
+  public navegador: string;
   public checked1: boolean = false;
-  public displayResponsive:boolean = false;
-  private latitude :any;
-  private longitude : any;
+  public displayResponsive: boolean = false;
+  private latitude: any;
+  private longitude: any;
   public tag_adapted: {};
+  private subscription: Subscription[] = [];
+  public dounloadState:boolean = false;
 
-  constructor(
-    private learningObjectService: LearningObjectService,
-  ) {}
+  constructor(private learningObjectService: LearningObjectService) {}
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
+  }
 
   ngOnInit(): void {
     this.image = this.getValueCheck("image");
@@ -45,18 +50,19 @@ export class OaInfoComponent implements OnInit {
     this.paragraph = this.getValueCheck("paragraph");
 
     //console.log(this.config_adaptability);
+    console.log(this.learningObject);
   }
 
   getValueCheck(value: string) {
-    return this.config_adaptability.areas.includes(value);
+    return this.learningObject.config_adaptability.areas.includes(value);
   }
 
   get method() {
-    if (this.config_adaptability.method === "handbook") {
+    if (this.learningObject.config_adaptability.method === "handbook") {
       return "Manual";
-    } else if (this.config_adaptability.method === "automatic") {
+    } else if (this.learningObject.config_adaptability.method === "automatic") {
       return "Automatica";
-    } else if (this.config_adaptability.method === "mixed") {
+    } else if (this.learningObject.config_adaptability.method === "mixed") {
       return "Mixta";
     }
   }
@@ -65,87 +71,104 @@ export class OaInfoComponent implements OnInit {
     //console.log(this.button);
   }
 
-  private emittEvent(){
+  private emittEvent() {
     this.eventAdaptabilit.emit({
-      image:this.image,
-      video:this.video,
-      audio:this.audio,
-      paragraph:this.paragraph
+      image: this.image,
+      video: this.video,
+      audio: this.audio,
+      paragraph: this.paragraph,
     });
   }
 
-  async showResponsiveDialog(){
-
+  async showResponsiveDialog() {
     //Servicio de retorno de objetos adaptados
-    let objetos_adaptados = await this.learningObjectService.getTagAdapted(this.oa_id).subscribe(
-      response => {
-        if(response){
+    if (
+      this.learningObject?.config_adaptability.method == "automatic" &&
+      !this.learningObject?.complete_adaptation
+    ) {
+      return;
+    }
+    let objetos_adaptados = await this.learningObjectService
+      .getTagAdapted(this.learningObject.id)
+      .subscribe((response) => {
+        if (response) {
+          console.log("response", response);
           this.tag_adapted = response;
-          this.displayResponsive = true
-        } 
-      }
-    )
+          this.displayResponsive = true;
+        }
+      });
+    this.subscription.push(objetos_adaptados);
   }
 
- async descargar(){
+  async descargar() {
+    
+    if(this.dounloadState){
+      return
+    }
 
-    const agent = window.navigator.userAgent.toLowerCase()
+    this.dounloadState = true;
+    const agent = window.navigator.userAgent.toLowerCase();
     switch (true) {
-      case agent.indexOf('edge') > -1:
-        this. navegador='Edge' 
+      case agent.indexOf("edge") > -1:
+        this.navegador = "Edge";
         break;
-      case agent.indexOf('opr') > -1 && !!(<any>window).opr:
-        this. navegador='Opera'
+      case agent.indexOf("opr") > -1 && !!(<any>window).opr:
+        this.navegador = "Opera";
         break;
-      case agent.indexOf('chrome') > -1 && !!(<any>window).chrome:
-        this. navegador='Chrome'
+      case agent.indexOf("chrome") > -1 && !!(<any>window).chrome:
+        this.navegador = "Chrome";
         break;
-      case agent.indexOf('trident') > -1:
-        this. navegador='Trident'
+      case agent.indexOf("trident") > -1:
+        this.navegador = "Trident";
         break;
-      case agent.indexOf('firefox') > -1:
-        this. navegador='Firefox'
+      case agent.indexOf("firefox") > -1:
+        this.navegador = "Firefox";
         break;
-      case agent.indexOf('safari') > -1:
-        this. navegador='Safari'
+      case agent.indexOf("safari") > -1:
+        this.navegador = "Safari";
         break;
     }
 
     //this.getLocation()
-    this.learningObjectService.getPosition().then(pos => {
+    this.learningObjectService.getPosition().then((pos) => {
       this.latitude = pos.lat;
       this.longitude = pos.lng;
-      console.log(this.latitude,this.longitude)
-  });
+      console.log(this.latitude, this.longitude);
+    });
 
     let answers = {
-        browser : this.navegador,
-        longitude: this.longitude,
-        latitude: this.latitude
+      browser: this.navegador,
+      longitude: this.longitude,
+      latitude: this.latitude,
+    };
+    console.log("id" + this.learningObject.id);
+    if (this.learningObject.file_download) {
+      this.downloadFile(this.learningObject.file_download);
+      this.displayResponsive = false;
+      return;
     }
-    console.log('id'+this.oa_id);
-    let paht_download = await this.learningObjectService.getDownloadFileZip(this.oa_id, answers).subscribe(
-      response =>{
-        if(response){
-          this.downloadFile(response.path)
-          this.displayResponsive=false;
-         
+    let paht_download = await this.learningObjectService
+      .getDownloadFileZip(this.learningObject.id, answers)
+      .subscribe((response) => {
+        if (response) {
+          this.downloadFile(response.path);
+          this.displayResponsive = false;
         }
-      
-      }
-    )
+      });
+    this.subscription.push(paht_download);
   }
 
   getLocation() {
-    this.learningObjectService.getPosition().then(pos => {
-        this.latitude = pos.lat;
-        this.longitude = pos.lng;
-        //console.log(this.latitude,this.longitude)
+    this.learningObjectService.getPosition().then((pos) => {
+      this.latitude = pos.lat;
+      this.longitude = pos.lng;
+      //console.log(this.latitude,this.longitude)
     });
   }
 
   downloadFile(data: any) {
     window.open(data);
+    this.dounloadState = false;
   }
   onChangeImage() {
     //console.log(this.image);
@@ -163,5 +186,4 @@ export class OaInfoComponent implements OnInit {
     //console.log(this.paragraph);
     this.emittEvent();
   }
-
 }
