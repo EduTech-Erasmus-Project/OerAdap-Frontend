@@ -26,9 +26,7 @@ export class WebviewComponent implements OnInit {
 
   private mensajeID: string;
 
-  constructor(
-    private learningObjectService: LearningObjectService,
-  ) {}
+  constructor(private learningObjectService: LearningObjectService) {}
 
   ngOnInit(): void {
     //console.log("pages", this.pages)

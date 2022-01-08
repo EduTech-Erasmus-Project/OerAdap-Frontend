@@ -3,12 +3,13 @@
         <div class="p-col-12 p-md-8 p-lg-9">
             <div class="card">
                 <p-tabView (onChange)="onChangeWebview($event)" styleClass="webview-container">
-                    <p-tabPanel>
+                    <p-tabPanel
+                        *ngIf="learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation">
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-user"></i> -->
                             <span>Objeto de aprendizaje adaptado</span>
                         </ng-template>
-                        <app-webview (eventPage)="eventPage($event)" [pages]="learningObject.pages_adapted">
+                        <app-webview (eventPage)="eventPage($event)" [pages]="learningObject?.pages_adapted">
                         </app-webview>
                     </p-tabPanel>
                     <p-tabPanel>
@@ -16,7 +17,7 @@
                             <!-- <i class="pi pi-calendar"></i> -->
                             <span>Objeto de aprendizaje original</span>
                         </ng-template>
-                        <app-webview (eventPage)="eventPage($event)" [pages]="learningObject.pages_origin">
+                        <app-webview (eventPage)="eventPage($event)" [pages]="learningObject?.pages_origin">
                         </app-webview>
                     </p-tabPanel>
                 </p-tabView>
@@ -30,9 +31,7 @@
                             <i class="pi pi-exclamation-circle"></i>
                             <span>Información</span>
                         </ng-template>
-                        <app-oa-info (eventAdaptabilit)="eventAdaptabilit($event)"
-                            [oa_detail]="learningObject.oa_detail" [file_detail]="learningObject.file_detail"
-                            [config_adaptability]="learningObject.config_adaptability" [oa_id]="learningObject.id">
+                        <app-oa-info (eventAdaptabilit)="eventAdaptabilit($event)" [learningObject]="learningObject">
                         </app-oa-info>
                     </p-tabPanel>
                     <p-tabPanel header="Header II">
@@ -157,58 +156,66 @@
 
 
 
+<div class="card main-content oa-adaptability">
+    <ng-container
+        *ngIf="tabAdapted && (learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation); else elseTemplate">
+        <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
+            <p-tabPanel id="audio" header="Audios" *ngIf="audio">
+                <ng-template pTemplate="header">
+                    <i class="pi pi-play"></i>
+                    <span>Audios</span>
+                </ng-template>
+                <ng-container *ngIf="!nFoundAudio; else audioTemplate">
+                    <app-audio-content [audiosGroup]=audiosGroup></app-audio-content>
+                </ng-container>
+                <ng-template #audioTemplate>
+                    <h5 class="no-content">Esta página no contiene audios.</h5>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel id="image" header="Imagenes" *ngIf="image">
+                <ng-template pTemplate="header">
+                    <i class="pi pi-image"></i>
+                    <span>Imágenes</span>
+                </ng-template>
+                <ng-container *ngIf="!nFoundImage; else imagesTemplate">
+                    <app-image-content [imagesGroup]=imagesGroup [nFoundImage]=nFoundImage></app-image-content>
+                </ng-container>
+                <ng-template #imagesTemplate>
+                    <h5 class="no-content">Esta página no contiene imágenes</h5>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel id="paragraph" header="Parrafos" *ngIf="paragraph">
+                <ng-template pTemplate="header">
+                    <i class="pi pi-align-center"></i>
+                    <span>Parrafos</span>
+                </ng-template>
+                <ng-container *ngIf="paragraphs?.length > 0; else paragraphsTemplate">
+                    <app-paragraph-content [paragraphs]="paragraphs"></app-paragraph-content>
+                </ng-container>
+                <ng-template #paragraphsTemplate>
+                    <h5 class="no-content">Esta página no contiene párrafos</h5>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel id="video" header="Vídeos" *ngIf="video">
+                <ng-template pTemplate="header">
+                    <i class="pi pi-video"></i>
+                    <span>Vídeos</span>
+                </ng-template>
+                <ng-container *ngIf="videos?.length > 0; else videosTemplate">
+                    <app-video-content [videos]="videos"></app-video-content>
+                </ng-container>
+                <ng-template #videosTemplate>
+                    <h5 class="no-content">Esta página no contiene vídeos</h5>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
 
+    </ng-container>
+    <ng-template #elseTemplate>
+        <div class="content-spin">
+            <p-progressSpinner></p-progressSpinner>
+            <p>Seguimos procesando la información del objeto de aprendizaje por favor espere unos minutos...</p>
+        </div>
+    </ng-template>
 
-<div class="card main-content oa-adaptability" *ngIf="tabAdapted">
-    <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
-        <p-tabPanel id="audio" header="Audios" *ngIf="audio">
-            <ng-template pTemplate="header">
-                <i class="pi pi-play"></i>
-                <span>Audios</span>
-            </ng-template>
-            <ng-container *ngIf="!nFoundAudio; else audioTemplate">
-                <app-audio-content [audiosGroup]=audiosGroup></app-audio-content>
-            </ng-container>
-            <ng-template #audioTemplate>
-                <h5 class="no-content">Esta página no contiene audios.</h5>
-            </ng-template>
-        </p-tabPanel>
-        <p-tabPanel id="image" header="Imagenes" *ngIf="image">
-            <ng-template pTemplate="header">
-                <i class="pi pi-image"></i>
-                <span>Imágenes</span>
-            </ng-template>
-            <ng-container *ngIf="!nFoundImage; else imagesTemplate">
-                <app-image-content [imagesGroup]=imagesGroup [nFoundImage]=nFoundImage></app-image-content>
-            </ng-container>
-            <ng-template #imagesTemplate>
-                <h5 class="no-content">Esta página no contiene imágenes</h5>
-            </ng-template>
-        </p-tabPanel>
-        <p-tabPanel id="paragraph" header="Parrafos" *ngIf="paragraph">
-            <ng-template pTemplate="header">
-                <i class="pi pi-align-center"></i>
-                <span>Parrafos</span>
-            </ng-template>
-            <ng-container *ngIf="paragraphs?.length > 0; else paragraphsTemplate">
-                <app-paragraph-content [paragraphs]="paragraphs"></app-paragraph-content>
-            </ng-container>
-            <ng-template #paragraphsTemplate>
-                <h5 class="no-content">Esta página no contiene párrafos</h5>
-            </ng-template>
-        </p-tabPanel>
-        <p-tabPanel id="video" header="Vídeos" *ngIf="video">
-            <ng-template pTemplate="header">
-                <i class="pi pi-video"></i>
-                <span>Vídeos</span>
-            </ng-template>
-            <ng-container *ngIf="videos?.length > 0; else videosTemplate">
-                <app-video-content [videos]="videos"></app-video-content>
-            </ng-container>
-            <ng-template #videosTemplate>
-                <h5 class="no-content">Esta página no contiene vídeos</h5>
-            </ng-template>
-
-        </p-tabPanel>
-    </p-tabView>
 </div>

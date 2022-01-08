@@ -98,17 +98,17 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   getmethod(idx) {
-    if (this.learningObjects[idx].config_adaptability[0].method === "handbook") {
+    if (this.learningObjects[idx].config_adaptability.method === "handbook") {
       return "Manual";
-    } else if (this.learningObjects[idx].config_adaptability[0].method === "automatic") {
+    } else if (this.learningObjects[idx].config_adaptability.method === "automatic") {
       return "Automatica";
-    } else if (this.learningObjects[idx].config_adaptability[0].method === "mixed") {
+    } else if (this.learningObjects[idx].config_adaptability.method === "mixed") {
       return "Mixta";
     }
   }
 
   getareas(idx){
-    return this.learningObjects[idx].config_adaptability[0].areas.join(', ')
+    return this.learningObjects[idx].config_adaptability.areas.join(', ')
   }
 
   async onUpload() {
