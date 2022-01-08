@@ -115,7 +115,6 @@ export class OaInfoComponent implements OnInit {
     this.learningObjectService.getPosition().then(pos => {
       this.latitude = pos.lat;
       this.longitude = pos.lng;
-      console.log(this.latitude,this.longitude)
   });
 
     let answers = {
@@ -123,7 +122,6 @@ export class OaInfoComponent implements OnInit {
         longitude: this.longitude,
         latitude: this.latitude
     }
-    console.log('id'+this.oa_id);
     let paht_download = await this.learningObjectService.getDownloadFileZip(this.oa_id, answers).subscribe(
       response =>{
         if(response){
