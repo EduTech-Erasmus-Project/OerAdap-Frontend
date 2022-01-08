@@ -133,8 +133,8 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     this.learningObjectService.getPosition().then((pos) => {
       this.latitude = pos.lat;
       this.longitude = pos.lng;
-      console.log(this.latitude, this.longitude);
-    });
+  });
+
 
     let answers = {
       browser: this.navegador,
@@ -147,12 +147,14 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       this.displayResponsive = false;
       return;
     }
+
     let paht_download = await this.learningObjectService
       .getDownloadFileZip(this.learningObject.id, answers)
       .subscribe((response) => {
         if (response) {
           this.downloadFile(response.path);
           this.displayResponsive = false;
+
         }
       });
     this.subscription.push(paht_download);
