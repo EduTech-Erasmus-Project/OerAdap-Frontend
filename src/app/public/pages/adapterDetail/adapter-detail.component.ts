@@ -65,7 +65,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
           let filterIndex = res.pages_adapted.filter((page) =>
             page.preview_path.includes("index.html")
           );
-          this.currentPageId = filterIndex[0].id;
+          console.log("filterIndex", res.pages_adapted[0].id)
+
+          this.currentPageId = filterIndex[0]?.id || res.pages_adapted[0].id;
           this.image = this.getValueCheck("image");
           this.video = this.getValueCheck("video");
           this.audio = this.getValueCheck("audio");
@@ -146,6 +148,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
 
   getValueCheck(value: string) {
+    console.log("data areas", this.learningObject.config_adaptability.areas);
     return this.learningObject.config_adaptability.areas.includes(value);
   }
 
