@@ -4,7 +4,7 @@
             <div class="card">
                 <p-tabView (onChange)="onChangeWebview($event)" styleClass="webview-container">
                     <p-tabPanel
-                        *ngIf="learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation">
+                        *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'">
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-user"></i> -->
                             <span>Objeto de aprendizaje adaptado</span>
@@ -156,9 +156,11 @@
 
 
 
-<div class="card main-content oa-adaptability">
+<div class="card main-content oa-adaptability" *ngIf="tabAdapted">
+    
     <ng-container
-        *ngIf="tabAdapted && (learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation); else elseTemplate">
+        *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'; else elseTemplate">
+        <p>{{learningObject?.config_adaptability.method}}</p>
         <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
             <p-tabPanel id="audio" header="Audios" *ngIf="audio">
                 <ng-template pTemplate="header">
@@ -209,7 +211,6 @@
                 </ng-template>
             </p-tabPanel>
         </p-tabView>
-
     </ng-container>
     <ng-template #elseTemplate>
         <div class="content-spin">

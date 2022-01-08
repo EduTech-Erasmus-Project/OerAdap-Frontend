@@ -41,10 +41,10 @@ export class WebviewComponent implements OnInit {
     );
 
     this.selectedPage = {
-      name: filterIndex[0].title,
-      code: filterIndex[0].preview_path,
-      id: filterIndex[0].id,
-      type: filterIndex[0].type,
+      name: filterIndex[0]?.title || this.pages[0].id,
+      code: filterIndex[0]?.preview_path || this.pages[0].preview_path,
+      id: filterIndex[0]?.id || this.pages[0].id,
+      type: filterIndex[0]?.type || this.pages[0].type,
     };
 
     //this.eventPage.emit(this.selectedPage)
