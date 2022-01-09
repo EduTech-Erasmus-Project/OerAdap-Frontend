@@ -171,7 +171,16 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.loaderGenerateSubtitle = false;
         },
         (error) => {
-          //console.log(error);
+          console.log(error);
+          if(error.status === 406){
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail: "El vídeo no está disponible.",
+            });
+            this.loaderGenerateSubtitle = false;
+            return
+          }
           this.messages.push({
             severity: "error",
             summary: "Error",

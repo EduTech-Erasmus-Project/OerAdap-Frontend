@@ -13,6 +13,9 @@
                 [showClear]="true"></p-dropdown>
             </div>
             <div>
+                <a aria-label="Botón de ver en una nueva ventana" target="_blank" [href]="selectedPage.code"  pButton pRipple
+                        type="button" icon="pi pi-link" pTooltip="Abrir en una nueva ventana" class="p-button-rounded p-button-outlined" style="margin-right: 5px;"></a>
+
                 <ng-container *ngIf="fullScreen; else elseTemplate">
                     <button aria-label="Boton de salir de la pantalla completa" (click)="closeFullscreen()" pButton pRipple
                         type="button" icon="pi pi-window-minimize" class="p-button-rounded p-button-outlined"></button>
