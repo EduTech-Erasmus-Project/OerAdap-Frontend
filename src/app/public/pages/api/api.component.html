@@ -211,13 +211,108 @@
             </tr>
         </tbody>
     </table>
+    <h2>Direcciones de los datos de respuesta de la API</h2>
+    <p>La API usa las siguientes datos de respuesta</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Atributo</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td>Number</td>
+                <td>Id unico del objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>oa_detail</td>
+                <td>Object</td>
+                <td>Objeto que contiene la informacion basica del objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>created_at</td>
+                <td>Timestamp</td>
+                <td>Fecha de creación de objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>expires_at</td>
+                <td>Timestamp</td>
+                <td>Fecha en la que se eliminara el objeto de aprendizaje del servidor.</td>
+            </tr>
+            <tr>
+                <td>preview_origin</td>
+                <td>String</td>
+                <td>Url para visualizar el objeto de aprendizaje original.</td>
+            </tr>
+            <tr>
+                <td>preview_adapted</td>
+                <td>String</td>
+                <td>Url para visualizar el objeto de aprendizaje adaptado.</td>
+            </tr>
+            <tr>
+                <td>file_detail</td>
+                <td>Object</td>
+                <td>Objeto de información del contenido del objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>adapted_detail</td>
+                <td>Object</td>
+                <td>Objeto de información del contenido adaptado en el objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>config_adaptability</td>
+                <td>Object</td>
+                <td>Objeto de información de la configuracion seleccionada para la optimización.</td>
+            </tr>
+            <tr>
+                <td>complete_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad.</td>
+            </tr>
+            <tr>
+                <td>button_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad del boton o la barra de adaptabilidad.</td>
+            </tr>
+            <tr>
+                <td>audio_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de los audios.</td>
+            </tr>
+            <tr>
+                <td>image_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de las images.</td>
+            </tr>
+            <tr>
+                <td>paragraph_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de los parrafos de texto.</td>
+            </tr>
+            <tr>
+                <td>video_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de los videos.</td>
+            </tr>
+            <tr>
+                <td>file_download</td>
+                <td>String</td>
+                <td>Url de descarga del objeto de aprendizaje adaptado.</td>
+            </tr>
+        </tbody>
+    </table>
     <h2>Ejemplos subir un objeto de aprendizaje</h2>
     <p>Para subir un objeto de aprendizaje:</p>
     <p style="text-align:start;">Path:
-        <span class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/upload?api_key=TU_API_KEY&adaptation=image,audio,video,paragraph,button</span>
+        <span
+            class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/upload?api_key=TU_API_KEY&adaptation=image,audio,video,paragraph,button</span>
     </p>
     <p><span>Método:</span> POST</p>
     <p><span>Parametro en Form-Data:</span> file</p>
+    <p><span>Retorno:</span> Retorna un objeto Json al completar la carga, esto puede tardar varios minutos</p>
     <h5>Ejemplo en Postman</h5>
     <img src="assets/img/Ejemplo_POST.png" alt="Ejemplo de petición POST en Postman">
     <h5>Resultado</h5>
@@ -231,6 +326,7 @@
     <p>Path: <span class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/files?api_key=TU_API_KEY</span>
     </p>
     <p><span>Método:</span> GET</p>
+    <p><span>Retorno:</span> Retorna un lista de objetos Json</p>
     <h5>Ejemplo en Postman</h5>
     <img src="assets/img/Ejemplo_GET_Files.png" alt="Ejemplo de petición GET en Postman">
     <h5>Resultado</h5>
@@ -244,6 +340,7 @@
             class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/files/{{"{ID}"}}?api_key=TU_API_KEY</span>
     </p>
     <p><span>Método:</span> GET</p>
+    <p><span>Retorno:</span> Retorna un objeto Json</p>
     <h5>Ejemplo en Postman</h5>
     <img src="assets/img/Ejemplo_GET_File.png" alt="Ejemplo de petición GET en Postman">
     <h5>Resultado</h5>

@@ -39,7 +39,7 @@
                             <i class="pi pi-sliders-h"></i>
                             <span>Metadatos</span>
                         </ng-template>
-                        <p>Metadatos</p>
+                        <app-oa-metadata [metadata]="learningObject.metadata"></app-oa-metadata>
                     </p-tabPanel>
                 </p-tabView>
             </div>
@@ -160,7 +160,6 @@
     
     <ng-container
         *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'; else elseTemplate">
-        <p>{{learningObject?.config_adaptability.method}}</p>
         <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
             <p-tabPanel id="audio" header="Audios" *ngIf="audio">
                 <ng-template pTemplate="header">

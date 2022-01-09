@@ -5,6 +5,7 @@ import { LearningObject, Page } from "src/app/models/LearningObject";
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { PageService } from "src/app/services/page.service";
 import { Paragraph, Video } from "../../../models/Page";
+import { Metadata } from '../../../models/Metadata';
 
 @Component({
   selector: "app-adapter-detail",
@@ -33,6 +34,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   public nFoundAudio: boolean = false;
   public curremtPage: Page;
   public tabAdapted = true;
+  public metadata?: Metadata[];
 
   public dataTabPanel?: any;
 
@@ -139,7 +141,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.videos = [];
     let videoSub = this.pageService.getVideo(this.currentPageId).subscribe(
       (res: any) => {
-        //console.log("res loadVideo", res)
+        console.log("res loadVideo", res)
         this.videos = res;
       },
       (err) => console.log(err)

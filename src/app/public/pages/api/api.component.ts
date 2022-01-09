@@ -15,116 +15,125 @@ export class ApiComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   data = {
-    "id": 105,
-    "oa_detail": {
-        "title": "Sistemas numericos "
+    id: 105,
+    oa_detail: {
+      title: "Sistemas numericos ",
     },
-    "created_at": "2021-12-26T16:22:37.553032Z",
-    "expires_at": "2021-12-27T16:22:37.553032Z",
-    "preview_origin": "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_origin/index.html",
-    "preview_adapted": "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted/index.html",
-    "file_detail": {
-        "pages": 39,
-        "images": 21,
-        "paragraphs": 21,
-        "videos": 6,
-        "audios": 0
+    created_at: "2021-12-26T16:22:37.553032Z",
+    expires_at: "2021-12-27T16:22:37.553032Z",
+    preview_origin:
+      "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_origin/index.html",
+    preview_adapted:
+      "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted/index.html",
+    file_detail: {
+      pages: 39,
+      images: 21,
+      paragraphs: 21,
+      videos: 6,
+      audios: 0,
     },
-    "adapted_detail": {
-        "images": 21,
-        "paragraphs": 21,
-        "videos": 0,
-        "audios": 0
+    adapted_detail: {
+      images: 21,
+      paragraphs: 21,
+      videos: 0,
+      audios: 0,
     },
-    "config_adaptability": [
-        {
-            "id": 102,
-            "method": "automatic",
-            "areas": [
-                "image",
-                "audio",
-                "video",
-                "paragraph",
-                "button"
-            ]
-        }
-    ]
-}
+    config_adaptability: {
+      id: 102,
+      method: "automatic",
+      areas: ["image", "audio", "video", "paragraph", "button"],
+    },
 
-arrayData= [
-  {
-      "id": 105,
-      "oa_detail": {
-          "title": "Sistemas numericos "
+    complete_adaptation: true,
+    button_adaptation: true,
+    audio_adaptation: true,
+    image_adaptation: true,
+    paragraph_adaptation: true,
+    video_adaptation: true,
+    file_download:
+      "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted.zip",
+  };
+
+  arrayData = [
+    {
+      id: 105,
+      oa_detail: {
+        title: "Sistemas numericos ",
       },
-      "created_at": "2021-12-26T15:11:55.029890Z",
-      "expires_at": "2021-12-27T15:11:55.029890Z",
-      "preview_origin": "http://127.0.0.1:8000/uploads/OASCORM_fg3LF8Z5/OASCORM_fg3LF8Z5_origin/index.html",
-      "preview_adapted": "http://127.0.0.1:8000/uploads/OASCORM_fg3LF8Z5/OASCORM_fg3LF8Z5_adapted/index.html",
-      "file_detail": {
-          "pages": 39,
-          "images": 21,
-          "paragraphs": 21,
-          "videos": 6,
-          "audios": 0
+      created_at: "2021-12-26T15:11:55.029890Z",
+      expires_at: "2021-12-27T15:11:55.029890Z",
+      preview_origin:
+        "https://oeradap.edutech-project.org/uploads/OASCORM_fg3LF8Z5/OASCORM_fg3LF8Z5_origin/index.html",
+      preview_adapted:
+        "https://oeradap.edutech-project.org/uploads/OASCORM_fg3LF8Z5/OASCORM_fg3LF8Z5_adapted/index.html",
+      file_detail: {
+        pages: 39,
+        images: 21,
+        paragraphs: 21,
+        videos: 6,
+        audios: 0,
       },
-      "adapted_detail": {
-          "images": 21,
-          "paragraphs": 21,
-          "videos": 0,
-          "audios": 0
+      adapted_detail: {
+        images: 21,
+        paragraphs: 21,
+        videos: 0,
+        audios: 0,
       },
-      "config_adaptability": [
-          {
-              "id": 101,
-              "method": "automatic",
-              "areas": [
-                  "image",
-                  "audio",
-                  "video",
-                  "paragraph",
-                  "button"
-              ]
-          }
-      ]
-  },
-  {
-      "id": 106,
-      "oa_detail": {
-          "title": "Sistemas numericos "
+      config_adaptability: {
+        id: 101,
+        method: "automatic",
+        areas: ["image", "audio", "video", "paragraph", "button"],
       },
-      "created_at": "2021-12-26T16:22:37.553032Z",
-      "expires_at": "2021-12-27T16:22:37.553032Z",
-      "preview_origin": "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_origin/index.html",
-      "preview_adapted": "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted/index.html",
-      "file_detail": {
-          "pages": 39,
-          "images": 21,
-          "paragraphs": 21,
-          "videos": 6,
-          "audios": 0
+
+      complete_adaptation: true,
+      button_adaptation: true,
+      audio_adaptation: true,
+      image_adaptation: true,
+      paragraph_adaptation: true,
+      video_adaptation: true,
+      file_download:
+        "https://oeradap.edutech-project.org/uploads/OASCORM_fg3LF8Z5/OASCORM_fg3LF8Z5_adapted.zip",
+    },
+    {
+      id: 106,
+      oa_detail: {
+        title: "Sistemas numericos ",
       },
-      "adapted_detail": {
-          "images": 21,
-          "paragraphs": 21,
-          "videos": 0,
-          "audios": 0
+      created_at: "2021-12-26T16:22:37.553032Z",
+      expires_at: "2021-12-27T16:22:37.553032Z",
+      preview_origin:
+        "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_origin/index.html",
+      preview_adapted:
+        "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted/index.html",
+      file_detail: {
+        pages: 39,
+        images: 21,
+        paragraphs: 21,
+        videos: 6,
+        audios: 0,
       },
-      "config_adaptability": [
-          {
-              "id": 102,
-              "method": "automatic",
-              "areas": [
-                  "image",
-                  "audio",
-                  "video",
-                  "paragraph",
-                  "button"
-              ]
-          }
-      ]
-  }
-]
+      adapted_detail: {
+        images: 21,
+        paragraphs: 21,
+        videos: 0,
+        audios: 0,
+      },
+      config_adaptability: {
+        id: 102,
+        method: "automatic",
+        areas: ["image", "audio", "video", "paragraph", "button"],
+      },
+
+      complete_adaptation: true,
+      button_adaptation: true,
+      audio_adaptation: true,
+      image_adaptation: true,
+      paragraph_adaptation: true,
+      video_adaptation: true,
+      file_download:
+        "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted.zip",
+    },
+  ];
 
   constructor(
     private fb: FormBuilder,
