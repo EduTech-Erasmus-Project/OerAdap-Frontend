@@ -41,7 +41,7 @@ export class AudioComponent implements OnInit {
     this.messages = [];
 
     this.generate_text = true;
-    console.log(item.attributes[0].path_src);
+    //console.log(item.attributes[0].path_src);
 
     this.answers = {
       tag_page_learning_object: item.id,
@@ -58,7 +58,7 @@ export class AudioComponent implements OnInit {
       .sentCreateAudio(this.answers)
       .subscribe(
         (response) => {
-          console.log("respuesta" + response);
+          //console.log("respuesta" + response);
           if (response) {
             this.showSuccess("Se genero la descripción del audio con exito");
             this.editTextArea = false;
