@@ -50,6 +50,125 @@ export class ApiComponent implements OnInit, OnDestroy {
     image_adaptation: true,
     paragraph_adaptation: true,
     video_adaptation: true,
+    "metadata": [
+      {
+          "area": "image",
+          "metadata": [
+              {
+                  "property": "accessibilityFeature",
+                  "type": "alternativeText"
+              }
+          ]
+      },
+      {
+          "area": "audio",
+          "metadata": [
+              {
+                  "property": "accessibilityFeature",
+                  "type": "transcript"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "ttsMarkup"
+              },
+              {
+                  "property": "accessMode",
+                  "type": "textual"
+              }
+          ]
+      },
+      {
+          "area": "video",
+          "metadata": [
+              {
+                  "property": "accessibilityFeature",
+                  "type": "caption"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "synchronizedAudioText"
+              }
+          ]
+      },
+      {
+          "area": "paragraph",
+          "metadata": [
+              {
+                  "property": "alignmentType",
+                  "type": "textComplexity"
+              },
+              {
+                  "property": "alignmentType",
+                  "type": "readingLevel"
+              },
+              {
+                  "property": "accessMode",
+                  "type": "auditory"
+              }
+          ]
+      },
+      {
+          "area": "button",
+          "metadata": [
+              {
+                  "property": "accessibilityFeature",
+                  "type": "displayTransformability/background-color"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "displayTransformability/font-family"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "displayTransformability/font-size"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "displayTransformability/color"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "displayTransformability/word-spacing"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "displayTransformability/line-height"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "captions"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "synchronizedAudioText"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "highContrastDisplay"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "transcript"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "structuralNavigation"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "readingOrder"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "tableOfContents"
+              },
+              {
+                  "property": "accessibilityFeature",
+                  "type": "index"
+              }
+          ]
+      }
+  ],
     file_download:
       "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted.zip",
   };
@@ -91,6 +210,125 @@ export class ApiComponent implements OnInit, OnDestroy {
       image_adaptation: true,
       paragraph_adaptation: true,
       video_adaptation: true,
+      "metadata": [
+        {
+            "area": "image",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "alternativeText"
+                }
+            ]
+        },
+        {
+            "area": "audio",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "transcript"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "ttsMarkup"
+                },
+                {
+                    "property": "accessMode",
+                    "type": "textual"
+                }
+            ]
+        },
+        {
+            "area": "video",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "caption"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "synchronizedAudioText"
+                }
+            ]
+        },
+        {
+            "area": "paragraph",
+            "metadata": [
+                {
+                    "property": "alignmentType",
+                    "type": "textComplexity"
+                },
+                {
+                    "property": "alignmentType",
+                    "type": "readingLevel"
+                },
+                {
+                    "property": "accessMode",
+                    "type": "auditory"
+                }
+            ]
+        },
+        {
+            "area": "button",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/background-color"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/font-family"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/font-size"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/color"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/word-spacing"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/line-height"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "captions"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "synchronizedAudioText"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "highContrastDisplay"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "transcript"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "structuralNavigation"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "readingOrder"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "tableOfContents"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "index"
+                }
+            ]
+        }
+    ],
       file_download:
         "https://oeradap.edutech-project.org/uploads/OASCORM_fg3LF8Z5/OASCORM_fg3LF8Z5_adapted.zip",
     },
@@ -102,9 +340,9 @@ export class ApiComponent implements OnInit, OnDestroy {
       created_at: "2021-12-26T16:22:37.553032Z",
       expires_at: "2021-12-27T16:22:37.553032Z",
       preview_origin:
-        "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_origin/index.html",
+        "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_origin/index.html",
       preview_adapted:
-        "http://127.0.0.1:8000/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted/index.html",
+        "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted/index.html",
       file_detail: {
         pages: 39,
         images: 21,
@@ -130,6 +368,125 @@ export class ApiComponent implements OnInit, OnDestroy {
       image_adaptation: true,
       paragraph_adaptation: true,
       video_adaptation: true,
+      "metadata": [
+        {
+            "area": "image",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "alternativeText"
+                }
+            ]
+        },
+        {
+            "area": "audio",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "transcript"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "ttsMarkup"
+                },
+                {
+                    "property": "accessMode",
+                    "type": "textual"
+                }
+            ]
+        },
+        {
+            "area": "video",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "caption"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "synchronizedAudioText"
+                }
+            ]
+        },
+        {
+            "area": "paragraph",
+            "metadata": [
+                {
+                    "property": "alignmentType",
+                    "type": "textComplexity"
+                },
+                {
+                    "property": "alignmentType",
+                    "type": "readingLevel"
+                },
+                {
+                    "property": "accessMode",
+                    "type": "auditory"
+                }
+            ]
+        },
+        {
+            "area": "button",
+            "metadata": [
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/background-color"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/font-family"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/font-size"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/color"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/word-spacing"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "displayTransformability/line-height"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "captions"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "synchronizedAudioText"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "highContrastDisplay"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "transcript"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "structuralNavigation"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "readingOrder"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "tableOfContents"
+                },
+                {
+                    "property": "accessibilityFeature",
+                    "type": "index"
+                }
+            ]
+        }
+    ],
       file_download:
         "https://oeradap.edutech-project.org/uploads/OASCORM_eVJB6yyN/OASCORM_eVJB6yyN_adapted.zip",
     },
@@ -184,7 +541,7 @@ export class ApiComponent implements OnInit, OnDestroy {
         .sendEmailRequestApi(this.formApi.value)
         .subscribe(
           (res: any) => {
-            console.log(res);
+            //console.log(res);
             if (res.Messages[0].Status === "success") {
               this.showSuccess();
               this.formApi.reset();
@@ -200,7 +557,7 @@ export class ApiComponent implements OnInit, OnDestroy {
             }
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
             this.messageService.add({
               severity: "error",
               summary: "Error",

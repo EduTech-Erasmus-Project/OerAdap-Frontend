@@ -61,7 +61,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadTranscript();
     this.messages = [];
-    console.log("video", this.video);
+    //console.log("video", this.video);
   }
 
   ngOnDestroy(): void {
@@ -117,7 +117,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       .generateAutomaticTranscript(this.video.id)
       .subscribe(
         (res: any) => {
-          console.log("res video", res);
+          //console.log("res video", res);
           if(res.code === "developing"){
             this.messages.push({
               severity: "error",
@@ -194,7 +194,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
   onAddForSubtitle() {
     //optimizethis.loader = true;
-    console.log("Add subtitle form");
+    //console.log("Add subtitle form");
   }
 
   async jsonToString(jsonId: any) {
@@ -218,7 +218,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   onChangeLanguage(event) {
-    console.log(event);
+    //console.log(event);
   }
 
   onFileChange(event, idx) {

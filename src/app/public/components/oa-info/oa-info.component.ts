@@ -50,7 +50,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     this.paragraph = this.getValueCheck("paragraph");
 
     //console.log(this.config_adaptability);
-    console.log(this.learningObject);
+    //(this.learningObject);
   }
 
   getValueCheck(value: string) {
@@ -92,7 +92,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       .getTagAdapted(this.learningObject.id)
       .subscribe((response) => {
         if (response) {
-          console.log("response", response);
+          //console.log("response", response);
           this.tag_adapted = response;
           this.displayResponsive = true;
         }
@@ -141,7 +141,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       longitude: this.longitude,
       latitude: this.latitude,
     };
-    console.log("id" + this.learningObject.id);
+    //console.log("id" + this.learningObject.id);
     if (this.learningObject.file_download) {
       this.downloadFile(this.learningObject.file_download);
       this.displayResponsive = false;

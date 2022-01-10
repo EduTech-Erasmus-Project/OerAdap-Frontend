@@ -142,14 +142,14 @@ export class ImageComponent implements OnInit, OnDestroy {
   }
 
   async confirm(event: Event, id) {
-    console.log("evt" + this.table_result)
+    //console.log("evt" + this.table_result)
     this.confirmationService.confirm({
       target: event.target,
       message: 'Esta seguro que desea guardar los cambios ?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         if (this.flag_text_table == false) {
-          console.log('Se crea')
+          //console.log('Se crea')
           //Aceptar primera añadir tabla
           this.answers = {
             text_table: this.table_result,

@@ -49,7 +49,7 @@ export class ContactComponent implements OnInit, OnDestroy {
         .sendEmail(this.angForm.value)
         .subscribe(
           (res: any) => {
-            console.log(res)
+            //console.log(res)
             if (res.Messages[0].Status === "success") {
               this.showSuccess();
               this.angForm.reset();

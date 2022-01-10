@@ -28,6 +28,9 @@ export class LearningObjectService {
 
 
   uploadObject(data: any) {
+
+    data.areas.splice(data.areas.indexOf('all'), 1);
+    
     //console.log(data)
     let formData = new FormData();
     formData.append("file", data.file);

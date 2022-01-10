@@ -62,12 +62,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       .getLearningObject(this.id)
       .subscribe(
         (res: any) => {
-          console.log("learningObject", res);
+          //console.log("learningObject", res);
           this.learningObject = res;
           let filterIndex = res.pages_adapted.filter((page) =>
             page.preview_path.includes("index.html")
           );
-          console.log("filterIndex", res.pages_adapted[0].id)
+          //console.log("filterIndex", res.pages_adapted[0].id)
 
           this.currentPageId = filterIndex[0]?.id || res.pages_adapted[0].id;
           this.image = this.getValueCheck("image");
@@ -77,7 +77,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
           let areas = res.config_adaptability.areas.sort();
 
-          console.log("areas sort", areas);
+          //console.log("areas sort", areas);
 
           this.dataTabPanel = areas
             .filter((area) => (area != "all" && area != "button"))
@@ -87,10 +87,10 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
                 name: area,
               };
             });
-          console.log(this.image);
-          console.log(this.video);
-          console.log(this.audio);
-          console.log(this.paragraph);
+          //console.log(this.image);
+          //console.log(this.video);
+          //console.log(this.audio);
+          //console.log(this.paragraph);
           let data = this.getDataTabPanel(0)
           this.reLoadData(data.name);
         },
@@ -141,7 +141,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.videos = [];
     let videoSub = this.pageService.getVideo(this.currentPageId).subscribe(
       (res: any) => {
-        console.log("res loadVideo", res)
+        //console.log("res loadVideo", res)
         this.videos = res;
       },
       (err) => console.log(err)
@@ -167,7 +167,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
 
   eventPage(evt) {
-    console.log("eventPage", evt);
+    //console.log("eventPage", evt);
     if (evt.type === "adapted") {
       this.currentPageId = evt.id;
       let data = this.getDataTabPanel(this.tabIndex)
@@ -179,12 +179,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.tabIndex = evt.index;
     let data = this.getDataTabPanel(evt.index)
     this.reLoadData(data.name);
-    console.log("evt", evt);
+    //console.log("evt", evt);
   }
 
   private reLoadData(name) {
-    console.log("reLoadData", name);
-    console.log("dataTabPanel", this.dataTabPanel);
+    //console.log("reLoadData", name);
+    //console.log("dataTabPanel", this.dataTabPanel);
     switch (name) {
       case 'paragraph':
         this.loadParagraph();

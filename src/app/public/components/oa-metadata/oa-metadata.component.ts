@@ -12,7 +12,7 @@ export class OaMetadataComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("metadata", this.metadata);
+    //console.log("metadata", this.metadata);
   }
 
 }

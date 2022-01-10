@@ -24,8 +24,8 @@ export class VideoService {
   }
 
   addTranscript(id: number, data: any) {
-    console.log(data);
-    console.log(data.transcriptions.map(res => res ))
+    //console.log(data);
+    //console.log(data.transcriptions.map(res => res ))
     let formData = new FormData();
     //var blob = new Blob([data], { type: "text/xml"});
     data.transcriptions.forEach(transcript => {
