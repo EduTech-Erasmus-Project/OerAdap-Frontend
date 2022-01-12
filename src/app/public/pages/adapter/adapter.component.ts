@@ -117,7 +117,6 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.displayConditions = false;
     //console.log("upload", this.settingsForm.value)
     let dataForm = this.settingsForm.value;
-    dataForm.areas.splice(dataForm.areas.indexOf('all'), 1);
     let data = {
       file: this.file,
       ...dataForm,
@@ -127,7 +126,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
       .uploadObject(data)
       .subscribe(
         (res: any) => {
-          console.log("res upload", res);
+          //console.log("res upload", res);
           if (res.body?.id) {
             this.navigateId = res.body.id;
             this.storageService.saveStorageItem("user_ref", res.body.user_ref);
@@ -190,7 +189,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
           return b.id - a.id;
       });
 
-        console.log("object", this.learningObjects)
+        //console.log("object", this.learningObjects)
 
         //this.screenShot("https://www.google.com");
 

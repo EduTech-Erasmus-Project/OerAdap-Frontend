@@ -1,10 +1,7 @@
 <div class="main-content">
-    <!-- <h3>Adaptador de Objetos de Aprendizaje</h3> -->
-
     <div class="dop-zone p-grid ">
         <div class="p-col-1 p-md-3 p-lg-3">
         </div>
-
         <div class="p-col-10 p-md-6 p-lg-6">
             <ngx-dropzone *ngIf="!loader" (change)="onSelect($event)" accept=".zip">
                 <ngx-dropzone-label>
@@ -33,7 +30,7 @@
                         <label for="handbook">Manual</label>
                     </div>
                     <div class="p-field-radiobutton">
-                        <p-radioButton name="method" value="automatic" inputId="automatic" formControlName="method">
+                        <p-radioButton [disabled]="true" name="method" value="automatic" inputId="automatic" formControlName="method">
                         </p-radioButton>
                         <label for="automatic">Automático</label>
                     </div>
@@ -108,7 +105,7 @@
                 </ng-container>
 
 
-                <p *ngIf="navigateId">Tu archivo esta listo para editar pulsa en continuar para editarlo</p>
+                <p *ngIf="navigateId">Tu archivo está listo para editar pulsa en continuar para editarlo</p>
                 <ng-container *ngIf="settingsForm.get('method').value == 'automatic'; else loaderTemplate">
                     <p-progressBar *ngIf="!navigateId" mode="indeterminate" [style]="{'height': '10px'}">
                     </p-progressBar>

@@ -25,7 +25,7 @@ export class TokenRefInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
 
-        console.log("interceptor error", error);
+        //console.log("interceptor error", error);
        
         return next.handle(request);
       })

@@ -149,7 +149,8 @@ export class ImageComponent implements OnInit, OnDestroy {
 
       accept: async () => {
         if (this.flag_text_table == false && this.table_result !="" ) {
-          console.log('Se crea')
+         // console.log('Se crea')
+
           //Aceptar primera añadir tabla
           this.answers = {
             text_table: this.table_result,
