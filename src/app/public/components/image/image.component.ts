@@ -142,14 +142,15 @@ export class ImageComponent implements OnInit, OnDestroy {
   }
 
   async confirm(event: Event, id) {
-    //console.log("evt" + this.table_result)
     this.confirmationService.confirm({
       target: event.target,
       message: 'Esta seguro que desea guardar los cambios ?',
       icon: 'pi pi-exclamation-triangle',
+
       accept: async () => {
-        if (this.flag_text_table == false) {
-          //console.log('Se crea')
+        if (this.flag_text_table == false && this.table_result !="" ) {
+         // console.log('Se crea')
+
           //Aceptar primera añadir tabla
           this.answers = {
             text_table: this.table_result,
@@ -160,7 +161,7 @@ export class ImageComponent implements OnInit, OnDestroy {
 
               this.item.text_table = response.text_table
               this.eventService.emitEvent(true);
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Su tabla se a creado' });
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'La tabla se creo correctamente' });
               this.displayModal = false;
               this.flag_text_table = true;
 
@@ -170,7 +171,7 @@ export class ImageComponent implements OnInit, OnDestroy {
               this.showError('Datos no modificados')
             }
           })
-        } else if (this.flag_text_table == true) {
+        } else if (this.flag_text_table == true && this.table_result !="" ) {
           //editar tabla la segunda
           this.answers = {
             text_table: this.table_result,
@@ -182,14 +183,16 @@ export class ImageComponent implements OnInit, OnDestroy {
               this.eventService.emitEvent(true);
               this.displayModal = false;
               this.item.text_table = response.text_table;
-
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Has aceptado' });
+              this.messageService.clear;
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Se actualizo la tabla correctamente' });
             }
           }, (err) => {
             if (err.status == 304) {
               this.showError('Datos no modificados')
             }
           })
+        }else if(this.table_result== ""){
+          this.messageService.add({ severity: 'error', summary: 'Tabla vacia', detail: 'Porfavor genere una tabla antes de guardar' });
         }
       },
       reject: () => {

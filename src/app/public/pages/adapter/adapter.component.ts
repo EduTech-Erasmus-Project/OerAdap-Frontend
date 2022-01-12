@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StorageService } from "../../../services/storage.service";
 import { LearningObject } from "../../../models/LearningObject";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-adapter",
@@ -69,6 +70,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
     private learningObjectService: LearningObjectService,
     private fb: FormBuilder,
     private router: Router,
+    private messageService: MessageService,
     private storageService: StorageService
   ) {
     this.settingsForm = this.fb.group({
@@ -137,7 +139,8 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          console.log(err);
+          console.log("El serro",err.error.state);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Este Objeto de Aprendizaje ya fue adaptado' });
           this.upload = false;
           this.loader = false;
           this.progress = 0;
