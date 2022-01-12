@@ -16,6 +16,7 @@
                     <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
             </ngx-dropzone>
+            <p-messages></p-messages>
         </div>
 
         <div class="p-col-1 p-md-3 p-lg-3">
@@ -42,7 +43,6 @@
                         <label for="mixed">Mixta</label>
                     </div> -->
                 </div>
-
                 <h6>Seleccione las áreas a automatizar.</h6>
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let checkbox of checkboxs">
@@ -57,17 +57,17 @@
                 <div class="button">
                     <p-button type="submit" label="Cargar" icon="pi pi-cloud-upload"></p-button>
                 </div>
+                
                 <!-- <p-button  (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
             </p-button> -->
             </form>
         </div>
 
-
+        <p-toast></p-toast>
 
         <div class="p-grid loader-object">
             <div class="spiner" *ngIf="loader">
                 <p-progressSpinner *ngIf="!navigateId"></p-progressSpinner>
-
                 <div class="progress">
                     <p>Cargando archivo... </p>
                     <span><i [ngClass]="{'pi-spin pi-spinner': progress < 100, 'pi-check': progress >= 100}"
@@ -126,6 +126,8 @@
     </div>
     <!-- *ngIf="upload" -->
 </div>
+  
+
 
 <p-dialog header="Términos y condiciones de uso" [(visible)]="displayConditions" [style]="{width: '50vw'}">
     <p>La Universidad Politécnica Salesiana conjunto con el grupo de investigación EduTech pone a disposición de esta
@@ -202,4 +204,5 @@
         </p-card>
     </div>
 </div>
+
 <app-file-upload></app-file-upload>

@@ -45,7 +45,7 @@
                 <label for="name" style="color:gray; padding:10px 10px" > Click en insertar tabla para crear una tabla nueva:</label>
                 <br>
                 <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="table_result"></ckeditor>
-
+                <p-messages></p-messages>
             </div>
         </div>
         <ng-template pTemplate="footer">
@@ -59,11 +59,12 @@
                     <p-confirmPopup></p-confirmPopup>
                     <button pButton pRipple icon="pi pi-check" (click)="confirm($event, item.id)" label="Guardar Tabla"
                         styleClass="p-button-text"></button>
-                </div>
+                </div>    
             </div>
         </ng-template>
     </p-dialog>
-    <p-toast></p-toast>
+    
+
     <p-messages></p-messages>
 
     <ng-template pTemplate="footer" class="container-buttons">
