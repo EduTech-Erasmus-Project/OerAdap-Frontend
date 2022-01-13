@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { PublicComponent } from "./public.component";
-import { PasswordResedComponent } from "../auth/password-resed/password-resed.component";
 
 const routes: Routes = [
   {
@@ -19,32 +18,32 @@ const routes: Routes = [
           breadcrumb: null,
         },
       },
-      {
-        path: "login",
-        loadChildren: () =>
-          import("../auth/login/login.module").then((m) => m.LoginModule),
-        data: {
-          breadcrumb: "Inicio de sesión",
-        },
-      },
-      {
-        path: "register",
-        loadChildren: () =>
-          import("../auth/sign-up/sign-up.module").then((m) => m.SignUpModule),
-        data: {
-          breadcrumb: "Registro",
-        },
-      },
-      {
-        path: "restart-password",
-        loadChildren: () =>
-          import("../auth/recover-password/recover-password.module").then(
-            (m) => m.RecoverPasswordModule
-          ),
-        data: {
-          breadcrumb: "Reestablecer contraseña",
-        },
-      },
+      // {
+      //   path: "login",
+      //   loadChildren: () =>
+      //     import("../auth/login/login.module").then((m) => m.LoginModule),
+      //   data: {
+      //     breadcrumb: "Inicio de sesión",
+      //   },
+      // },
+      // {
+      //   path: "register",
+      //   loadChildren: () =>
+      //     import("../auth/sign-up/sign-up.module").then((m) => m.SignUpModule),
+      //   data: {
+      //     breadcrumb: "Registro",
+      //   },
+      // },
+      // {
+      //   path: "restart-password",
+      //   loadChildren: () =>
+      //     import("../auth/recover-password/recover-password.module").then(
+      //       (m) => m.RecoverPasswordModule
+      //     ),
+      //   data: {
+      //     breadcrumb: "Reestablecer contraseña",
+      //   },
+      // },
       {
         path: "terms-and-conditions",
         loadChildren: () =>
@@ -53,35 +52,35 @@ const routes: Routes = [
           breadcrumb: "Términos y condiciones",
         },
       },
-      {
-        path: "password-resed/:uidb64/:token",
-        loadChildren: () =>
-          import("../auth/password-resed/password-resed.module").then(
-            (m) => m.PasswordResedModule
-          ),
-        data: {
-          breadcrumb: "Reestablecer contraseña",
-        },
-        component: PasswordResedComponent,
-      },
-      {
-        path: "reset/:?",
-        loadChildren: () =>
-          import("../auth/reset/reset.module").then((m) => m.ResetModule),
-        data: {
-          breadcrumb: "Contraseña reestablecida",
-        },
-      },
-      {
-        path: "emailMessage",
-        loadChildren: () =>
-          import("../auth/emailMessage/email-message.module").then(
-            (m) => m.EmailMessageModule
-          ),
-        data: {
-          breadcrumb: "Enlace enviado",
-        },
-      },
+      // {
+      //   path: "password-resed/:uidb64/:token",
+      //   loadChildren: () =>
+      //     import("../auth/password-resed/password-resed.module").then(
+      //       (m) => m.PasswordResedModule
+      //     ),
+      //   data: {
+      //     breadcrumb: "Reestablecer contraseña",
+      //   },
+      //   component: PasswordResedComponent,
+      // },
+      // {
+      //   path: "reset/:?",
+      //   loadChildren: () =>
+      //     import("../auth/reset/reset.module").then((m) => m.ResetModule),
+      //   data: {
+      //     breadcrumb: "Contraseña reestablecida",
+      //   },
+      // },
+      // {
+      //   path: "emailMessage",
+      //   loadChildren: () =>
+      //     import("../auth/emailMessage/email-message.module").then(
+      //       (m) => m.EmailMessageModule
+      //     ),
+      //   data: {
+      //     breadcrumb: "Enlace enviado",
+      //   },
+      // },
       {
         path: "about-us",
         loadChildren: () =>
@@ -99,16 +98,16 @@ const routes: Routes = [
         },
       },
 
-      {
-        path: "information",
-        loadChildren: () =>
-          import("./pages/information/information.module").then(
-            (m) => m.InformationModule
-          ),
-        data: {
-          breadcrumb: "Información",
-        },
-      },
+      // {
+      //   path: "information",
+      //   loadChildren: () =>
+      //     import("./pages/information/information.module").then(
+      //       (m) => m.InformationModule
+      //     ),
+      //   data: {
+      //     breadcrumb: "Información",
+      //   },
+      // },
       {
         path: "contact",
         loadChildren: () =>

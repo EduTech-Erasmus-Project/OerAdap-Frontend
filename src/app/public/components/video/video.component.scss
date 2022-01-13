@@ -73,3 +73,10 @@
 .jsonToString{
   white-space: pre;
 }
+
+.file_upload::-webkit-file-upload-button {
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}

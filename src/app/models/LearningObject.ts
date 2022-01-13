@@ -7,10 +7,17 @@ export interface LearningObject {
   preview_origin?: string;
   preview_adapted?: string;
   file_detail?: FileDetail;
-  config_adaptability?: ConfigAdaptability;
+  config_adaptability?: any;
   pages_adapted?: Page[];
   pages_origin?: Page[];
-  file_adapted?: null;
+  file_adapted?: string;
+  complete_adaptation?: boolean;
+  button_adaptation?: boolean;
+  audio_adaptation?: boolean;
+  image_adaptation?: boolean;
+  paragraph_adaptation?: boolean;
+  video_adaptation?: boolean;
+  file_download?:string;
 }
 
 export interface ConfigAdaptability {

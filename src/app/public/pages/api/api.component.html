@@ -4,45 +4,362 @@
         <div class="p-col-11 p-md-6 p-lg-6 content-info">
             <div class="text main-content">
                 <!-- <h2>Construyendo un mundo mejor</h2> -->
-                <h2>Cuándo  usar</h2>
-                <p>OER adapter es un API REST  en línea gratuita que tiene como finalidad el uso unicamente educativo. Para solicitar acceso a nuestro servicio puedes llenar el siguiente formulario.</p>
+                <h2>Cuándo usar</h2>
+                <p>OER adapter es un API REST en línea gratuita que tiene como finalidad el uso unicamente educativo.
+                    Para solicitar acceso a nuestro servicio puedes llenar el siguiente formulario.</p>
             </div>
         </div>
-       
+
         <div class="p-col-11 p-md-6 p-lg-6  forms-content">
             <div class="p-grid-n">
-                <form autocomplete="off" [formGroup]="formApi" (ngSubmit)="validateUser()" id="loginForm">
+                <form autocomplete="off" [formGroup]="formApi" (ngSubmit)="validateForm()" id="loginForm">
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">Correo electrónico</label>
-                        <input type="text" formControlName="name" pInputText>
-                        <div *ngIf="name.invalid && (name.dirty || name.touched)">
-                            <small id="name " class="p-error" *ngIf="name.errors.required">Campo
+                        <label for="firstnamelabel">Correo electrónico *</label>
+                        <input type="email" formControlName="email" pInputText>
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                            <small class="p-error" *ngIf="email.errors.required">Campo
                                 Obligatorio</small>
+                            <small class="p-error" *ngIf="email.errors.pattern">El email es invalido</small>
                         </div>
                     </div>
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">Institución</label>
-                        <input type="text" formControlName="email" pInputText>
-                        <div *ngIf="email.invalid && (name.dirty || email.touched)">
-                            <small id="name " class="p-error" *ngIf="email.errors.required">Campo Obligatorio</small>
+                        <label for="firstnamelabel">Institución *</label>
+                        <input type="text" formControlName="institution" pInputText>
+                        <div *ngIf="institution.invalid && (institution.dirty || institution.touched)">
+                            <small class="p-error" *ngIf="institution.errors.required">Campo Obligatorio</small>
                         </div>
                     </div>
                     <div class="p-field p-fluid">
-                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API?</label>
+                        <label for="firstnamelabel">¿Cual es la finalidad de utilizar la API? *</label>
                         <div>
-                            <textarea name="" id="" rows="5" cols="30" style="width: 100%;" formControlName="message"
-                                pInputTextarea></textarea>
+                            <textarea name="" id="" rows="5" cols="30" style="width: 100%;"
+                                formControlName="purpose_use" pInputTextarea></textarea>
                         </div>
-                        <div *ngIf="message.invalid && (message.dirty || message.touched)">
-                            <small id="name " class="p-error" *ngIf="message.errors.required">Campo Obligatorio</small>
+                        <div *ngIf="purpose_use.invalid && (purpose_use.dirty || purpose_use.touched)">
+                            <small class="p-error" *ngIf="purpose_use.errors.required">Campo Obligatorio</small>
                         </div>
                     </div>
                     <div class="button">
-                        <button pButton pRipple type="submit" label="Enviar" icon="pi pi-send"></button>
+                        <button [disabled]="loader" pButton pRipple type="submit" label="Enviar"
+                            icon="pi pi-send"></button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+</div>
+
+<div class="main-content api-description">
+    <h1>OERAdap API</h1>
+    <p>El API REST permite adaptar objetos de aprendizaje de forma automática, tan solo necesitas la API key que se te
+        envía al correo de forma gratuita.</p>
+    <h2>Condiciones de uso</h2>
+    <p>La Universidad Politécnica Salesiana conjunto con el grupo de investigación EduTech pone a disposición de esta
+        plataforma de forma gratuita y sin ánimos de lucro, para el desarrollo de la educación equitativa.</p>
+    <p>Al usar el API el usuario acepta de forma voluntaria los siguientes términos:</p>
+    <p>Los datos que se guardan son solo información de navegación como información del navegador y datos estadísticos
+        sobre el resumen de lo realizado en esta aplicación con la finalidad re recopilar datos estadísticos para
+        mejorar la aplicación.<br />
+        Los archivos subidos no se compartirán con ninguna persona o institución pública o privada de igual manera los
+        archivos generados pertenecen solo al dueño de la llave del API por lo que esta no debe ser compartida bajo
+        ningún criterio.<br />
+        El usuario está en su responsabilidad de subir archivos únicamente recursos educativos (Objetos de Aprendizaje),
+        se admiten solo archivos comprimidos con formato zip.
+    </p>
+    <h2>Peticiones</h2>
+    <p>El API de EduTech OERAdap se basa en principios <a
+            href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a>, para acceder a los recursos
+        de los datos o crear los datos se realiza mediante las solicitudes <a
+            href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> en formato UTF-8.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Petición</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>Solicitud de información</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>Solicitud de creación</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Parámetros</h2>
+    <p>En la solicitud los parámetros se envían como <a href="https://en.wikipedia.org/wiki/Query_string">Query
+            string</a> (cadenas de consultas) es decir adjunto a la URL.</p>
+    <p>Direccion base de la API: <span class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter</span></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Parámetro</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>api_key</td>
+                <td>Llave de acceso a la API, puedes obtener llenando el formulario.</td>
+                <td>?api_key=tu_api_key</td>
+            </tr>
+            <tr>
+                <td>adaptation</td>
+                <td>Áreas las que se quiere adaptar el objeto de aprendizaje.</td>
+                <td>?adaptation=image,audio,video,paragraph,button</td>
+            </tr>
+            <tr>
+                <td>file</td>
+                <td>Nombre del parámetro de tipo form-data de tipo file en el que se adjunta el archivo zip</td>
+                <td>form-data</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Códigos de estado de respuesta</h2>
+    <p>La API usa los siguientes codigos de respuesta como se define en <a
+            href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a> y <a
+            href="https://www.ietf.org/rfc/rfc6585.txt">RFC 6585</a>:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200</td>
+                <td>Solicitud procesada correctamente.</td>
+            </tr>
+            <tr>
+                <td>201</td>
+                <td>Recurso creado correctamente.</td>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>Solicitud inválida.</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Llave de acceso incorrecta.</td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>Recurso no encontrado.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Códigos de error de respuesta</h2>
+    <p>Dentro de nuestras respuestas de error establecemos los siguientes códigos para determinar el error.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>invalid_api_key</td>
+                <td>Llave de acceso incorrecta.</td>
+            </tr>
+            <tr>
+                <td>file_not_found</td>
+                <td>El recurso solicitado caduco o no existe.</td>
+            </tr>
+            <tr>
+                <td>required_file</td>
+                <td>El archivo no se encuentra presente en la petición.</td>
+            </tr>
+            <tr>
+                <td>incorrect_format</td>
+                <td>El archivo no es de formato zip, la API solo admite archivos con extensión .zip</td>
+            </tr>
+            <tr>
+                <td>learning_Object_Adapted</td>
+                <td>El Objeto de Aprendizaje ya fue adaptado por la herramienta.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Direcciones de la API</h2>
+    <p>La API usa las siguientes direcciones para acceder a los recursos:</p>
+    <p>Tomando como base la direccions de la API: <span
+            class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter</span> </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Dirección</th>
+                <th>Método</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>/upload</td>
+                <td>POST</td>
+                <td>Path para subir un objeto de aprendizaje se admite solo archivos con formato .zip</td>
+            </tr>
+            <tr>
+                <td>/files</td>
+                <td>GET</td>
+                <td>Path para obtener todos los objetos de aprendizajes subidos.</td>
+            </tr>
+            <tr>
+                <td>/files/{{"{ID}"}}</td>
+                <td>GET</td>
+                <td>Path para obtener un objeto de aprendizaje subido, mediante su ID.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Direcciones de los datos de respuesta de la API</h2>
+    <p>La API usa las siguientes datos de respuesta</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Atributo</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td>Number</td>
+                <td>Id unico del objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>oa_detail</td>
+                <td>Object</td>
+                <td>Objeto que contiene la informacion basica del objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>created_at</td>
+                <td>Timestamp</td>
+                <td>Fecha de creación de objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>expires_at</td>
+                <td>Timestamp</td>
+                <td>Fecha en la que se eliminara el objeto de aprendizaje del servidor.</td>
+            </tr>
+            <tr>
+                <td>preview_origin</td>
+                <td>String</td>
+                <td>Url para visualizar el objeto de aprendizaje original.</td>
+            </tr>
+            <tr>
+                <td>preview_adapted</td>
+                <td>String</td>
+                <td>Url para visualizar el objeto de aprendizaje adaptado.</td>
+            </tr>
+            <tr>
+                <td>file_detail</td>
+                <td>Object</td>
+                <td>Objeto de información del contenido del objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>adapted_detail</td>
+                <td>Object</td>
+                <td>Objeto de información del contenido adaptado en el objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>config_adaptability</td>
+                <td>Object</td>
+                <td>Objeto de información de la configuracion seleccionada para la optimización.</td>
+            </tr>
+            <tr>
+                <td>complete_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad.</td>
+            </tr>
+            <tr>
+                <td>button_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad del boton o la barra de adaptabilidad.</td>
+            </tr>
+            <tr>
+                <td>audio_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de los audios.</td>
+            </tr>
+            <tr>
+                <td>image_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de las images.</td>
+            </tr>
+            <tr>
+                <td>paragraph_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de los parrafos de texto.</td>
+            </tr>
+            <tr>
+                <td>video_adaptation</td>
+                <td>Boolean</td>
+                <td>Variable booleana para determinar el estado de la adaptabilidad de los videos.</td>
+            </tr>
+            <tr>
+                <td>metadata</td>
+                <td>Object</td>
+                <td>Objeto de información de los metadatos que se están agregando en el Objeto de aprendizaje.</td>
+            </tr>
+            <tr>
+                <td>file_download</td>
+                <td>String</td>
+                <td>Url de descarga del objeto de aprendizaje adaptado.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Ejemplos subir un objeto de aprendizaje</h2>
+    <p>Para subir un objeto de aprendizaje:</p>
+    <p style="text-align:start;">Path:
+        <span
+            class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/upload?api_key=TU_API_KEY&adaptation=image,audio,video,paragraph,button</span>
+    </p>
+    <p><span>Método:</span> POST</p>
+    <p><span>Parametro en Form-Data:</span> file</p>
+    <p><span>Retorno:</span> Retorna un objeto Json al completar la carga, esto puede tardar varios minutos</p>
+    <h5>Ejemplo en Postman</h5>
+    <img src="assets/img/Ejemplo_POST.png" alt="Ejemplo de petición POST en Postman" tabindex="1">
+    <h5>Resultado</h5>
+    <p>El resultado puede tardar dependiendo de la cantidad de datos a adaptar del objeto de aprendizaje en promedio de
+        5 minutos.</p>
+    <pre>
+        {{data | json}}
+    </pre>
+    <h2>Ejemplos obtener los archivos</h2>
+    <p>Para obtener una lista de los objetos de aprendizaje subidos:</p>
+    <p>Path: <span class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/files?api_key=TU_API_KEY</span>
+    </p>
+    <p><span>Método:</span> GET</p>
+    <p><span>Retorno:</span> Retorna un lista de objetos Json</p>
+    <h5>Ejemplo en Postman</h5>
+    <img src="assets/img/Ejemplo_GET_Files.png" alt="Ejemplo de petición GET en Postman" tabindex="1">
+    <h5>Resultado</h5>
+    <pre>
+        {{arrayData | json}}
+    </pre>
+
+    <h2>Ejemplos obtener un archivo por el id</h2>
+    <p>Para obtener un objeto de aprendizaje subido:</p>
+    <p>Path: <span
+            class="resalt">https://oeradap.edutech-project.org/api/v1/oeradapter/files/{{"{ID}"}}?api_key=TU_API_KEY</span>
+    </p>
+    <p><span>Método:</span> GET</p>
+    <p><span>Retorno:</span> Retorna un objeto Json</p>
+    <h5>Ejemplo en Postman</h5>
+    <img src="assets/img/Ejemplo_GET_File.png" alt="Ejemplo de petición GET en Postman" tabindex="1">
+    <h5>Resultado</h5>
+    <pre>
+        {{data | json}}
+    </pre>
+    <!-- <p>Para obtener la documentación de la API:</p>
+    <p>https://oeradap.edutech-project.org/api/v1/oeradapter/docs</p> -->
+
 
 </div>
+
+<p-toast></p-toast>

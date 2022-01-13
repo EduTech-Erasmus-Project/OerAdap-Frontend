@@ -5,6 +5,8 @@
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
+        "noImplicitReturns": false,
+        "noImplicitAny": false,
         "declaration": false,
         "downlevelIteration": true,
         "experimentalDecorators": true,
@@ -15,6 +17,7 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "allowJs": true,
     }
 }

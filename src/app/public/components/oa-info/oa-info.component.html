@@ -1,79 +1,110 @@
 <div class="content">
     <h6>Información del OA</h6>
-    <p *ngIf="oa_detail.title"><span>Titulo: </span> {{oa_detail.title}}</p>
-    <p *ngIf="oa_detail.author"><span>Autor: </span> {{oa_detail.author}}</p>
-    <p *ngIf="oa_detail.license"><span>Licencia: </span> {{oa_detail.license}}</p>
-    <p *ngIf="oa_detail.version"><span>Versión: </span> {{oa_detail.version}}</p>
+    <p *ngIf="learningObject?.oa_detail.title"><span>Titulo: </span> {{learningObject?.oa_detail.title}}</p>
+    <p *ngIf="learningObject?.oa_detail.author"><span>Autor: </span> {{learningObject?.oa_detail.author}}</p>
+    <p *ngIf="learningObject?.oa_detail.license"><span>Licencia: </span> {{learningObject?.oa_detail.license}}</p>
+    <p *ngIf="learningObject?.oa_detail.version"><span>Versión: </span> {{learningObject?.oa_detail.version}}</p>
     <h6>Información del Archivo</h6>
-    <p><span>Paginas: </span> {{file_detail.pages}}</p>
-    <p><span>Imagenes: </span> {{file_detail.images}}</p>
-    <p><span>Parrafos: </span> {{file_detail.paragraphs}}</p>
-    <p><span>Videos: </span> {{file_detail.videos}}</p>
-    <p><span>Audios: </span> {{file_detail.audios}}</p>
+    <p><span>Páginas del OA: </span> {{learningObject?.file_detail.pages}}</p>
+    <p><span>Imagenes: </span> {{learningObject?.file_detail.images}}</p>
+    <p><span>Parrafos: </span> {{learningObject?.file_detail.paragraphs}}</p>
+    <p><span>Videos: </span> {{learningObject?.file_detail.videos}}</p>
+    <p><span>Audios: </span> {{learningObject?.file_detail.audios}}</p>
     <h6>Configuración de Adaptabilidad</h6>
     <p><span>Tipo de adaptación: </span> {{method}}</p>
-    <div class="content-switch">
+    <p><span>Areas de optimización:</span></p>
+    <div class="content-switch" *ngIf="getValueCheck('button')">
         <!-- <p-inputSwitch (onChange)="onChangeButton()" [(ngModel)]="button"></p-inputSwitch> -->
-        <p><span>Botón de adaptabilidad</span></p>
+        <p>Botón de adaptabilidad</p>
+        <span
+            *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
+                [ngClass]="{'pi-spin pi-spinner': !learningObject?.button_adaptation, 'pi-check': learningObject?.button_adaptation}"
+                class="pi"></i></span>
     </div>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeImage()"  [(ngModel)]="image"></p-inputSwitch> -->
-        <p><span>Imagenes</span></p>
-    </div>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeParagraph()"  [(ngModel)]="paragraph"></p-inputSwitch> -->
-        <p><span>Parrafos</span></p>
-
-    </div>
-    <div class="content-switch">
-        <!-- <p-inputSwitch (onChange)="onChangeVideo()"  [(ngModel)]="video"></p-inputSwitch> -->
-        <p><span>Videos</span></p>
-
-    </div>
-    <div class="content-switch">
+    <div class="content-switch" *ngIf="getValueCheck('audio')">
         <!-- <p-inputSwitch (onChange)="onChangeAudio()"  [(ngModel)]="audio"></p-inputSwitch> -->
-        <p><span>Audios</span></p>
-
+        <p>Audios</p>
+        <span
+            *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
+                [ngClass]="{'pi-spin pi-spinner': !learningObject?.audio_adaptation, 'pi-check': learningObject?.audio_adaptation}"
+                class="pi"></i></span>
+    </div>
+    <div class="content-switch" *ngIf="getValueCheck('image')">
+        <!-- <p-inputSwitch (onChange)="onChangeImage()"  [(ngModel)]="image"></p-inputSwitch> -->
+        <p>Imágenes</p>
+        <span
+            *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
+                [ngClass]="{'pi-spin pi-spinner': !learningObject?.image_adaptation, 'pi-check': learningObject?.image_adaptation}"
+                class="pi"></i></span>
+    </div>
+    <div class="content-switch" *ngIf="getValueCheck('paragraph')">
+        <!-- <p-inputSwitch (onChange)="onChangeParagraph()"  [(ngModel)]="paragraph"></p-inputSwitch> -->
+        <p>Párrafos</p>
+        <span
+            *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
+                [ngClass]="{'pi-spin pi-spinner': !learningObject?.paragraph_adaptation, 'pi-check': learningObject?.paragraph_adaptation}"
+                class="pi"></i></span>
+    </div>
+    <div class="content-switch" *ngIf="getValueCheck('video')">
+        <!-- <p-inputSwitch (onChange)="onChangeVideo()"  [(ngModel)]="video"></p-inputSwitch> -->
+        <p>Videos</p>
+        <span
+            *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
+                [ngClass]="{'pi-spin pi-spinner': !learningObject?.video_adaptation, 'pi-check': learningObject?.video_adaptation}"
+                class="pi"></i></span>
     </div>
 
     <div class="button">
-        <p-button (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="Descargar OA adaptado"></p-button>
-        <p-dialog header="Información de descarga" [(visible)]="displayResponsive"
-            [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
-            <div class="text_description">
-                <h6 style="text-align: justify; color: black;">A continuación se muestra un resumen de los elementos que el sistema 
-                    detecto para adaptar su objeto de aprendizaje: </h6>
+        <p-button
+            [disabled]="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"
+            (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="Descargar OA adaptado"></p-button>
+        <p-dialog
+            *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'"
+            header="Información de descarga" [(visible)]="displayResponsive" [modal]="true" [style]="{width: '50vw'}"
+            [draggable]="false" [resizable]="false">
+            <div class="text_description" *ngIf="displayResponsive == true">
+                <p style="text-align: justify; color: black;">Elementos adaptados en el objeto de aprendizaje: </p>
                 <p>
-                <span style="font-weight: bold;line-height: 1.5;">Párrafos totales en el Objeto de Aprendizaje:</span>
+                    <span style="font-weight: bold;line-height: 1.5;">Párrafos adaptados:</span> {{tag_adapted.tag_adapted.paragraphs}}
+                </p>
+                <p>
+                    <span style="font-weight: bold;line-height: 1.5;">Imágenes adaptadas:</span> {{tag_adapted.tag_adapted.images}}
+                </p>
+                <p>
+                    <span style="font-weight: bold; line-height: 1.5;">Audios adaptados:</span> {{tag_adapted.tag_adapted.audios}}
+                <p>
+                    <span style="font-weight: bold; line-height: 1.5;">Videos adaptados:</span> {{tag_adapted.tag_adapted.videos}}
+                </p>
+                <p>
+                    <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span> {{learningObject?.file_detail.pages}}
+                </p>
                 <br>
-                Se encontraron {{file_detail.paragraphs}} párrafos.
-                </p>
-                <p>
-                    <span style="font-weight: bold;line-height: 1.5;">Imágenes totales en el Objeto de Aprendizaje:</span>
-                    <br>    
-                    Se encontraron {{file_detail.images}} imágenes.
-                </p>
-                <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Audios totales en el Objeto de Aprendizaje:</span>
-                    <br>
-                    Se encontraron {{file_detail.audios}} audios.
-                </p>
-                <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Videos totales en el Objeto de Aprendizaje:</span>
-                    <br>
-                    Se encontraron {{file_detail.videos}} videos.
-                </p>
-                <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span>
-                    <br>
-                    Se encontraron {{file_detail.pages}} Páginas.
-                </p>              
-                           
+
             </div>
             <ng-template pTemplate="footer">
-                <button pButton  (click)="displayResponsive=false" label="No" class="p-button-danger"
-                icon="pi pi-times" ></button>
-                <button pButton (click)="descargar()" label="Descargar" styleClass="p-button-text" icon="pi pi-check"></button>
+
+                <p style="text-align: justify;opacity: 0.8;font-size: 15px;">
+                    <strong>¿Terminaste de adaptar tu Objeto de Aprendizaje? </strong>
+                    <br>
+                    Recuerda que, una vez descargado el Objeto de Aprendizaje adaptado
+                    por recomendación y no crear conflictos dentro del OA te
+                    recomendamos verificar si has hecho los cambios necesarios antes de descargarlo,
+                    tambien te recomendamos no subir tu OA adaptado para
+                    no generar errores sobre el mismo objeto de aprendizaje.
+                </p>
+
+                <div class="footer-spin" *ngIf="dounloadState">
+                    <p-progressBar mode="indeterminate" [style]="{'height': '10px'}">
+                    </p-progressBar>
+                </div>
+
+                <div class="buttons">
+                    <button pButton (click)="displayResponsive=false" label="No" class="p-button-danger"
+                        icon="pi pi-times"></button>
+                    <button [disabled]="dounloadState" pButton (click)="descargar()" label="Descargar"
+                        styleClass="p-button-text" icon="pi pi-check"></button>
+                </div>
+
             </ng-template>
         </p-dialog>
     </div>

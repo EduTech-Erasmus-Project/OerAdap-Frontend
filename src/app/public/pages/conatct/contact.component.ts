@@ -1,17 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MessageService } from "primeng/api";
+import { ContactService } from "src/app/services/contact.service";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  selector: "app-contact",
+  templateUrl: "./contact.component.html",
+  styleUrls: ["./contact.component.scss"],
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
   public angForm: FormGroup;
+  private subscriptions: Subscription[] = [];
+  public loader: boolean = false;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService) {
+  constructor(
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    private contactService: ContactService
+  ) {
     this.createForm();
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   ngOnInit(): void {}
@@ -19,14 +30,52 @@ export class ContactComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       name: [null, Validators.required],
-      email: [null, Validators.required],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(
+            "^([a-zA-Z0-9_'-'.]+)@([a-zA-Z0-9_'-'.]+).([a-zA-Z]{2,5})$"
+          ),
+        ],
+      ],
       message: [null, Validators.required],
     });
   }
-  validateUser() {
+  async validateUser() {
     if (this.angForm.valid) {
-      this.showSuccess();
-      this.angForm.reset();
+      this.loader = true;
+      let sendEmailSub = await this.contactService
+        .sendEmail(this.angForm.value)
+        .subscribe(
+          (res: any) => {
+            //console.log(res)
+            if (res.Messages[0].Status === "success") {
+              this.showSuccess();
+              this.angForm.reset();
+              this.loader = false;
+            } else {
+              this.messageService.add({
+                severity: "error",
+                summary: "Error",
+                detail:
+                  "Se ha producido un error inesperado intente enviar de nuevo.",
+              });
+              this.loader = false;
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.messageService.add({
+              severity: "error",
+              summary: "Error",
+              detail:
+                "Se ha producido un error inesperado intente enviar de nuevo.",
+            });
+            this.loader = false;
+          }
+        );
+      this.subscriptions.push(sendEmailSub);
     } else {
       this.markTouchForm();
     }

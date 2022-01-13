@@ -13,6 +13,10 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { NgAudioRecorderModule } from "ng-audio-recorder";
 import { IframeComponent } from './iframe/iframe.component';
+import { FormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
+
 @NgModule({
   declarations: [
     FileUploadComponent,
@@ -23,6 +27,7 @@ import { IframeComponent } from './iframe/iframe.component';
     VideoComponent,
     ParagraphComponent,
     IframeComponent,
+    OaMetadataComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +36,8 @@ import { IframeComponent } from './iframe/iframe.component';
     AngularEditorModule,
     NgxDropzoneModule,
     NgAudioRecorderModule,
+    FormsModule,
+    CKEditorModule
   ],
   exports: [
     FileUploadComponent,
@@ -40,6 +47,7 @@ import { IframeComponent } from './iframe/iframe.component';
     ImageComponent,
     VideoComponent,
     ParagraphComponent,
+    OaMetadataComponent
   ],
 })
 export class ComponentsModule {}

@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StorageService } from "../../../services/storage.service";
 import { LearningObject } from "../../../models/LearningObject";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-adapter",
@@ -69,6 +70,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
     private learningObjectService: LearningObjectService,
     private fb: FormBuilder,
     private router: Router,
+    private messageService: MessageService,
     private storageService: StorageService
   ) {
     this.settingsForm = this.fb.group({
@@ -88,6 +90,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   onSelect(event: any) {
     this.file = event.addedFiles[0];
+    
   }
 
   onRemove() {
@@ -96,19 +99,34 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.file = undefined;
   }
 
+  getmethod(idx) {
+    if (this.learningObjects[idx].config_adaptability.method === "handbook") {
+      return "Manual";
+    } else if (this.learningObjects[idx].config_adaptability.method === "automatic") {
+      return "Automatica";
+    } else if (this.learningObjects[idx].config_adaptability.method === "mixed") {
+      return "Mixta";
+    }
+  }
+
+  getareas(idx){
+    return this.learningObjects[idx].config_adaptability.areas.join(', ')
+  }
+
   async onUpload() {
     this.displayConditions = false;
     //console.log("upload", this.settingsForm.value)
+    let dataForm = this.settingsForm.value;
     let data = {
       file: this.file,
-      ...this.settingsForm.value,
+      ...dataForm,
     };
     this.loader = true;
     let umploadSub = await this.learningObjectService
       .uploadObject(data)
       .subscribe(
         (res: any) => {
-          console.log("res upload", res.body);
+          //console.log("res upload", res);
           if (res.body?.id) {
             this.navigateId = res.body.id;
             this.storageService.saveStorageItem("user_ref", res.body.user_ref);
@@ -121,7 +139,8 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          console.log(err);
+          //console.log("El serro",err.error.state);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Este Objeto de Aprendizaje ya fue adaptado' });
           this.upload = false;
           this.loader = false;
           this.progress = 0;
@@ -166,10 +185,13 @@ export class AdapterComponent implements OnInit, OnDestroy {
       .getLearningsObjects()
       .subscribe((res: any) => {
         this.learningObjects = res;
+        this.learningObjects.sort((a, b) => {
+          return b.id - a.id;
+      });
 
-        console.log("object", this.learningObjects)
+        //console.log("object", this.learningObjects)
 
-        this.screenShot("https://www.google.com");
+        //this.screenShot("https://www.google.com");
 
         res.forEach((item) => {
           //const s = new Screenshot('http://google.com').width(800)

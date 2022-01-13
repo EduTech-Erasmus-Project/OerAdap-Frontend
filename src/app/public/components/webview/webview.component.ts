@@ -26,9 +26,7 @@ export class WebviewComponent implements OnInit {
 
   private mensajeID: string;
 
-  constructor(
-    private learningObjectService: LearningObjectService,
-  ) {}
+  constructor(private learningObjectService: LearningObjectService) {}
 
   ngOnInit(): void {
     //console.log("pages", this.pages)
@@ -43,10 +41,10 @@ export class WebviewComponent implements OnInit {
     );
 
     this.selectedPage = {
-      name: filterIndex[0].title,
-      code: filterIndex[0].preview_path,
-      id: filterIndex[0].id,
-      type: filterIndex[0].type,
+      name: filterIndex[0]?.title || this.pages[0].id,
+      code: filterIndex[0]?.preview_path || this.pages[0].preview_path,
+      id: filterIndex[0]?.id || this.pages[0].id,
+      type: filterIndex[0]?.type || this.pages[0].type,
     };
 
     //this.eventPage.emit(this.selectedPage)
@@ -93,4 +91,5 @@ export class WebviewComponent implements OnInit {
     //console.log("Es el id",this.mensajeID)
     this.learningObjectService.enviarMensaje(this.mensajeID);
   }
+
 }

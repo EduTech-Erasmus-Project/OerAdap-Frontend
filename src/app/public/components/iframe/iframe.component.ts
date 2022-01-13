@@ -28,7 +28,7 @@ export class IframeComponent implements OnInit, OnDestroy {
     //.log("page", this.page)
     this.subscription = this.eventService.getEvent().subscribe((event) => {
       if (this.page.type === "adapted") {
-        console.log("event refresh", this.page)
+        //console.log("event refresh", this.page)
 
         var iframe: any = document.getElementById("web-view");
         //iframe.contentWindow.location.reload();

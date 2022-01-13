@@ -5,7 +5,8 @@ import { Subscription } from "rxjs";
 import { error } from "@angular/compiler/src/util";
 import { map } from "rxjs/operators";
 import { Message, MessageService } from "primeng/api";
-import { EventService } from '../../../services/event.service';
+import { EventService } from "../../../services/event.service";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-video",
@@ -27,6 +28,10 @@ export class VideoComponent implements OnInit, OnDestroy {
   private subscrition: Subscription[] = [];
   public messages: Message[] = [];
 
+  public selectLanguage: any[] = [];
+
+  public form: FormGroup;
+
   public language = [
     { name: "Alemán", code: "de" },
     { name: "Español", code: "es" },
@@ -44,15 +49,41 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   constructor(
     private videoService: VideoService,
-    private eventService: EventService
-  ) {}
-  ngOnDestroy(): void {
-    this.subscrition.forEach((sub) => sub.unsubscribe());
+    private eventService: EventService,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      transcriptions: this.fb.array([]),
+    });
+    //this.addTranscription();
   }
 
   ngOnInit(): void {
     this.loadTranscript();
     this.messages = [];
+    //console.log("video", this.video);
+  }
+
+  ngOnDestroy(): void {
+    this.subscrition.forEach((sub) => sub.unsubscribe());
+  }
+
+  get transcriptions() {
+    return this.form.get("transcriptions") as FormArray;
+  }
+
+  removeTranscription(idx: number) {
+    this.transcriptions.removeAt(idx);
+  }
+
+  addTranscription() {
+    this.transcriptions.push(
+      this.fb.group({
+        language: [null, Validators.required],
+        file: [null, Validators.required],
+        file_data: [null],
+      })
+    );
   }
 
   async loadTranscript() {
@@ -75,10 +106,6 @@ export class VideoComponent implements OnInit, OnDestroy {
     }
   }
 
-  functionLoad() {
-    //console.log("load");
-  }
-
   onCancelSelection() {
     this.selectFile = false;
   }
@@ -90,7 +117,30 @@ export class VideoComponent implements OnInit, OnDestroy {
       .generateAutomaticTranscript(this.video.id)
       .subscribe(
         (res: any) => {
-          console.log("res video",res)
+          //console.log("res video", res);
+          if (res.code === "developing") {
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail:
+                "La generación de subtitulado automática está en desarrollo.",
+            });
+            this.loaderGenerateSubtitle = false;
+            return;
+          }
+
+          if (res.code === "video_not_found") {
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail:
+                "El video no se puede descargar, por favor intente con otra fuente.",
+            });
+            this.loaderGenerateSubtitle = false;
+            return;
+          }
+
+          this.video = res.data;
           if (res.status === "ready_tag_adapted") {
             //console.log(res);
 
@@ -101,14 +151,15 @@ export class VideoComponent implements OnInit, OnDestroy {
                 "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
             });
           } else {
-            this.video.tags_adapted = res;
+            //this.video.tags_adapted = res.data.tags_adapted;
             this.loadTranscript();
 
-            if (res.code === "no_suported_transcript") {
+            if (res.code === "no_supported_transcript") {
               this.messages.push({
                 severity: "warn",
                 //summary: "",
-                detail: "La fuente de vídeo no soporta tiene traducciones.",
+                detail:
+                  "La fuente de vídeo no soporta o no tiene traducciones.",
               });
             } else {
               this.messages.push({
@@ -122,12 +173,13 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.loaderGenerateSubtitle = false;
         },
         (error) => {
-          //console.log(error);
+          console.log(error);
           this.messages.push({
             severity: "error",
             summary: "Error",
-            detail: error.message,
+            detail: "El vídeo no está disponible.",
           });
+
           this.loaderGenerateSubtitle = false;
         }
       );
@@ -135,9 +187,9 @@ export class VideoComponent implements OnInit, OnDestroy {
     this.subscrition.push(generateSub);
   }
   onAddForSubtitle() {
-    this.loader = true;
+    //optimizethis.loader = true;
+    //console.log("Add subtitle form");
   }
-  onRemoveForSubtitle(idx: number) {}
 
   async jsonToString(jsonId: any) {
     this.displaySubtitle = true;
@@ -147,15 +199,64 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
       (res: any) => {
-        console.log("res video",res)
-        let text = res.transcript.map((data) => data.text);
+        console.log("res video", res);
+        let text = res.transcript.map((data) => data.transcript);
         this.jsonString = text.join("\r\n");
-        console.log(this.jsonString)
+        console.log(res);
         this.loaderJson = false;
       },
       (error) => console.log(error)
     );
 
     this.subscrition.push(jsonSub);
+  }
+
+  onChangeLanguage(event) {
+    //console.log(event);
+  }
+
+  onFileChange(event, idx) {
+    //console.log(event)
+    if (event.target.files.length > 0) {
+      this.transcriptions.at(idx).patchValue({
+        file_data: event.target.files[0],
+      });
+    }
+  }
+
+  onSubmit() {
+    this.messages = [];
+    if (this.form.valid) {
+      //console.log("is valid")
+      //console.log(this.form);
+      this.videoService.addTranscript(this.video.id, this.form.value).subscribe(
+        (res: any) => {
+          if (res?.body) {
+            this.messages.push({
+              severity: "success",
+              //summary: "Guardado",
+              detail: "Se ha guardado el subtítulo.",
+            });
+            this.video.tags_adapted = res.body;
+            this.loadTranscript();
+            this.eventService.emitEvent(true);
+            this.form.reset();
+          }
+        },
+        (error) => {
+          this.messages.push({
+            severity: "error",
+            summary: "Error",
+            detail: error.message,
+          });
+        }
+      );
+    } else {
+      this.messages.push({
+        severity: "error",
+        summary: "Error",
+        detail: "Por favor, complete todos los campos.",
+      });
+    }
   }
 }

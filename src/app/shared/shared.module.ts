@@ -91,6 +91,8 @@ import { BreadcrumbPublicComponent } from './breadcrumb-public/breadcrumb-public
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { MenuPublicComponent } from './menu-public/menu-public.component';
 import { MomentPipe } from '../pipes/moment.pipe';
+import {ConfirmationService} from 'primeng/api';
+
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);

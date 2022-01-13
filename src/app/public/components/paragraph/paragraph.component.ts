@@ -150,8 +150,8 @@ export class ParagraphComponent implements OnInit, OnDestroy {
         .tagAdapted(data, this.paragraph.id)
         .subscribe(
           (res: any) => {
-            console.log(res);
-            console.log("respuesta", res);
+            //console.log(res);
+            //console.log("respuesta", res);
             this.paragraphAdapted = res.body;
             //console.log(res);
             this.updateParagraph = false;
@@ -279,7 +279,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
         .getTagAdaptedByIdParagraph(this.paragraph.id)
         .subscribe(
           (res: any) => {
-            console.log(res);
+            //console.log(res);
             this.paragraphAdapted = res;
             this.loaderAdapted = false;
             this.htmlContent = res.text;
@@ -298,7 +298,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
     let convertTextSub = await this.paragraphService
       .convertTextToAudio(this.paragraph.id)
       .subscribe((res: any) => {
-        console.log(res);
+        //console.log(res);
         this.paragraphAdapted = res;
         this.messages.push({
           severity: "success",

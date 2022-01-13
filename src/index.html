@@ -12,91 +12,93 @@
     <link id="theme-css" rel="stylesheet" type="text/css" href="assets/theme/blue/theme-light.css">
     <link id="layout-css" rel="stylesheet" type="text/css" href="assets/layout/css/blue/layout-light.css">
 
-    <!-- uiPreferences -->
-    <link rel="stylesheet" type="text/css" href="assets/uiOptions/lib/infusion/framework/fss/css/fss-layout.css" />
-    <link rel="stylesheet" type="text/css" href="assets/uiOptions/lib/infusion/framework/fss/css/fss-text.css" />
+     <!-- uiPreferences -->
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="assets/uiOptions/framework/core/css/fluid.css">
+    <link rel="stylesheet" type="text/css" href="assets/uiOptions/framework/preferences/css/Enactors.css">
+    <link rel="stylesheet" type="text/css" href="assets/uiOptions/framework/preferences/css/PrefsEditor.css">
     <link rel="stylesheet" type="text/css"
-        href="assets/uiOptions/lib/infusion/components/uiOptions/css/fss/fss-theme-bw-uio.css" />
-    <link rel="stylesheet" type="text/css"
-        href="assets/uiOptions/lib/infusion/components/uiOptions/css/fss/fss-theme-wb-uio.css" />
-    <link rel="stylesheet" type="text/css"
-        href="assets/uiOptions/lib/infusion/components/uiOptions/css/fss/fss-theme-by-uio.css" />
-    <link rel="stylesheet" type="text/css"
-        href="assets/uiOptions/lib/infusion/components/uiOptions/css/fss/fss-theme-yb-uio.css" />
-    <link rel="stylesheet" type="text/css"
-        href="assets/uiOptions/lib/infusion/components/uiOptions/css/fss/fss-text-uio.css" />
-    <link rel="stylesheet" type="text/css"
-        href="assets/uiOptions/lib/infusion/components/uiOptions/css/FatPanelUIOptions.css" />
+          
+        href="assets/uiOptions/framework/preferences/css/SeparatedPanelPrefsEditor.css">
+    <link rel="stylesheet" type="text/css" href="assets/uiOptions/components/overviewPanel/css/OverviewPanel.css">
 
-    <link type="text/css" href="assets/uiOptions/lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.14.custom.css"
-        rel="stylesheet" />
-    <link type="text/css" href="assets/uiOptions/css/VideoPlayer.css" rel="stylesheet" />
-    <link type="text/css" href="assets/uiOptions/lib/captionator/css/captions.css" rel="stylesheet" />
+    <!-- js -->
+    <script type="text/javascript" src="assets/uiOptions/lib/jquery/core/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/lib/jquery/ui/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/FluidDocument.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/jquery.keyboard-a11y.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/Fluid.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/FluidRequests.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/FluidDOMUtilities.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/FluidIoC.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/DataBinding.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/ModelTransformation.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/ModelTransformationTransforms.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/FluidView.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/core/js/ResourceLoader.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/lib/fastXmlPull/js/fastXmlPull.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/renderer/js/fluidParser.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/renderer/js/fluidRenderer.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/renderer/js/RendererUtilities.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/enhancement/js/ContextAwareness.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/enhancement/js/ProgressiveEnhancement.js"></script>
+    
+    <!-- For the IoC Inspector UI -->
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/URLUtilities.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/Store.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/components/textfieldSlider/js/TextfieldSlider.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/UIEnhancer.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/PrefsEditor.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/Panels.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/Enactors.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/SeparatedPanelPrefsEditor.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/components/slidingPanel/js/SlidingPanel.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/components/tableOfContents/js/TableOfContents.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/PrimaryBuilder.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/AuxBuilder.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/StarterSchemas.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/framework/preferences/js/Builder.js"></script>
+    <script type="text/javascript" src="assets/uiOptions/components/uiOptions/js/UIOptions.js"></script>
 
-    <!-- Fluid and jQuery Dependencies -->
-    <script type="text/javascript" src="assets/uiOptions/lib/infusion/MyInfusion.js"></script>
-    <!-- Utils -->
-    <script type="text/javascript" src="assets/uiOptions/lib/jquery-ui/js/jquery.ui.button.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/lib/captionator/js/captionator.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/lib/mediaelement/js/mediaelement.js"></script>
-    <!-- [if lt IE 9]>
-      <script type="text/javascript" src="../lib/html5shiv/js/html5shiv.js"></script>
-   <![endif] -->
+    <script type="text/javascript" src="assets/uiOptions/components/overviewPanel/js/OverviewPanel.js"></script>
+    
+    <link type="text/css" rel="stylesheet" href="assets/css/lightbox.css">
+    <script type="text/javascript"  src="assets/js/lightbox-plus-jquery.js"></script>
 
-    <!-- VideoPlayer dependencies -->
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_framework.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_showHide.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_html5Captionator.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_controllers.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/ToggleButton.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/MenuButton.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_media.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_transcript.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_intervalEventsConductor.js"></script>
-    <script type="text/javascript" src="assets/uiOptions/js/VideoPlayer_uiOptions.js"></script>
-
-    <!---------------------------------------------------------------------------------------------->
 
 </head>
 
 <body>
-    <!---------------------------------------------------------------------------------------------->
-    <script>
-        fluid.pageEnhancer({
-            tocTemplate: "assets/uiOptions/lib/infusion/components/tableOfContents/html/TableOfContents.html"
+    <script type="text/javascript">
+        $(document).ready(function () {
+            fluid.uiOptions.prefsEditor(".flc-prefsEditor-separatedPanel", {
+                lazyLoad: true,
+                terms: {
+                    "templatePrefix": "assets/uiOptions/framework/preferences/html",
+                    "messagePrefix": "assets/uiOptions/framework/preferences/messages"
+                },
+                "tocTemplate": "assets/uiOptions/components/tableOfContents/html/TableOfContents.html",
+                "ignoreForToC": {
+                    "overviewPanel": ".flc-overviewPanel"
+                }
+            });
         });
     </script>
 
-    <div class="flc-uiOptions fl-uiOptions-fatPanel">
-        <div class="flc-slidingPanel-panel flc-uiOptions-iframe"></div>
+    <!-- BEGIN markup for Preference Editor -->
+    <div class="flc-prefsEditor-separatedPanel fl-prefsEditor-separatedPanel">
+        <!-- This is the div that will contain the Preference Editor component -->
+        <div class="flc-slidingPanel-panel flc-prefsEditor-iframe"></div>
+
+        <!-- This div is for the sliding panel that shows and hides the Preference Editor controls -->
         <div class="fl-panelBar">
-            <button class="flc-slidingPanel-toggleButton fl-toggleButton">Show/Hide</button>
+            <span class="fl-prefsEditor-buttons">
+                <button id="reset" class="flc-prefsEditor-reset fl-prefsEditor-reset"><span class="fl-icon-undo"></span> Reset</button>
+                <button id="show-hide" class="flc-slidingPanel-toggleButton fl-prefsEditor-showHide"> Show/Hide</button>
+            </span>
         </div>
     </div>
-    <div class="flc-toc-tocContainer"> </div>
-
-
-    <!---------------------------------------------------------------------------------------------->
-
-
-    <!---------------------------------------------------------------------------------------------->
-
-    <script>
-        var uiOptions = fluid.uiOptions.fatPanel.withMediaPanel(".flc-uiOptions", {
-            prefix: "assets/uiOptions/lib/infusion/components/uiOptions/html/",
-            templateLoader: {
-                options: {
-                    templates: {
-                        mediaControls: "assets/uiOptions/html/UIOptionsTemplate-media.html"
-                    }
-                }
-            }
-        });
-
-    </script>
-
-    <!---------------------------------------------------------------------------------------------->
+    <!-- END markup for Preference Editor -->
 
 
     <app-root>

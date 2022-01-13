@@ -1,10 +1,10 @@
 <p-card [style]="{'margin-bottom': '2em'}">
 
-    
-    
+
+
     <!-- <p>{{video | json}}</p> -->
     <p>Fuente: <span>{{video.attributes[0].source}}</span></p>
-    <iframe (onload)="functionLoad()" class="video" [src]="video.attributes[0].path_preview | urlsanitizer"
+    <iframe class="video" [src]="video.attributes[0].path_preview | urlsanitizer"
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="YouTube video player" autoplay="false"
         frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
@@ -14,7 +14,7 @@
             <source [src]="video.attributes[0].path_preview | urlsanitizer" type="video/mp4">
         </video> -->
 
-    <p *ngIf="video.tags_adapted?.transcript?.length <= 0">Este vídeo no tiene con subtítulos</p>
+    <p *ngIf="video.tags_adapted?.transcript?.length <= 0">Este vídeo no tiene subtítulos</p>
 
     <p-messages *ngIf="messages.length > 0" [(value)]="messages" [enableService]="false"></p-messages>
 
@@ -34,12 +34,8 @@
     </div>
 
 
-
     <div class="add-subtitle" *ngIf="selectFile">
         <div class="content-buttons">
-
-
-
             <ng-container *ngIf="loaderGenerateSubtitle || loader; else spinnerTemplate">
                 <div class="spinner-progress">
                     <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
@@ -49,25 +45,40 @@
             </ng-container>
             <ng-template #spinnerTemplate>
 
-                <p-button *ngIf="transcript?.length <= 0" label="Generar subtítulo" (onClick)="onGenerateSubtitle()">
+                <p-button *ngIf="transcript?.length <= 0" [label]="video.attributes[0].source != 'local' ? 'Descargar subtítulo' :'Generar subtítulo' " (onClick)="onGenerateSubtitle()">
                 </p-button>
 
-                <!-- <span *ngIf="transcript?.length <= 0">O</span>
-                <p-button label="Agregar subtítulo" (onClick)="onAddForSubtitle()"></p-button>
-                <div class="form-subtitle p-grid">
-                    <div class="p-col-12 p-md-5 p-lg-5">
-                        <p-dropdown [options]="language" placeholder="Idioma" optionLabel="name" [showClear]="true">
-                        </p-dropdown>
+                <ng-container *ngIf="video.attributes[0].source === 'local'" >
+                    <span *ngIf="transcript?.length <= 0">O</span>
+
+                    <p-button label="Agregar subtítulo" (onClick)="addTranscription()"></p-button>
+                </ng-container>
+               
+                
+
+                <form [formGroup]="form" class="form-subtitle p-grid" (submit)="onSubmit()">
+                    <ng-container [formGroup]="transcription" *ngFor="let transcription of transcriptions.controls; let i = index">
+                        <div class="p-col-12 p-md-5 p-lg-5">
+                            <p-dropdown formControlName="language" [options]="language" placeholder="Idioma" optionLabel="name" [showClear]="true"
+                                (onChange)="onChangeLanguage($event)">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-col-12 p-md-5 p-lg-5">
+                            <!-- <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"
+                                maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload> -->
+                                <input class="file_upload" pButton  formControlName="file" type="file" accept=".srt" (change)="onFileChange($event, i)">
+                        </div>
+                        <div class="p-col-12 p-md-2 p-lg-2">
+                            <button (click)="removeTranscription(i)" pButton pRipple type="button" icon="pi pi-times"
+                                class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
+                    </ng-container>
+
+                    <div *ngIf="transcriptions.controls.length > 0" class="p-col-12 p-md-12 p-lg-12">
+                        <p-button type="submit" icon="pi pi-times" label="Guardar" styleClass="p-button">
+                        </p-button>
                     </div>
-                    <div class="p-col-12 p-md-5 p-lg-5">
-                        <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"
-                            maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload>
-                    </div>
-                    <div class="p-col-12 p-md-2 p-lg-2">
-                        <button pButton pRipple type="button" icon="pi pi-times"
-                            class="p-button-rounded p-button-text p-button-danger"></button>
-                    </div>
-                </div> -->
+                </form>
 
             </ng-template>
 
@@ -78,12 +89,13 @@
 
     <ng-template pTemplate="footer">
         <div class="footer-buttons">
-            <p-button (click)="selectFile = true" label="Editar" icon="pi pi-check">
+            <p-button *ngIf="!selectFile" (click)="selectFile = true" label="Editar" icon="pi pi-check">
             </p-button>
             <button *ngIf="selectFile" (click)="onCancelSelection()" pButton pRipple type="button" icon="pi pi-times"
                 label="Cancelar" class="p-button-danger"></button>
         </div>
     </ng-template>
+
 </p-card>
 
 <p-dialog header="Traducción" [(visible)]="displaySubtitle" [style]="{width: '20vw'}">

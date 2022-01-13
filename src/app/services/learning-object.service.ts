@@ -11,7 +11,7 @@ const baseUrl = environment.baseUrl;
 })
 export class LearningObjectService {
   constructor(private http: HttpClient) { }
-  
+
   //Paso de datos mediante servicios
   mensaje: string;
   private enviarMensajeSubject = new Subject<string>();
@@ -22,12 +22,15 @@ export class LearningObjectService {
     this.enviarMensajeSubject.next(mensaje);
   }
 
-  
+
   //**************************************
 
 
 
   uploadObject(data: any) {
+
+    data.areas.splice(data.areas.indexOf('all'), 1);
+    
     //console.log(data)
     let formData = new FormData();
     formData.append("file", data.file);
@@ -62,15 +65,34 @@ export class LearningObjectService {
     return this.http.get(`${baseUrl}/page/audio/${id}`).pipe(map((data: any) => data));
   }
 
-  sentCreateAudio(data:any){
-    return this.http.post(`${baseUrl}/page/audio`,data).pipe(map((data: any) => data));
+  sentCreateAudio(data: any) {
+    return this.http.post(`${baseUrl}/page/audio`, data).pipe(map((data: any) => data));
   }
 
   updateAudio(data: any, id: any) {
     return this.http.put(`${baseUrl}/page/audio/${id}`, data).pipe(map((data: any) => data));
   }
 
-  getDownloadFileZip(id :any) {
-    return this.http.get(`${baseUrl}/compress/learningObject/${id}`).pipe(map((data: any) => data));
+  getDownloadFileZip(id: any, data: any) {
+    return this.http.post(`${baseUrl}/compress/learningObject/${id}`, data).pipe(map((data: any) => data));
+  }
+
+  getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resp => {
+        resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+      },
+        err => {
+          reject(err);
+        });
+    });
+  }
+
+  getTagAdapted(id: any){
+    return this.http.get(`${baseUrl}/adapted/tag/${id}`).pipe(map((data: any) => data));
+  }
+
+  updateLearningObject_file_adapted(id:any, data:any){
+    return this.http.put(`${baseUrl}/adapted/learningObject/${id}`,data).pipe(map((data: any) => data));
   }
 }

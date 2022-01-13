@@ -1,0 +1,10 @@
+<div class="content">
+    <div class="metadata-info" *ngFor="let data of metadata">
+        <h6>{{data.area}}</h6>
+        <div class="data">
+            <p *ngFor="let meta of data.metadata">
+                <strong>{{meta.property}}:</strong> {{meta.type}}
+            </p>
+        </div>
+    </div>
+</div>
