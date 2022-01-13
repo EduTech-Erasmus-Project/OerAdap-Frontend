@@ -1,6 +1,0 @@
-{
-    "jQueryUI": {
-        "files": ["lib/jquery-ui/js/jquery.ui.button.js"],
-        "dependencies": ["infusion"]
-    }
-}
