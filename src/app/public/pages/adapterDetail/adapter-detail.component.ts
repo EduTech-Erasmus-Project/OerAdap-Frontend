@@ -150,7 +150,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   }
 
   getValueCheck(value: string) {
-    console.log("data areas", this.learningObject.config_adaptability.areas);
+    //console.log("data areas", this.learningObject.config_adaptability.areas);
     return this.learningObject.config_adaptability.areas.includes(value);
   }
 

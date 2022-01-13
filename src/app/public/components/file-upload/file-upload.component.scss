@@ -16,24 +16,26 @@
     }
   }
   .description {
-    p:nth-child(1) {
-      font-weight: bold;
-      font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    img{
+      height: 50vh;
     }
+    
   }
 }
-
+h2 {
+  font-weight: bold;
+  //font-size: 1.5em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--primary-color);
+}
 .areas-description {
   margin-top: 50px;
   margin-bottom: 50px;
   //font-size: 1.3em;
-  h2 {
-    font-weight: bold;
-    //font-size: 1.5em;
-    text-align: center;
-    text-transform: uppercase;
-    color: var(--primary-color);
-  }
+  
   p {
     text-align: justify;
   }

@@ -118,27 +118,29 @@ export class VideoComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           //console.log("res video", res);
-          if(res.code === "developing"){
+          if (res.code === "developing") {
             this.messages.push({
               severity: "error",
               summary: "Error",
-              detail: "La generación de subtitulado automática está en desarrollo.",
+              detail:
+                "La generación de subtitulado automática está en desarrollo.",
             });
             this.loaderGenerateSubtitle = false;
-            return 
+            return;
           }
 
-          if(res.code === "video_not_found"){
+          if (res.code === "video_not_found") {
             this.messages.push({
               severity: "error",
               summary: "Error",
-              detail: "El video no se puede descargar, por favor intente con otra fuente.",
+              detail:
+                "El video no se puede descargar, por favor intente con otra fuente.",
             });
             this.loaderGenerateSubtitle = false;
-            return 
+            return;
           }
 
-          this.video = res.data
+          this.video = res.data;
           if (res.status === "ready_tag_adapted") {
             //console.log(res);
 
@@ -148,7 +150,6 @@ export class VideoComponent implements OnInit, OnDestroy {
               detail:
                 "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
             });
-
           } else {
             //this.video.tags_adapted = res.data.tags_adapted;
             this.loadTranscript();
@@ -157,7 +158,8 @@ export class VideoComponent implements OnInit, OnDestroy {
               this.messages.push({
                 severity: "warn",
                 //summary: "",
-                detail: "La fuente de vídeo no soporta o no tiene traducciones.",
+                detail:
+                  "La fuente de vídeo no soporta o no tiene traducciones.",
               });
             } else {
               this.messages.push({
@@ -172,20 +174,12 @@ export class VideoComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.log(error);
-          if(error.status === 406){
-            this.messages.push({
-              severity: "error",
-              summary: "Error",
-              detail: "El vídeo no está disponible.",
-            });
-            this.loaderGenerateSubtitle = false;
-            return
-          }
           this.messages.push({
             severity: "error",
             summary: "Error",
-            detail: error.message,
+            detail: "El vídeo no está disponible.",
           });
+
           this.loaderGenerateSubtitle = false;
         }
       );
@@ -257,7 +251,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           });
         }
       );
-    } else{
+    } else {
       this.messages.push({
         severity: "error",
         summary: "Error",
