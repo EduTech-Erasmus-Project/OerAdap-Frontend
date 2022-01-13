@@ -139,7 +139,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          console.log("El serro",err.error.state);
+          //console.log("El serro",err.error.state);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Este Objeto de Aprendizaje ya fue adaptado' });
           this.upload = false;
           this.loader = false;
