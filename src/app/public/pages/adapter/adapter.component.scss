@@ -1,0 +1,113 @@
+// .main-content {
+//   min-height: 81vh;
+//   //text-align: center;
+//   h3 {
+//     padding-top: 15px;
+//     text-align: center;
+//   }
+//   .dop-zone {
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+
+//     ngx-dropzone {
+//       width: 50%;
+//       margin: 15px 0;
+//     }
+//   }
+// }
+
+// .button {
+//   margin-bottom: 15px;
+// }
+
+// ngx-dropzone {
+//   display: flex;
+//   justify-content: center;
+//   &:focus {
+//     background-color: red;
+//   }
+// }
+
+// ngx-dropzone-preview {
+//   width: 100%;
+//   min-width: 90% !important;
+//   margin: 0;
+// }
+
+// @media (max-width: 765px) {
+//   ngx-dropzone {
+//     width: 100% !important;
+//   }
+// }
+
+.dop-zone {
+  //min-height: 75vh;
+  //@debug: red;
+  display: flex;
+  align-items: center;
+
+  h6 {
+    margin: 10px 0;
+  }
+  form {
+    .p-field-checkbox,
+    .p-field-radiobutton {
+      margin: 0;
+    }
+  }
+
+  margin: 20px;
+  .p-grid {
+    display: flex;
+    justify-content: center;
+  }
+  .button {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+.methods {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spiner {
+  text-align: center;
+  //width: 50%;
+  width: 35rem;
+  margin-bottom: 15px;
+}
+
+.btn-next{
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.p-grid.main-content{
+  //min-height: 80vh;
+  margin: 0;
+  
+}
+
+.tittle{
+  text-align: center;
+  margin: 25px 0;
+}
+
+
+.loader-object{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.progress {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
