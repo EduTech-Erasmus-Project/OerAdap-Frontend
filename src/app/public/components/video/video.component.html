@@ -1,13 +1,9 @@
 <p-card [style]="{'margin-bottom': '2em'}">
-
-
-
-    <!-- <p>{{video | json}}</p> -->
     <p>Fuente: <span>{{video.attributes[0].source}}</span></p>
     <iframe class="video" [src]="video.attributes[0].path_preview | urlsanitizer"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="YouTube video player" autoplay="false"
-        frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="Vista previa del video" controls
+        autoplay="false" frameborder="0"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
 
     <!-- <video class="video" width="320" height="240" autoplay="false" controls>
@@ -36,7 +32,7 @@
 
     <div class="add-subtitle" *ngIf="selectFile">
         <div class="content-buttons">
-            <ng-container *ngIf="loaderGenerateSubtitle || loader; else spinnerTemplate">
+            <ng-container *ngIf="loaderGenerateSubtitle || loader || video.adapting; else spinnerTemplate">
                 <div class="spinner-progress">
                     <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
                         strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
@@ -45,28 +41,32 @@
             </ng-container>
             <ng-template #spinnerTemplate>
 
-                <p-button *ngIf="transcript?.length <= 0" [label]="video.attributes[0].source != 'local' ? 'Descargar subtítulo' :'Generar subtítulo' " (onClick)="onGenerateSubtitle()">
+                <p-button *ngIf="transcript?.length <= 0"
+                    [label]="video.attributes[0].source != 'local' ? 'Descargar subtítulo' :'Generar subtítulo' "
+                    (onClick)="onGenerateSubtitle()">
                 </p-button>
 
-                <ng-container *ngIf="video.attributes[0].source === 'local'" >
+                <ng-container *ngIf="video.attributes[0].source === 'local'">
                     <span *ngIf="transcript?.length <= 0">O</span>
 
                     <p-button label="Agregar subtítulo" (onClick)="addTranscription()"></p-button>
                 </ng-container>
-               
-                
+
+
 
                 <form [formGroup]="form" class="form-subtitle p-grid" (submit)="onSubmit()">
-                    <ng-container [formGroup]="transcription" *ngFor="let transcription of transcriptions.controls; let i = index">
+                    <ng-container [formGroup]="transcription"
+                        *ngFor="let transcription of transcriptions.controls; let i = index">
                         <div class="p-col-12 p-md-5 p-lg-5">
-                            <p-dropdown formControlName="language" [options]="language" placeholder="Idioma" optionLabel="name" [showClear]="true"
-                                (onChange)="onChangeLanguage($event)">
+                            <p-dropdown formControlName="language" [options]="language" placeholder="Idioma"
+                                optionLabel="name" [showClear]="true" (onChange)="onChangeLanguage($event)">
                             </p-dropdown>
                         </div>
                         <div class="p-col-12 p-md-5 p-lg-5">
                             <!-- <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"
                                 maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload> -->
-                                <input class="file_upload" pButton  formControlName="file" type="file" accept=".srt" (change)="onFileChange($event, i)">
+                            <input class="file_upload" pButton formControlName="file" type="file" accept=".srt"
+                                (change)="onFileChange($event, i)">
                         </div>
                         <div class="p-col-12 p-md-2 p-lg-2">
                             <button (click)="removeTranscription(i)" pButton pRipple type="button" icon="pi pi-times"

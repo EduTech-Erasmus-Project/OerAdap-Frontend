@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { PublicComponent } from "../../public/public.component";
-import { Router, NavigationExtras } from "@angular/router";
+import { Router } from "@angular/router";
 import { LanguageService } from "src/app/services/language.service";
 
 @Component({
@@ -55,7 +55,7 @@ export class MenuPublicComponent implements OnInit {
       },
       {
         label: "API", //translate.translations.menu.contact,
-        routerLink: "api",
+        routerLink: "api-doc",
         routerLinkActiveOptions: {
           exact: true,
           //styleClass: "active",
