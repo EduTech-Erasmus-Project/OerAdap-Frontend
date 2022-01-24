@@ -185,10 +185,10 @@
                     <h5 class="no-content">Esta página no contiene imágenes</h5>
                 </ng-template>
             </p-tabPanel>
-            <p-tabPanel id="paragraph" header="Parrafos" *ngIf="paragraph">
+            <p-tabPanel id="paragraph" header="Párrafos" *ngIf="paragraph">
                 <ng-template pTemplate="header">
                     <i class="pi pi-align-center"></i>
-                    <span>Parrafos</span>
+                    <span>Párrafos</span>
                 </ng-template>
                 <ng-container *ngIf="paragraphs?.length > 0; else paragraphsTemplate">
                     <app-paragraph-content [paragraphs]="paragraphs"></app-paragraph-content>

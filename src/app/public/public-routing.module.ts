@@ -117,7 +117,7 @@ const routes: Routes = [
         },
       },
       {
-        path: "api",
+        path: "api-doc",
         loadChildren: () =>
           import("./pages/api/api.module").then((m) => m.ApiModule),
         data: {

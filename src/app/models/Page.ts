@@ -13,6 +13,7 @@ export interface Video {
   page_learning_object?: number;
   attributes?: Attribute[];
   tags_adapted?: TagsAdapted;
+  adapting?: boolean;
 }
 
 export interface Attribute {

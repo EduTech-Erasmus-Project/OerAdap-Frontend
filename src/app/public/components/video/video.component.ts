@@ -174,13 +174,28 @@ export class VideoComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.log(error);
-          this.messages.push({
-            severity: "error",
-            summary: "Error",
-            detail: "El vídeo no está disponible.",
-          });
-
-          this.loaderGenerateSubtitle = false;
+          if(error.status === 504){
+            return;
+          }
+          
+          if (error.status === 500) {
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail:
+                "El servidor no está disponible, por favor intente más tarde.",
+            });
+            return;
+          }
+          
+          if (!this.video.adapting) {
+            this.messages.push({
+              severity: "error",
+              summary: "Error",
+              detail: "El vídeo no está disponible.",
+            });
+            this.loaderGenerateSubtitle = false;
+          }
         }
       );
 
@@ -199,10 +214,10 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
       (res: any) => {
-        console.log("res video", res);
+        //console.log("res video", res);
         let text = res.transcript.map((data) => data.transcript);
         this.jsonString = text.join("\r\n");
-        console.log(res);
+        //console.log(res);
         this.loaderJson = false;
       },
       (error) => console.log(error)
