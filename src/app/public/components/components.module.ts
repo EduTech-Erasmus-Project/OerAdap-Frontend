@@ -47,7 +47,7 @@ import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
     ImageComponent,
     VideoComponent,
     ParagraphComponent,
-    OaMetadataComponent
+    OaMetadataComponent,
   ],
 })
 export class ComponentsModule {}
