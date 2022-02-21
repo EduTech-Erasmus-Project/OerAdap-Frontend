@@ -173,7 +173,8 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.loaderGenerateSubtitle = false;
         },
         (error) => {
-          console.log(error);
+          /*console.log(error);
+
           if(error.status === 504){
             return;
           }
@@ -195,7 +196,8 @@ export class VideoComponent implements OnInit, OnDestroy {
               detail: "El vídeo no está disponible.",
             });
             this.loaderGenerateSubtitle = false;
-          }
+          }*/
+          
         }
       );
 

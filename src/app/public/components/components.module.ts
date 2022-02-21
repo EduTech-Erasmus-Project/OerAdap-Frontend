@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
 
+import {CardModule} from 'primeng/card';
+
 @NgModule({
   declarations: [
     FileUploadComponent,
@@ -37,7 +39,8 @@ import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
     NgxDropzoneModule,
     NgAudioRecorderModule,
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    CardModule
   ],
   exports: [
     FileUploadComponent,
@@ -47,7 +50,8 @@ import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
     ImageComponent,
     VideoComponent,
     ParagraphComponent,
-    OaMetadataComponent
+    OaMetadataComponent,
+    CardModule
   ],
 })
 export class ComponentsModule {}

@@ -3,7 +3,6 @@ import { MessageService,Message } from 'primeng/api';
 import { EventService } from 'src/app/services/event.service';
 import { LearningObjectService } from 'src/app/services/learning-object.service';
 
-
 @Component({
   selector: "app-audio",
   templateUrl: "./audio.component.html",
@@ -19,6 +18,15 @@ export class AudioComponent implements OnInit {
   public answers: any;
 
   public messages: Message[] = [];
+
+  msaapDisplayTitle = true;
+  msaapDisplayPlayList = true;
+  msaapPageSizeOptions = [2,4,6];
+  msaapDisplayVolumeControls = true;
+  msaapDisplayRepeatControls = true;
+  msaapDisplayArtist = false;
+  msaapDisplayDuration = false;
+  msaapDisablePositionSlider = true;
 
   constructor(
     private learningObjectService: LearningObjectService,
@@ -70,6 +78,8 @@ export class AudioComponent implements OnInit {
         },
         (err) => {
           this.showError("Error al generar la descripción");
+          this.generate_text = false;
+          this.editTextArea = false;
         }
       );
   }
