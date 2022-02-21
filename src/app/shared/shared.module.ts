@@ -92,7 +92,7 @@ import { NotfoundComponent } from "./notfound/notfound.component";
 import { MenuPublicComponent } from './menu-public/menu-public.component';
 import { MomentPipe } from '../pipes/moment.pipe';
 import {ConfirmationService} from 'primeng/api';
-
+import { PlayerComponent } from './player/player.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -105,7 +105,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlsanitizerPipe,
     MomentPipe,
     BreadcrumbPublicComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    PlayerComponent
   ],
   exports: [
     BreadcrumbPublicComponent,
@@ -196,6 +197,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlsanitizerPipe,
     MomentPipe,
     ProgressSpinnerModule,
+    PlayerComponent
   ],
   imports: [
     ProgressSpinnerModule,
