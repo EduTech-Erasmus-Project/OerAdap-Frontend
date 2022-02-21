@@ -1,9 +1,13 @@
 <p-card [style]="{'margin-bottom': '2em'}">
 
     <div class="audio_src" *ngFor="let data of item.attributes">
-        <audio class="audio" controls="controls"  preload="none" >
+       
+       <!-- <audio class="audio" controls="controls"  preload="none" >
             <source src="{{data.path_src}}">
-        </audio>
+        </audio>-->
+
+        <app-player [path_src]="data.path_src"></app-player>
+
     </div>
    
     <div class="view_text"  >

@@ -1,0 +1,22 @@
+<div class="player-control">
+    <div class="play">
+        <div class="controls">
+            <button pButton pRipple type="button" icon=" pi {{!audioPlay ?'pi-play' : 'pi-pause'}}" (click)="onPlay()" class="p-button-rounded p-button-secondary p-button-text"></button>
+           <!-- <i tabindex="1" [ngClass]="{'pi-play': !audioPlay,'pi-pause': audioPlay}" class="pi" (click)="onPlay()"></i>-->
+        </div>
+        <div class="progres">
+            <span>{{currentTime}}</span>
+            <input tabindex="1" class="slide" #seekInput type="range" min="0" [max]="audio.duration" [value]="seek"
+                (input)="onSeekTo(seekInput)" >
+            <span>{{duration}}</span>
+        </div>
+    </div>
+    <div class="volume ">
+        <div class="vol-controls">
+            <i class="pi pi-volume-down"></i>
+            <input  tabindex="1" class="slide" #volume type="range" min="0" max="1" [value]="audio.volume" step="0.01"
+                (input)="onVolume(volume)">
+            <i class="pi pi-volume-up"></i>
+        </div>
+    </div>
+</div>
