@@ -131,8 +131,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          console.log("err", err);
-          if (err.status === 0) {
+          if (err.status === 0 || err.status === 500) {
             this.msgs = [
               {
                 severity: "error",
@@ -140,17 +139,15 @@ export class AdapterComponent implements OnInit, OnDestroy {
                 detail: "Error interno con el servidor",
               },
             ];
-          } else {
-            this.msgs = [
-              {
-                severity: "error",
-                summary: "Error",
-                detail: "Este Objeto de Aprendizaje ya fue adaptado",
-              },
-            ];
+            return;
           }
-
-
+          this.msgs = [
+            {
+              severity: "error",
+              summary: "Error",
+              detail: "Este Objeto de Aprendizaje ya fue adaptado",
+            },
+          ];
           this.upload = false;
           this.loader = false;
           this.progress = 0;
