@@ -132,13 +132,25 @@ export class AdapterComponent implements OnInit, OnDestroy {
         },
         (err) => {
           console.log("err", err);
-          this.msgs = [
-            {
-              severity: "error",
-              summary: "Error",
-              detail: "Este Objeto de Aprendizaje ya fue adaptado",
-            },
-          ];
+          if (err.status === 0) {
+            this.msgs = [
+              {
+                severity: "error",
+                summary: "Error",
+                detail: "Error interno con el servidor",
+              },
+            ];
+          } else {
+            this.msgs = [
+              {
+                severity: "error",
+                summary: "Error",
+                detail: "Este Objeto de Aprendizaje ya fue adaptado",
+              },
+            ];
+          }
+
+
           this.upload = false;
           this.loader = false;
           this.progress = 0;
@@ -202,5 +214,5 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(learningsObjectsSub);
   }
 
-  async screenShot(url) {}
+  async screenShot(url) { }
 }
