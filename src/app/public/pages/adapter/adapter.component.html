@@ -42,14 +42,15 @@
                 </div>
                 <h6>Seleccione las áreas a automatizar.</h6>
                 <div class="p-grid">
-                    <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let checkbox of checkboxs">
+
+                    <div  class="p-col-12 p-md-6 p-lg-6" *ngFor="let check of checkboxs; let i=index">
                         <div class="p-field-checkbox">
-                            <p-checkbox formControlName="areas" [value]="checkbox.value" [inputId]="checkbox"
-                                (onChange)="onCheckChange(checkbox.value, $event)"></p-checkbox>
-                            <label [for]="checkbox.value">{{checkbox.description}}</label>
+                            <p-checkbox formControlName="areas"  [value]="check.value" [inputId]="check.value"
+                                (onChange)="onCheckChange($event, check)"></p-checkbox>
+                            <label [for]="check.value">{{check.name}}</label>
                         </div>
                     </div>
-
+                   
                 </div>
                 <div class="button">
                     <p-button type="submit" label="Cargar" icon="pi pi-cloud-upload"></p-button>
