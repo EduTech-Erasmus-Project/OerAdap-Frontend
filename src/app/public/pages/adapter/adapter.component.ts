@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StorageService } from "../../../services/storage.service";
 import { LearningObject } from "../../../models/LearningObject";
-import { MessageService } from "primeng/api";
+import { Message, MessageService } from "primeng/api";
 
 @Component({
   selector: "app-adapter",
@@ -28,6 +28,8 @@ export class AdapterComponent implements OnInit, OnDestroy {
   private navigateId: number;
   public learningObjects?: LearningObject[];
   private subscriptions: Subscription[] = [];
+
+  public msgs: Message[] = [];
 
   public settingsForm: FormGroup;
 
@@ -69,8 +71,6 @@ export class AdapterComponent implements OnInit, OnDestroy {
       method: ["handbook", Validators.required],
       areas: [this.checkboxs.map((check) => check.value), Validators.required],
     });
-
-
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
@@ -107,7 +107,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   async onUpload() {
-    this.messageService.clear();
+    this.msgs = [];
     this.displayConditions = false;
     let dataForm = this.settingsForm.value;
     let data = {
@@ -132,11 +132,13 @@ export class AdapterComponent implements OnInit, OnDestroy {
         },
         (err) => {
           console.log("err", err);
-          this.messageService.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Este Objeto de Aprendizaje ya fue adaptado",
-          });
+          this.msgs = [
+            {
+              severity: "error",
+              summary: "Error",
+              detail: "Este Objeto de Aprendizaje ya fue adaptado",
+            },
+          ];
           this.upload = false;
           this.loader = false;
           this.progress = 0;

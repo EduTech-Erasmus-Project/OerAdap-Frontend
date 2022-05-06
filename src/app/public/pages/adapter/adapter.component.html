@@ -13,7 +13,7 @@
                     <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
             </ngx-dropzone>
-            <p-messages></p-messages>
+            <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
         </div>
 
         <div class="p-col-1 p-md-3 p-lg-3">
