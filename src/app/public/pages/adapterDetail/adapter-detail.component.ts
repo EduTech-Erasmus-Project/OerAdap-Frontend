@@ -92,7 +92,8 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
           //console.log(this.audio);
           //console.log(this.paragraph);
           let data = this.getDataTabPanel(0)
-          this.reLoadData(data.name);
+
+          this.reLoadData(data?.name);
         },
         (err) => {
           this.router.navigate(["/404"]);

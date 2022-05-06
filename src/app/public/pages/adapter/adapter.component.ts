@@ -131,7 +131,16 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          console.log("err", err);
+          if (err.status === 0 || err.status === 500) {
+            this.msgs = [
+              {
+                severity: "error",
+                summary: "Error",
+                detail: "Error interno con el servidor",
+              },
+            ];
+            return;
+          }
           this.msgs = [
             {
               severity: "error",
@@ -202,5 +211,5 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(learningsObjectsSub);
   }
 
-  async screenShot(url) {}
+  async screenShot(url) { }
 }
