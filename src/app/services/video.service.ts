@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 
 const baseUrl = environment.baseUrl;
@@ -12,6 +12,7 @@ export class VideoService {
 
   getVidoTranscript(id: number) {
     //console.log("id get", id)
+    //const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
     return this.http.get(`${baseUrl}/adapter/gettranscript/${id}`);
   }
 
@@ -42,5 +43,9 @@ export class VideoService {
       observe: "events",
       responseType: "json",
     });
+  }
+
+  updateTranscript(id: number, data: any) {
+    return this.http.post(`${baseUrl}/adapter/updatetranscript/${id}`, data);
   }
 }

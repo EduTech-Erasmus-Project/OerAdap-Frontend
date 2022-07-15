@@ -1,0 +1,21 @@
+<p-messages [(value)]="msg" [enableService]="false"></p-messages>
+<ng-container *ngIf="!loaderJson; else jsonTemplate">
+    <div class="transcript-container">
+        <p *ngIf="acction == 'view'" class="jsonToString">{{ jsonString }}</p>
+
+        <textarea *ngIf="acction == 'edit'" class="input-text" pInputTextarea autoResize="autoResize" [(ngModel)]="jsonString"></textarea>
+    </div>
+</ng-container>
+<ng-template #jsonTemplate>
+    <div class="spinner-progress">
+        <p-progressSpinner [style]="{ width: '50px', height: '50px' }" styleClass="custom-spinner" strokeWidth="8"
+            animationDuration=".5s"></p-progressSpinner>
+        <p>Cargando subtítulo por favor espere...</p>
+    </div>
+</ng-template>
+
+
+<!-- <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="displaySubtitle = false" label="Cerrar" styleClass="p-button-text">
+    </p-button>
+</ng-template> -->

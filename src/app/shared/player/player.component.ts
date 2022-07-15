@@ -54,18 +54,18 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     //console.log(this.audio)
 
     if (!this.audio.canplay) {
-      console.log('start')
+      //console.log('start')
       this.audioPlay = true;
       this.streamObserver().subscribe(event => { })
     }
 
     if (this.audio.paused) {
-      console.log('play')
+      //console.log('play')
       this.audioPlay = true;
       this.audio.play()
 
     } else {
-      console.log('pause')
+      //console.log('pause')
       this.audioPlay = false;
       this.audio.pause()
     }
