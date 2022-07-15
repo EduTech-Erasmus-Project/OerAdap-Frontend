@@ -46,6 +46,7 @@ import { CookieService } from "ngx-cookie-service";
 import { FormBuilder } from "@angular/forms";
 import { MenuService } from './services/app.menu.service';
 import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
+import { environment } from "src/environments/environment";
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
     SharedModule,
     PublicModule,
     QuicklinkModule,
+    //SocketIoModule.forRoot(config),
     
   ],
   declarations: [AppComponent],
@@ -96,6 +98,7 @@ import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
       useClass: TokenRefInterceptor,
       multi: true,
     },
+    
 
   ],
   bootstrap: [AppComponent],

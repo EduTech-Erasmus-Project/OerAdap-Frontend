@@ -18,6 +18,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
 
 import {CardModule} from 'primeng/card';
+import { EditTranscriptComponent } from './edit-transcript/edit-transcript.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {CardModule} from 'primeng/card';
     ParagraphComponent,
     IframeComponent,
     OaMetadataComponent,
+    EditTranscriptComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,7 @@ import {CardModule} from 'primeng/card';
     NgAudioRecorderModule,
     FormsModule,
     CKEditorModule,
-    CardModule
+    CardModule,
   ],
   exports: [
     FileUploadComponent,

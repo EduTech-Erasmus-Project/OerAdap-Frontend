@@ -1,12 +1,18 @@
 import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { LearningObjectService } from "../../../services/learning-object.service";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StorageService } from "../../../services/storage.service";
 import { LearningObject } from "../../../models/LearningObject";
-import { MessageService } from "primeng/api";
+import { Message, MessageService } from "primeng/api";
 
 @Component({
   selector: "app-adapter",
@@ -23,46 +29,34 @@ export class AdapterComponent implements OnInit, OnDestroy {
   public learningObjects?: LearningObject[];
   private subscriptions: Subscription[] = [];
 
+  public msgs: Message[] = [];
+
   public settingsForm: FormGroup;
-  private areas: string[] = [
-    "all",
-    "image",
-    "video",
-    "audio",
-    "button",
-    "paragraph",
-  ];
-  public checkAll: boolean = true;
-  public checkboxs: any = [
+
+  public checkboxs: Array<any> = [
     {
       value: "all",
-      description: "Todas",
-      checked: true,
+      name: "Todas",
     },
     {
       value: "image",
-      description: "Imagen (Descripción de imagen)",
-      checked: true,
+      name: "Imagen (Descripción de imagen)",
     },
     {
       value: "video",
-      description: "Video (Subtitulado de video)",
-      checked: true,
+      name: "Video (Subtitulado de video)",
     },
     {
       value: "audio",
-      description: "Audio (Descripción de audio)",
-      checked: true,
+      name: "Audio (Descripción de audio)",
     },
     {
       value: "button",
-      description: "Botón de Adaptabilidad",
-      checked: true,
+      name: "Botón de Adaptabilidad",
     },
     {
       value: "paragraph",
-      description: "Párrafos de texto",
-      checked: true,
+      name: "Párrafos de texto",
     },
   ];
 
@@ -75,10 +69,8 @@ export class AdapterComponent implements OnInit, OnDestroy {
   ) {
     this.settingsForm = this.fb.group({
       method: ["handbook", Validators.required],
-      areas: [this.areas, Validators.required],
+      areas: [this.checkboxs.map((check) => check.value), Validators.required],
     });
-
-    //this.
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
@@ -90,32 +82,33 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   onSelect(event: any) {
     this.file = event.addedFiles[0];
-    
   }
 
   onRemove() {
-    //console.log(event);
-    //this.files.splice(this.files.indexOf(event), 1);
     this.file = undefined;
   }
 
   getmethod(idx) {
     if (this.learningObjects[idx].config_adaptability.method === "handbook") {
       return "Manual";
-    } else if (this.learningObjects[idx].config_adaptability.method === "automatic") {
+    } else if (
+      this.learningObjects[idx].config_adaptability.method === "automatic"
+    ) {
       return "Automatica";
-    } else if (this.learningObjects[idx].config_adaptability.method === "mixed") {
+    } else if (
+      this.learningObjects[idx].config_adaptability.method === "mixed"
+    ) {
       return "Mixta";
     }
   }
 
-  getareas(idx){
-    return this.learningObjects[idx].config_adaptability.areas.join(', ')
+  getareas(idx) {
+    return this.learningObjects[idx].config_adaptability.areas.join(", ");
   }
 
   async onUpload() {
+    this.msgs = [];
     this.displayConditions = false;
-    //console.log("upload", this.settingsForm.value)
     let dataForm = this.settingsForm.value;
     let data = {
       file: this.file,
@@ -126,7 +119,6 @@ export class AdapterComponent implements OnInit, OnDestroy {
       .uploadObject(data)
       .subscribe(
         (res: any) => {
-          //console.log("res upload", res);
           if (res.body?.id) {
             this.navigateId = res.body.id;
             this.storageService.saveStorageItem("user_ref", res.body.user_ref);
@@ -139,8 +131,23 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          //console.log("El serro",err.error.state);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Este Objeto de Aprendizaje ya fue adaptado' });
+          if (err.status === 0 || err.status === 500) {
+            this.msgs = [
+              {
+                severity: "error",
+                summary: "Error",
+                detail: "Error interno con el servidor",
+              },
+            ];
+            return;
+          }
+          this.msgs = [
+            {
+              severity: "error",
+              summary: "Error",
+              detail: "Este Objeto de Aprendizaje ya fue adaptado",
+            },
+          ];
           this.upload = false;
           this.loader = false;
           this.progress = 0;
@@ -149,34 +156,42 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(umploadSub);
   }
 
-  onCheckChange(evt, event) {
-    if (evt === "all" && event.checked) {
-      this.areas = ["all", "image", "video", "audio", "button", "paragraph"];
-    } else if (evt === "all" && !event.checked) {
-      this.areas = [];
-    } else {
-      if (this.areas.includes("all")) {
-        this.areas.splice(this.areas.indexOf("all"), 1);
-      }
-      if (this.areas.includes(evt)) {
-        this.areas = this.areas.filter((res) => res != evt);
-      } else {
-        this.areas.push(evt);
-      }
-      if (this.areas.length >= 5 && !this.areas.includes("all")) {
-        this.areas.unshift("all");
-      }
+  onCheckChange(evt, check) {
+    if (check.value === "all" && evt.checked) {
+      this.settingsForm
+        .get("areas")
+        ?.setValue(this.checkboxs.map((check) => check.value));
+      return;
+    } else if (check.value === "all" && !evt.checked) {
+      this.settingsForm.get("areas")?.setValue([]);
+      return;
     }
-    this.settingsForm.patchValue({
-      areas: this.areas,
-    });
+
+    if (
+      !this.settingsForm.get("areas")?.value.includes(check.value) &&
+      !evt.checked
+    ) {
+      this.settingsForm
+        .get("areas")
+        ?.setValue(
+          this.settingsForm
+            .get("areas")
+            ?.value.filter((area) => area !== check.value)
+        );
+    } else {
+      this.settingsForm
+        .get("areas")
+        ?.setValue([...this.settingsForm.get("areas")?.value, check.value]);
+    }
   }
 
   showConditionModal() {
-    this.displayConditions = true;
+    if (this.settingsForm.valid) {
+      this.displayConditions = true;
+    }
   }
 
-  navigate(id:number = this.navigateId) {
+  navigate(id: number = this.navigateId) {
     this.router.navigate(["/adapter", id]);
   }
 
@@ -187,20 +202,14 @@ export class AdapterComponent implements OnInit, OnDestroy {
         this.learningObjects = res;
         this.learningObjects.sort((a, b) => {
           return b.id - a.id;
-      });
-
-        //console.log("object", this.learningObjects)
-
-        //this.screenShot("https://www.google.com");
-
-        res.forEach((item) => {
-          //const s = new Screenshot('http://google.com').width(800)
         });
+
+        // res.forEach((item) => {
+        //   //const s = new Screenshot('http://google.com').width(800)
+        // });
       });
     this.subscriptions.push(learningsObjectsSub);
   }
 
-  async screenShot(url) {
-    
-  }
+  async screenShot(url) { }
 }

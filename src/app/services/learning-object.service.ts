@@ -31,7 +31,8 @@ export class LearningObjectService {
 
     data.areas.splice(data.areas.indexOf('all'), 1);
     
-    //console.log(data)
+    console.log("data send", data)
+
     let formData = new FormData();
     formData.append("file", data.file);
     formData.append("areas", data.areas);

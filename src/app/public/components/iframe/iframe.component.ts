@@ -32,8 +32,12 @@ export class IframeComponent implements OnInit, OnDestroy {
 
         var iframe: any = document.getElementById("web-view");
         //iframe.contentWindow.location.reload();
-        iframe.src = "";
-        iframe.src = this.page.code;
+        //iframe.src = "";
+        //iframe.src = this.page.code;
+
+        const url = iframe.src + '?timestamp=' + new Date().getTime()
+        //document.getElementById('my-iframe-id').src = url
+        iframe.contentWindow.location.href = url;
 
         //this.ngOnInit();
 
