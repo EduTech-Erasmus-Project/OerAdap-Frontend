@@ -142,7 +142,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.videos = [];
     let videoSub = this.pageService.getVideo(this.currentPageId).subscribe(
       (res: any) => {
-        console.log("res loadVideo", res)
+        //console.log("res loadVideo", res)
         this.videos = res;
       },
       (err) => console.log(err)

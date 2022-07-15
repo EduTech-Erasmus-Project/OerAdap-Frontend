@@ -132,14 +132,13 @@
             <ng-container *ngIf="edit; else buttonTemplate">
                 <!-- file || !fileRecord ||  -->
                 <p-button [disabled]="(!htmlContent && (!fileRecord && !file)) || updateParagraph" (click)="onSave()"
-                    [label]="updateParagraph ? 'Guardando...' : 'Guardar'" icon="pi pi-check"
-                    [loading]="updateParagraph"></p-button>
+                    [label]="updateParagraph ? 'Guardando...' : 'Guardar'" icon="pi pi-check"></p-button>
 
                 <button (click)="edit = false" pButton pRipple type="button" icon="pi pi-times" label="Cerrar"
                     class="p-button-danger"></button>
             </ng-container>
             <ng-template #buttonTemplate>
-                <p-button (click)="editParagraph()" label="Editar" icon="pi pi-check" [loading]="updateParagraph">
+                <p-button (click)="editParagraph()" label="Editar" icon="pi pi-check">
                 </p-button>
 
             </ng-template>

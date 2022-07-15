@@ -62,21 +62,29 @@
   }
 }
 
-.spinner-progress {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+// .spinner-progress {
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-.jsonToString{
-  white-space: pre;
-}
+// .jsonToString{
+//   white-space: pre;
+// }
 
 .file_upload::-webkit-file-upload-button {
   border: none;
   background: transparent;
   color: #fff;
   cursor: pointer;
+}
+
+.progres-download{
+  .progress-bar{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+  }
 }
