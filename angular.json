@@ -36,7 +36,11 @@
               "@fullcalendar/daygrid",
               "@fullcalendar/timegrid",
               "@fullcalendar/interaction",
-              "chart.js"
+              "chart.js",
+              "@fullcalendar/core",
+              "moment",
+              "@ckeditor/ckeditor5-build-classic",
+              "crypto-js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
