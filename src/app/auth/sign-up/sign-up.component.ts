@@ -6,9 +6,9 @@ import {
   ElementRef,
 } from "@angular/core";
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   public flagprofession = false;
   //public user: UserGeneral = new UserGeneral();
 
-  public angForm: FormGroup;
+  public angForm: UntypedFormGroup;
   public show: boolean = false;
   public flagN: number = 20;
   private subscribes: Subscription[] = [];
@@ -42,7 +42,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     "^([a-zA-Z0-9_' - '.]+)@([a-zA-Z0-9_' - '.]+).([a-zA-Z]{2,5})$";
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     // private searchService: SearchService,
     private messageService: MessageService
   ) {
@@ -184,7 +184,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   addEmailPathTeacherAndExpert() {
     this.angForm.addControl(
       "email",
-      new FormControl(null, [
+      new UntypedFormControl(null, [
         Validators.required,
         Validators.pattern(
           "^[A-Za-z\\d]+(@)+[u]+[p]+[s]+.+[e]+[d]+[u]+.+[e]+[c]"

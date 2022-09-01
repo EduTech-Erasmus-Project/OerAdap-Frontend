@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
 import { EventService } from "src/app/services/event.service";
@@ -16,7 +16,7 @@ export class ImageComponent implements OnInit, OnDestroy {
   private subscribes: Subscription[] = [];
   @Input() item: any;
 
-  public angForm: FormGroup;
+  public angForm: UntypedFormGroup;
   public edit: boolean = false;
   private textAux: string;
   private textAux_Edit: string;
@@ -39,7 +39,7 @@ export class ImageComponent implements OnInit, OnDestroy {
 
   constructor(
     private learning_ObjectService: LearningObjectService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private messageService: MessageService,
     private eventService: EventService,
     private confirmationService: ConfirmationService
@@ -55,9 +55,9 @@ export class ImageComponent implements OnInit, OnDestroy {
       this.table_result = this.item.text_table;
       this.flag_text_table = true;
     }
-    this.angForm.addControl(this.item.id, new FormControl(this.item.text));
+    this.angForm.addControl(this.item.id, new UntypedFormControl(this.item.text));
 
-    this.angForm.addControl(this.item.id, new FormControl(this.item.text));
+    this.angForm.addControl(this.item.id, new UntypedFormControl(this.item.text));
   }
 
   createForm() {

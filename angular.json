@@ -123,7 +123,6 @@
       }
     }
   },
-  "defaultProject": "mirage",
   "cli": {
     "analytics": "f334591a-e154-4a27-ad27-306a6d39825b"
   },

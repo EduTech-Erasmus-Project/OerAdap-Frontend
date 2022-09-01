@@ -4,7 +4,7 @@ import { VideoService } from "../../../services/video.service";
 import { Subject, Subscription } from "rxjs";
 import { Message } from "primeng/api";
 import { EventService } from "../../../services/event.service";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { Download } from "src/app/models/Download";
 
@@ -33,7 +33,7 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   public selectLanguage: any[] = [];
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   private url?: string;
   private WS: WebSocket;
 
@@ -57,7 +57,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   constructor(
     private videoService: VideoService,
     private eventService: EventService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.form = this.fb.group({
       transcriptions: this.fb.array([]),
@@ -174,7 +174,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   get transcriptions() {
-    return this.form.get("transcriptions") as FormArray;
+    return this.form.get("transcriptions") as UntypedFormArray;
   }
 
   removeTranscription(idx: number) {
