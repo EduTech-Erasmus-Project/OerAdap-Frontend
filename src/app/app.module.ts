@@ -43,7 +43,7 @@ import { PublicModule } from "./public/public.module";
 import { QuicklinkModule } from "ngx-quicklink";
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { CookieService } from "ngx-cookie-service";
-import { FormBuilder } from "@angular/forms";
+import { UntypedFormBuilder } from "@angular/forms";
 import { MenuService } from './services/app.menu.service';
 import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
 import { environment } from "src/environments/environment";
@@ -91,7 +91,7 @@ import { environment } from "src/environments/environment";
     BreadcrumbService,
     MessageService,
     CookieService,
-    FormBuilder,
+    UntypedFormBuilder,
     ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,

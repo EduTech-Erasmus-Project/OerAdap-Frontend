@@ -2,9 +2,9 @@ import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import {
   FormArray,
-  FormBuilder,
+  UntypedFormBuilder,
   FormControl,
-  FormGroup,
+  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
 import { LearningObjectService } from "../../../services/learning-object.service";
@@ -31,7 +31,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   public msgs: Message[] = [];
 
-  public settingsForm: FormGroup;
+  public settingsForm: UntypedFormGroup;
 
   public checkboxs: Array<any> = [
     {
@@ -62,7 +62,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   constructor(
     private learningObjectService: LearningObjectService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private messageService: MessageService,
     private storageService: StorageService
