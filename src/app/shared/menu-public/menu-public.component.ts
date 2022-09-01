@@ -83,6 +83,13 @@ export class MenuPublicComponent implements OnInit {
           exact: true,
         },
       },
+      {
+        label: "Guia de Usuario",
+        routerLink: "guide",
+        routerLinkActiveOptions: {
+          exact: true,
+        },
+      },
     ];
     //});
     // console.log("user menu");

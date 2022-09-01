@@ -1,19 +1,17 @@
-
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { EventService } from 'src/app/services/event.service';
-import { LearningObjectService } from 'src/app/services/learning-object.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { Subscription } from "rxjs";
+import { EventService } from "src/app/services/event.service";
+import { LearningObjectService } from "src/app/services/learning-object.service";
+import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 @Component({
-  selector: 'app-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  selector: "app-image",
+  templateUrl: "./image.component.html",
+  styleUrls: ["./image.component.scss"],
+  providers: [ConfirmationService, MessageService],
 })
-
 export class ImageComponent implements OnInit, OnDestroy {
   private subscribes: Subscription[] = [];
   @Input() item: any;
@@ -23,31 +21,28 @@ export class ImageComponent implements OnInit, OnDestroy {
   private textAux: string;
   private textAux_Edit: string;
   private mensajeID: string;
-  public messages:any;
+  public messages: any;
   public answers: any;
 
   public url: any;
   public displayModal: boolean;
   public flag_text_table: boolean = false;
 
-  title = 'Tets-table';
+  title = "Tets-table";
   config = {
-    toolbar: ['insertTable'],
-    language: 'es'
-  }
+    toolbar: ["insertTable"],
+    language: "es",
+  };
 
-  public table_result: string = '';
+  public table_result: string = "";
   public Editor = ClassicEditor;
-
-
 
   constructor(
     private learning_ObjectService: LearningObjectService,
     private fb: FormBuilder,
     private messageService: MessageService,
     private eventService: EventService,
-    private confirmationService: ConfirmationService,
-
+    private confirmationService: ConfirmationService
   ) {
     this.createForm();
   }
@@ -56,20 +51,14 @@ export class ImageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     if (this.item.text_table) {
-      this.table_result = this.item.text_table
+      this.table_result = this.item.text_table;
       this.flag_text_table = true;
     }
-    this.angForm.addControl(
-      this.item.id,
-      new FormControl(this.item.text)
-    );
-
     this.angForm.addControl(this.item.id, new FormControl(this.item.text));
 
+    this.angForm.addControl(this.item.id, new FormControl(this.item.text));
   }
-
 
   createForm() {
     this.angForm = this.fb.group({});
@@ -81,25 +70,33 @@ export class ImageComponent implements OnInit, OnDestroy {
     let new_text_alt = this.angForm.get(item.toString()).value;
     this.answers = {
       text: new_text_alt,
-      method: 'img-alt'
-    }
-    let sendDescription = await this.learning_ObjectService.updateImage(this.answers, item).subscribe(response => {
-      if (response) {
-        this.showSuccess("Los datos se actualizaron con exito");
-        this.item.text = response.text;
-        this.angForm.controls[item.toString()].setValue(new_text_alt);
-        this.edit = false;
-        this.eventService.emitEvent(true);
-      }
-    }, (err) => {
-      if (err.status == 304) {
-        this.showError('Datos no modificados')
-        this.item.text = this.textAux;
-        this.angForm.controls[item.toString()].setValue(this.textAux);
-        this.edit = false;
-      }
-    })
+      method: "img-alt",
+    };
+    let sendDescription = await this.learning_ObjectService
+      .updateImage(this.answers, item)
+      .subscribe(
+        (response) => {
+          if (response) {
+            this.showSuccess("Los datos se actualizaron con exito");
+            this.item.text = response.text;
+            this.angForm.controls[item.toString()].setValue(new_text_alt);
+            this.edit = false;
+            this.eventService.emitEvent(true);
+          }
+        },
+        (err) => {
+          if (err.status == 304) {
+            this.showError("Error, " + err.error?.message || err.message);
+            this.edit = false;
+            return;
+          }
 
+          this.showError("Error: " + err.error?.message || err.message);
+          this.edit = false;
+        }
+      );
+
+    this.subscribes.push(sendDescription);
   }
 
   cliclEdit(identificador, texto) {
@@ -132,7 +129,7 @@ export class ImageComponent implements OnInit, OnDestroy {
 
   cancelGenerate() {
     this.displayModal = false;
-    this.table_result = this.textAux_Edit
+    this.table_result = this.textAux_Edit;
   }
 
   showModalDialog() {
@@ -143,69 +140,100 @@ export class ImageComponent implements OnInit, OnDestroy {
   async confirm(event: Event, id) {
     this.confirmationService.confirm({
       target: event.target,
-      message: 'Esta seguro que desea guardar los cambios ?',
-      icon: 'pi pi-exclamation-triangle',
+      message: "Esta seguro que desea guardar los cambios ?",
+      icon: "pi pi-exclamation-triangle",
 
       accept: async () => {
-        if (this.flag_text_table == false && this.table_result !="" ) {
-         // console.log('Se crea')
+        if (this.flag_text_table == false && this.table_result != "") {
+          // console.log('Se crea')
 
           //Aceptar primera añadir tabla
           this.answers = {
             text_table: this.table_result,
-            method: 'transform-table'
-          }
-          let sendDescription = await this.learning_ObjectService.updateImage(this.answers, id).subscribe(response => {
-            if (response) {
-
-              this.item.text_table = response.text_table
-              this.eventService.emitEvent(true);
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'La tabla se creo correctamente' });
-              this.displayModal = false;
-              this.flag_text_table = true;
-
-            }
-          }, (err) => {
-            if (err.status == 304) {
-              this.showError('Datos no modificados')
-            }
-          })
-        } else if (this.flag_text_table == true && this.table_result !="" ) {
+            method: "transform-table",
+          };
+          let sendDescription = await this.learning_ObjectService
+            .updateImage(this.answers, id)
+            .subscribe(
+              (response) => {
+                if (response) {
+                  this.item.text_table = response.text_table;
+                  this.eventService.emitEvent(true);
+                  this.messageService.add({
+                    severity: "success",
+                    summary: "Guardado",
+                    detail: "La tabla se creo correctamente.",
+                  });
+                  this.displayModal = false;
+                  this.flag_text_table = true;
+                }
+              },
+              (err) => {
+                this.showError("Error, "+ err.error?.message || err.message);
+              }
+            );
+        } else if (this.flag_text_table == true && this.table_result != "") {
           //editar tabla la segunda
           this.answers = {
             text_table: this.table_result,
-            method: 'update-table'
-          }
-          let sendDescription = await this.learning_ObjectService.updateImage(this.answers, id).subscribe(response => {
-            if (response) {
-
-              this.eventService.emitEvent(true);
-              this.displayModal = false;
-              this.item.text_table = response.text_table;
-              this.messageService.clear;
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Se actualizo la tabla correctamente' });
-            }
-          }, (err) => {
-            if (err.status == 304) {
-              this.showError('Datos no modificados')
-            }
-          })
-        }else if(this.table_result== ""){
-          this.messageService.add({ severity: 'error', summary: 'Tabla vacia', detail: 'Porfavor genere una tabla antes de guardar' });
+            method: "update-table",
+          };
+          let sendDescription = await this.learning_ObjectService
+            .updateImage(this.answers, id)
+            .subscribe(
+              (response) => {
+                if (response) {
+                  this.eventService.emitEvent(true);
+                  this.displayModal = false;
+                  this.item.text_table = response.text_table;
+                  this.messageService.clear;
+                  this.messageService.add({
+                    severity: "success",
+                    summary: "Confirmed",
+                    detail: "Se actualizo la tabla correctamente.",
+                  });
+                }
+              },
+              (err) => {
+                this.showError("Error, "+ err.error?.message || err.message);
+              }
+            );
+        } else if (this.table_result == "") {
+          this.messageService.add({
+            severity: "error",
+            summary: "Tabla vacia",
+            detail: "Porfavor genere una tabla antes de guardar",
+          });
         }
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-      }
+        this.messageService.add({
+          severity: "error",
+          summary: "Rejected",
+          detail: "You have rejected",
+        });
+      },
     });
   }
 
   showModalDialogEdit() {
+    this.messageService.clear();
     this.displayModal = true;
-
     this.textAux_Edit = this.table_result;
-
     this.flag_text_table = true;
+
   }
 
+  public async onChangeViewFullScreenImage(evt: any, item: any) {
+    try {
+      this.messageService.clear();
+      let res = await this.learning_ObjectService
+        .updatePreviewImage({ preview: evt.checked }, item.id)
+        .toPromise();
+      this.eventService.emitEvent(true);
+      console.log("update res", res);
+    } catch (error) {
+      this.showError("Error, " + error.error?.message || error.message);
+    }
+  }
 }

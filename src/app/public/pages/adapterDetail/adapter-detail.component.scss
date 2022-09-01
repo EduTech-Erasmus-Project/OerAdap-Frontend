@@ -1,36 +1,40 @@
-.card{
+.card {
     padding-top: 10px;
     margin-bottom: -2px;
 }
-.oa-info{
+
+.oa-info {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    .p-col-12{
+
+    .p-col-12 {
         margin: 0;
         padding: 0;
     }
-    .sidebar{
+
+    .sidebar {
+
         //padding: 10px;
-        .card{
+        .card {
             padding: 10px 5px;
             height: 100%;
         }
     }
 }
 
-.oa-info{
+.oa-info {
     z-index: 100;
     position: relative;
 }
 
 
-:host ::ng-deep .p-tabview-panels{
+:host ::ng-deep .p-tabview-panels {
     padding: 0;
 }
 
 
-.no-content{
+.no-content {
     opacity: 0.5;
     text-align: center;
     padding: 25px;
@@ -38,12 +42,33 @@
     margin: 0;
 }
 
-.custom-skeleton{
+.custom-skeleton {
     width: 100%;
     margin-bottom: 25px;
 }
 
-.content-spin{
+.content-spin {
     text-align: center;
     padding: 3em 0;
+}
+
+.list-content {
+    min-height: 70vh;
+
+    p {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+}
+
+.list-content,
+.card-content {
+    .loader-spin {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

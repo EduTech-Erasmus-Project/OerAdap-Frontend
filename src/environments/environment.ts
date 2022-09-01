@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverWs: 'ws://localhost:8000/api',
+  serverWs: 'ws://localhost:8000/ws',
   baseUrl: 'http://localhost:8000/api',
   cryptoSecretKey: "@OER-QYpTatEMVQ3tem_0573d65be7efe43b07935a27220b61199ad90060@"
 };

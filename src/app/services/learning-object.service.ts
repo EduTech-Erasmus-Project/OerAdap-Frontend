@@ -14,13 +14,15 @@ export class LearningObjectService {
 
   //Paso de datos mediante servicios
   mensaje: string;
-  private enviarMensajeSubject = new Subject<string>();
-  enviarMensajeObservable = this.enviarMensajeSubject.asObservable();
+  //private enviarMensajeSubject = new Subject<string>();
+  //public sendMessageObservable = this.enviarMensajeSubject.asObservable();
 
-  enviarMensaje(mensaje: string) {
-    this.mensaje = mensaje;
-    this.enviarMensajeSubject.next(mensaje);
-  }
+  // sendMessage(mensaje: string) {
+
+  //   console.log("mensaje", mensaje);
+  //   this.mensaje = mensaje;
+  //   this.enviarMensajeSubject.next(mensaje);
+  // }
 
 
   //**************************************
@@ -31,7 +33,7 @@ export class LearningObjectService {
 
     data.areas.splice(data.areas.indexOf('all'), 1);
     
-    console.log("data send", data)
+    //console.log("data send", data)
 
     let formData = new FormData();
     formData.append("file", data.file);
@@ -60,6 +62,10 @@ export class LearningObjectService {
 
   updateImage(data: any, id: any) {
     return this.http.put(`${baseUrl}/page/image/${id}`, data).pipe(map((data: any) => data));
+  }
+
+  updatePreviewImage(data: any, id: any) {
+    return this.http.put(`${baseUrl}/adapter/image/preview/${id}`, data).pipe(map((data: any) => data));
   }
 
   getAudiosForPge(id: number) {
@@ -96,4 +102,21 @@ export class LearningObjectService {
   updateLearningObject_file_adapted(id:any, data:any){
     return this.http.put(`${baseUrl}/adapted/learningObject/${id}`,data).pipe(map((data: any) => data));
   }
+
+  getAllSounds(id:number){
+    return this.http.get(`${baseUrl}/learning_objects/audio/${id}`);
+  }
+
+  getAllImages(id:number){
+    return this.http.get(`${baseUrl}/learning_objects/image/${id}`);
+  }
+
+  getAllVideos(id:number){
+    return this.http.get(`${baseUrl}/learning_objects/video/${id}`);
+  }
+
+  getMetadataInfo(){
+    return this.http.get(`${baseUrl}/metadata_info/`);
+  }
+  
 }

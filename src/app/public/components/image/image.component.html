@@ -1,6 +1,9 @@
 <p-card [style]="{'margin-bottom': '2em'}">
 
     <div class="contenedor-desc-img" *ngIf="!item.text_table && !flag_text_table">
+        <div class="fullscreen p-mb-1" >
+            <p>Previsualización de imagen</p><p-inputSwitch (onChange)="onChangeViewFullScreenImage($event, item)" class="p-ml-1" [(ngModel)]="item.img_fullscreen"></p-inputSwitch>
+        </div>
         <div class="image-content">
             <div class="photo-product">
                 <a href="{{item.link}}" class="fancybox " data-lightbox="gallery1">

@@ -131,17 +131,27 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          this.upload = false;
+          this.loader = false;
+          this.progress = 0;
           console.log("err", err);
+          if (err.error?.code === "learning_object_odapted") {
+            this.msgs = [
+              {
+                severity: "error",
+                summary: "Error",
+                detail: "Este Objeto de Aprendizaje ya fue adaptado",
+              },
+            ];
+            return;
+          }
           this.msgs = [
             {
               severity: "error",
               summary: "Error",
-              detail: "Este Objeto de Aprendizaje ya fue adaptado",
+              detail: "Error, " + err.error?.message || err.message,
             },
           ];
-          this.upload = false;
-          this.loader = false;
-          this.progress = 0;
         }
       );
     this.subscriptions.push(umploadSub);

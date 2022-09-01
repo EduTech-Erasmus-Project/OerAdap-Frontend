@@ -3,6 +3,9 @@
     height: 27vh;
     display: flex;
     justify-content: center;
+    .fancybox{
+        height: 100%;
+    }
     img{
         width: 100%;
         max-height: 253.78px;
@@ -147,4 +150,9 @@ margin-top: 5px;
 .principal-buttons{
     display:flex;
     margin-left: 20%;
+}
+
+.fullscreen{
+    display: flex;
+    justify-content: flex-end;
 }

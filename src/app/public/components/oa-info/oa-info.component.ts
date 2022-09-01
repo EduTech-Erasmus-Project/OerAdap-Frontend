@@ -11,6 +11,7 @@ import {
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { LearningObject } from "../../../models/LearningObject";
 import { Subscription } from "rxjs";
+import { Message } from "primeng/api";
 
 @Component({
   selector: "app-oa-info",
@@ -35,7 +36,8 @@ export class OaInfoComponent implements OnInit, OnDestroy {
   private longitude: any;
   public tag_adapted: {};
   private subscription: Subscription[] = [];
-  public dounloadState:boolean = false;
+  public dounloadState: boolean = false;
+  public msgs: Message[];
 
   constructor(private learningObjectService: LearningObjectService) {}
   ngOnDestroy(): void {
@@ -82,6 +84,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
 
   async showResponsiveDialog() {
     //Servicio de retorno de objetos adaptados
+    this.msgs = [];
     if (
       this.learningObject?.config_adaptability.method == "automatic" &&
       !this.learningObject?.complete_adaptation
@@ -101,40 +104,46 @@ export class OaInfoComponent implements OnInit, OnDestroy {
   }
 
   async descargar() {
-    
-    if(this.dounloadState){
-      return
+    this.msgs = [];
+
+    if (this.dounloadState) {
+      return;
     }
 
     this.dounloadState = true;
-    const agent = window.navigator.userAgent.toLowerCase();
-    switch (true) {
-      case agent.indexOf("edge") > -1:
-        this.navegador = "Edge";
-        break;
-      case agent.indexOf("opr") > -1 && !!(<any>window).opr:
-        this.navegador = "Opera";
-        break;
-      case agent.indexOf("chrome") > -1 && !!(<any>window).chrome:
-        this.navegador = "Chrome";
-        break;
-      case agent.indexOf("trident") > -1:
-        this.navegador = "Trident";
-        break;
-      case agent.indexOf("firefox") > -1:
-        this.navegador = "Firefox";
-        break;
-      case agent.indexOf("safari") > -1:
-        this.navegador = "Safari";
-        break;
+    try {
+      const agent = window.navigator.userAgent.toLowerCase();
+      switch (true) {
+        case agent.indexOf("edge") > -1:
+          this.navegador = "Edge";
+          break;
+        case agent.indexOf("opr") > -1 && !!(<any>window).opr:
+          this.navegador = "Opera";
+          break;
+        case agent.indexOf("chrome") > -1 && !!(<any>window).chrome:
+          this.navegador = "Chrome";
+          break;
+        case agent.indexOf("trident") > -1:
+          this.navegador = "Trident";
+          break;
+        case agent.indexOf("firefox") > -1:
+          this.navegador = "Firefox";
+          break;
+        case agent.indexOf("safari") > -1:
+          this.navegador = "Safari";
+          break;
+      }
+    } catch (error) {
+      this.navegador = "Other";
     }
 
     //this.getLocation()
     this.learningObjectService.getPosition().then((pos) => {
       this.latitude = pos.lat;
       this.longitude = pos.lng;
-  });
-
+    }).catch((error) => {
+      console.log(error);
+    });
 
     let answers = {
       browser: this.navegador,
@@ -142,31 +151,48 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       latitude: this.latitude,
     };
     //console.log("id" + this.learningObject.id);
-    if (this.learningObject.file_download) {
-      this.downloadFile(this.learningObject.file_download);
-      this.displayResponsive = false;
-      return;
-    }
+    // if (this.learningObject.file_download) {
+    //   this.downloadFile(this.learningObject.file_download);
+    //   this.displayResponsive = false;
+    //   return;
+    // }
 
     let paht_download = await this.learningObjectService
       .getDownloadFileZip(this.learningObject.id, answers)
-      .subscribe((response) => {
-        if (response) {
-          this.downloadFile(response.path);
-          this.displayResponsive = false;
+      .subscribe(
+        (response) => {
+          if (response) {
+            this.downloadFile(response.path);
+            this.displayResponsive = false;
+          }
+        },
+        (error) => {
+          console.log(error);
 
+          this.msgs = [
+            {
+              severity: "error",
+              summary: "Error",
+              detail:
+                "No se pudo descargar el archivo, " + error.error?.message ||
+                error.message,
+            },
+          ];
+          this.dounloadState = false;
         }
-      });
+      );
     this.subscription.push(paht_download);
   }
 
-  getLocation() {
-    this.learningObjectService.getPosition().then((pos) => {
-      this.latitude = pos.lat;
-      this.longitude = pos.lng;
-      //console.log(this.latitude,this.longitude)
-    });
-  }
+  // private getLocation() {
+  //   this.learningObjectService.getPosition().then((pos) => {
+  //     this.latitude = pos.lat;
+  //     this.longitude = pos.lng;
+  //     //console.log(this.latitude,this.longitude)
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   downloadFile(data: any) {
     window.open(data);

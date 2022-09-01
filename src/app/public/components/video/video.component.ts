@@ -240,36 +240,11 @@ export class VideoComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.log(error);
-          //this.loaderGenerateSubtitle = false;
-
-          if (error.status === 504) {
-            return;
-          }
-
-          if (error.status === 500) {
+          if (error.status) {
             this.messages.push({
               severity: "error",
               summary: "Error",
-              detail:
-                "El servidor no está disponible, por favor intente más tarde.",
-            });
-            return;
-          }
-
-          // if (!this.video.adapting) {
-          //   this.messages.push({
-          //     severity: "error",
-          //     summary: "Error",
-          //     detail: "El vídeo no está disponible.",
-          //   });
-          //   this.loaderGenerateSubtitle = false;
-          // }
-
-          if (error.status === 400) {
-            this.messages.push({
-              severity: "error",
-              summary: "Error",
-              detail: error.error.message,
+              detail: error.error?.message || error.message,
             });
             return;
           }
@@ -319,8 +294,6 @@ export class VideoComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.messages = [];
     if (this.form.valid) {
-      //console.log("is valid")
-      //console.log(this.form);
       this.videoService.addTranscript(this.video.id, this.form.value).subscribe(
         (res: any) => {
           if (res?.body) {
@@ -340,7 +313,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.messages.push({
             severity: "error",
             summary: "Error",
-            detail: error.error.message,
+            detail: "Error al guardar el subtítulo, " + error.error?.message || error.message,
           });
         }
       );

@@ -34,7 +34,8 @@ export class AudioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.textEdit = this.item.text;
+    this.textEdit = this.item?.text;
+    console.log("all audios", this.item);
   }
 
   cliclEdit(texto) {
@@ -61,6 +62,8 @@ export class AudioComponent implements OnInit {
       path_system: item.attributes[0].path_system,
     };
 
+    console.log(this.answers);
+
 
     let generate_text_audio = await this.learningObjectService
       .sentCreateAudio(this.answers)
@@ -77,7 +80,8 @@ export class AudioComponent implements OnInit {
           }
         },
         (err) => {
-          this.showError("Error al generar la descripción");
+          console.log(err);
+          this.showError("Error al generar la descripción: " +(err.error?.message || err.message) );
           this.generate_text = false;
           this.editTextArea = false;
         }
@@ -101,24 +105,18 @@ export class AudioComponent implements OnInit {
     this.answers = {
       text: this.textEdit,
     };
-    let updateAudio = await this.learningObjectService
-      .updateAudio(this.answers, this.item.id)
-      .subscribe(
-        (response) => {
-          if (response) {
-            this.textEdit = response.text;
-            this.showSuccess("Los datos se actualizaron con exito");
-            this.editTextArea = false;
-            this.item.text = this.textEdit;
-            this.eventService.emitEvent(true);
-          }
-        },
-        (err) => {
-          if (err.status == 304) {
-            this.showError("Datos no modificados");
-          }
-        }
-      );
+    try {
+      let response = await this.learningObjectService.updateAudio(this.answers, this.item.id).toPromise();
+      if (response) {
+        this.textEdit = response.text;
+        this.showSuccess("Los datos se actualizaron con exito");
+        this.editTextArea = false;
+        this.item.text = this.textEdit;
+        this.eventService.emitEvent(true);
+      }
+    } catch (error) {
+      this.showError("Error al actualizar los datos, " + error.error?.message || error.message);
+    }
   }
 
   async createAudios() {
@@ -130,27 +128,26 @@ export class AudioComponent implements OnInit {
       html_text: this.item.html_text,
       id_ref: this.item.id_class_ref,
       method: "create",
+      path_src: this.item.attributes[0].path_src,
+      path_system: this.item.attributes[0].path_system,
     };
 
+    console.log(this.answers);
 
-    let sendAudios = await this.learningObjectService
-      .sentCreateAudio(this.answers)
-      .subscribe(
-        (audios) => {
-          if (audios) {
-            //console.log(audios)
-            this.textEdit = audios.text;
-            this.showSuccess("Los datos se agregaron con exito");
-            this.editTextArea = false;
-            this.edit = true;
-            this.item.text = audios.text;
-            this.eventService.emitEvent(true);
-          }
-        },
-        (err) => {
-          this.showError("Error al guardar los datos");
-        }
-      );
+    try {
+      let audio = await this.learningObjectService.sentCreateAudio(this.answers).toPromise();
+      if (audio) {
+        //console.log(audios)
+        this.textEdit = audio.text;
+        this.showSuccess("Los datos se agregaron con exito");
+        this.editTextArea = false;
+        this.edit = true;
+        this.item.text = audio.text;
+        this.eventService.emitEvent(true);
+      }
+    } catch (err) {
+      this.showError("Error al guardar los datos, " + err.error?.message || err.message);
+    }
   }
 
   showError(message) {
