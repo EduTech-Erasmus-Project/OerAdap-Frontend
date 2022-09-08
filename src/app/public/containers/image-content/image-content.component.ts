@@ -5,7 +5,7 @@ import { LearningObjectService } from "src/app/services/learning-object.service"
 @Component({
   selector: "app-image-content",
   templateUrl: "./image-content.component.html",
-  styleUrls: ["./image-content.component.css"],
+  styleUrls: ["./image-content.component.scss"],
 })
 export class ImageContentComponent implements OnInit {
   @Input() imagesGroup: any[];
@@ -16,6 +16,7 @@ export class ImageContentComponent implements OnInit {
   }
 
   private formtData() {
+    //console.log("enter");
     this.imagesGroup = this.imagesGroup.map((image: any) => {
       return {
         id: image.id,
@@ -25,7 +26,9 @@ export class ImageContentComponent implements OnInit {
         text: image.tags_adapted.text,
         text_table: image.tags_adapted.text_table,
         img_fullscreen: image.tags_adapted.img_fullscreen,
+        adaptation: image.adaptation,
       };
     });
+    //console.log("exit");
   }
 }

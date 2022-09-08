@@ -128,6 +128,9 @@ const routes: Routes = [
         path: "guide",
         loadChildren: () =>
           import("./pages/guide/guide.module").then((m) => m.GuideModule),
+          data: {
+            breadcrumb: "Guia de Usuario",
+          },
       },
     ],
   },

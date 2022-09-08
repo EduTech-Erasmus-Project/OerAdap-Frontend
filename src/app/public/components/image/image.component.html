@@ -1,8 +1,20 @@
-<p-card [style]="{'margin-bottom': '2em'}">
+<div class="p-mt-2" style="display:flex; align-items:center;">
+    <p>Adaptación</p>
+    <p-inputSwitch class="p-ml-1" [(ngModel)]="item.adaptation"></p-inputSwitch>
+</div>
+
+<p-blockUI [target]="pnl" [blocked]="!item.adaptation">
+    <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
+</p-blockUI>
+
+
+<p-card #pnl [style]="{'margin-bottom': '2em'}">
 
     <div class="contenedor-desc-img" *ngIf="!item.text_table && !flag_text_table">
-        <div class="fullscreen p-mb-1" >
-            <p>Previsualización de imagen</p><p-inputSwitch (onChange)="onChangeViewFullScreenImage($event, item)" class="p-ml-1" [(ngModel)]="item.img_fullscreen"></p-inputSwitch>
+        <div class="fullscreen p-mb-1">
+            <p>Previsualización de imagen</p>
+            <p-inputSwitch (onChange)="onChangeViewFullScreenImage($event, item)" class="p-ml-1"
+                [(ngModel)]="item.img_fullscreen"></p-inputSwitch>
         </div>
         <div class="image-content">
             <div class="photo-product">
@@ -10,7 +22,7 @@
                     <!-- <div class="iono-eye">
                         <i class="pi pi-eye" id ="icono"></i>
                     </div> -->
-                    <img src="{{item.link}}" alt="{{item.text}}"  pTooltip="Previsualizar imagen"
+                    <img src="{{item.link}}" alt="{{item.text}}" pTooltip="Previsualizar imagen"
                         tooltipPosition="bottom" tabindex="1">
                 </a>
             </div>
@@ -45,7 +57,8 @@
                 </div>
             </div>
             <div class="create-table">
-                <label for="name" style="color:gray; padding:10px 10px" > Click en insertar tabla para crear una tabla nueva:</label>
+                <label for="name" style="color:gray; padding:10px 10px"> Click en insertar tabla para crear una tabla
+                    nueva:</label>
                 <br>
                 <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="table_result"></ckeditor>
                 <p-messages></p-messages>
@@ -62,11 +75,11 @@
                     <p-confirmPopup></p-confirmPopup>
                     <button pButton pRipple icon="pi pi-check" (click)="confirm($event, item.id)" label="Guardar Tabla"
                         styleClass="p-button-text"></button>
-                </div>    
+                </div>
             </div>
         </ng-template>
     </p-dialog>
-    
+
 
     <p-messages></p-messages>
 

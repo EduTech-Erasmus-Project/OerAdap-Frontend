@@ -340,6 +340,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       let res: any = await this.learningObjectService
         .getAllImages(this.learningObject.id)
         .toPromise();
+
+        console.log("res", res);
+        
       this.imagesGroup = res;
       this.listAll = false;
     } catch (error) {

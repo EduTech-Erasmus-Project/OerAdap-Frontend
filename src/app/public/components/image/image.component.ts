@@ -13,8 +13,10 @@ import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
   providers: [ConfirmationService, MessageService],
 })
 export class ImageComponent implements OnInit, OnDestroy {
-  private subscribes: Subscription[] = [];
   @Input() item: any;
+  private subscribes: Subscription[] = [];
+
+  public blockedPanel = true;
 
   public angForm: UntypedFormGroup;
   public edit: boolean = false;

@@ -20,6 +20,7 @@ import { OaMetadataComponent } from './oa-metadata/oa-metadata.component';
 import {CardModule} from 'primeng/card';
 import { EditTranscriptComponent } from './edit-transcript/edit-transcript.component';
 
+
 @NgModule({
   declarations: [
     FileUploadComponent,

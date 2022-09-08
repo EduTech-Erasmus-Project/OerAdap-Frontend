@@ -1,12 +1,9 @@
 
 import { HttpClient } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { environment } from 'src/environments/environment.prod';
-
 
 //const baseUrl = environment.baseUrl;
 
