@@ -1,12 +1,14 @@
-.image-content{
+.image-content {
     width: 100%;
     height: 27vh;
     display: flex;
     justify-content: center;
-    .fancybox{
+
+    .fancybox {
         height: 100%;
     }
-    img{
+
+    img {
         height: 100%;
         width: 100%;
         //max-height: 253.78px;
@@ -14,82 +16,94 @@
 }
 
 
-h6{
-    text-align: center;
-}
-#formAdapte{
+h6 {
     text-align: center;
 }
 
-.audio-content{
+#formAdapte {
     text-align: center;
+}
+
+.audio-content {
+    text-align: center;
+
     //background-color: red !important;
-    p{
+    p {
         margin: 2px 0;
     }
 
-    span{
+    span {
         font-size: 1.2em;
         font-weight: bold;
     }
-    .or-selectction{
+
+    .or-selectction {
         display: flex;
         flex-direction: column;
         margin: 10px 0;
-        button{
+
+        button {
             margin: 5px 0;
         }
     }
-    .select-audio{
+
+    .select-audio {
         margin: 10px 0;
-        .dropzone{
+
+        .dropzone {
             height: 100px;
             //background-color: red;
         }
     }
 
-    .buttons{
-        button{
+    .buttons {
+        button {
             margin: 10px;
         }
     }
 
-    .record-audio{
+    .record-audio {
         display: flex;
         flex-direction: column;
         align-items: center;
-        span{
+
+        span {
             margin: 10px 0;
             display: block;
         }
-        .buttons-record{
+
+        .buttons-record {
             margin: 10px 0;
-            button{
+
+            button {
                 margin: 0 10px;
             }
         }
-        .record-player{
+
+        .record-player {
             display: flex;
             align-items: center;
-            button{
+
+            button {
                 margin-left: 5px;
             }
         }
     }
 }
 
-.btn-sucessfull{
-    margin: 2px;
-}
-.btn-cancel{
+.btn-sucessfull {
     margin: 2px;
 }
 
-:host ::ng-deep .p-card .p-card-footer{
-    display:flex;
+.btn-cancel {
+    margin: 2px;
 }
 
-.text-description{
+:host ::ng-deep .p-card .p-card-footer {
+    display: flex;
+}
+
+.text-description {
     text-align: center;
 }
 
@@ -100,42 +114,46 @@ h6{
     visibility: hidden;
 }*/
 
-.photo-product{ 
+.photo-product {
     align-items: center;
-    display: flex;   
-    
-}
-
-:host ::ng-deep .p-ripple{
-margin-top: 5px;
-}
-
-.botones{
     display: flex;
+
 }
 
-.label-input{
+:host ::ng-deep .p-ripple {
     margin-top: 5px;
 }
-.conjunto-img-input{
+
+.botones {
     display: flex;
-    .image-content-img{
+}
+
+.label-input {
+    margin-top: 5px;
+}
+
+.conjunto-img-input {
+    display: flex;
+
+    .image-content-img {
         width: 50%;
         height: 25vh;
         display: flex;
         justify-content: center;
-        img{
+
+        img {
             width: 100%;
             max-height: 253px;
         }
     }
 }
 
-:host ::ng-deep .ng-star-inserted{
+:host ::ng-deep .ng-star-inserted {
     //display: flex;
     flex-wrap: wrap;
 }
-.create-table{
+
+.create-table {
     width: 100%;
     margin: 4rem;
 }
@@ -145,15 +163,25 @@ margin-top: 5px;
     visibility: visible;
 }*/
 
-:host ::ng-deep .table table{
+:host ::ng-deep .table table {
     border-collapse: separate;
 }
-.principal-buttons{
-    display:flex;
+
+.principal-buttons {
+    display: flex;
     margin-left: 20%;
 }
 
-.fullscreen{
+.fullscreen {
     display: flex;
     justify-content: flex-end;
+}
+
+:host ::ng-deep .p-card {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+:host ::ng-deep .p-blockui {
+    z-index: 100 !important;
 }

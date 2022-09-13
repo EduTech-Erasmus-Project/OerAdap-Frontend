@@ -1,14 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MessageService,Message } from 'primeng/api';
-import { EventService } from 'src/app/services/event.service';
-import { LearningObjectService } from 'src/app/services/learning-object.service';
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { MessageService, Message } from "primeng/api";
+import { Subscription } from "rxjs";
+import { AudioService } from "src/app/services/audio.service";
+import { EventService } from "src/app/services/event.service";
+import { LearningObjectService } from "src/app/services/learning-object.service";
 
 @Component({
   selector: "app-audio",
   templateUrl: "./audio.component.html",
   styleUrls: ["./audio.component.scss"],
 })
-export class AudioComponent implements OnInit {
+export class AudioComponent implements OnInit, OnDestroy {
   @Input() item: any;
 
   public edit: boolean = false;
@@ -18,10 +20,11 @@ export class AudioComponent implements OnInit {
   public answers: any;
 
   public messages: Message[] = [];
+  private subscriptions: Subscription[] = [];
 
   msaapDisplayTitle = true;
   msaapDisplayPlayList = true;
-  msaapPageSizeOptions = [2,4,6];
+  msaapPageSizeOptions = [2, 4, 6];
   msaapDisplayVolumeControls = true;
   msaapDisplayRepeatControls = true;
   msaapDisplayArtist = false;
@@ -29,9 +32,13 @@ export class AudioComponent implements OnInit {
   msaapDisablePositionSlider = true;
 
   constructor(
-    private learningObjectService: LearningObjectService,
-    private eventService: EventService
+    //     thisprivate learningObjectService: LearningObjectService,
+    private eventService: EventService,
+    private audioService: AudioService
   ) {}
+  ngOnDestroy(): void {
+    throw new Error("Method not implemented.");
+  }
 
   ngOnInit(): void {
     this.textEdit = this.item?.text;
@@ -62,10 +69,9 @@ export class AudioComponent implements OnInit {
       path_system: item.attributes[0].path_system,
     };
 
-    console.log(this.answers);
+    //console.log(this.answers);
 
-
-    let generate_text_audio = await this.learningObjectService
+    let generate_text_audio = await this.audioService
       .sentCreateAudio(this.answers)
       .subscribe(
         (response) => {
@@ -81,11 +87,16 @@ export class AudioComponent implements OnInit {
         },
         (err) => {
           console.log(err);
-          this.showError("Error al generar la descripción: " +(err.error?.message || err.message) );
+          this.showError(
+            "Error al generar la descripción: " +
+              (err.error?.message || err.message)
+          );
           this.generate_text = false;
           this.editTextArea = false;
         }
       );
+
+    this.subscriptions.push(generate_text_audio);
   }
 
   editar() {
@@ -106,7 +117,9 @@ export class AudioComponent implements OnInit {
       text: this.textEdit,
     };
     try {
-      let response = await this.learningObjectService.updateAudio(this.answers, this.item.id).toPromise();
+      let response = await this.audioService
+        .updateAudio(this.answers, this.item.id)
+        .toPromise();
       if (response) {
         this.textEdit = response.text;
         this.showSuccess("Los datos se actualizaron con exito");
@@ -115,7 +128,10 @@ export class AudioComponent implements OnInit {
         this.eventService.emitEvent(true);
       }
     } catch (error) {
-      this.showError("Error al actualizar los datos, " + error.error?.message || error.message);
+      this.showError(
+        "Error al actualizar los datos, " + error.error?.message ||
+          error.message
+      );
     }
   }
 
@@ -132,10 +148,12 @@ export class AudioComponent implements OnInit {
       path_system: this.item.attributes[0].path_system,
     };
 
-    console.log(this.answers);
+    //console.log(this.answers);
 
     try {
-      let audio = await this.learningObjectService.sentCreateAudio(this.answers).toPromise();
+      let audio = await this.audioService
+        .sentCreateAudio(this.answers)
+        .toPromise();
       if (audio) {
         //console.log(audios)
         this.textEdit = audio.text;
@@ -146,7 +164,9 @@ export class AudioComponent implements OnInit {
         this.eventService.emitEvent(true);
       }
     } catch (err) {
-      this.showError("Error al guardar los datos, " + err.error?.message || err.message);
+      this.showError(
+        "Error al guardar los datos, " + err.error?.message || err.message
+      );
     }
   }
 
@@ -164,5 +184,22 @@ export class AudioComponent implements OnInit {
       //summary: "Success",
       detail: message,
     });
+  }
+
+  public async onChangeRevert() {
+    //console.log("revert", this.item.adaptation);
+
+    try {
+      this.messages = [];
+      let res = await this.audioService
+        .revertAudio(this.item.id, { adaptation: this.item.adaptation })
+        .toPromise();
+      this.eventService.emitEvent(true);
+
+      //("update res", res);
+    } catch (error) {
+      this.showError("Error, " + error.error?.message || error.message);
+      this.item.adaptation = !this.item.adaptation;
+    }
   }
 }

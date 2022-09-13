@@ -1,4 +1,12 @@
-<p-card [style]="{'margin-bottom': '2em'}">
+<div class="p-mt-2" style="display: flex; align-items: center">
+    <p>Adaptación</p>
+    <p-inputSwitch (onChange)="onChangeRevert()" class="p-ml-1" [(ngModel)]="item.adaptation"></p-inputSwitch>
+</div>
+
+<p-card #pnl [style]="{ 'margin-bottom': '2em' }">
+    <p-blockUI [target]="pnl" [blocked]="!item.adaptation">
+        <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
+    </p-blockUI>
 
     <div class="audio_src" *ngFor="let data of item.attributes">
        

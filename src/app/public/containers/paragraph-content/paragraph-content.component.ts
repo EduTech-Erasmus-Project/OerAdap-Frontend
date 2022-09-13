@@ -13,6 +13,8 @@ export class ParagraphContentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    //console.log(this.paragraphs);
   }
 
 }

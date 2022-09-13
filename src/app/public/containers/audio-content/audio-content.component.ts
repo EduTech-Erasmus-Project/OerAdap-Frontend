@@ -34,6 +34,8 @@ export class AudioContentComponent implements OnInit {
         link: audio.tags_adapted?.path_src,
         ref: audio.tags_adapted?.id_ref,
         text: audio.tags_adapted?.text,
+        adaptation: audio.adaptation,
+
       };
     });
   }

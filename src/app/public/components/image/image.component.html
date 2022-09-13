@@ -1,14 +1,12 @@
-<div class="p-mt-2" style="display:flex; align-items:center;">
+<div class="p-mt-2" style="display: flex; align-items: center">
     <p>Adaptación</p>
-    <p-inputSwitch class="p-ml-1" [(ngModel)]="item.adaptation"></p-inputSwitch>
+    <p-inputSwitch (onChange)="onChangeRevert()" class="p-ml-1" [(ngModel)]="item.adaptation"></p-inputSwitch>
 </div>
 
-<p-blockUI [target]="pnl" [blocked]="!item.adaptation">
-    <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
-</p-blockUI>
-
-
-<p-card #pnl [style]="{'margin-bottom': '2em'}">
+<p-card #pnl [style]="{ 'margin-bottom': '2em' }">
+    <p-blockUI [target]="pnl" [blocked]="!item.adaptation">
+        <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
+    </p-blockUI>
 
     <div class="contenedor-desc-img" *ngIf="!item.text_table && !flag_text_table">
         <div class="fullscreen p-mb-1">
@@ -18,60 +16,57 @@
         </div>
         <div class="image-content">
             <div class="photo-product">
-                <a href="{{item.link}}" class="fancybox " data-lightbox="gallery1">
+                <a href="{{ item.link }}" class="fancybox" data-lightbox="gallery1">
                     <!-- <div class="iono-eye">
-                        <i class="pi pi-eye" id ="icono"></i>
-                    </div> -->
-                    <img src="{{item.link}}" alt="{{item.text}}" pTooltip="Previsualizar imagen"
-                        tooltipPosition="bottom" tabindex="1">
+                            <i class="pi pi-eye" id ="icono"></i>
+                        </div> -->
+                    <img src="{{ item.link }}" alt="{{ item.text }}" pTooltip="Previsualizar imagen"
+                        tooltipPosition="bottom" tabindex="1" />
                 </a>
             </div>
         </div>
         <h6>Descripcion alt de la imagen :</h6>
         <div class="text-description" *ngIf="!edit">
-            <p> {{item.text}}</p>
-
+            <p>{{ item.text }}</p>
         </div>
     </div>
-    <div class="contenedor-desc-table" *ngIf="item.text_table || flag_text_table ">
+    <div class="contenedor-desc-table" *ngIf="item.text_table || flag_text_table">
         <div [innerHTML]="item.text_table"></div>
     </div>
 
     <form action="" [formGroup]="angForm" id="formAdapte" *ngIf="edit">
-        <input style="width:100%" type="text" formControlName="{{item.id}}" pInputText>
+        <input style="width: 100%" type="text" formControlName="{{ item.id }}" pInputText />
     </form>
 
-    <p-dialog header="Crea tu propia tabla HMTL" [(visible)]="displayModal" [modal]="true" [style]="{width: '70vw'}"
+    <p-dialog header="Crea tu propia tabla HMTL" [(visible)]="displayModal" [modal]="true" [style]="{ width: '70vw' }"
         [draggable]="false" [resizable]="false">
-
         <div class="conjunto-img-input">
             <div class="image-content-img">
                 <div class="photo-product">
-                    <a href="{{item.link}}" class="fancybox " data-lightbox="gallery1">
+                    <a href="{{ item.link }}" class="fancybox" data-lightbox="gallery1">
                         <!-- <div class="iono-eye">
-                        <i class="pi pi-eye" id ="icono"></i>
-                    </div> -->
-                        <img src="{{item.link}}" alt="{{item.text}}" pTooltip="Previsualizar imagen"
-                            tooltipPosition="bottom" tabindex="1">
+                            <i class="pi pi-eye" id ="icono"></i>
+                        </div> -->
+                        <img src="{{ item.link }}" alt="{{ item.text }}" pTooltip="Previsualizar imagen"
+                            tooltipPosition="bottom" tabindex="1" />
                     </a>
                 </div>
             </div>
             <div class="create-table">
-                <label for="name" style="color:gray; padding:10px 10px"> Click en insertar tabla para crear una tabla
-                    nueva:</label>
-                <br>
+                <label for="name" style="color: gray; padding: 10px 10px">
+                    Click en insertar tabla para crear una tabla nueva:</label>
+                <br />
                 <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="table_result"></ckeditor>
                 <p-messages></p-messages>
             </div>
         </div>
         <ng-template pTemplate="footer">
-            <div class="bt-list" style="display:flex">
+            <div class="bt-list" style="display: flex">
                 <div class="btn-cancel">
                     <button pButton pRipple type="button" label="Cancelar" class="p-button-danger"
                         (click)="cancelGenerate()" icon="pi pi-times"></button>
                 </div>
                 <div class="btn-save">
-
                     <p-confirmPopup></p-confirmPopup>
                     <button pButton pRipple icon="pi pi-check" (click)="confirm($event, item.id)" label="Guardar Tabla"
                         styleClass="p-button-text"></button>
@@ -80,12 +75,9 @@
         </ng-template>
     </p-dialog>
 
-
     <p-messages></p-messages>
 
     <ng-template pTemplate="footer" class="container-buttons">
-
-
         <ng-container *ngIf="edit; else buttonTemplate" class="container-buttons">
             <div class="btn-sucessfull">
                 <p-button (click)="onSave(item.id)" label="Guardar" icon="pi pi-check"></p-button>
@@ -98,11 +90,11 @@
         <ng-template #buttonTemplate>
             <div class="principal-buttons" *ngIf="!item.text_table && !flag_text_table">
                 <div class="btn-sucessfull">
-                    <p-button (click)="cliclEdit(item.id,item.text)" label="Editar descripcion" icon="pi pi-check">
+                    <p-button (click)="cliclEdit(item.text)" label="Editar descripcion" icon="pi pi-check">
                     </p-button>
                 </div>
 
-                <div class="btn-sucessfull" *ngIf="!edit ">
+                <div class="btn-sucessfull" *ngIf="!edit">
                     <button pButton pRipple (click)="showModalDialog()" class="p-button-success" label="Crear Tabla"
                         icon="pi pi-save"></button>
                 </div>

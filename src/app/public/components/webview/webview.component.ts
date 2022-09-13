@@ -93,7 +93,7 @@ export class WebviewComponent implements OnInit {
   }
 
   onChange(evt) {
-    console.log("change", evt.value);
+    //console.log("change", evt.value);
     this.eventPage.emit(evt.value);
 
     //this.mensajeID = evt.value.id;

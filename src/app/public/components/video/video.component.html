@@ -1,5 +1,13 @@
-<p-card [style]="{'margin-bottom': '2em'}">
+<div class="p-mt-2" style="display: flex; align-items: center">
+    <p>Adaptación</p>
+    <p-inputSwitch (onChange)="onChangeRevert()" class="p-ml-1" [(ngModel)]="video.adaptation"></p-inputSwitch>
+</div>
 
+<p-card #pnl [style]="{ 'margin-bottom': '2em' }">
+    <p-blockUI [target]="pnl" [blocked]="!video.adaptation">
+        <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
+    </p-blockUI>
+    
     <p>Fuente: <span>{{video.attributes[0].source}}</span></p>
     <iframe class="video" [src]="video.attributes[0].path_preview | urlsanitizer"
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="Vista previa del video" controls

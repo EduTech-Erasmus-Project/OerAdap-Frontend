@@ -1,10 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from "@angular/forms";
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
 import { EventService } from "src/app/services/event.service";
-import { LearningObjectService } from "src/app/services/learning-object.service";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { ImageService } from "src/app/services/image.service";
 
 @Component({
   selector: "app-image",
@@ -15,14 +19,10 @@ import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export class ImageComponent implements OnInit, OnDestroy {
   @Input() item: any;
   private subscribes: Subscription[] = [];
-
-  public blockedPanel = true;
-
   public angForm: UntypedFormGroup;
   public edit: boolean = false;
   private textAux: string;
   private textAux_Edit: string;
-  private mensajeID: string;
   public messages: any;
   public answers: any;
 
@@ -40,11 +40,11 @@ export class ImageComponent implements OnInit, OnDestroy {
   public Editor = ClassicEditor;
 
   constructor(
-    private learning_ObjectService: LearningObjectService,
     private fb: UntypedFormBuilder,
     private messageService: MessageService,
     private eventService: EventService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private imageService: ImageService
   ) {
     this.createForm();
   }
@@ -57,9 +57,15 @@ export class ImageComponent implements OnInit, OnDestroy {
       this.table_result = this.item.text_table;
       this.flag_text_table = true;
     }
-    this.angForm.addControl(this.item.id, new UntypedFormControl(this.item.text));
+    this.angForm.addControl(
+      this.item.id,
+      new UntypedFormControl(this.item.text)
+    );
 
-    this.angForm.addControl(this.item.id, new UntypedFormControl(this.item.text));
+    this.angForm.addControl(
+      this.item.id,
+      new UntypedFormControl(this.item.text)
+    );
   }
 
   createForm() {
@@ -74,7 +80,7 @@ export class ImageComponent implements OnInit, OnDestroy {
       text: new_text_alt,
       method: "img-alt",
     };
-    let sendDescription = await this.learning_ObjectService
+    let sendDescription = await this.imageService
       .updateImage(this.answers, item)
       .subscribe(
         (response) => {
@@ -101,7 +107,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     this.subscribes.push(sendDescription);
   }
 
-  cliclEdit(identificador, texto) {
+  public cliclEdit(texto) {
     //console.log("cliclEdit " + texto);
     this.edit = true;
     this.textAux = texto;
@@ -154,7 +160,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             text_table: this.table_result,
             method: "transform-table",
           };
-          let sendDescription = await this.learning_ObjectService
+          let sendDescription = await this.imageService
             .updateImage(this.answers, id)
             .subscribe(
               (response) => {
@@ -171,7 +177,7 @@ export class ImageComponent implements OnInit, OnDestroy {
                 }
               },
               (err) => {
-                this.showError("Error, "+ err.error?.message || err.message);
+                this.showError("Error, " + err.error?.message || err.message);
               }
             );
         } else if (this.flag_text_table == true && this.table_result != "") {
@@ -180,7 +186,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             text_table: this.table_result,
             method: "update-table",
           };
-          let sendDescription = await this.learning_ObjectService
+          let sendDescription = await this.imageService
             .updateImage(this.answers, id)
             .subscribe(
               (response) => {
@@ -197,9 +203,10 @@ export class ImageComponent implements OnInit, OnDestroy {
                 }
               },
               (err) => {
-                this.showError("Error, "+ err.error?.message || err.message);
+                this.showError("Error, " + err.error?.message || err.message);
               }
             );
+          this.subscribes.push(sendDescription);
         } else if (this.table_result == "") {
           this.messageService.add({
             severity: "error",
@@ -223,19 +230,35 @@ export class ImageComponent implements OnInit, OnDestroy {
     this.displayModal = true;
     this.textAux_Edit = this.table_result;
     this.flag_text_table = true;
-
   }
 
   public async onChangeViewFullScreenImage(evt: any, item: any) {
     try {
       this.messageService.clear();
-      let res = await this.learning_ObjectService
+      let res = await this.imageService
         .updatePreviewImage({ preview: evt.checked }, item.id)
         .toPromise();
       this.eventService.emitEvent(true);
-      console.log("update res", res);
+      //console.log("update res", res);
     } catch (error) {
       this.showError("Error, " + error.error?.message || error.message);
+    }
+  }
+
+  public async onChangeRevert() {
+    //console.log("revert", this.item.adaptation);
+
+    try {
+      this.messageService.clear();
+      let res = await this.imageService
+        .revertImage(this.item.id, { adaptation: this.item.adaptation })
+        .toPromise();
+      this.eventService.emitEvent(true);
+      
+      //console.log("update res", res);
+    } catch (error) {
+      this.showError("Error, " + error.error?.message || error.message);
+      this.item.adaptation = !this.item.adaptation;
     }
   }
 }

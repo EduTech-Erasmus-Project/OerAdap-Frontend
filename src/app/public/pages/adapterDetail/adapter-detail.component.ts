@@ -7,6 +7,9 @@ import { PageService } from "src/app/services/page.service";
 import { Paragraph, Video } from "../../../models/Page";
 import { Metadata } from "../../../models/Metadata";
 import { MessageService } from "primeng/api";
+import { ImageService } from "src/app/services/image.service";
+import { AudioService } from "src/app/services/audio.service";
+import { VideoService } from "src/app/services/video.service";
 
 @Component({
   selector: "app-adapter-detail",
@@ -46,7 +49,10 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     private learningObjectService: LearningObjectService,
     private pageService: PageService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private imageService: ImageService,
+    private audioService: AudioService,
+    private videoService:VideoService
   ) {}
 
   ngOnDestroy(): void {
@@ -168,12 +174,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.loader = true;
     let videoSub = this.pageService.getVideo(this.currentPageId).subscribe(
       (res: any) => {
-        console.log("res loadVideo", res)
+        //console.log("res loadVideo", res);
         this.videos = res;
         this.loader = false;
       },
       (error) => {
-        console.log(error)
+        console.log(error);
         this.messageService.add({
           severity: "error",
           summary: "Error",
@@ -217,11 +223,11 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     this.tabIndex = evt.index;
     let data = this.getDataTabPanel(evt.index);
     this.reLoadData(data.name);
-    console.log("evt", evt);
+    //console.log("evt", evt);
   }
 
   private reLoadData(name) {
-    console.log("reLoadData", name);
+   // console.log("reLoadData", name);
     //console.log("dataTabPanel", this.dataTabPanel);
     switch (name) {
       case "paragraph":
@@ -242,9 +248,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   async loadDataI(id: number) {
     this.imagesGroup = [];
     this.loader = true;
-    let sub = await this.learningObjectService.getImagesForPge(id).subscribe(
+    let sub = await this.imageService.getImagesForPge(id).subscribe(
       (response) => {
-        console.log("Datos", response);
+        //console.log("Datos", response);
 
         this.imagesGroup = response;
         this.loader = false;
@@ -266,9 +272,9 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   private async loadDataA(id: number) {
     this.audiosGroup = [];
     this.loader = true;
-    let sub = await this.learningObjectService.getAudiosForPge(id).subscribe(
+    let sub = await this.audioService.getAudiosForPge(id).subscribe(
       (response) => {
-        console.log("Datos", response);
+        //console.log("Datos", response);
         this.audiosGroup = response;
         this.loader = false;
       },
@@ -295,15 +301,15 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       this.tabAdapted = true;
       this.loadAudio();
     } else if (evt.index === 2) {
-      console.log("get all audios ");
+      //console.log("get all audios ");
       this.listAllAudios();
       this.tabAdapted = false;
     } else if (evt.index === 3) {
-      console.log("get all images ");
+     // console.log("get all images ");
       this.listAllImages();
       this.tabAdapted = false;
     } else if (evt.index === 4) {
-      console.log("get all videos ");
+     // console.log("get all videos ");
       this.listAllVideos();
       this.tabAdapted = false;
     } else {
@@ -315,7 +321,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     try {
       this.listAll = true;
       this.audiosGroup = [];
-      let res: any = await this.learningObjectService
+      let res: any = await this.audioService
         .getAllSounds(this.learningObject.id)
         .toPromise();
       this.audiosGroup = res;
@@ -326,8 +332,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
         severity: "error",
         summary: "Error",
         detail:
-          "Error al cargar los datos, " + error.error?.message ||
-          error.message,
+          "Error al cargar los datos, " + error.error?.message || error.message,
       });
       this.listAll = true;
     }
@@ -337,12 +342,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     try {
       this.listAll = true;
       this.imagesGroup = [];
-      let res: any = await this.learningObjectService
+      let res: any = await this.imageService
         .getAllImages(this.learningObject.id)
         .toPromise();
 
-        console.log("res", res);
-        
+     // console.log("res", res);
+
       this.imagesGroup = res;
       this.listAll = false;
     } catch (error) {
@@ -350,8 +355,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
         severity: "error",
         summary: "Error",
         detail:
-          "Error al cargar los datos, " + error.error?.message ||
-          error.message,
+          "Error al cargar los datos, " + error.error?.message || error.message,
       });
       this.listAll = true;
     }
@@ -361,19 +365,18 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     try {
       this.listAll = true;
       this.videos = [];
-      let res: any = await this.learningObjectService
+      let res: any = await this.videoService
         .getAllVideos(this.learningObject.id)
         .toPromise();
       this.videos = res;
-      console.log("all videos", this.videos);
+      //console.log("all videos", this.videos);
       this.listAll = false;
     } catch (error) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
         detail:
-          "Error al cargar los datos, " + error.error?.message ||
-          error.message,
+          "Error al cargar los datos, " + error.error?.message || error.message,
       });
       this.listAll = true;
     }

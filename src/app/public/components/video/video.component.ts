@@ -57,7 +57,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   constructor(
     private videoService: VideoService,
     private eventService: EventService,
-    private fb: UntypedFormBuilder
+    private fb: UntypedFormBuilder,
   ) {
     this.form = this.fb.group({
       transcriptions: this.fb.array([]),
@@ -253,37 +253,18 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     this.subscrition.push(generateSub);
   }
-  onAddForSubtitle() {
-    //optimizethis.loader = true;
-    //console.log("Add subtitle form");
-  }
 
-  // async jsonToString(jsonId: any) {
-  //   this.displaySubtitle = true;
-  //   this.loaderJson = true;
-
-  //   //console.log(jsonId);
-
-  //   let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
-  //     (res: any) => {
-  //       //console.log("res video", res);
-  //       let text = res.transcript.map((data) => data.transcript);
-  //       this.jsonString = text.join("\r\n");
-  //       //console.log(res);
-  //       this.loaderJson = false;
-  //     },
-  //     (error) => console.log(error)
-  //   );
-
-  //   this.subscrition.push(jsonSub);
+  // onAddForSubtitle() {
+  //   //optimizethis.loader = true;
+  //   //console.log("Add subtitle form");
   // }
 
+
+
   onChangeLanguage(event) {
-    //console.log(event);
   }
 
   onFileChange(event, idx) {
-    //console.log(event)
     if (event.target.files.length > 0) {
       this.transcriptions.at(idx).patchValue({
         file_data: event.target.files[0],
@@ -339,5 +320,26 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.acctionTranscript = event;
     }
     this.onButtonEvt.next(event);
+  }
+
+  public async onChangeRevert() {
+    //console.log("revert", this.video.adaptation);
+
+    try {
+      this.messages = [];
+      let res = await this.videoService
+        .revertVideo(this.video.id, { adaptation: this.video.adaptation })
+        .toPromise();
+      this.eventService.emitEvent(true);
+
+      //console.log("update res", res);
+    } catch (error) {
+      this.messages.push({
+        severity: "error",
+        summary: "Error",
+        detail: "Error, " + error.error?.message || error.message,
+      });
+      this.video.adaptation = !this.video.adaptation;
+    }
   }
 }
