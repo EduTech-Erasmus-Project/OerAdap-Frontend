@@ -2,9 +2,9 @@ import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import {
   FormArray,
-  FormBuilder,
+  UntypedFormBuilder,
   FormControl,
-  FormGroup,
+  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
 import { LearningObjectService } from "../../../services/learning-object.service";
@@ -31,7 +31,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   public msgs: Message[] = [];
 
-  public settingsForm: FormGroup;
+  public settingsForm: UntypedFormGroup;
 
   public checkboxs: Array<any> = [
     {
@@ -62,7 +62,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   constructor(
     private learningObjectService: LearningObjectService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private messageService: MessageService,
     private storageService: StorageService
@@ -131,12 +131,17 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
-          if (err.status === 0 || err.status === 500) {
+          this.upload = false;
+          this.loader = false;
+          this.progress = 0;
+          console.log("err", err);
+          if (err.error?.code === "learning_object_odapted") {
+
             this.msgs = [
               {
                 severity: "error",
                 summary: "Error",
-                detail: "Error interno con el servidor",
+                detail: "Este Objeto de Aprendizaje ya fue adaptado",
               },
             ];
             return;
@@ -145,12 +150,9 @@ export class AdapterComponent implements OnInit, OnDestroy {
             {
               severity: "error",
               summary: "Error",
-              detail: "Este Objeto de Aprendizaje ya fue adaptado",
+              detail: "Error, " + err.error?.message || err.message,
             },
           ];
-          this.upload = false;
-          this.loader = false;
-          this.progress = 0;
         }
       );
     this.subscriptions.push(umploadSub);

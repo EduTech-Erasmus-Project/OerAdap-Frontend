@@ -124,6 +124,14 @@ const routes: Routes = [
           breadcrumb: "API Adaptador",
         },
       },
+      {
+        path: "guide",
+        loadChildren: () =>
+          import("./pages/guide/guide.module").then((m) => m.GuideModule),
+          data: {
+            breadcrumb: "Guia de Usuario",
+          },
+      },
     ],
   },
 ];

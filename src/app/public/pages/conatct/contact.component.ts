@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { ContactService } from "src/app/services/contact.service";
 import { Subscription } from "rxjs";
@@ -10,12 +10,12 @@ import { Subscription } from "rxjs";
   styleUrls: ["./contact.component.scss"],
 })
 export class ContactComponent implements OnInit, OnDestroy {
-  public angForm: FormGroup;
+  public angForm: UntypedFormGroup;
   private subscriptions: Subscription[] = [];
   public loader: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private messageService: MessageService,
     private contactService: ContactService
   ) {

@@ -4,7 +4,7 @@ import { VideoService } from "../../../services/video.service";
 import { Subject, Subscription } from "rxjs";
 import { Message } from "primeng/api";
 import { EventService } from "../../../services/event.service";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { Download } from "src/app/models/Download";
 
@@ -33,7 +33,7 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   public selectLanguage: any[] = [];
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   private url?: string;
   private WS: WebSocket;
 
@@ -57,7 +57,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   constructor(
     private videoService: VideoService,
     private eventService: EventService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder,
   ) {
     this.form = this.fb.group({
       transcriptions: this.fb.array([]),
@@ -174,7 +174,7 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   get transcriptions() {
-    return this.form.get("transcriptions") as FormArray;
+    return this.form.get("transcriptions") as UntypedFormArray;
   }
 
   removeTranscription(idx: number) {
@@ -240,36 +240,11 @@ export class VideoComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.log(error);
-          //this.loaderGenerateSubtitle = false;
-
-          if (error.status === 504) {
-            return;
-          }
-
-          if (error.status === 500) {
+          if (error.status) {
             this.messages.push({
               severity: "error",
               summary: "Error",
-              detail:
-                "El servidor no está disponible, por favor intente más tarde.",
-            });
-            return;
-          }
-
-          // if (!this.video.adapting) {
-          //   this.messages.push({
-          //     severity: "error",
-          //     summary: "Error",
-          //     detail: "El vídeo no está disponible.",
-          //   });
-          //   this.loaderGenerateSubtitle = false;
-          // }
-
-          if (error.status === 400) {
-            this.messages.push({
-              severity: "error",
-              summary: "Error",
-              detail: error.error.message,
+              detail: error.error?.message || error.message,
             });
             return;
           }
@@ -278,37 +253,18 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     this.subscrition.push(generateSub);
   }
-  onAddForSubtitle() {
-    //optimizethis.loader = true;
-    //console.log("Add subtitle form");
-  }
 
-  // async jsonToString(jsonId: any) {
-  //   this.displaySubtitle = true;
-  //   this.loaderJson = true;
-
-  //   //console.log(jsonId);
-
-  //   let jsonSub = await this.videoService.getVidoTranscript(jsonId).subscribe(
-  //     (res: any) => {
-  //       //console.log("res video", res);
-  //       let text = res.transcript.map((data) => data.transcript);
-  //       this.jsonString = text.join("\r\n");
-  //       //console.log(res);
-  //       this.loaderJson = false;
-  //     },
-  //     (error) => console.log(error)
-  //   );
-
-  //   this.subscrition.push(jsonSub);
+  // onAddForSubtitle() {
+  //   //optimizethis.loader = true;
+  //   //console.log("Add subtitle form");
   // }
 
+
+
   onChangeLanguage(event) {
-    //console.log(event);
   }
 
   onFileChange(event, idx) {
-    //console.log(event)
     if (event.target.files.length > 0) {
       this.transcriptions.at(idx).patchValue({
         file_data: event.target.files[0],
@@ -319,8 +275,6 @@ export class VideoComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.messages = [];
     if (this.form.valid) {
-      //console.log("is valid")
-      //console.log(this.form);
       this.videoService.addTranscript(this.video.id, this.form.value).subscribe(
         (res: any) => {
           if (res?.body) {
@@ -340,7 +294,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.messages.push({
             severity: "error",
             summary: "Error",
-            detail: error.error.message,
+            detail: "Error al guardar el subtítulo, " + error.error?.message || error.message,
           });
         }
       );
@@ -366,5 +320,26 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.acctionTranscript = event;
     }
     this.onButtonEvt.next(event);
+  }
+
+  public async onChangeRevert() {
+    //console.log("revert", this.video.adaptation);
+
+    try {
+      this.messages = [];
+      let res = await this.videoService
+        .revertVideo(this.video.id, { adaptation: this.video.adaptation })
+        .toPromise();
+      this.eventService.emitEvent(true);
+
+      //console.log("update res", res);
+    } catch (error) {
+      this.messages.push({
+        severity: "error",
+        summary: "Error",
+        detail: "Error, " + error.error?.message || error.message,
+      });
+      this.video.adaptation = !this.video.adaptation;
+    }
   }
 }

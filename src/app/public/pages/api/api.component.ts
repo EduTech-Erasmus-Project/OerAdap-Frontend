@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ContactService } from "../../../services/contact.service";
 import { MessageService } from "primeng/api";
 import { Subscription } from "rxjs";
@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./api.component.scss"],
 })
 export class ApiComponent implements OnInit, OnDestroy {
-  public formApi: FormGroup;
+  public formApi: UntypedFormGroup;
   public loader: boolean = false;
   private subscriptions: Subscription[] = [];
 
@@ -493,7 +493,7 @@ export class ApiComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private messageService: MessageService,
     private contactService: ContactService
   ) {

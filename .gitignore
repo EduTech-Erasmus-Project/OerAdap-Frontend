@@ -10,7 +10,7 @@
 
 # dependencies
 /node_modules
-
+/e2e
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
@@ -33,6 +33,7 @@ speed-measure-plugin*.json
 .history/*
 
 # misc
+/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage
@@ -134,3 +135,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,visualstudiocode
+package-lock.json

@@ -319,4 +319,26 @@ export class ParagraphComponent implements OnInit, OnDestroy {
       });
     this.subscriptions.push(convertTextSub);
   }
+
+  public async onChangeRevert() {
+    //console.log("revert", this.paragraph.adaptation);
+
+    try {
+      this.messages = [];
+      let res = await this.paragraphService
+        .revertText(this.paragraph.id, { adaptation: this.paragraph.adaptation })
+        .toPromise();
+      this.eventService.emitEvent(true);
+
+      //console.log("update res", res);
+    } catch (error) {
+      this.messages.push({
+        severity: "error",
+        //summary: "Guardado",
+        detail:
+        "Error, " + error.error?.message || error.message,
+      });
+      this.paragraph.adaptation = !this.paragraph.adaptation;
+    }
+  }
 }

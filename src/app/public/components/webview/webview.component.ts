@@ -16,52 +16,61 @@ import { LearningObjectService } from "src/app/services/learning-object.service"
   styleUrls: ["./webview.component.scss"],
 })
 export class WebviewComponent implements OnInit {
-  @Input() pages: Page[];
+  @Input() pages: Page[] = [];
   @Output() eventPage: EventEmitter<any> = new EventEmitter();
   @ViewChild("webView") webView: ElementRef;
   public fullScreen: boolean = false;
-  public idEnviar: number;
-  pagesSelect: any[];
-  selectedPage: any;
+  //public idEnviar: number;
+  //public pagesSelect: any[];
+  public selectedPage: Page;
 
-  private mensajeID: string;
+  //private mensajeID: string;
 
-  constructor(private learningObjectService: LearningObjectService) {}
+  constructor() {}
 
   ngOnInit(): void {
     //console.log("pages", this.pages)
+    // this.learningObjectService.sendMessageObservable.subscribe((mensaje) => {
+    //   this.mensajeID = mensaje;
+    // });
 
-    this.learningObjectService.enviarMensajeObservable.subscribe((mensaje) => {
-      this.mensajeID = mensaje;
-    });
+    //filter pages website
+    let pages_website = this.filterPage("website_") 
+    // this.pages.filter((page) => {
+    //   let pageSplit = page.preview_path.split("/")
+    //   return pageSplit[pageSplit.length-1].includes("website");
+    // });
 
-    //console.log("This",this.pages)
-    let filterIndex = this.pages.filter((page) =>
-      page.preview_path.includes("index.html")
-    );
+    if(pages_website.length > 0){
+      this.pages = pages_website;
+    }
 
-    this.selectedPage = {
-      name: filterIndex[0]?.title || this.pages[0].id,
-      code: filterIndex[0]?.preview_path || this.pages[0].preview_path,
-      id: filterIndex[0]?.id || this.pages[0].id,
-      type: filterIndex[0]?.type || this.pages[0].type,
-    };
+    //filter page index
+    let filterPageIndex = this.filterPage("index.html") 
+    // this.pages.filter((page) =>{
+    //   let pageSplit = page.preview_path.split("/")
+    //   return pageSplit[pageSplit.length-1].includes("index.html");
+    // });
 
-    //this.eventPage.emit(this.selectedPage)
+    //console.log("filterIndex", filterIndex);
 
-    this.learningObjectService.enviarMensaje(this.selectedPage.id);
-
-    this.pagesSelect = this.pages.map((page: Page) => {
-      return {
-        name: page.title,
-        code: page.preview_path,
-        id: page.id,
-        type: page.type,
-      };
-    });
+    if (filterPageIndex.length > 0) {
+      this.selectedPage = filterPageIndex[0];
+    }else{
+      this.selectedPage = this.pages[0];
+    }
+    //this.learningObjectService.sendMessage(this.selectedPage.id);
   }
 
-  openFullscreen() {
+  private filterPage(filter: string) {
+    return this.pages.filter((page) =>{
+      let pageSplit = page.preview_path.split("/")
+      return pageSplit[pageSplit.length-1].includes(filter);
+    });
+
+  }
+
+  public openFullscreen() {
     const elem = this.webView.nativeElement;
     this.fullScreen = true;
 
@@ -84,12 +93,12 @@ export class WebviewComponent implements OnInit {
   }
 
   onChange(evt) {
-    //console.log("change", evt);
+    //console.log("change", evt.value);
     this.eventPage.emit(evt.value);
 
-    this.mensajeID = evt.value.id;
+    //this.mensajeID = evt.value.id;
     //console.log("Es el id",this.mensajeID)
-    this.learningObjectService.enviarMensaje(this.mensajeID);
+    //this.learningObjectService.sendMessage(this.mensajeID);
   }
 
 }
