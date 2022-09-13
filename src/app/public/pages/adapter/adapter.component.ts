@@ -136,6 +136,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
           this.progress = 0;
           console.log("err", err);
           if (err.error?.code === "learning_object_odapted") {
+
             this.msgs = [
               {
                 severity: "error",
@@ -212,5 +213,5 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(learningsObjectsSub);
   }
 
-  async screenShot(url) {}
+  async screenShot(url) { }
 }
