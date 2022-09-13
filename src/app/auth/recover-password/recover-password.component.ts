@@ -1,12 +1,9 @@
 
 import { HttpClient } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { environment } from 'src/environments/environment.prod';
-
 
 //const baseUrl = environment.baseUrl;
 
@@ -19,14 +16,14 @@ export class RecoverPasswordComponent implements OnInit {
   //variables para activar los checkbox
   public dark: boolean = false;
   //Para validacion de campos
-  public angForm: FormGroup;
+  public angForm: UntypedFormGroup;
   public email: any;
   public patternV: string =
     "^([a-zA-Z0-9_' - '.]+)@([a-zA-Z0-9_' - '.]+).([a-zA-Z]{2,5})$";
   public emailCheck:boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private http: HttpClient,
     private messageService: MessageService,
     private router: Router,

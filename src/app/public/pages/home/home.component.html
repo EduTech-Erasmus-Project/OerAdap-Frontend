@@ -1,13 +1,59 @@
 <div class="content p-grid">
     <div class="p-col-12 p-md-6 p-lg-6 title main-content">
-        <h2>Mejora la educación online con recursos educativos adaptados, para una educación sin frontera. </h2>
+        <h1>Mejora la educación online con recursos educativos adaptados, para una educación sin frontera. </h1>
         <a [routerLink]="['/adapter']" pButton pRipple type="button" label="Comenzar ahora" class="p-button-rounded"
             styleClass="p-button-lg"></a>
 
 
     </div>
     <div class="p-col-12 p-md-6 p-lg-6 img">
-        <img src="assets/img/svg3.svg" alt="Imagen de portada" tabindex="1">
+        <img loading="lazy" src="assets/img/svg3.svg" alt="Imagen de portada" tabindex="1">
+    </div>
+
+
+    <div class="p-col-12 p-md-12 p-lg-12 contact-us banner-count" style='background-image: url("assets/img/cdc.jpg");'>
+        <div class="bg">
+            <div class="banner-content">
+                <div class="p-grid">
+                    <div class="p-col-6 p-md-6 p-lg-3">
+                        <p class="text-count">
+                            <i class="pi pi-book" style="font-size: 0.8em"></i>
+                            {{metadataInfo?.learning_object || 0}}
+                        </p>
+                        <p>Objetos de aprendizaje adaptados</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-2">
+                        <p class="text-count">
+                            <i class="pi pi-play" style="font-size: 0.8em"></i>
+                            {{metadataInfo?.audio || 0}}
+                        </p>
+                        <p>Audios adaptados</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-2">
+                        <p class="text-count">
+                            <i class="pi pi-image" style="font-size: 0.8em"></i>
+                            {{metadataInfo?.image || 0}}
+                        </p>
+                        <p>Imágenes adaptadas </p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-2">
+                        <p class="text-count">
+                            <i class="pi pi-align-left" style="font-size: 0.8em"></i>
+                            {{metadataInfo?.paragraphs || 0}}
+                        </p>
+                        <p>Párrafos adaptados</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-3">
+                        <p class="text-count">
+                            <i class="pi pi-video" style="font-size: 0.8em"></i>
+                            {{metadataInfo?.video || 0}}
+                        </p>
+                        <p>Videos adaptados</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -19,7 +65,7 @@
 
             <div class="p-col-12 p-md-6 p-lg-6 information-image main-content">
                 <div class="video-content" style='background-image: url("assets/img/yannis.jpg");'>
-                    <!-- <img src="assets/img/yannis.jpg" alt="Portada de video"> -->
+                    <!-- <img loading="lazy" src="assets/img/yannis.jpg" alt="Portada de video"> -->
                     <div class="video-bg">
                         <button (click)="showModalDialog()" pButton pRipple type="button" icon="pi pi-play"
                             class="p-button-rounded p-button-outlined " styleClass="p-button-lg"></button>
@@ -39,6 +85,8 @@
             <path fill="#006CE1" fill-opacity="1" d="M0,128L1440,288L1440,320L0,320Z"></path>
         </svg>
     </div>
+
+
 
     <div class="p-col-12 p-md-12 p-lg-12 main-content text-info">
         <h2>Desarrollado para mejorar la adaptación de los recursos educativos
@@ -64,13 +112,23 @@
                     class="p-button-outlined p-button-rounded" styleClass="p-button-lg"></a>
             </div>
         </div>
+    </div>
 
 
+    <div class=" p-col-12 p-md-12 p-lg-12 info-country">
+        <h3>
+            Desde donde han usado nuestra herramienta 
+        </h3>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-6 p-lg-6 p-md-offset-3  p-lg-offset-3">
+                <p-chart type="pie" [data]="data" [options]="chartOptions" [style]="{'width': '100%'}"></p-chart>
+            </div>
+        </div>
     </div>
 
     <!-- <div class="video-content">
         
-        <img src="assets/img/yannis.jpg" alt="">
+        <img loading="lazy" src="assets/img/yannis.jpg" alt="">
     </div> -->
 
 </div>

@@ -9,11 +9,11 @@
        
             <div class="dropdown">
                 <h5>Página: </h5>
-                <p-dropdown (onChange)="onChange($event)" [options]="pagesSelect" [(ngModel)]="selectedPage" optionLabel="name"
+                <p-dropdown (onChange)="onChange($event)" [options]="pages" [(ngModel)]="selectedPage" optionLabel="title"
                 [showClear]="true"></p-dropdown>
             </div>
             <div>
-                <a aria-label="Botón de ver en una nueva ventana" target="_blank" [href]="selectedPage.code"  pButton pRipple
+                <a aria-label="Botón de ver en una nueva ventana" target="_blank" [href]="selectedPage.preview_path"  pButton pRipple
                         type="button" icon="pi pi-link" pTooltip="Abrir en una nueva ventana" class="p-button-rounded p-button-outlined" style="margin-right: 5px;"></a>
 
                 <ng-container *ngIf="fullScreen; else elseTemplate">

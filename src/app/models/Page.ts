@@ -4,6 +4,7 @@ export interface Paragraph {
   html_text?: string;
   path_preview?: string;
   page_learning_object?: number;
+  adaptation?: boolean;
 }
 
 export interface Video {
@@ -14,6 +15,7 @@ export interface Video {
   attributes?: Attribute[];
   tags_adapted?: TagsAdapted;
   adapting?: boolean;
+  adaptation?: boolean;
 }
 
 export interface Attribute {

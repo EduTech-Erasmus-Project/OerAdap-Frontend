@@ -93,6 +93,7 @@ import { MenuPublicComponent } from './menu-public/menu-public.component';
 import { MomentPipe } from '../pipes/moment.pipe';
 import {ConfirmationService} from 'primeng/api';
 import { PlayerComponent } from './player/player.component';
+import {BlockUIModule} from 'primeng/blockui';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -197,7 +198,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlsanitizerPipe,
     MomentPipe,
     ProgressSpinnerModule,
-    PlayerComponent
+    PlayerComponent,
+    BlockUIModule
   ],
   imports: [
     ProgressSpinnerModule,
@@ -291,6 +293,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    BlockUIModule
   ],
 })
 export class SharedModule {}

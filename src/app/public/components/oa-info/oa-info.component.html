@@ -65,18 +65,23 @@
             <div class="text_description" *ngIf="displayResponsive == true">
                 <p style="text-align: justify; color: black;">Elementos adaptados en el objeto de aprendizaje: </p>
                 <p>
-                    <span style="font-weight: bold;line-height: 1.5;">Párrafos adaptados:</span> {{tag_adapted.tag_adapted.paragraphs}}
+                    <span style="font-weight: bold;line-height: 1.5;">Párrafos adaptados:</span>
+                    {{tag_adapted.tag_adapted.paragraphs}}
                 </p>
                 <p>
-                    <span style="font-weight: bold;line-height: 1.5;">Imágenes adaptadas:</span> {{tag_adapted.tag_adapted.images}}
+                    <span style="font-weight: bold;line-height: 1.5;">Imágenes adaptadas:</span>
+                    {{tag_adapted.tag_adapted.images}}
                 </p>
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Audios adaptados:</span> {{tag_adapted.tag_adapted.audios}}
+                    <span style="font-weight: bold; line-height: 1.5;">Audios adaptados:</span>
+                    {{tag_adapted.tag_adapted.audios}}
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Videos adaptados:</span> {{tag_adapted.tag_adapted.videos}}
+                    <span style="font-weight: bold; line-height: 1.5;">Videos adaptados:</span>
+                    {{tag_adapted.tag_adapted.videos}}
                 </p>
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span> {{learningObject?.file_detail.pages}}
+                    <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span>
+                    {{learningObject?.file_detail.pages}}
                 </p>
                 <br>
 
@@ -92,6 +97,8 @@
                     tambien te recomendamos no subir tu OA adaptado para
                     no generar errores sobre el mismo objeto de aprendizaje.
                 </p>
+
+                <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
 
                 <div class="footer-spin" *ngIf="dounloadState">
                     <p-progressBar mode="indeterminate" [style]="{'height': '10px'}">

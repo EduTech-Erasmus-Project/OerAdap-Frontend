@@ -75,3 +75,11 @@
 
 
 
+:host ::ng-deep .p-card {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+:host ::ng-deep .p-blockui {
+    z-index: 100 !important;
+}

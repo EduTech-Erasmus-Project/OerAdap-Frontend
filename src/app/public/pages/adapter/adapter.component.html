@@ -30,7 +30,8 @@
                         <label for="handbook">Manual</label>
                     </div>
                     <div class="p-field-radiobutton">
-                        <p-radioButton pTooltip="Esta funcionalidad está en desarrollo" [disabled]="true" name="method" value="automatic" inputId="automatic" formControlName="method">
+                        <p-radioButton pTooltip="Esta funcionalidad está en desarrollo" [disabled]="true" name="method"
+                            value="automatic" inputId="automatic" formControlName="method">
                         </p-radioButton>
                         <label for="automatic">Automático</label>
                     </div>
@@ -43,19 +44,19 @@
                 <h6>Seleccione las áreas a automatizar.</h6>
                 <div class="p-grid">
 
-                    <div  class="p-col-12 p-md-6 p-lg-6" *ngFor="let check of checkboxs; let i=index">
+                    <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let check of checkboxs; let i=index">
                         <div class="p-field-checkbox">
-                            <p-checkbox formControlName="areas"  [value]="check.value" [inputId]="check.value"
+                            <p-checkbox formControlName="areas" [value]="check.value" [inputId]="check.value"
                                 (onChange)="onCheckChange($event, check)"></p-checkbox>
                             <label [for]="check.value">{{check.name}}</label>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="button">
                     <p-button type="submit" label="Cargar" icon="pi pi-cloud-upload"></p-button>
                 </div>
-                
+
                 <!-- <p-button  (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
             </p-button> -->
             </form>
@@ -102,7 +103,8 @@
                                 [ngClass]="{'pi-spin pi-spinner': !navigateId, 'pi-check': navigateId}"
                                 class="pi"></i></span>
                     </div>
-                    <p>Este proceso puede tardar varios minutos, pude regresar más tarde el progreso de la adaptabilidad de tu objeto de aprendizaje puedes ver en la tarjeta inferior. Gracias</p>
+                    <p>Este proceso puede tardar varios minutos, pude regresar más tarde el progreso de la adaptabilidad
+                        de tu objeto de aprendizaje puedes ver en la tarjeta inferior. Gracias</p>
                 </ng-container>
 
 
@@ -124,7 +126,7 @@
     </div>
     <!-- *ngIf="upload" -->
 </div>
-  
+
 
 
 <p-dialog header="Términos y condiciones de uso" [(visible)]="displayConditions" [style]="{width: '50vw'}">
@@ -139,11 +141,18 @@
     <p>Los datos que se guardan son solo información de navegación como información del navegador y datos estadísticos
         sobre el resumen de lo realizado en esta aplicación con la finalidad re recopilar datos estadísticos para
         mejorar la aplicación.</p>
+
     <p>Este sistema no guarda datos personales de ningún usuario que navegue o que haga uso de esta plataforma.</p>
     <p>Los archivos subidos no se compartirán con ninguna persona o institución publica o privada de igual manera los
         archivos generados pertenecen solo al usuario de la sesión actual que está navegando.</p>
+
     <p>El usuario esta en su responsabilidad de subir archivos únicamente recursos educativos (Objetos de Aprendizaje),
         se admiten solo archivos comprimidos con formato zip.</p>
+        
+    <p>Para descarga el objeto de aprendizaje se te pedirá tu ubicación, puedes compartirnos o no, este
+        dato es estadístico para el sitio web, no guardamos información personal como geolocalización,
+        puntos de coordenadas, ip o datos del dispositivo, únicamente datos de nombre del país de
+        ubicación y el conteo de los recursos que se realizaron en la página.</p>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-times" (click)="displayConditions=false" label="Cancelar" styleClass="p-button-text">
         </p-button>
@@ -161,11 +170,12 @@
         <p-card [header]="item.oa_detail.title">
 
 
-            <ng-container *ngIf="item.config_adaptability.method == 'automatic' && !item.complete_adaptation; else progresTemplate">
+            <ng-container
+                *ngIf="item.config_adaptability.method == 'automatic' && !item.complete_adaptation; else progresTemplate">
                 <div class="progress">
                     <p>Boton de adaptabilidad...</p> <span><i
-                        [ngClass]="{'pi-spin pi-spinner': !item.button_adaptation, 'pi-check': item.button_adaptation}"
-                        class="pi"></i></span>
+                            [ngClass]="{'pi-spin pi-spinner': !item.button_adaptation, 'pi-check': item.button_adaptation}"
+                            class="pi"></i></span>
                 </div>
                 <div class="progress">
                     <p>Procesando audios...</p> <span><i
