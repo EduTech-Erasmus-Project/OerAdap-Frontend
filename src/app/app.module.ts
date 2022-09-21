@@ -46,7 +46,7 @@ import { CookieService } from "ngx-cookie-service";
 import { UntypedFormBuilder } from "@angular/forms";
 import { MenuService } from './services/app.menu.service';
 import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
-import { environment } from "src/environments/environment";
+import { NumeralModule   } from "ngx-numeral";
 
 
 @NgModule({
@@ -81,6 +81,7 @@ import { environment } from "src/environments/environment";
     PublicModule,
     QuicklinkModule,
     //SocketIoModule.forRoot(config),
+    NumeralModule.forRoot()
     
   ],
   declarations: [AppComponent],
