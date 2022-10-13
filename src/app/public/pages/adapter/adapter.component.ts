@@ -216,13 +216,9 @@ export class AdapterComponent implements OnInit, OnDestroy {
         this.learningObjects.sort((a, b) => {
           return b.id - a.id;
         });
-
-        // res.forEach((item) => {
-        //   //const s = new Screenshot('http://google.com').width(800)
-        // });
       });
     this.subscriptions.push(learningsObjectsSub);
   }
 
-  async screenShot(url) {}
+  async screenShot(url) { }
 }
