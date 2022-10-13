@@ -67,10 +67,13 @@ export class AdapterComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private storageService: StorageService
   ) {
+    console.log("map", this.checkboxs.map((check) => check.value));
     this.settingsForm = this.fb.group({
       method: ["handbook", Validators.required],
       areas: [this.checkboxs.map((check) => check.value), Validators.required],
     });
+
+    console.log("settingsForm", this.settingsForm);
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
@@ -81,6 +84,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   onSelect(event: any) {
+    console.log(this.settingsForm);
     this.file = event.addedFiles[0];
   }
 
@@ -107,18 +111,30 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   async onUpload() {
+
+    console.log("settingsForm", this.settingsForm);
+
     this.msgs = [];
     this.displayConditions = false;
-    let dataForm = this.settingsForm.value;
+    //let dataForm = this.settingsForm.value;
     let data = {
       file: this.file,
-      ...dataForm,
+      ...this.settingsForm.value,
     };
     this.loader = true;
+
+
     let umploadSub = await this.learningObjectService
       .uploadObject(data)
       .subscribe(
         (res: any) => {
+
+          console.log("res", res);
+          if (res.status === 400) {
+            return;
+          }
+          
+
           if (res.body?.id) {
             this.navigateId = res.body.id;
             this.storageService.saveStorageItem("user_ref", res.body.user_ref);
@@ -131,21 +147,11 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         (err) => {
+          console.log(err);
+          console.log("settingsForm", this.settingsForm);
           this.upload = false;
           this.loader = false;
           this.progress = 0;
-          console.log("err", err);
-          if (err.error?.code === "learning_object_odapted") {
-
-            this.msgs = [
-              {
-                severity: "error",
-                summary: "Error",
-                detail: "Este Objeto de Aprendizaje ya fue adaptado",
-              },
-            ];
-            return;
-          }
           this.msgs = [
             {
               severity: "error",
@@ -153,16 +159,20 @@ export class AdapterComponent implements OnInit, OnDestroy {
               detail: "Error, " + err.error?.message || err.message,
             },
           ];
+          return;
         }
       );
     this.subscriptions.push(umploadSub);
   }
 
   onCheckChange(evt, check) {
+    console.log("onCheckChange", evt, check);
     if (check.value === "all" && evt.checked) {
+      console.log(this.checkboxs.map((check) => check.value));
       this.settingsForm
         .get("areas")
         ?.setValue(this.checkboxs.map((check) => check.value));
+      console.log(this.settingsForm);
       return;
     } else if (check.value === "all" && !evt.checked) {
       this.settingsForm.get("areas")?.setValue([]);
@@ -188,6 +198,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   showConditionModal() {
+    console.log("showConditionModal", this.settingsForm);
     if (this.settingsForm.valid) {
       this.displayConditions = true;
     }
@@ -205,10 +216,6 @@ export class AdapterComponent implements OnInit, OnDestroy {
         this.learningObjects.sort((a, b) => {
           return b.id - a.id;
         });
-
-        // res.forEach((item) => {
-        //   //const s = new Screenshot('http://google.com').width(800)
-        // });
       });
     this.subscriptions.push(learningsObjectsSub);
   }

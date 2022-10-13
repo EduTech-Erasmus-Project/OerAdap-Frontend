@@ -43,6 +43,7 @@
     "ngx-audio-player": "^11.0.4",
     "ngx-cookie-service": "^11.0.2",
     "ngx-dropzone": "^3.0.0",
+    "ngx-numeral": "^1.0.0",
     "ngx-quicklink": "^0.2.7",
     "object-to-formdata": "^4.1.0",
     "parser": "^0.1.4",

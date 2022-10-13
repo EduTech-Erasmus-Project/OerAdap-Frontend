@@ -18,35 +18,35 @@
                     <div class="p-col-6 p-md-6 p-lg-3">
                         <p class="text-count">
                             <i class="pi pi-book" style="font-size: 0.8em"></i>
-                            {{metadataInfo?.learning_object || 0}}
+                            {{toFormat(metadataInfo?.learning_object)}}
                         </p>
                         <p>Objetos de aprendizaje adaptados</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-2">
                         <p class="text-count">
                             <i class="pi pi-play" style="font-size: 0.8em"></i>
-                            {{metadataInfo?.audio || 0}}
+                            {{toFormat(metadataInfo?.audio)}}
                         </p>
                         <p>Audios adaptados</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-2">
                         <p class="text-count">
                             <i class="pi pi-image" style="font-size: 0.8em"></i>
-                            {{metadataInfo?.image || 0}}
+                            {{toFormat(metadataInfo?.image)}}
                         </p>
-                        <p>Imágenes adaptadas </p>
+                        <p>Imágenes adaptadas</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-2">
                         <p class="text-count">
                             <i class="pi pi-align-left" style="font-size: 0.8em"></i>
-                            {{metadataInfo?.paragraphs || 0}}
+                            {{toFormat(metadataInfo?.paragraphs)}}
                         </p>
                         <p>Párrafos adaptados</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-3">
                         <p class="text-count">
                             <i class="pi pi-video" style="font-size: 0.8em"></i>
-                            {{metadataInfo?.video || 0}}
+                            {{toFormat(metadataInfo?.video)}}
                         </p>
                         <p>Videos adaptados</p>
                     </div>

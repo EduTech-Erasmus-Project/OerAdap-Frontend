@@ -91,12 +91,11 @@ import { BreadcrumbPublicComponent } from './breadcrumb-public/breadcrumb-public
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { MenuPublicComponent } from './menu-public/menu-public.component';
 import { MomentPipe } from '../pipes/moment.pipe';
-import {ConfirmationService} from 'primeng/api';
 import { PlayerComponent } from './player/player.component';
 import {BlockUIModule} from 'primeng/blockui';
 
-export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
