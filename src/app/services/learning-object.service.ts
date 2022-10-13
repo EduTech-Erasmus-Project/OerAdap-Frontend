@@ -13,12 +13,10 @@ export class LearningObjectService {
   constructor(private http: HttpClient) {}
 
   public uploadObject(data: any) {
-    let dataSend = data
-    dataSend.areas.splice(dataSend.areas.indexOf("all"), 1);
     let formData = new FormData();
-    formData.append("file", dataSend.file);
-    formData.append("areas", dataSend.areas);
-    formData.append("method", dataSend.method);
+    formData.append("file", data.file);
+    formData.append("areas", data.areas);
+    formData.append("method", data.method);
     return this.http.post(`${baseUrl}/learning_objects/`, formData, {
       reportProgress: true,
       observe: "events",

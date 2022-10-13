@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { MetadataInfo } from "src/app/models/MetadataInfo";
+import { NumeralPipe } from "ngx-numeral";
 
 @Component({
   selector: "app-home",
@@ -16,21 +17,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
   private subscribes: Subscription[] = [];
   public displayModal: boolean;
-  public chartOptions: any= {
+  public chartOptions: any = {
     responsive: true,
     // legend: {
     //   display: true,
     //   position: "right",
     // },
-    
-  };;
+  };
   public data: any;
-  public metadataInfo:MetadataInfo;
+  public metadataInfo: MetadataInfo;
+  public formatted_string: string;
 
   constructor(
     private languageService: LanguageService,
     private router: Router,
-    private learningObjectService:LearningObjectService
+    private learningObjectService: LearningObjectService
   ) {}
   ngOnDestroy(): void {
     this.subscribes.forEach((sub) => {
@@ -41,14 +42,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.translate = this.languageService.translate;
     this.loadData();
-
-    
   }
 
   private async loadData() {
     try {
       let res = await this.learningObjectService.getMetadataInfo().toPromise();
-     // console.log("res", res);
+      // console.log("res", res);
       this.metadataInfo = res;
       this.loadChart();
     } catch (error) {
@@ -60,29 +59,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.displayModal = true;
   }
 
-  private loadChart(){
+  private loadChart() {
     this.data = {
       labels: this.metadataInfo.countries.map((country) => {
-        if(country.country === "Private request Api"){
+        if (country.country === "Private request Api") {
           return "Otros";
         }
         return country.country;
       }),
       datasets: [
-          {
-              data: this.metadataInfo.countries.map((country) => country.total),
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D"
-              ]
-          }
-      ]
-  };
+        {
+          data: this.metadataInfo.countries.map((country) => country.total),
+          backgroundColor: ["#42A5F5", "#66BB6A", "#FFA726"],
+          hoverBackgroundColor: ["#64B5F6", "#81C784", "#FFB74D"],
+        },
+      ],
+    };
+  }
+
+  toFormat(number) {
+    if (number >= 1000) {
+      const numeral = new NumeralPipe((number || 0));
+      return numeral.format("0.0a");
+    } else {
+      return number;
+    }
+    //return (number || 0).toString();
   }
 }

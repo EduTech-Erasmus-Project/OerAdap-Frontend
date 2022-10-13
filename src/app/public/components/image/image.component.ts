@@ -146,6 +146,7 @@ export class ImageComponent implements OnInit, OnDestroy {
   }
 
   async confirm(event: Event, id) {
+    this.messageService.clear();
     this.confirmationService.confirm({
       target: event.target,
       message: "Esta seguro que desea guardar los cambios ?",
