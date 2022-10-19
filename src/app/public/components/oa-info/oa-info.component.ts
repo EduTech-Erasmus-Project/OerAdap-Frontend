@@ -21,6 +21,7 @@ import { Message } from "primeng/api";
 export class OaInfoComponent implements OnInit, OnDestroy {
   @Input() learningObject: LearningObject;
   @Output() eventAdaptabilit: EventEmitter<any> = new EventEmitter();
+  private location: any;
 
   //public configs:any[];
 
@@ -83,34 +84,6 @@ export class OaInfoComponent implements OnInit, OnDestroy {
   }
 
   async showResponsiveDialog() {
-    //Servicio de retorno de objetos adaptados
-    this.msgs = [];
-    if (
-      this.learningObject?.config_adaptability.method == "automatic" &&
-      !this.learningObject?.complete_adaptation
-    ) {
-      return;
-    }
-    let objetos_adaptados = await this.learningObjectService
-      .getTagAdapted(this.learningObject.id)
-      .subscribe((response) => {
-        if (response) {
-          //console.log("response", response);
-          this.tag_adapted = response;
-          this.displayResponsive = true;
-        }
-      });
-    this.subscription.push(objetos_adaptados);
-  }
-
-  async descargar() {
-    this.msgs = [];
-
-    if (this.dounloadState) {
-      return;
-    }
-
-    this.dounloadState = true;
     try {
       const agent = window.navigator.userAgent.toLowerCase();
       switch (true) {
@@ -138,27 +111,50 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     }
 
     //this.getLocation()
-    this.learningObjectService.getPosition().then((pos) => {
-      this.latitude = pos.lat;
-      this.longitude = pos.lng;
-    }).catch((error) => {
-      console.log(error);
-    });
+    this.learningObjectService
+      .getPosition()
+      .then((pos) => {
+        this.latitude = pos.lat;
+        this.longitude = pos.lng;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    let answers = {
+    this.location = {
       browser: this.navegador,
       longitude: this.longitude,
       latitude: this.latitude,
     };
-    //console.log("id" + this.learningObject.id);
-    // if (this.learningObject.file_download) {
-    //   this.downloadFile(this.learningObject.file_download);
-    //   this.displayResponsive = false;
-    //   return;
-    // }
 
+    this.msgs = [];
+    if (
+      this.learningObject?.config_adaptability.method == "automatic" &&
+      !this.learningObject?.complete_adaptation
+    ) {
+      return;
+    }
+    let objetos_adaptados = await this.learningObjectService
+      .getTagAdapted(this.learningObject.id)
+      .subscribe((response) => {
+        if (response) {
+          //console.log("response", response);
+          this.tag_adapted = response;
+          this.displayResponsive = true;
+        }
+      });
+    this.subscription.push(objetos_adaptados);
+  }
+
+  async descargar() {
+    this.msgs = [];
+
+    if (this.dounloadState) {
+      return;
+    }
+    this.dounloadState = true;
     let paht_download = await this.learningObjectService
-      .getDownloadFileZip(this.learningObject.id, answers)
+      .getDownloadFileZip(this.learningObject.id, this.location)
       .subscribe(
         (response) => {
           if (response) {
@@ -184,34 +180,20 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     this.subscription.push(paht_download);
   }
 
-  // private getLocation() {
-  //   this.learningObjectService.getPosition().then((pos) => {
-  //     this.latitude = pos.lat;
-  //     this.longitude = pos.lng;
-  //     //console.log(this.latitude,this.longitude)
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-  // }
-
   downloadFile(data: any) {
     window.open(data);
     this.dounloadState = false;
   }
   onChangeImage() {
-    //console.log(this.image);
     this.emittEvent();
   }
   onChangeVideo() {
-    //console.log(this.video);
     this.emittEvent();
   }
   onChangeAudio() {
-    //console.log(this.audio);
     this.emittEvent();
   }
   onChangeParagraph() {
-    //console.log(this.paragraph);
     this.emittEvent();
   }
 }

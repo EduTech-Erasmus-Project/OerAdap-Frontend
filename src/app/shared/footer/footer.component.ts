@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-footer",
@@ -6,17 +7,23 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./footer.component.scss"],
 })
 export class FooterComponent implements OnInit {
-  public countries: any[];
-  public selectedCountry: string;
+  public languages: any[];
+  public language: string;
   public currentYear: number;
 
-  constructor() {}
+  constructor(private languageService: LanguageService) {}
 
   ngOnInit(): void {
-    this.countries = [
+    this.languages = [
       { name: "Español", code: "es" },
       { name: "Ingles", code: "en" },
     ];
     this.currentYear = new Date().getFullYear();
+    this.language = this.languageService.currentLang;
+  }
+
+  onChangLanguage(event) {
+    //console.log(event.target?.value);
+    this.languageService.setTranslate(event.target.value);
   }
 }

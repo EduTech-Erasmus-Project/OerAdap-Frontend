@@ -10,6 +10,8 @@ import { MessageService } from "primeng/api";
 import { ImageService } from "src/app/services/image.service";
 import { AudioService } from "src/app/services/audio.service";
 import { VideoService } from "src/app/services/video.service";
+import { BreadcrumbService } from "src/app/services/breadcrumb.service";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-adapter-detail",
@@ -52,8 +54,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private imageService: ImageService,
     private audioService: AudioService,
-    private videoService:VideoService
-  ) {}
+    private videoService:VideoService,
+    private breadcrumbService: BreadcrumbService,
+    private languageService: LanguageService
+  ) {
+    
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
@@ -63,8 +69,26 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
     let subRouter = this.route.params.subscribe((params) => {
       this.id = +params["id"];
       this.loadData();
+      this.loadBreadcrumb();
     });
     this.subscriptions.push(subRouter);
+  }
+
+  private async loadBreadcrumb() {
+    this.breadcrumbService.setItems([
+      {
+        label: (await this.languageService.get("menu.home")) || "",
+        routerLink: ["/"],
+      },
+      {
+        label: (await this.languageService.get("menu.adapter")) || "",
+        routerLink: ["/adapter"],
+      },
+      {
+        label: this.id,
+        routerLink: ["/adapter/"+this.id],
+      },
+    ]);
   }
 
   private async loadData() {

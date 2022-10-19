@@ -10,7 +10,6 @@ import { LanguageService } from "src/app/services/language.service";
   styleUrls: ["./menu-public.component.scss"],
 })
 export class MenuPublicComponent implements OnInit {
-  public translate: TranslateService;
   public tieredItems: any;
   public activeItem: number;
   public selectedCountry: string;
@@ -21,7 +20,8 @@ export class MenuPublicComponent implements OnInit {
   constructor(
     public appMain: PublicComponent,
     private languageService: LanguageService,
-    private router: Router
+    private router: Router,
+
   ) {
     // if (
     //   this.loginService.user?.administrator ||
@@ -32,77 +32,58 @@ export class MenuPublicComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.translate = this.languageService.translate;
     this.loadMenu();
   }
 
-  loadMenu() {
+  async loadMenu() {
+    //console.log("menu", this.languageService.translate.currentLang);
     //this.translate.onLangChange.subscribe((translate: LangChangeEvent) => {
     this.tieredItems = [
       {
-        label: "Inicio", //translate.translations.menu.home,
+        label: await this.languageService.get("menu.home") || "",
         routerLink: "/",
         routerLinkActiveOptions: {
           exact: true,
         },
       },
       {
-        label: "Adaptador", //translate.translations.menu.services,
+        label: await this.languageService.get("menu.adapter") || "", //"Adaptador",
         routerLink: "adapter",
         routerLinkActiveOptions: {
           exact: true,
         },
       },
-      {
-        label: "API", //translate.translations.menu.contact,
-        routerLink: "api-doc",
-        routerLinkActiveOptions: {
-          exact: true,
-          //styleClass: "active",
-        },
-      },
       // {
-      //   label: "Información", //translate.translations.menu.contact,
-      //   routerLink: "information",
+      //   label: "API", //translate.translations.menu.contact,
+      //   routerLink: "api-doc",
       //   routerLinkActiveOptions: {
       //     exact: true,
       //     //styleClass: "active",
       //   },
       // },
+      
       {
-        label: "Quiénes Somos", //translate.translations.menu.aboutUs,
+        label: await this.languageService.get("menu.about") || "", //"Quiénes Somos", 
         routerLink: "about-us",
         routerLinkActiveOptions: {
           exact: true,
         },
       },
       {
-        label: "Contacto",
+        label: await this.languageService.get("menu.contact") || "",//"Contacto",
         routerLink: "contact",
         routerLinkActiveOptions: {
           exact: true,
         },
       },
       {
-        label: "Guia de Usuario",
+        label: await this.languageService.get("menu.guide") || "",//"Guia de Usuario",
         routerLink: "guide",
         routerLinkActiveOptions: {
           exact: true,
         },
       },
     ];
-    //});
-    // console.log("user menu");
-    // if (this.loginService.validateRole("student")) {
-    //   this.tieredItems.push({
-    //     label: "Recomendados",
-    //     routerLink: "recommended",
-    //     routerLinkActiveOptions: {
-    //       exact: true,
-    //       styleClass: "",
-    //     },
-    //   });
-    // }
   }
 
   mobileMegaMenuItemClick(index) {

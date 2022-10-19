@@ -1,29 +1,24 @@
 <div class="main-content p-grid guide-content">
     <div class="p-col-12 p-md-6 p-lg-6">
-        <h1>Introducción</h1>
+        <h1>{{'guide.introduction.title' | translate}}</h1>
         <p>
-            Bienvenido a la guía de usuario de la plataforma OerAdap, en esta guía te mostraremos como puedes comenzar
-            en la plataforma para adaptar tus objetos de aprendizaje, el objetivo de esta plataforma es crear recursos
-            educativos adaptados implementando diferentes técnicas de adaptación.
+            {{'guide.introduction.p1' | translate}}
         </p>
         <p>
-            En esta plataforma podrás adaptar los audios, imágenes, párrafos de texto y videos para mejorar la
-            accesibilidad en el objeto de aprendizaje.
+            {{'guide.introduction.p2' | translate}}
         </p>
         <p>
-            En esta breve introducción te enseñaremos como subir un archivo, como visualizar su contenido, la adaptación
-            de cada sección y como descargar el objeto de aprendizaje, , a lo largo de esta guía tendrás un texto de
-            descripción y una imagen, gif o video de cómo realizar cada una de las actividades en la plataforma.
+            {{'guide.introduction.p3' | translate}}
         </p>
         <p>
-            Si tienes dudas o sugerencias puedes ponerte en contacto con nosotros accediendo a los diferentes enlaces:
-            <a [routerLink]="[ '/about-us']">Quienes somos</a>, <a [routerLink]="[ '/contact']">Contacto</a>
+            {{'guide.introduction.p4' | translate}}
+            <a [routerLink]="[ '/about-us']">{{'guide.introduction.p5' | translate}}</a>, <a [routerLink]="[ '/contact']">{{'guide.introduction.p6' | translate}}</a>
 
         </p>
-        <p>Empecemos.</p>
+        <p>{{'guide.introduction.p7' | translate}}</p>
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
         <!-- <img loading="lazy" src="assets/gifs/introduction.gif" alt="Introducción a la plataforma" /> -->
-        <video title="Introducción a la plataforma" src="assets/videos/introducction.mp4" type="video/mp4" controls autoplay loop></video>
+        <video [title]="'guide.introduction.videoTitle' | translate" src="assets/videos/introducction.mp4" type="video/mp4" controls autoplay loop></video>
     </div>
 </div>

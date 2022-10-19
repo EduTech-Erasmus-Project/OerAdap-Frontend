@@ -1,24 +1,17 @@
 <div class="main-content p-grid guide-content">
     <div class="p-col-12 p-md-6 p-lg-6">
-        <h1>Adaptación de Videos</h1>
+        <h1>{{'guide.video.title' | translate}}</h1>
         <p>
-            En esta sección veremos como adaptar un video para agregar un reproductor
-            accesible.
+            {{'guide.video.p1' | translate}}
         </p>
         <p>
-            Para adaptar un video es importante tener en cuenta la fuente de video ya
-            que no todas las fuentes proporcionan subtitulados recomendamos usar
-            videos de YouTube o locales, para descargar el video y agregar en el
-            reproductor solo dale click en el botón de Descargar video y subtítulos o
-            generar subtitulo si la fuente es de un video local del objeto de
-            aprendizaje, al terminar el proceso se agregará en el objeto de
-            aprendizaje el nuevo video o los subtítulos.
+            {{'guide.video.p2' | translate}}
         </p>
-        <p>También puedes agregar subtítulos personales en formato STR.</p>
-        <p>Listo ya casi terminamos.</p>
+        <p>{{'guide.video.p3' | translate}}</p>
+        <p>{{'guide.video.p4' | translate}}</p>
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
         <!-- <img loading="lazy" src="assets/gifs/video.gif" alt="Adaptar un video." /> -->
-        <video title="Adaptar un video." src="assets/videos/video.mp4" type="video/mp4" controls autoplay loop></video>
+        <video [title]="'guide.video.title' | translate" src="assets/videos/video.mp4" type="video/mp4" controls autoplay loop></video>
     </div>
 </div>

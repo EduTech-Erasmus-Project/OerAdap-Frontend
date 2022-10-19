@@ -18,32 +18,6 @@ const routes: Routes = [
           breadcrumb: null,
         },
       },
-      // {
-      //   path: "login",
-      //   loadChildren: () =>
-      //     import("../auth/login/login.module").then((m) => m.LoginModule),
-      //   data: {
-      //     breadcrumb: "Inicio de sesión",
-      //   },
-      // },
-      // {
-      //   path: "register",
-      //   loadChildren: () =>
-      //     import("../auth/sign-up/sign-up.module").then((m) => m.SignUpModule),
-      //   data: {
-      //     breadcrumb: "Registro",
-      //   },
-      // },
-      // {
-      //   path: "restart-password",
-      //   loadChildren: () =>
-      //     import("../auth/recover-password/recover-password.module").then(
-      //       (m) => m.RecoverPasswordModule
-      //     ),
-      //   data: {
-      //     breadcrumb: "Reestablecer contraseña",
-      //   },
-      // },
       {
         path: "terms-and-conditions",
         loadChildren: () =>
@@ -52,35 +26,7 @@ const routes: Routes = [
           breadcrumb: "Términos y condiciones",
         },
       },
-      // {
-      //   path: "password-resed/:uidb64/:token",
-      //   loadChildren: () =>
-      //     import("../auth/password-resed/password-resed.module").then(
-      //       (m) => m.PasswordResedModule
-      //     ),
-      //   data: {
-      //     breadcrumb: "Reestablecer contraseña",
-      //   },
-      //   component: PasswordResedComponent,
-      // },
-      // {
-      //   path: "reset/:?",
-      //   loadChildren: () =>
-      //     import("../auth/reset/reset.module").then((m) => m.ResetModule),
-      //   data: {
-      //     breadcrumb: "Contraseña reestablecida",
-      //   },
-      // },
-      // {
-      //   path: "emailMessage",
-      //   loadChildren: () =>
-      //     import("../auth/emailMessage/email-message.module").then(
-      //       (m) => m.EmailMessageModule
-      //     ),
-      //   data: {
-      //     breadcrumb: "Enlace enviado",
-      //   },
-      // },
+     
       {
         path: "about-us",
         loadChildren: () =>
@@ -97,17 +43,6 @@ const routes: Routes = [
           breadcrumb: "Adaptador",
         },
       },
-
-      // {
-      //   path: "information",
-      //   loadChildren: () =>
-      //     import("./pages/information/information.module").then(
-      //       (m) => m.InformationModule
-      //     ),
-      //   data: {
-      //     breadcrumb: "Información",
-      //   },
-      // },
       {
         path: "contact",
         loadChildren: () =>
@@ -116,14 +51,14 @@ const routes: Routes = [
           breadcrumb: "Contacto",
         },
       },
-      {
-        path: "api-doc",
-        loadChildren: () =>
-          import("./pages/api/api.module").then((m) => m.ApiModule),
-        data: {
-          breadcrumb: "API Adaptador",
-        },
-      },
+      // {
+      //   path: "api-doc",
+      //   loadChildren: () =>
+      //     import("./pages/api/api.module").then((m) => m.ApiModule),
+      //   data: {
+      //     breadcrumb: "API Adaptador",
+      //   },
+      // },
       {
         path: "guide",
         loadChildren: () =>
