@@ -1,50 +1,46 @@
 <div class="main-content p-grid guide-content">
     <div class="p-col-12 p-md-6 p-lg-6">
-        <h1>Adaptación de Imágenes</h1>
+        <h1>{{'guide.image.title' | translate}}</h1>
         <p>
-            En esta sección veremos como adaptar imágenes para crear diferentes previsualizaciones de esta.
+            {{'guide.image.p1' | translate}}
         </p>
-        <h2>Editar descripción</h2>
+        <h2>{{'guide.image.section1.title' | translate}}</h2>
         <p>
-            La parte fundamental de una imagen es su descripción, esta descripción ayuda se muestra cuando la imagen no
-            este disponible o el lector de pantalla lee esta descripción para leer de que se trata la imagen, esta
-            descripción se inserta en el ALT de la imagen, para editar esta descripción solo da click en el botón de
-            Editar descripción y podrás editar la descripción acorde a lo que se trata la imagen.
+            {{'guide.image.section1.p1' | translate}}
         </p>
-        
+
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
         <!-- <img loading="lazy" src="assets/gifs/imgalt.gif" alt="Editar la descripción ALT de una imagen." /> -->
-        <video title="Editar la descripción ALT de una imagen." src="assets/videos/imgalt.mp4" type="video/mp4" controls autoplay loop></video>
+        <video [title]="'guide.image.section1.videoTitle' | translate" src="assets/videos/imgalt.mp4" type="video/mp4"
+            controls autoplay loop></video>
     </div>
     <div class="p-col-12 p-md-12 p-lg-12">
         <p-divider></p-divider>
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
         <!-- <img loading="lazy" src="assets/gifs/imgpreview.gif" alt="Agregar una previsualización de pantalla completa a una imagen." /> -->
-        <video title="Agregar una previsualización de pantalla completa a una imagen." src="assets/videos/imgpreview.mp4" type="video/mp4" controls autoplay loop></video>
+        <video [title]="'guide.image.section2.videoTitle' | translate" src="assets/videos/imgpreview.mp4"
+            type="video/mp4" controls autoplay loop></video>
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
-        <h2>Previsualización de imagen</h2>
+        <h2>{{'guide.image.section2.title' | translate}}</h2>
         <p>
-            Para agregar una previsualización de pantalla completa a la imagen en el objeto de aprendizaje pudes marcar el check de
-            previsualización de imagen, al marcar o desmarcar se agregará o se quitará la previsualización en pantalla
-            completa de la imagen en el objeto de aprendizaje.
+            {{'guide.image.section2.p1' | translate}}
         </p>
     </div>
     <div class="p-col-12 p-md-12 p-lg-12">
         <p-divider></p-divider>
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
-        <h2>Crear tablas</h2>
+        <h2>{{'guide.image.section3.title' | translate}}</h2>
         <p>
-            Una opción interesante que tienes disponible es el poder crear una tabla, si tu imagen es una tabla de
-            datos, esta opción te permite crear una tabla de forma manual, podrás agregar las filas y columnas que
-            desees para crear tu tabla.
+            {{'guide.image.section3.p1' | translate}}
         </p>
     </div>
     <div class="p-col-12 p-md-6 p-lg-6">
         <!-- <img loading="lazy" src="assets/gifs/imgtable.gif" alt="Crear una tabla en formato HTML para remplazar una imagen." /> -->
-        <video title="Crear una tabla en formato HTML para remplazar una imagen." src="assets/videos/imgtable.mp4" type="video/mp4" controls autoplay loop></video>
+        <video [title]="'guide.image.section3.videoTitle' | translate" src="assets/videos/imgtable.mp4" type="video/mp4"
+            controls autoplay loop></video>
     </div>
 </div>

@@ -33,7 +33,7 @@ export class ImageComponent implements OnInit, OnDestroy {
   title = "Tets-table";
   config = {
     toolbar: ["insertTable"],
-    language: "es",
+    language: "en",
   };
 
   public table_result: string = "";
@@ -137,7 +137,7 @@ export class ImageComponent implements OnInit, OnDestroy {
 
   cancelGenerate() {
     this.displayModal = false;
-    this.table_result = this.textAux_Edit;
+    this.table_result = this.textAux_Edit || "";
   }
 
   showModalDialog() {

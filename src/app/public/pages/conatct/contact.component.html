@@ -4,9 +4,8 @@
         <div class="p-col-11 p-md-6 p-lg-6 content-info">
             <div class="text main-content">
                 <!-- <h2>Construyendo un mundo mejor</h2> -->
-                <h2>Contáctenos</h2>
-                <p>Nos gustaría saber tu opinión, dudas o sugerencias o simplemente nos quiere saludar, nos encantaría
-                    atender su mensaje.</p>
+                <h2>{{'contact.title' | translate}}</h2>
+                <p>{{'contact.description' | translate}}</p>
             </div>
         </div>
         <div class="p-col-1 p-md-6 p-lg-6">
@@ -23,19 +22,18 @@
         <div class="p-col-12 p-md-6 p-lg-5">
             <form autocomplete="off" [formGroup]="angForm" (ngSubmit)="validateUser()" id="loginForm">
                 <div class="p-field p-fluid">
-                    <label for="firstnamelabel">Nombre: *</label>
+                    <label for="firstnamelabel">{{'contact.form.name' | translate}} *</label>
                     <input type="text" formControlName="name" pInputText>
                     <div *ngIf="name.invalid && (name.dirty || name.touched)">
-                        <small id="name " class="p-error" *ngIf="name.errors.required">Campo
-                            Obligatorio</small>
+                        <small id="name " class="p-error" *ngIf="name.errors.required">{{'contact.validation.name' | translate}}</small>
                     </div>
                 </div>
                 <div class="p-field p-fluid">
-                    <label for="firstnamelabel">Email: *</label>
+                    <label for="firstnamelabel">{{'contact.form.email' | translate}} *</label>
                     <input type="text" formControlName="email" pInputText>
                     <div *ngIf="email.invalid && (name.dirty || email.touched)">
-                        <small id="name " class="p-error" *ngIf="email.errors.required">Campo Obligatorio</small>
-                        <small id="name " class="p-error" *ngIf="email.errors?.pattern">El correo no es valido</small>
+                        <small id="name " class="p-error" *ngIf="email.errors.required">{{'contact.validation.email' | translate}}</small>
+                        <small id="name " class="p-error" *ngIf="email.errors?.pattern">{{'contact.validation.emailValid' | translate}}</small>
                     </div>
                 </div>
                 <div class="p-field p-fluid">

@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { MetadataInfo } from "src/app/models/MetadataInfo";
 import { NumeralPipe } from "ngx-numeral";
+import { BreadcrumbService } from "src/app/services/breadcrumb.service";
 
 @Component({
   selector: "app-home",
@@ -13,16 +14,11 @@ import { NumeralPipe } from "ngx-numeral";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public translate: TranslateService;
   public loading: boolean = false;
   private subscribes: Subscription[] = [];
   public displayModal: boolean;
   public chartOptions: any = {
     responsive: true,
-    // legend: {
-    //   display: true,
-    //   position: "right",
-    // },
   };
   public data: any;
   public metadataInfo: MetadataInfo;
@@ -30,9 +26,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private languageService: LanguageService,
-    private router: Router,
-    private learningObjectService: LearningObjectService
-  ) {}
+    private learningObjectService: LearningObjectService,
+    private breadcrumbService: BreadcrumbService
+  ) {
+    this.loadBreadcrumb();
+  }
+
   ngOnDestroy(): void {
     this.subscribes.forEach((sub) => {
       sub.unsubscribe();
@@ -40,8 +39,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.translate = this.languageService.translate;
     this.loadData();
+  }
+
+  private async loadBreadcrumb() {
+    this.breadcrumbService.setItems([
+      {
+        label: (await this.languageService.get("menu.home")) || "",
+        routerLink: ["/"],
+      },
+    ]);
   }
 
   private async loadData() {
@@ -79,11 +86,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   toFormat(number) {
     if (number >= 1000) {
-      const numeral = new NumeralPipe((number || 0));
+      const numeral = new NumeralPipe(number || 0);
       return numeral.format("0.0a");
     } else {
-      return number;
+      return number || 0;
     }
-    //return (number || 0).toString();
   }
 }

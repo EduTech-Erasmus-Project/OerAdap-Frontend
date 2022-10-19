@@ -1,5 +1,9 @@
 import { NgModule } from "@angular/core";
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS,
+} from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
@@ -38,16 +42,16 @@ import { AppRoutingModule } from "./app-routing.module";
 
 // Application services
 import { BreadcrumbService } from "./services/breadcrumb.service";
-import { SharedModule } from "./shared/shared.module";
+import { HttpLoaderFactory, SharedModule } from "./shared/shared.module";
 import { PublicModule } from "./public/public.module";
 import { QuicklinkModule } from "ngx-quicklink";
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { MessageService, ConfirmationService } from "primeng/api";
 import { CookieService } from "ngx-cookie-service";
 import { UntypedFormBuilder } from "@angular/forms";
-import { MenuService } from './services/app.menu.service';
-import { TokenRefInterceptor } from './interceptors/token-ref.interceptor';
-import { NumeralModule   } from "ngx-numeral";
-
+import { MenuService } from "./services/app.menu.service";
+import { TokenRefInterceptor } from "./interceptors/token-ref.interceptor";
+import { NumeralModule } from "ngx-numeral";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -81,8 +85,15 @@ import { NumeralModule   } from "ngx-numeral";
     PublicModule,
     QuicklinkModule,
     //SocketIoModule.forRoot(config),
-    NumeralModule.forRoot()
-    
+    NumeralModule.forRoot(),
+    TranslateModule.forRoot({
+      defaultLanguage: 'es',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   declarations: [AppComponent],
   //PathLocationStrategy
@@ -99,8 +110,6 @@ import { NumeralModule   } from "ngx-numeral";
       useClass: TokenRefInterceptor,
       multi: true,
     },
-    
-
   ],
   bootstrap: [AppComponent],
 })

@@ -5,8 +5,9 @@
         <div class="p-col-10 p-md-6 p-lg-6">
             <ngx-dropzone *ngIf="!loader" (change)="onSelect($event)" accept=".zip">
                 <ngx-dropzone-label>
-                    <h4>Arrastre o seleccione un archivo.</h4>
-                    <p-button label="Seleccionar archivo" icon="pi pi-cloud-upload" styleClass="p-button-lg"></p-button>
+                    <h4>{{'adapter.areaFile' | translate}}</h4>
+                    <p-button label="{{'adapter.btnFile' | translate}}" icon="pi pi-cloud-upload"
+                        styleClass="p-button-lg"></p-button>
                 </ngx-dropzone-label>
                 <ngx-dropzone-preview *ngIf="file" (removed)="onRemove()" [removable]="true"
                     ngProjectAs="ngx-dropzone-preview" [file]="file">
@@ -22,21 +23,21 @@
         <div class="p-col-12 p-md-12 p-lg-12 p-grid" *ngIf="file && !loader">
             <!-- *ngIf="file && !loader" -->
             <form class="p-col-12 p-md-6 p-lg-5" [formGroup]="settingsForm" (ngSubmit)="showConditionModal()">
-                <h6>Método de adaptación</h6>
+                <h6>{{'adapter.methods.title' | translate}}</h6>
                 <div class="methods">
                     <div class="p-field-radiobutton">
                         <p-radioButton name="method" value="handbook" inputId="handbook" formControlName="method">
                         </p-radioButton>
-                        <label for="handbook">Manual</label>
+                        <label for="handbook">{{'adapter.methods.handbook.item' | translate}}</label>
                     </div>
-                    <div class="p-field-radiobutton">
+                    <!-- <div class="p-field-radiobutton">
                         <p-radioButton pTooltip="Esta funcionalidad está en desarrollo" [disabled]="true" name="method"
                             value="automatic" inputId="automatic" formControlName="method">
                         </p-radioButton>
-                        <label for="automatic">Automático</label>
-                    </div>
+                        <label for="automatic">{{'adapter.methods.automatic.item' | translate}}</label>
+                    </div> -->
                 </div>
-                <h6>Seleccione las áreas a automatizar.</h6>
+                <h6>{{'adapter.areas.title' | translate}}</h6>
                 <div class="p-grid">
 
                     <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let check of checkboxs; let i=index">
@@ -49,7 +50,8 @@
 
                 </div>
                 <div class="button">
-                    <p-button type="submit" label="Cargar" icon="pi pi-cloud-upload"></p-button>
+                    <p-button type="submit" label="{{'adapter.btnUpload' | translate}}" icon="pi pi-cloud-upload">
+                    </p-button>
                 </div>
 
                 <!-- <p-button  (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
@@ -63,19 +65,9 @@
             <div class="spiner" *ngIf="loader">
                 <p-progressSpinner *ngIf="!navigateId"></p-progressSpinner>
                 <div class="progress">
-                    <p>Cargando archivo... </p>
+                    <p>{{'adapter.loaderUpload' | translate}}</p>
                     <span><i [ngClass]="{'pi-spin pi-spinner': progress < 100, 'pi-check': progress >= 100}"
                             class="pi"></i></span>
-                    <!-- <span>
-                        <ng-container *ngIf="progress < 100; else uploadProgress">
-                            {{progress}}%
-                        </ng-container>
-                        <ng-template #uploadProgress>
-                            <span><i
-                                [ngClass]="{'pi-spin pi-spinner': !navigateId, 'pi-check': navigateId}"
-                                class="pi"></i></span>
-                        </ng-template>
-                    </span> -->
                 </div>
                 <ng-container *ngIf="settingsForm.get('method').value == 'automatic'">
                     <div class="progress">
@@ -103,7 +95,7 @@
                 </ng-container>
 
 
-                <p *ngIf="navigateId">Tu archivo está listo para editar pulsa en continuar para editarlo</p>
+                <p *ngIf="navigateId">{{'adapter.succeedUpload' | translate}}</p>
                 <ng-container *ngIf="settingsForm.get('method').value == 'automatic'; else loaderTemplate">
                     <p-progressBar *ngIf="!navigateId" mode="indeterminate" [style]="{'height': '10px'}">
                     </p-progressBar>
@@ -113,8 +105,8 @@
                 </ng-template>
 
                 <div class="btn-next">
-                    <p-button *ngIf="navigateId" (click)="navigate()" type="submit" label="Continuar" iconPos="right"
-                        icon="pi pi-angle-right"></p-button>
+                    <p-button *ngIf="navigateId" (click)="navigate()" type="submit"
+                        label="{{'adapter.btnNext' | translate}}" iconPos="right" icon="pi pi-angle-right"></p-button>
                 </div>
             </div>
         </div>
@@ -124,42 +116,27 @@
 
 
 
-<p-dialog header="Términos y condiciones de uso" [(visible)]="displayConditions" [style]="{width: '50vw'}">
-    <p>La Universidad Politécnica Salesiana conjunto con el grupo de investigación EduTech pone a disposición de esta
-        plataforma de forma gratuita y sin ánimos de lucro, para el desarrollo de la educación equitativa.</p>
-
-    <p>Al aceptar estos términos y condiciones de uso de la aplicación el usuario acepta de forma voluntaria los
-        siguientes términos:</p>
-
-    <p>Los datos registrados y recopilados del objeto de aprendizaje se destruyen en 24 horas por lo que el sistema no
-        guarda datos de ningún objeto de aprendizaje subido a la plataforma.</p>
-
-    <p>Los datos que se guardan son solo información de navegación como información del navegador y datos estadísticos
-        sobre el resumen de lo realizado en esta aplicación con la finalidad re recopilar datos estadísticos para
-        mejorar la aplicación.</p>
-
-    <p>Este sistema no guarda datos personales de ningún usuario que navegue o que haga uso de esta plataforma.</p>
-    
-    <p>Los archivos subidos no se compartirán con ninguna persona o institución publica o privada de igual manera los
-        archivos generados pertenecen solo al usuario de la sesión actual que está navegando.</p>
-
-    <p>El usuario esta en su responsabilidad de subir archivos únicamente recursos educativos (Objetos de Aprendizaje),
-        se admiten solo archivos comprimidos con formato zip.</p>
-        
-    <p>Para descarga el objeto de aprendizaje se te pedirá tu ubicación, puedes compartirnos o no, este
-        dato es estadístico para el sitio web, no guardamos información personal como geolocalización,
-        puntos de coordenadas, ip o datos del dispositivo, únicamente datos de nombre del país de
-        ubicación y el conteo de los recursos que se realizaron en la página.</p>
+<p-dialog header="{{'adapter.terms.title' | translate}}" [(visible)]="displayConditions" [style]="{width: '50vw'}">
+    <p>{{'adapter.terms.description1' | translate}}</p>
+    <p>{{'adapter.terms.description2' | translate}}</p>
+    <p>{{'adapter.terms.description3' | translate}}</p>
+    <p>{{'adapter.terms.description4' | translate}}</p>
+    <p>{{'adapter.terms.description5' | translate}}</p>
+    <p>{{'adapter.terms.description6' | translate}}</p>
+    <p>{{'adapter.terms.description7' | translate}}</p>
+    <p>{{'adapter.terms.description8' | translate}}</p>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-times" (click)="displayConditions=false" label="Cancelar" styleClass="p-button-text">
+        <p-button icon="pi pi-times" (click)="displayConditions=false" label="{{'adapter.terms.btnCancel' | translate}}"
+            styleClass="p-button-text">
         </p-button>
-        <p-button icon="pi pi-check" (click)="onUpload()" label="Aceptar" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="onUpload()" label="{{'adapter.terms.btnAccept' | translate}}"
+            styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
 
 <div class="p-grid main-content" *ngIf="learningObjects?.length > 0">
     <div class="p-col-12 p-md-12 p-lg-12 tittle">
-        <h3>Objetos de Aprendizaje Recientes</h3>
+        <h3>{{'adapter.titleList' | translate}}</h3>
     </div>
 
 
@@ -196,15 +173,16 @@
                 </div>
             </ng-container>
             <ng-template #progresTemplate>
-                <p>Creado: <span>{{item.created_at | moment}}</span></p>
-                <p>Expira: <span>{{item.expires_at | moment}}</span></p>
-                <h5>Resumen de adaptabilidad</h5>
-                <p><span><strong>Tipo de adaptación: </strong></span>{{getmethod(i)}}</p>
-                <p><span><strong>Areas de optimización: </strong></span>{{getareas(i)}}</p>
+                <p>{{'adapter.card.create' | translate}} <span>{{item.created_at | moment}}</span></p>
+                <p>{{'adapter.card.expire' | translate}} <span>{{item.expires_at | moment}}</span></p>
+                <h5>{{'adapter.card.abstract' | translate}}</h5>
+                <p><span><strong>{{'adapter.card.type' | translate}} </strong></span>{{getmethod(i)}}</p>
+                <p><span><strong>{{'adapter.card.areas' | translate}} </strong></span>{{getareas(i)}}</p>
             </ng-template>
 
             <ng-template pTemplate="footer">
-                <p-button (click)="navigate(item.id)" label="Continuar Editando" icon="pi pi-pencil"></p-button>
+                <p-button (click)="navigate(item.id)" label="{{'adapter.card.btnCardEdit' | translate}}"
+                    icon="pi pi-pencil"></p-button>
             </ng-template>
         </p-card>
     </div>

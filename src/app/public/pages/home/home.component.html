@@ -1,13 +1,13 @@
 <div class="content p-grid">
     <div class="p-col-12 p-md-6 p-lg-6 title main-content">
-        <h1>Mejora la educación online con recursos educativos adaptados, para una educación sin frontera. </h1>
-        <a [routerLink]="['/adapter']" pButton pRipple type="button" label="Comenzar ahora" class="p-button-rounded"
+        <h1>{{'home.title' | translate}}</h1>
+        <a [routerLink]="['/adapter']" pButton pRipple type="button" label="{{'home.btnInit' | translate}}" class="p-button-rounded"
             styleClass="p-button-lg"></a>
 
 
     </div>
     <div class="p-col-12 p-md-6 p-lg-6 img">
-        <img loading="lazy" src="assets/img/svg3.svg" alt="Imagen de portada" tabindex="1">
+        <img loading="lazy" src="assets/img/svg3.svg" alt="{{'home.altCover' | translate}}" tabindex="1">
     </div>
 
 
@@ -20,37 +20,37 @@
                             <i class="pi pi-book" style="font-size: 0.8em"></i>
                             {{toFormat(metadataInfo?.learning_object)}}
                         </p>
-                        <p>Objetos de aprendizaje adaptados</p>
+                        <p>{{'home.count.oa' | translate}}</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-2">
                         <p class="text-count">
                             <i class="pi pi-play" style="font-size: 0.8em"></i>
                             {{toFormat(metadataInfo?.audio)}}
                         </p>
-                        <p>Audios adaptados</p>
+                        <p>{{'home.count.audio' | translate}}</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-2">
                         <p class="text-count">
                             <i class="pi pi-image" style="font-size: 0.8em"></i>
                             {{toFormat(metadataInfo?.image)}}
                         </p>
-                        <p>Imágenes adaptadas</p>
+                        <p>{{'home.count.img' | translate}}</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-2">
                         <p class="text-count">
                             <i class="pi pi-align-left" style="font-size: 0.8em"></i>
                             {{toFormat(metadataInfo?.paragraphs)}}
                         </p>
-                        <p>Párrafos adaptados</p>
+                        <p>{{'home.count.text' | translate}}</p>
                     </div>
                     <div class="p-col-6 p-md-6 p-lg-3">
                         <p class="text-count">
                             <i class="pi pi-video" style="font-size: 0.8em"></i>
                             {{toFormat(metadataInfo?.video)}}
                         </p>
-                        <p>Videos adaptados</p>
+                        <p>{{'home.count.video' | translate}}</p>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -67,17 +67,14 @@
                 <div class="video-content" style='background-image: url("assets/img/yannis.jpg");'>
                     <!-- <img loading="lazy" src="assets/img/yannis.jpg" alt="Portada de video"> -->
                     <div class="video-bg">
-                        <button (click)="showModalDialog()" pButton pRipple type="button" icon="pi pi-play"
+                        <button title="{{'home.btnVideo' | translate}}" (click)="showModalDialog()" pButton pRipple type="button" icon="pi pi-play"
                             class="p-button-rounded p-button-outlined " styleClass="p-button-lg"></button>
                     </div>
                 </div>
             </div>
             <div class="p-col-12 p-md-6 p-lg-6 main-content text-cintent">
-                <p>OER Es una plataforma para el adaptado de accesibilidad de recursos educativos, los objetos de
-                    aprendizaje son una gran herramienta de educación por esto deben estar disponibles para todo el
-                    publico de forma que cada persona pueda acceder a estos recursos sin limitación alguna, ayuda a
-                    construir una educación para todos.</p>
-                <a [routerLink]="['/about-us']" pButton pRipple type="button" label="Mas información"
+                <p>{{'home.description' | translate}}</p>
+                <a [routerLink]="['/about-us']" pButton pRipple type="button" label="{{'home.btnMore' | translate}}"
                     class="p-button-outlined p-button-rounded p-button-info btn-more-info" styleClass="p-button-lg"></a>
             </div>
         </div>
@@ -89,14 +86,10 @@
 
 
     <div class="p-col-12 p-md-12 p-lg-12 main-content text-info">
-        <h2>Desarrollado para mejorar la adaptación de los recursos educativos
-        </h2>
+        <h2>{{'home.tittleDescription2' | translate}}</h2>
         <p>
-            La adaptación de un recurso educativo ayuda a mejorar la calidad educativa, <br>
-            miles de recursos educativos en la web no están adaptados para todas las personas <br>
-            que pueden acceder a estos recursos por lo que la limitación de entendimiento <br>
-            no es aprovechable. <br>
-            Esto se debe a la ausencia de herramientas automatizadas de modelado de recursos educativos adaptados.
+            {{'home.description2' | translate}}<br>
+            {{'home.description3' | translate}}
         </p>
     </div>
 
@@ -105,19 +98,19 @@
         <div class="bg">
             <div class="main-content">
                 <h3>
-                    Contáctanos
+                    {{'home.titleContact' | translate}}
                 </h3>
-                <p>Nos gustaría saber tu opinión sobre este proyecto.</p>
-                <a [routerLink]="['/contact']" pButton pRipple type="button" label="Contactanos"
+                <p>{{'home.descriptionContact' | translate}}</p>
+                <a [routerLink]="['/contact']" pButton pRipple type="button" label="{{'home.btnContact' | translate}}"
                     class="p-button-outlined p-button-rounded" styleClass="p-button-lg"></a>
             </div>
         </div>
     </div>
 
 
-    <div class=" p-col-12 p-md-12 p-lg-12 info-country">
+    <div *ngIf="data?.length > 0" class=" p-col-12 p-md-12 p-lg-12 info-country">
         <h3>
-            Desde donde han usado nuestra herramienta 
+            {{'home.infoView' | translate}}
         </h3>
         <div class="p-grid">
             <div class="p-col-12 p-md-6 p-lg-6 p-md-offset-3  p-lg-offset-3">
@@ -125,11 +118,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="video-content">
-        
-        <img loading="lazy" src="assets/img/yannis.jpg" alt="">
-    </div> -->
 
 </div>
 
@@ -142,6 +130,6 @@
         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe> -->
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cerrar" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="{{'home.btnClouseVideo' | translate}}" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
