@@ -30,8 +30,10 @@
                             <div *ngIf="listAll" class="loader-spin">
                                 <p-progressSpinner></p-progressSpinner>
                             </div>
-                            <app-audio-content *ngIf="!listAll && audiosGroup?.length > 0" [audiosGroup]="audiosGroup"></app-audio-content>
-                            <p *ngIf="!listAll && audiosGroup?.length == 0">Este Objeto de aprendizaje no tiene audios.</p>
+                            <app-audio-content *ngIf="!listAll && audiosGroup?.length > 0" [audiosGroup]="audiosGroup">
+                            </app-audio-content>
+                            <p *ngIf="!listAll && audiosGroup?.length == 0">Este Objeto de aprendizaje no tiene audios.
+                            </p>
                         </div>
                     </p-tabPanel>
                     <p-tabPanel>
@@ -43,8 +45,10 @@
                             <div *ngIf="listAll" class="loader-spin">
                                 <p-progressSpinner></p-progressSpinner>
                             </div>
-                            <app-image-content *ngIf="!listAll && imagesGroup?.length > 0" [imagesGroup]="imagesGroup"></app-image-content>
-                            <p *ngIf="!listAll && imagesGroup?.length == 0">Este Objeto de aprendizaje no tiene imágenes.</p>
+                            <app-image-content *ngIf="!listAll && imagesGroup?.length > 0" [imagesGroup]="imagesGroup">
+                            </app-image-content>
+                            <p *ngIf="!listAll && imagesGroup?.length == 0">Este Objeto de aprendizaje no tiene
+                                imágenes.</p>
                         </div>
                     </p-tabPanel>
                     <p-tabPanel>
@@ -56,7 +60,8 @@
                             <div *ngIf="listAll" class="loader-spin">
                                 <p-progressSpinner></p-progressSpinner>
                             </div>
-                            <app-video-content *ngIf="!listAll && videos?.length > 0" [videos]="videos"></app-video-content>
+                            <app-video-content *ngIf="!listAll && videos?.length > 0" [videos]="videos">
+                            </app-video-content>
                             <p *ngIf="!listAll && videos?.length == 0">Este Objeto de aprendizaje no tiene videos.</p>
                         </div>
                     </p-tabPanel>
@@ -197,7 +202,7 @@
 
 
 <div class="card main-content oa-adaptability" *ngIf="tabAdapted">
-    
+
     <ng-container
         *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'; else elseTemplate">
         <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
@@ -211,7 +216,8 @@
                     <div *ngIf="loader" class="loader-spin">
                         <p-progressSpinner></p-progressSpinner>
                     </div>
-                    <app-audio-content *ngIf="!loader && audiosGroup?.length > 0" [audiosGroup]="audiosGroup"></app-audio-content>
+                    <app-audio-content *ngIf="!loader && audiosGroup?.length > 0" [audiosGroup]="audiosGroup">
+                    </app-audio-content>
                     <h5 class="no-content" *ngIf="!loader && audiosGroup?.length == 0">Esta página no tiene audios.</h5>
                 </div>
             </p-tabPanel>
@@ -225,8 +231,10 @@
                     <div *ngIf="loader" class="loader-spin">
                         <p-progressSpinner></p-progressSpinner>
                     </div>
-                    <app-image-content *ngIf="!loader && imagesGroup?.length > 0" [imagesGroup]="imagesGroup"></app-image-content>
-                    <h5 class="no-content" *ngIf="!loader && imagesGroup?.length == 0">Esta página no tiene imágenes.</h5>
+                    <app-image-content *ngIf="!loader && imagesGroup?.length > 0" [imagesGroup]="imagesGroup">
+                    </app-image-content>
+                    <h5 class="no-content" *ngIf="!loader && imagesGroup?.length == 0">Esta página no tiene imágenes.
+                    </h5>
                 </div>
 
                 <!-- <ng-container *ngIf="!nFoundImage; else imagesTemplate">
@@ -245,8 +253,10 @@
                     <div *ngIf="loader" class="loader-spin">
                         <p-progressSpinner></p-progressSpinner>
                     </div>
-                    <app-paragraph-content *ngIf="!loader && paragraphs?.length > 0" [paragraphs]="paragraphs"></app-paragraph-content>
-                    <h5 class="no-content" *ngIf="!loader && paragraphs?.length == 0">Esta página no tiene párrafos.</h5>
+                    <app-paragraph-content *ngIf="!loader && paragraphs?.length > 0" [paragraphs]="paragraphs">
+                    </app-paragraph-content>
+                    <h5 class="no-content" *ngIf="!loader && paragraphs?.length == 0">Esta página no tiene párrafos.
+                    </h5>
                 </div>
 
                 <!-- <ng-container *ngIf="paragraphs?.length > 0; else paragraphsTemplate">

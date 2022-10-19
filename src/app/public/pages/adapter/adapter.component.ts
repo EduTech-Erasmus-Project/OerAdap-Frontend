@@ -13,6 +13,8 @@ import { Subscription } from "rxjs";
 import { StorageService } from "../../../services/storage.service";
 import { LearningObject } from "../../../models/LearningObject";
 import { Message, MessageService } from "primeng/api";
+import { BreadcrumbService } from "src/app/services/breadcrumb.service";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-adapter",
@@ -33,58 +35,78 @@ export class AdapterComponent implements OnInit, OnDestroy {
 
   public settingsForm: UntypedFormGroup;
 
-  public checkboxs: Array<any> = [
-    {
-      value: "all",
-      name: "Todas",
-    },
-    {
-      value: "image",
-      name: "Imagen (Descripción de imagen)",
-    },
-    {
-      value: "video",
-      name: "Video (Subtitulado de video)",
-    },
-    {
-      value: "audio",
-      name: "Audio (Descripción de audio)",
-    },
-    {
-      value: "button",
-      name: "Botón de Adaptabilidad",
-    },
-    {
-      value: "paragraph",
-      name: "Párrafos de texto",
-    },
-  ];
+  public checkboxs: Array<any>;
 
   constructor(
     private learningObjectService: LearningObjectService,
     private fb: UntypedFormBuilder,
     private router: Router,
-    private messageService: MessageService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private breadcrumbService: BreadcrumbService,
+    private languageService: LanguageService
   ) {
-    console.log("map", this.checkboxs.map((check) => check.value));
-    this.settingsForm = this.fb.group({
-      method: ["handbook", Validators.required],
-      areas: [this.checkboxs.map((check) => check.value), Validators.required],
-    });
-
-    console.log("settingsForm", this.settingsForm);
+    this.loadBreadcrumb();
   }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   ngOnInit(): void {
     this.loadLearningsObjects();
+    this.itemsCheckbox();
+  }
+
+  private async itemsCheckbox() {
+    this.checkboxs = [
+      {
+        value: "all",
+        name: (await this.languageService.get("adapter.areas.all")) || "", //"Todas",
+      },
+      {
+        value: "image",
+        name: (await this.languageService.get("adapter.areas.img.item")) || "", //"Imagen (Descripción de imagen)",
+      },
+      {
+        value: "video",
+        name:
+          (await this.languageService.get("adapter.areas.video.item")) || "", //"Video (Subtitulado de video)",
+      },
+      {
+        value: "audio",
+        name:
+          (await this.languageService.get("adapter.areas.audio.item")) || "", //"Audio (Descripción de audio)",
+      },
+      {
+        value: "button",
+        name: (await this.languageService.get("adapter.areas.btn.item")) || "", //"Botón de Adaptabilidad",
+      },
+      {
+        value: "paragraph",
+        name: (await this.languageService.get("adapter.areas.text.item")) || "", //"Párrafos de texto",
+      },
+    ];
+    this.settingsForm = this.fb.group({
+      method: ["handbook", Validators.required],
+      areas: [this.checkboxs.map((check) => check.value), Validators.required],
+    });
+  }
+
+  private async loadBreadcrumb() {
+    this.breadcrumbService.setItems([
+      {
+        label: (await this.languageService.get("menu.home")) || "",
+        routerLink: ["/"],
+      },
+      {
+        label: (await this.languageService.get("menu.adapter")) || "",
+        routerLink: ["/adapter"],
+      },
+    ]);
   }
 
   onSelect(event: any) {
-    console.log(this.settingsForm);
+    //console.log(this.settingsForm);
     this.file = event.addedFiles[0];
   }
 
@@ -111,8 +133,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   async onUpload() {
-
-    console.log("settingsForm", this.settingsForm);
+    //console.log("settingsForm", this.settingsForm);
 
     this.msgs = [];
     this.displayConditions = false;
@@ -123,17 +144,14 @@ export class AdapterComponent implements OnInit, OnDestroy {
     };
     this.loader = true;
 
-
     let umploadSub = await this.learningObjectService
       .uploadObject(data)
       .subscribe(
         (res: any) => {
-
-          console.log("res", res);
+          //console.log("res", res);
           if (res.status === 400) {
             return;
           }
-          
 
           if (res.body?.id) {
             this.navigateId = res.body.id;
@@ -146,33 +164,45 @@ export class AdapterComponent implements OnInit, OnDestroy {
             this.upload = true;
           }
         },
-        (err) => {
+        async (err) => {
           console.log(err);
-          console.log("settingsForm", this.settingsForm);
+          //console.log("settingsForm", this.settingsForm);
+          if (err.error?.code === "object_adapted") {
+            this.showMessage(
+              "error",
+              "Error",
+              await this.languageService.get("adapter.messages.msg1")
+            );
+          }
           this.upload = false;
           this.loader = false;
           this.progress = 0;
-          this.msgs = [
-            {
-              severity: "error",
-              summary: "Error",
-              detail: "Error, " + err.error?.message || err.message,
-            },
-          ];
+
           return;
         }
       );
     this.subscriptions.push(umploadSub);
   }
 
+  private async showMessage(type: string, summary: string, message: string) {
+    this.msgs = [];
+    this.msgs = [
+      {
+        severity: type,
+        summary: summary,
+        detail: message,
+      },
+    ];
+  }
+
   onCheckChange(evt, check) {
-    console.log("onCheckChange", evt, check);
+    //console.log("onCheckChange", evt, check);
     if (check.value === "all" && evt.checked) {
-      console.log(this.checkboxs.map((check) => check.value));
+      //console.log(this.checkboxs.map((check) => check.value));
       this.settingsForm
         .get("areas")
         ?.setValue(this.checkboxs.map((check) => check.value));
-      console.log(this.settingsForm);
+      //console.log(this.settingsForm);
       return;
     } else if (check.value === "all" && !evt.checked) {
       this.settingsForm.get("areas")?.setValue([]);
@@ -198,7 +228,7 @@ export class AdapterComponent implements OnInit, OnDestroy {
   }
 
   showConditionModal() {
-    console.log("showConditionModal", this.settingsForm);
+    //("showConditionModal", this.settingsForm);
     if (this.settingsForm.valid) {
       this.displayConditions = true;
     }
@@ -220,5 +250,5 @@ export class AdapterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(learningsObjectsSub);
   }
 
-  async screenShot(url) { }
+  async screenShot(url) {}
 }

@@ -2,33 +2,25 @@
     <div class="p-col-12 p-md-4 p-lg-3">
         <div class="box content">
             <div class="logo-text">
-
                 <div class="image">
-
                     <img loading="lazy" src="assets/img/image2vector.svg" alt="Logotipo de EduTech" tabindex="1" />
                 </div>
 
-                <div class="text">
-                    <h1>Proyecto EduTech</h1>
-                    <!-- <p-dropdown [options]="countries" [(ngModel)]="selectedCountry"
-                                    placeholder="Seleccione un idioma" optionLabel="name" [showClear]="true">
-                                </p-dropdown> -->
-
-
-                    <!-- <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"  filterBy="name" [showClear]="true" placeholder="Seleccione un idioma">
-                                        <ng-template pTemplate="selectedItem">
-                                            <div class="country-item country-item-value"  *ngIf="selectedCountry">
-                                                <img loading="lazy" src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" />
-                                                <div>{{selectedCountry.name}}</div>
-                                            </div>
-                                        </ng-template>
-                                        <ng-template let-country pTemplate="item">
-                                            <div class="country-item">
-                                                <img loading="lazy" src="assets/demo/flags/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
-                                                <div>{{country.name}}</div>
-                                            </div>
-                                        </ng-template>
-                                    </p-dropdown> -->
+                <div class="text" style="width: 100%">
+                    <h1>{{ "footer.title" | translate }}</h1>
+                    <!-- <p-dropdown [ngStyle]="{'width': '100%'}" (onChange)="onChangLanguage($event)" [options]="countries" [(ngModel)]="selectedCountry" placeholder="Seleccione un idioma"
+                        optionLabel="name" optionValue="code" [showClear]="false">
+                    </p-dropdown> -->
+                    <select class="class-dropdown-i"
+                        [(ngModel)]="language"
+                        [attr.aria-controls]="'footer.select'| translate" (change)="onChangLanguage($event)">
+                        <option value="es">
+                            {{ "footer.es" | translate }}
+                        </option>
+                        <option value="en">
+                            {{ "footer.en" | translate }}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -36,10 +28,19 @@
 
     <div class="p-col-12 p-md-4 p-lg-6">
         <div class="box content copy-content">
-            <img loading="lazy" class="logo" src="assets/img/logos/cofinanciado_derecha.png" alt="Logotipo Erasmus+" tabindex="1">
+            <img loading="lazy" class="logo" src="assets/img/logos/cofinanciado_derecha.png" alt="Logotipo Erasmus+"
+                tabindex="1" />
             <div class="copy">
-                <p>&copy; {{currentYear}} Todos los derechos reservados | Developed By <span><a href="https://edutech-project.org" target="_blank">EduTech</a></span></p>
-                <p><a [routerLink]="['terms-and-conditions']">Términos y condiciones</a></p>
+                <p>
+                    &copy; {{ currentYear }} {{ "footer.copy" | translate }} | Developed
+                    By
+                    <span><a href="https://edutech-project.org" target="_blank">EduTech</a></span>
+                </p>
+                <p>
+                    <a [routerLink]="['terms-and-conditions']">{{
+                        "menu.terms" | translate
+                        }}</a>
+                </p>
             </div>
         </div>
     </div>
@@ -47,7 +48,8 @@
     <div class="p-col-12 p-md-4 p-lg-3">
         <div class="box content">
             <a class="footer-img" target="_blank" href="https://catedraunescoinclusion.org/"><img loading="lazy"
-                    src="assets/img/logos/unitwin_ec_salesiana_sp.png" alt="Logotipo de la Catedara Unesco" tabindex="1"></a>
+                    src="assets/img/logos/unitwin_ec_salesiana_sp.png" alt="Logotipo de la Catedara Unesco"
+                    tabindex="1" /></a>
         </div>
     </div>
 </div>

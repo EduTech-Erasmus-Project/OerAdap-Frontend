@@ -1,8 +1,14 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { ContactService } from "src/app/services/contact.service";
 import { Subscription } from "rxjs";
+import { BreadcrumbService } from "src/app/services/breadcrumb.service";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-contact",
@@ -17,8 +23,11 @@ export class ContactComponent implements OnInit, OnDestroy {
   constructor(
     private fb: UntypedFormBuilder,
     private messageService: MessageService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private breadcrumbService: BreadcrumbService,
+    private languageService: LanguageService
   ) {
+    this.loadBreadcrumb();
     this.createForm();
   }
   ngOnDestroy(): void {
@@ -27,7 +36,20 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  createForm() {
+  private async loadBreadcrumb() {
+    this.breadcrumbService.setItems([
+      {
+        label: (await this.languageService.get("menu.home")) || "",
+        routerLink: ["/"],
+      },
+      {
+        label: (await this.languageService.get("menu.contact")) || "",
+        routerLink: ["/contact"],
+      },
+    ]);
+  }
+
+  private createForm() {
     this.angForm = this.fb.group({
       name: [null, Validators.required],
       email: [

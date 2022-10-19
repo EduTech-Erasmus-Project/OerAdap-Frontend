@@ -10,7 +10,7 @@ import { LearningObjectService } from "src/app/services/learning-object.service"
   templateUrl: "./audio.component.html",
   styleUrls: ["./audio.component.scss"],
 })
-export class AudioComponent implements OnInit, OnDestroy {
+export class AudioComponent implements OnInit {
   @Input() item: any;
 
   public edit: boolean = false;
@@ -36,13 +36,10 @@ export class AudioComponent implements OnInit, OnDestroy {
     private eventService: EventService,
     private audioService: AudioService
   ) {}
-  ngOnDestroy(): void {
-    throw new Error("Method not implemented.");
-  }
 
   ngOnInit(): void {
     this.textEdit = this.item?.text;
-    console.log("all audios", this.item);
+    //console.log("all audios", this.item);
   }
 
   cliclEdit(texto) {

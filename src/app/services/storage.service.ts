@@ -23,13 +23,12 @@ export class StorageService {
 
   getStorageItem(key: string): string {
     //let cookieValue = this.cookieService.get(key);
-    let storageValue = localStorage.getItem(key);
-
-    if (storageValue) {
+    try {
+      let storageValue = localStorage.getItem(key);
       let bytes = CryptoJS.AES.decrypt(storageValue, secretKey);
       let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
       return originalText;
-    } else {
+    } catch (error) {
       return null;
     }
   }
