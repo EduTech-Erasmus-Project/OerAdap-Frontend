@@ -400,19 +400,24 @@
       "selectAria": "Selecciona la página a editar",
       "btnOpen": "Abrir en una nueva pestaña",
       "btnOpenWindow": "Abrir en pantalla completa",
+      "btnClouseWindow": "Cerrar en pantalla completa",
       "textAdaptation": "Aplicar adaptación a este contenido:",
       "tabs": {
          "tab1": "Objeto de aprendizaje adaptado",
          "tab2": "Objeto de aprendizaje original",
          "tab3": "Todos los audios",
          "tab4": "Todas las imágenes",
-         "tab5": "Todos los videos"
+         "tab5": "Todos los videos",
+         "tab6": "Información",
+         "tab7": "Metadatos"
       },
       "information": {
-         "title": "Información",
          "section1": {
             "title": "Información del objeto de aprendizaje",
-            "item": "Título:"
+            "item1": "Título:",
+            "item2": "Autor:",
+            "item3": "Licencia:",
+            "item4": "Versión:"
          },
          "section2": {
             "title": "Información del archivo",
@@ -425,7 +430,12 @@
          "section3": {
             "title": "configuración de adaptabilidad",
             "item1": "Tipo de adaptación:",
-            "item2": "Areas de optimización:"
+            "item2": "Areas de optimización:",
+            "item3": "Botón de adaptabilidad",
+            "item4": "Audios",
+            "item5": "Imágenes",
+            "item6": "Párrafos",
+            "item7": "Videos",
          },
          "btnDownload": "Descargar OA adaptado",
          "infoDownload": {
@@ -442,6 +452,7 @@
          }
       },
       "audio": {
+         "tab": "Audios",
          "description": "Descripción de audio:",
          "btnGenerate": "Generar texto",
          "btnCreate": "Crear texto",
@@ -449,9 +460,75 @@
          "btnEdit": "Editar",
          "btnSave": "Guardar",
          "loader": "Generando texto descriptivo...",
+         "empty": "Este Objeto de aprendizaje no tiene audios.",
          "messages": {
             "success": "Texto descriptivo creado con éxito.",
             "error": "Error al crear el texto descriptivo"
+         }
+      },
+      "img": {
+         "tab": "Imágenes",
+         "description": "Descripcion alt de la imagen :",
+         "btnEdit": "Editar descripción",
+         "btnCreateTable": "Crear tabla",
+         "btnSave": "Guardar",
+         "btnCancel": "Cancelar",
+         "table": {
+            "title": "Crea tu propia tabla HMTL",
+            "p1": "Esta seguro que desea guardar los cambios?",
+            "yes": "Si",
+            "no": "No",
+            "messages": {
+               "success": "Tabla creada con éxito.",
+               "error": "Error al crear la tabla."
+            }
+         },
+         "loader": "Generando texto descriptivo...",
+         "empty": "Este Objeto de aprendizaje no tiene imágenes.",
+         "messages": {
+            "success": "Texto descriptivo creado con éxito.",
+            "error": "Error al crear el texto descriptivo"
+         }
+      },
+      "text": {
+         "tab": "Párrafos",
+         "btnEdit": "Editar",
+         "btnCancel": "Cancelar",
+         "btnSave": "Guardar",
+         "textPlaceholder": "Lectura fácil...",
+         "tabs": {
+            "tab1": "Lectura fácil",
+            "tab2": "Audio"
+         },
+         "empty": "Este Objeto de aprendizaje no tiene párrafos de texto.",
+         "messages": {
+            "success": "Texto descriptivo creado con éxito.",
+            "error": "Error al crear el texto descriptivo"
+         },
+         "audio": {
+            "divider": "O",
+            "audioDescription": "Audio actual",
+            "file": "Arrastre o seleccione un archivo.",
+            "btnUpload": "Seleccione un archivo",
+            "btnGenerate": "Generar audio",
+            "btnRecord": "Grabar un audio",
+            "loader": "Generando audio espere por favor...",
+            "messages": {
+               "success": "Audio creado con éxito.",
+               "error": "Error al crear el audio."
+            }
+         }
+      },
+      "video": {
+         "tab": "Vídeos",
+         "description": "Fuente de video: Video",
+         "subtitle": "Este vídeo no tiene subtítulos",
+         "btnDownload": "Descargar video y subtítulos",
+         "btnGenerate": "Generar subtítulo",
+         "btnAdd": "Agregar subtítulo",
+         "empty": "Este Objeto de aprendizaje no tiene videos.",
+         "messages": {
+            "msg1": "Error en el socket de video"
          }
       }
    }

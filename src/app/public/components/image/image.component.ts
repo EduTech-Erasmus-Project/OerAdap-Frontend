@@ -215,14 +215,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             detail: "Porfavor genere una tabla antes de guardar",
           });
         }
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: "error",
-          summary: "Rejected",
-          detail: "You have rejected",
-        });
-      },
+      }
     });
   }
 

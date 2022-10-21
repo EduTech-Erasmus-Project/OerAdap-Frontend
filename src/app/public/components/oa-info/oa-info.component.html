@@ -1,21 +1,21 @@
 <div class="content">
-    <h6>Información del OA</h6>
-    <p *ngIf="learningObject?.oa_detail.title"><span>Titulo: </span> {{learningObject?.oa_detail.title}}</p>
-    <p *ngIf="learningObject?.oa_detail.author"><span>Autor: </span> {{learningObject?.oa_detail.author}}</p>
-    <p *ngIf="learningObject?.oa_detail.license"><span>Licencia: </span> {{learningObject?.oa_detail.license}}</p>
-    <p *ngIf="learningObject?.oa_detail.version"><span>Versión: </span> {{learningObject?.oa_detail.version}}</p>
-    <h6>Información del Archivo</h6>
-    <p><span>Páginas del OA: </span> {{learningObject?.file_detail.pages}}</p>
-    <p><span>Imagenes: </span> {{learningObject?.file_detail.images}}</p>
-    <p><span>Párrafos : </span> {{learningObject?.file_detail.paragraphs}}</p>
-    <p><span>Videos: </span> {{learningObject?.file_detail.videos}}</p>
-    <p><span>Audios: </span> {{learningObject?.file_detail.audios}}</p>
-    <h6>Configuración de Adaptabilidad</h6>
-    <p><span>Tipo de adaptación: </span> {{method}}</p>
-    <p><span>Areas de optimización:</span></p>
+    <h6>{{'edit.information.section1.title' | translate}}</h6>
+    <p *ngIf="learningObject?.oa_detail.title"><span>{{'edit.information.section1.item1' | translate}} </span> {{learningObject?.oa_detail.title}}</p>
+    <p *ngIf="learningObject?.oa_detail.author"><span>{{'edit.information.section1.item2' | translate}} </span> {{learningObject?.oa_detail.author}}</p>
+    <p *ngIf="learningObject?.oa_detail.license"><span>{{'edit.information.section1.item3' | translate}} </span> {{learningObject?.oa_detail.license}}</p>
+    <p *ngIf="learningObject?.oa_detail.version"><span>{{'edit.information.section1.item4' | translate}} </span> {{learningObject?.oa_detail.version}}</p>
+    <h6>{{'edit.information.section2.title' | translate}}</h6>
+    <p><span>{{'edit.information.section2.item1' | translate}} </span> {{learningObject?.file_detail.pages}}</p>
+    <p><span>{{'edit.information.section2.item2' | translate}} </span> {{learningObject?.file_detail.images}}</p>
+    <p><span>{{'edit.information.section2.item3' | translate}} </span> {{learningObject?.file_detail.paragraphs}}</p>
+    <p><span>{{'edit.information.section2.item4' | translate}} </span> {{learningObject?.file_detail.videos}}</p>
+    <p><span>{{'edit.information.section2.item5' | translate}} </span> {{learningObject?.file_detail.audios}}</p>
+    <h6>{{'edit.information.section3.title' | translate}}</h6>
+    <p><span>{{'edit.information.section3.item1' | translate}} </span> {{method}}</p>
+    <p><span>{{'edit.information.section3.item2' | translate}}</span></p>
     <div class="content-switch" *ngIf="getValueCheck('button')">
         <!-- <p-inputSwitch (onChange)="onChangeButton()" [(ngModel)]="button"></p-inputSwitch> -->
-        <p>Botón de adaptabilidad</p>
+        <p>{{'edit.information.section3.item3' | translate}}</p>
         <span
             *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
                 [ngClass]="{'pi-spin pi-spinner': !learningObject?.button_adaptation, 'pi-check': learningObject?.button_adaptation}"
@@ -23,7 +23,7 @@
     </div>
     <div class="content-switch" *ngIf="getValueCheck('audio')">
         <!-- <p-inputSwitch (onChange)="onChangeAudio()"  [(ngModel)]="audio"></p-inputSwitch> -->
-        <p>Audios</p>
+        <p>{{'edit.information.section3.item4' | translate}}</p>
         <span
             *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
                 [ngClass]="{'pi-spin pi-spinner': !learningObject?.audio_adaptation, 'pi-check': learningObject?.audio_adaptation}"
@@ -31,7 +31,7 @@
     </div>
     <div class="content-switch" *ngIf="getValueCheck('image')">
         <!-- <p-inputSwitch (onChange)="onChangeImage()"  [(ngModel)]="image"></p-inputSwitch> -->
-        <p>Imágenes</p>
+        <p>{{'edit.information.section3.item5' | translate}}</p>
         <span
             *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
                 [ngClass]="{'pi-spin pi-spinner': !learningObject?.image_adaptation, 'pi-check': learningObject?.image_adaptation}"
@@ -39,7 +39,7 @@
     </div>
     <div class="content-switch" *ngIf="getValueCheck('paragraph')">
         <!-- <p-inputSwitch (onChange)="onChangeParagraph()"  [(ngModel)]="paragraph"></p-inputSwitch> -->
-        <p>Párrafos</p>
+        <p>{{'edit.information.section3.item6' | translate}}</p>
         <span
             *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
                 [ngClass]="{'pi-spin pi-spinner': !learningObject?.paragraph_adaptation, 'pi-check': learningObject?.paragraph_adaptation}"
@@ -47,7 +47,7 @@
     </div>
     <div class="content-switch" *ngIf="getValueCheck('video')">
         <!-- <p-inputSwitch (onChange)="onChangeVideo()"  [(ngModel)]="video"></p-inputSwitch> -->
-        <p>Videos</p>
+        <p>{{'edit.information.section3.item7' | translate}}</p>
         <span
             *ngIf="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"><i
                 [ngClass]="{'pi-spin pi-spinner': !learningObject?.video_adaptation, 'pi-check': learningObject?.video_adaptation}"
@@ -57,7 +57,7 @@
     <div class="button">
         <p-button
             [disabled]="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"
-            (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="Descargar OA adaptado"></p-button>
+            (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="{{'edit.information.btnDownload' | translate}}"></p-button>
         <p-dialog
             *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'"
             header="Información de descarga" [(visible)]="displayResponsive" [modal]="true" [style]="{width: '50vw'}"
