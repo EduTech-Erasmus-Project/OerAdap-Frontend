@@ -468,6 +468,7 @@
             }
         },
         "img": {
+            "toast": "Preview image",
             "tab": "Images",
             "imgPreview": "Image Preview",
             "description": "Image alt description:",

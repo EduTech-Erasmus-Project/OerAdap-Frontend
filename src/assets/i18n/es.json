@@ -467,6 +467,7 @@
          }
       },
       "img": {
+         "toast": "Previsualizar imagen",
          "tab": "Imágenes",
          "imgPreview": "Previsualización de imagen",
          "description": "Descripcion alt de la imagen:",

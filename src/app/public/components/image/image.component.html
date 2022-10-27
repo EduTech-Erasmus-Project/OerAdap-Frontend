@@ -20,7 +20,7 @@
                     <!-- <div class="iono-eye">
                             <i class="pi pi-eye" id ="icono"></i>
                         </div> -->
-                    <img src="{{ item.link }}" alt="{{ item.text }}" pTooltip="Previsualizar imagen"
+                    <img src="{{ item.link }}" alt="{{ item.text }}" [pTooltip]="'edit.img.toast' | translate"
                         tooltipPosition="bottom" tabindex="1" />
                 </a>
             </div>
@@ -45,7 +45,7 @@
                 <div class="photo-product">
                     <a href="{{ item.link }}" class="fancybox" data-lightbox="gallery1">
   
-                        <img src="{{ item.link }}" alt="{{ item.text }}" pTooltip="Previsualizar imagen"
+                        <img src="{{ item.link }}" alt="{{ item.text }}" [pTooltip]="'edit.img.toast' | translate"
                             tooltipPosition="bottom" tabindex="1" />
                     </a>
                 </div>
