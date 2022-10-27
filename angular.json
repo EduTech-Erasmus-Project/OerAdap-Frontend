@@ -40,7 +40,8 @@
               "@fullcalendar/core",
               "moment",
               "@ckeditor/ckeditor5-build-classic",
-              "crypto-js"
+              "crypto-js",
+              "numeral"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

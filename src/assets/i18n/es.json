@@ -435,7 +435,7 @@
             "item4": "Audios",
             "item5": "Imágenes",
             "item6": "Párrafos",
-            "item7": "Videos",
+            "item7": "Videos"
          },
          "btnDownload": "Descargar OA adaptado",
          "infoDownload": {
@@ -445,6 +445,7 @@
             "imgCount": "Imágenes adaptadas:",
             "videoCount": "Videos adaptados:",
             "audioCount": "Audios adaptados:",
+            "pagesCount": "Páginas totales del Objeto de Aprendizaje:",
             "p2": "¿Terminaste de adaptar tu Objeto de Aprendizaje?",
             "p3": "Recuerda que, una vez descargado el Objeto de Aprendizaje adaptado por recomendación y no crear conflictos dentro del OA te recomendamos verificar si has hecho los cambios necesarios antes de descargarlo, tambien te recomendamos no subir tu OA adaptado para no generar errores sobre el mismo objeto de aprendizaje.",
             "btnCancel": "No, Cancelar",
@@ -462,32 +463,31 @@
          "loader": "Generando texto descriptivo...",
          "empty": "Este Objeto de aprendizaje no tiene audios.",
          "messages": {
-            "success": "Texto descriptivo creado con éxito.",
-            "error": "Error al crear el texto descriptivo"
+            "success": "Texto descriptivo guardado con éxito."
          }
       },
       "img": {
          "tab": "Imágenes",
-         "description": "Descripcion alt de la imagen :",
+         "imgPreview": "Previsualización de imagen",
+         "description": "Descripcion alt de la imagen:",
          "btnEdit": "Editar descripción",
          "btnCreateTable": "Crear tabla",
          "btnSave": "Guardar",
          "btnCancel": "Cancelar",
          "table": {
             "title": "Crea tu propia tabla HMTL",
-            "p1": "Esta seguro que desea guardar los cambios?",
+            "description": "Click en insertar tabla para crear una tabla nueva:",
+            "p1": "¿Estás segura de que quieres guardar los cambios?",
             "yes": "Si",
             "no": "No",
             "messages": {
-               "success": "Tabla creada con éxito.",
-               "error": "Error al crear la tabla."
+               "success": "Tabla guardada con éxito."
             }
          },
          "loader": "Generando texto descriptivo...",
          "empty": "Este Objeto de aprendizaje no tiene imágenes.",
          "messages": {
-            "success": "Texto descriptivo creado con éxito.",
-            "error": "Error al crear el texto descriptivo"
+            "success": "Texto descriptivo guardado con éxito."
          }
       },
       "text": {
@@ -495,15 +495,14 @@
          "btnEdit": "Editar",
          "btnCancel": "Cancelar",
          "btnSave": "Guardar",
-         "textPlaceholder": "Lectura fácil...",
+         "btnSaving": "Guardando...",
          "tabs": {
             "tab1": "Lectura fácil",
             "tab2": "Audio"
          },
          "empty": "Este Objeto de aprendizaje no tiene párrafos de texto.",
          "messages": {
-            "success": "Texto descriptivo creado con éxito.",
-            "error": "Error al crear el texto descriptivo"
+            "success": "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje."
          },
          "audio": {
             "divider": "O",
@@ -513,22 +512,50 @@
             "btnGenerate": "Generar audio",
             "btnRecord": "Grabar un audio",
             "loader": "Generando audio espere por favor...",
-            "messages": {
-               "success": "Audio creado con éxito.",
-               "error": "Error al crear el audio."
+            "record": {
+               "pause": "Pausar",
+               "record": "Grabar",
+               "save": "Guardar"
             }
          }
       },
       "video": {
          "tab": "Vídeos",
-         "description": "Fuente de video: Video",
-         "subtitle": "Este vídeo no tiene subtítulos",
+         "description": "Fuente de video:",
+         "notSubtitle": "Este vídeo no tiene subtítulos",
          "btnDownload": "Descargar video y subtítulos",
          "btnGenerate": "Generar subtítulo",
+         "btnEdit": "Editar",
          "btnAdd": "Agregar subtítulo",
+         "btnRemove": "Eliminar",
+         "btnSave": "Guardar",
          "empty": "Este Objeto de aprendizaje no tiene videos.",
+         "divider": "O",
          "messages": {
-            "msg1": "Error en el socket de video"
+            "msgError1": "Error en el socket de video, ",
+            "msgError2": "Por favor, complete todos los campos.",
+            "msgError3": "La generación de subtitulado automática está en desarrollo.",
+            "msgError4": "El video no se puede descargar",
+            "msgError5": "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
+            "msgError6": "La fuente de vídeo no soporta o no tiene traducciones.",
+            "msgSuccess1": "Se ha generado los subtítulos automáticamente.",
+            "msgSuccess2": "Se ha guardado el subtítulo."
+         },
+         "socket": {
+            "msg1": "Descargando video…",
+            "msg2": "Video descargado.",
+            "msg3": "Procesando video…",
+            "msg4": "Descargando subtitulo de YouTube...",
+            "msg5": "Guardando subtítulos…",
+            "msg6": "Guardando subtítulos automáticos…",
+            "msg7": "Video descargado."
+         },
+         "transcript": {
+            "title": "Subtítulo",
+            "progress": "Cargando subtítulo por favor espere...",
+            "summary": "Advertencia",
+            "editing": "Está en el modo de edición de archivos de subtítulos.",
+            "success": "Los cambios de subtítulos han sido guardados."
          }
       }
    }

@@ -6,12 +6,10 @@ import * as moment from "moment";
   name: "moment",
 })
 export class MomentPipe implements PipeTransform {
-  //private moment:any;
-
   constructor(
     private languageService: LanguageService,
   ) {
-    moment.locale("es-us");
+    moment.locale(this.languageService.translate.getDefaultLang()+"-us");
   }
 
   transform(value: any): string {

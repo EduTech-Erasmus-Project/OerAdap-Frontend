@@ -18,6 +18,7 @@ import { Paragraph } from "../../../models/Page";
 import { Message, MessageService } from "primeng/api";
 import { EventService } from "../../../services/event.service";
 import { Subscription } from "rxjs";
+import { LanguageService } from "src/app/services/language.service";
 
 declare var MediaRecorder: any;
 
@@ -45,8 +46,8 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   public rec: boolean = false;
   public recording: boolean = false;
   public permis: boolean = true;
-  public generateAudio:boolean = false;
-  // public permisText: string;
+  public generateAudio: boolean = false;
+
   public audioURL: any;
   private interval: any;
   public loaderAdapted: boolean = false;
@@ -117,7 +118,8 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   constructor(
     private audioRecorderService: NgAudioRecorderService,
     private paragraphService: ParagraphService,
-    private eventService: EventService
+    private eventService: EventService,
+    private languageService: LanguageService
   ) {
     this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
       // Handle Error
@@ -134,7 +136,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
 
   async onSave() {
     this.messages = [];
-    
+
     if (this.htmlContent || this.file || this.fileRecord) {
       //console.log("on save", this.file || this.fileRecord);
       this.updateParagraph = true;
@@ -160,26 +162,33 @@ export class ParagraphComponent implements OnInit, OnDestroy {
             //this.edit = false;
 
             if (this.messages.length <= 0) {
-              this.messages.push({
-                severity: "success",
-                //summary: "Guardado",
-                detail:
-                  "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-              });
+              this.showSuccessMessage();
               this.eventService.emitEvent(true);
             }
           },
           (err) => {
             console.log(err);
-            this.messages.push({
-              severity: "error",
-              summary: "Error",
-              detail: err,
-            });
+            this.showErrorMessage(err.error?.message || err.error);
           }
         );
       this.subscriptions.push(paragraphSub);
     }
+  }
+
+  private async showSuccessMessage() {
+    this.messages.push({
+      severity: "success",
+      //summary: "Guardado",
+      detail: await this.languageService.get("edit.text.messages.success"),
+    });
+  }
+
+  private showErrorMessage(message: string) {
+    this.messages.push({
+      severity: "error",
+      summary: "Error",
+      detail: message,
+    });
   }
 
   onSelect(evt) {
@@ -292,31 +301,25 @@ export class ParagraphComponent implements OnInit, OnDestroy {
       this.subscriptions.push(paragraphSub);
     }
   }
-  async onGenerateAudio() {
+  
+  public async onGenerateAudio() {
     this.messages = [];
     this.generateAudio = true;
     let convertTextSub = await this.paragraphService
       .convertTextToAudio(this.paragraph.id)
-      .subscribe((res: any) => {
-        //console.log(res);
-        this.paragraphAdapted = res;
-        this.messages.push({
-          severity: "success",
-          //summary: "Guardado",
-          detail:
-            "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-        });
-        this.eventService.emitEvent(true);
-        this.generateAudio = false;
-      }, error => {
-        this.messages.push({
-          severity: "error",
-          //summary: "Guardado",
-          detail:
-            "Se produjo un error al generar el audio de ayuda.",
-        });
-        this.generateAudio = false;
-      });
+      .subscribe(
+        (res: any) => {
+          //console.log(res);
+          this.paragraphAdapted = res;
+          this.showSuccessMessage();
+          this.eventService.emitEvent(true);
+          this.generateAudio = false;
+        },
+        (error: any) => {
+          this.showErrorMessage(error.error?.message || error.error);
+          this.generateAudio = false;
+        }
+      );
     this.subscriptions.push(convertTextSub);
   }
 
@@ -326,18 +329,15 @@ export class ParagraphComponent implements OnInit, OnDestroy {
     try {
       this.messages = [];
       let res = await this.paragraphService
-        .revertText(this.paragraph.id, { adaptation: this.paragraph.adaptation })
+        .revertText(this.paragraph.id, {
+          adaptation: this.paragraph.adaptation,
+        })
         .toPromise();
       this.eventService.emitEvent(true);
 
       //console.log("update res", res);
     } catch (error) {
-      this.messages.push({
-        severity: "error",
-        //summary: "Guardado",
-        detail:
-        "Error, " + error.error?.message || error.message,
-      });
+      this.showErrorMessage(error.error?.message || error.error);
       this.paragraph.adaptation = !this.paragraph.adaptation;
     }
   }

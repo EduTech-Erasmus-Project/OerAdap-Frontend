@@ -1,9 +1,13 @@
 <div class="content">
     <h6>{{'edit.information.section1.title' | translate}}</h6>
-    <p *ngIf="learningObject?.oa_detail.title"><span>{{'edit.information.section1.item1' | translate}} </span> {{learningObject?.oa_detail.title}}</p>
-    <p *ngIf="learningObject?.oa_detail.author"><span>{{'edit.information.section1.item2' | translate}} </span> {{learningObject?.oa_detail.author}}</p>
-    <p *ngIf="learningObject?.oa_detail.license"><span>{{'edit.information.section1.item3' | translate}} </span> {{learningObject?.oa_detail.license}}</p>
-    <p *ngIf="learningObject?.oa_detail.version"><span>{{'edit.information.section1.item4' | translate}} </span> {{learningObject?.oa_detail.version}}</p>
+    <p *ngIf="learningObject?.oa_detail.title"><span>{{'edit.information.section1.item1' | translate}} </span>
+        {{learningObject?.oa_detail.title}}</p>
+    <p *ngIf="learningObject?.oa_detail.author"><span>{{'edit.information.section1.item2' | translate}} </span>
+        {{learningObject?.oa_detail.author}}</p>
+    <p *ngIf="learningObject?.oa_detail.license"><span>{{'edit.information.section1.item3' | translate}} </span>
+        {{learningObject?.oa_detail.license}}</p>
+    <p *ngIf="learningObject?.oa_detail.version"><span>{{'edit.information.section1.item4' | translate}} </span>
+        {{learningObject?.oa_detail.version}}</p>
     <h6>{{'edit.information.section2.title' | translate}}</h6>
     <p><span>{{'edit.information.section2.item1' | translate}} </span> {{learningObject?.file_detail.pages}}</p>
     <p><span>{{'edit.information.section2.item2' | translate}} </span> {{learningObject?.file_detail.images}}</p>
@@ -57,30 +61,36 @@
     <div class="button">
         <p-button
             [disabled]="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"
-            (click)="showResponsiveDialog()" icon="pi pi-cloud-download" label="{{'edit.information.btnDownload' | translate}}"></p-button>
+            (click)="showResponsiveDialog()" icon="pi pi-cloud-download"
+            label="{{'edit.information.btnDownload' | translate}}"></p-button>
         <p-dialog
             *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'"
-            header="Información de descarga" [(visible)]="displayResponsive" [modal]="true" [style]="{width: '50vw'}"
-            [draggable]="false" [resizable]="false">
+            [header]="'edit.information.infoDownload.title' | translate" [(visible)]="displayResponsive" [modal]="true"
+            [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
             <div class="text_description" *ngIf="displayResponsive == true">
-                <p style="text-align: justify; color: black;">Elementos adaptados en el objeto de aprendizaje: </p>
+                <p style="text-align: justify; color: black;">{{'edit.information.infoDownload.p1' | translate}} </p>
                 <p>
-                    <span style="font-weight: bold;line-height: 1.5;">Párrafos adaptados:</span>
+                    <span style="font-weight: bold;line-height: 1.5;">{{'edit.information.infoDownload.pCount' |
+                        translate}}</span>
                     {{tag_adapted.tag_adapted.paragraphs}}
                 </p>
                 <p>
-                    <span style="font-weight: bold;line-height: 1.5;">Imágenes adaptadas:</span>
+                    <span style="font-weight: bold;line-height: 1.5;">{{'edit.information.infoDownload.imgCount' |
+                        translate}}</span>
                     {{tag_adapted.tag_adapted.images}}
                 </p>
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Audios adaptados:</span>
+                    <span style="font-weight: bold; line-height: 1.5;">{{'edit.information.infoDownload.audioCount' |
+                        translate}}</span>
                     {{tag_adapted.tag_adapted.audios}}
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Videos adaptados:</span>
+                    <span style="font-weight: bold; line-height: 1.5;">{{'edit.information.infoDownload.videoCount' |
+                        translate}}</span>
                     {{tag_adapted.tag_adapted.videos}}
                 </p>
                 <p>
-                    <span style="font-weight: bold; line-height: 1.5;">Páginas totales del Objeto de Aprendizaje:</span>
+                    <span style="font-weight: bold; line-height: 1.5;">{{'edit.information.infoDownload.pagesCount' |
+                        translate}}</span>
                     {{learningObject?.file_detail.pages}}
                 </p>
                 <br>
@@ -89,13 +99,9 @@
             <ng-template pTemplate="footer">
 
                 <p style="text-align: justify;opacity: 0.8;font-size: 15px;">
-                    <strong>¿Terminaste de adaptar tu Objeto de Aprendizaje? </strong>
+                    <strong>{{'edit.information.infoDownload.p2' | translate}}</strong>
                     <br>
-                    Recuerda que, una vez descargado el Objeto de Aprendizaje adaptado
-                    por recomendación y no crear conflictos dentro del OA te
-                    recomendamos verificar si has hecho los cambios necesarios antes de descargarlo,
-                    tambien te recomendamos no subir tu OA adaptado para
-                    no generar errores sobre el mismo objeto de aprendizaje.
+                    {{'edit.information.infoDownload.p3' | translate}}
                 </p>
 
                 <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
@@ -106,10 +112,12 @@
                 </div>
 
                 <div class="buttons">
-                    <button pButton (click)="displayResponsive=false" label="No" class="p-button-danger"
+                    <button pButton (click)="displayResponsive=false"
+                        [label]="'edit.information.infoDownload.btnCancel' | translate" class="p-button-danger"
                         icon="pi pi-times"></button>
-                    <button [disabled]="dounloadState" pButton (click)="descargar()" label="Descargar"
-                        styleClass="p-button-text" icon="pi pi-check"></button>
+                    <button [disabled]="dounloadState" pButton (click)="descargar()"
+                        [label]="'edit.information.infoDownload.btnDownload' | translate" styleClass="p-button-text"
+                        icon="pi pi-check"></button>
                 </div>
 
             </ng-template>

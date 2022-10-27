@@ -4,9 +4,15 @@ import { VideoService } from "../../../services/video.service";
 import { Subject, Subscription } from "rxjs";
 import { Message } from "primeng/api";
 import { EventService } from "../../../services/event.service";
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { Download } from "src/app/models/Download";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-video",
@@ -20,24 +26,17 @@ export class VideoComponent implements OnInit, OnDestroy {
   public selectFile: boolean = false;
   public loader: boolean = false;
   public loaderGenerateSubtitle: boolean = false;
-
   public transcript?: Transcript[];
-  //public jsonString: string;
-  //public loaderJson: boolean = false;
   public transcriptId: number;
   public onButtonEvt?: Subject<string>;
   public acctionTranscript: string = "view";
-
   private subscrition: Subscription[] = [];
   public messages: Message[] = [];
-
   public selectLanguage: any[] = [];
-
   public form: UntypedFormGroup;
-  private url?: string;
   private WS: WebSocket;
-
   public download: Download;
+  public messageDownload?: string;
 
   public language = [
     { name: "Alemán", code: "de" },
@@ -58,61 +57,56 @@ export class VideoComponent implements OnInit, OnDestroy {
     private videoService: VideoService,
     private eventService: EventService,
     private fb: UntypedFormBuilder,
+    private languageService: LanguageService
   ) {
     this.form = this.fb.group({
       transcriptions: this.fb.array([]),
     });
-    //this.addTranscription();
-    //console.log("Instance of video component");
     this.onButtonEvt = new Subject();
   }
 
   ngOnInit(): void {
-    //console.log("video", this.video);
     this.loadTranscript();
     this.messages = [];
-    //console.log("video", this.video);
     if (this.video.adapting) {
       this.connectSocket();
     }
   }
 
   private async connectSocket() {
-    // let socket = await this.websocketService.getProgress(this.video.id).subscribe(
-    //   (message) => {
-    //     console.log("socket message", message);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
-    // this.subscrition.push(socket);
     this.WS = new WebSocket(
       `${environment.serverWs}/adapter/video/progress/${this.video.id}`
     );
 
-    this.WS.onerror = (event) => {
-      //console.log("WebSocket error: " + event);
+    this.WS.onerror = async (event) => {
+      console.log("WebSocket error: " + event);
       this.messages.push({
         severity: "error",
         summary: "Error",
-        detail: "Error en el socket de video.",
+        detail: await this.languageService.get("edit.video.messages.msgError1"), //"Error en el socket de video.",
       });
     };
-    this.WS.onmessage = (event: any) => {
+    this.WS.onmessage = async (event: any) => {
       let data = JSON.parse(event.data);
-      //console.log("WebSocket mesague ", JSON.parse(event.data));
-      //this.progress$.next();
       this.download = data;
-
+      if(data.type === "video" && data.status === "downloading"){
+        this.messageDownload = await this.languageService.get("edit.video.socket.msg1"); 
+      }
+      if(data.type === "video" && data.status === "video_finished"){
+        this.messageDownload = await this.languageService.get("edit.video.socket.msg2"); 
+      }
+      if(data.type === "video" && data.status === "process"){
+        this.messageDownload = await this.languageService.get("edit.video.socket.msg3"); 
+      }
+      if(data.type === "transcript" && data.status === "downloading"){
+        this.messageDownload = await this.languageService.get("edit.video.socket.msg4"); 
+      }
       if (data.status === "error") {
         this.messages.push({
           severity: "error",
           summary: "Error",
           detail: data.message,
         });
-        //this.loaderGenerateSubtitle = false;
-        //return;
         this.video.adapting = false;
       }
 
@@ -120,43 +114,39 @@ export class VideoComponent implements OnInit, OnDestroy {
         this.messages.push({
           severity: "error",
           summary: "Error",
-          detail: "El video no se puede descargar.",
+          detail: await this.languageService.get(
+            "edit.video.messages.msgError4"
+          ),
         });
-        //this.loaderGenerateSubtitle = false;
-        //return;
         this.video.adapting = false;
       }
-
-      //this.video = res.data;
       if (data.status === "ready_tag_adapted") {
-        //console.log(res);
-
         this.messages.push({
           severity: "warn",
           summary: "",
-          detail:
-            "La fuente de vídeo no soporta o no tiene traducciones pero seguimos desarrollando.",
+          detail: await this.languageService.get(
+            "edit.video.messages.msgError6"
+          ),
         });
         this.video.adapting = false;
         this.eventService.emitEvent(true);
       }
-      //this.loadTranscript();
       if (data.status === "no_supported_transcript") {
         this.messages.push({
           severity: "warn",
-          //summary: "",
-          detail: "La fuente de vídeo no soporta o no tiene traducciones.",
+          detail: await this.languageService.get(
+            "edit.video.messages.msgError6"
+          ),
         });
-        //this.video.adapting = false;
         this.video = data.data;
         this.eventService.emitEvent(true);
       }
-
       if (data.status === "finished") {
         this.messages.push({
           severity: "success",
-          //summary: "Guardado",
-          detail: "Se ha generado los subtítulos automáticamente.",
+          detail: await this.languageService.get(
+            "edit.video.messages.msgSuccess1"
+          ),
         });
         this.video = data.data;
         this.loadTranscript();
@@ -166,7 +156,6 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //console.log("Destroy video component", this.video.id);
     try {
       this.WS.close();
       this.subscrition.forEach((sub) => sub.unsubscribe());
@@ -193,8 +182,6 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   async loadTranscript() {
     if (this.video.tags_adapted?.transcript?.length > 0) {
-      //console.log("Transcriptions", this.video.tags_adapted?.transcript);
-
       this.transcript = this.video.tags_adapted.transcript.filter(
         (item: Transcript) => item.type === "text/vtt"
       );
@@ -219,22 +206,20 @@ export class VideoComponent implements OnInit, OnDestroy {
 
   onGenerateSubtitle() {
     this.messages = [];
-    //this.loaderGenerateSubtitle = true;
     let generateSub = this.videoService
       .generateAutomaticTranscript(this.video.id)
       .subscribe(
-        (res: any) => {
+        async (res: any) => {
           if (res.code === "developing") {
             this.messages.push({
               severity: "error",
               summary: "Error",
-              detail:
-                "La generación de subtitulado automática está en desarrollo.",
+              detail: await this.languageService.get(
+                "edit.video.messages.msgError3"
+              ),
             });
-            //this.loaderGenerateSubtitle = false;
             return;
           }
-          //.log("res video", res);
           this.video = res.data;
           this.connectSocket();
         },
@@ -250,18 +235,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           }
         }
       );
-
     this.subscrition.push(generateSub);
-  }
-
-  // onAddForSubtitle() {
-  //   //optimizethis.loader = true;
-  //   //console.log("Add subtitle form");
-  // }
-
-
-
-  onChangeLanguage(event) {
   }
 
   onFileChange(event, idx) {
@@ -272,16 +246,17 @@ export class VideoComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  public async onSubmit() {
     this.messages = [];
     if (this.form.valid) {
       this.videoService.addTranscript(this.video.id, this.form.value).subscribe(
-        (res: any) => {
+        async (res: any) => {
           if (res?.body) {
             this.messages.push({
               severity: "success",
-              //summary: "Guardado",
-              detail: "Se ha guardado el subtítulo.",
+              detail: await this.languageService.get(
+                "edit.video.messages.msgSuccess2"
+              ),
             });
             this.video.tags_adapted = res.body;
             this.loadTranscript();
@@ -294,7 +269,7 @@ export class VideoComponent implements OnInit, OnDestroy {
           this.messages.push({
             severity: "error",
             summary: "Error",
-            detail: "Error al guardar el subtítulo, " + error.error?.message || error.message,
+            detail: error.error?.message || error.message,
           });
         }
       );
@@ -302,7 +277,7 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.messages.push({
         severity: "error",
         summary: "Error",
-        detail: "Por favor, complete todos los campos.",
+        detail: await this.languageService.get("edit.video.messages.msgError2"),
       });
     }
   }
@@ -323,21 +298,17 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
 
   public async onChangeRevert() {
-    //console.log("revert", this.video.adaptation);
-
     try {
       this.messages = [];
       let res = await this.videoService
         .revertVideo(this.video.id, { adaptation: this.video.adaptation })
         .toPromise();
       this.eventService.emitEvent(true);
-
-      //console.log("update res", res);
     } catch (error) {
       this.messages.push({
         severity: "error",
         summary: "Error",
-        detail: "Error, " + error.error?.message || error.message,
+        detail: error.error?.message || error.message,
       });
       this.video.adaptation = !this.video.adaptation;
     }

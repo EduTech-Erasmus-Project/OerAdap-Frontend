@@ -429,7 +429,7 @@
                 "item5": "Audio:"
             },
             "section3": {
-                "title": "responsibility settings",
+                "title": "Adaptability settings",
                 "item1": "Type of adaptation:",
                 "item2": "Optimization areas:",
                 "item3": "Adaptability Button",
@@ -446,6 +446,7 @@
                 "imgCount": "Adapted images:",
                 "videoCount": "Adapted videos:",
                 "audioCount": "Adapted audios:",
+                "pagesCount": "Total pages of the Learning Object:",
                 "p2": "Did you finish adapting your Learning Object?",
                 "p3": "Remember that, once you have downloaded the adapted Learning Object by recommendation and do not create conflicts within the LO, we recommend that you verify if you have made the necessary changes before downloading it, we also recommend that you do not upload your adapted LO so as not to generate errors on the same learning object.",
                 "btnCancel": "No, Cancel",
@@ -463,12 +464,12 @@
             "loader": "Generating descriptive text...",
             "empty": "This Learning Object has no audios.",
             "messages": {
-                "success": "Descriptive text successfully created.",
-                "error": "Error creating description text"
+                "success": "Description text successfully saved."
             }
         },
         "img": {
             "tab": "Images",
+            "imgPreview": "Image Preview",
             "description": "Image alt description:",
             "btnEdit": "Edit description",
             "btnCreateTable": "Create Table",
@@ -476,19 +477,18 @@
             "btnCancel": "Cancel",
             "table": {
                 "title": "Create your own HTML table",
+                "description": "Click insert table to create a new table:",
                 "p1": "Are you sure you want to save the changes?",
                 "yes": "Yes",
                 "no": "No",
                 "messages": {
-                    "success": "Table successfully created.",
-                    "error": "Error creating table."
+                    "success": "Table saved successfully."
                 }
             },
             "loader": "Generating descriptive text...",
             "empty": "This Learning Object has no images.",
             "messages": {
-                "success": "Descriptive text successfully created.",
-                "error": "Error creating description text"
+                "success": "Description text successfully saved."
             }
         },
         "text": {
@@ -496,15 +496,14 @@
             "btnEdit": "Edit",
             "btnCancel": "Cancel",
             "btnSave": "Save",
-            "textPlaceholder": "Easy reading...",
+            "btnSaving": "Saving...",
             "tabs": {
                 "tab1": "Easy Reading",
                 "tab2": "Audio"
             },
             "empty": "This Learning Object has no text paragraphs.",
             "messages": {
-                "success": "Descriptive text successfully created.",
-                "error": "Error creating description text"
+                "success": "Help text and audio have been added to the Learning Object."
             },
             "audio": {
                 "divider": "OR",
@@ -514,22 +513,50 @@
                 "btnGenerate": "Generate Audio",
                 "btnRecord": "Record an audio",
                 "loader": "Generating audio please wait...",
-                "messages": {
-                    "success": "Audio created successfully.",
-                    "error": "Error creating audio."
+                "record": {
+                    "pause": "Pause",
+                    "record": "Record",
+                    "save": "Save"
                 }
             }
         },
         "video": {
             "tab": "Videos",
             "description": "Video Source: Video",
-            "subtitle": "This video has no subtitles",
+            "notSubtitle": "This video has no subtitles",
             "btnDownload": "Download video and subtitles",
             "btnGenerate": "Generate subtitle",
             "btnAdd": "Add subtitle",
+            "btnEdit": "Edit",
+            "btnRemove": "Remove",
+            "btnSave": "Save",
             "empty": "This Learning Object has no videos.",
+            "divider": "OR",
             "messages": {
-                "msg1": "Video socket error"
+                "msgError1": "Video socket error",
+                "msgError2": "Please complete all fields.",
+                "msgError3": "Automatic subtitle generation is under development.",
+                "msgError4": "The video cannot be downloaded, ",
+                "msgError5": "The video source does not support or does not have translations but we are still developing.",
+                "msgError6": "The video source does not support or does not have translations.",
+                "msgSuccess1": "Subtitles have been generated automatically.",
+                "msgSuccess2": "The subtitle has been saved."
+            },
+            "socket": {
+                "msg1": "Downloading video…",
+                "msg2": "Video downloaded.",
+                "msg3": "Processing video…",
+                "msg4": "Downloading YouTube subtitle...",
+                "msg5": "Saving subtitles…",
+                "msg6": "Saving automatic subtitles…",
+                "msg7": "Video downloaded."
+            },
+            "transcript": {
+                "title": "Subtitle",
+                "progress": "Loading subtitle please wait...",
+                "sumary": "Warning",
+                "editing": "You are in subtitle file editing mode.",
+                "success": "Subtitle changes have been saved."
             }
         }
     }

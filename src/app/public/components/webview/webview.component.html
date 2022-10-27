@@ -5,8 +5,6 @@
         <app-iframe [page]="selectedPage"></app-iframe>
     </div>
     <div class="controls">
-
-
         <div class="dropdown">
             <h5>{{'edit.select' | translate}} </h5>
             <p-dropdown (onChange)="onChange($event)" [options]="pages" [(ngModel)]="selectedPage" optionLabel="title"
