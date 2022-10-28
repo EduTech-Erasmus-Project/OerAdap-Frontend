@@ -57,8 +57,8 @@
                                     accept=" audio/*">
                                     <ngx-dropzone-label>
                                         <h6>{{'edit.text.audio.file' | translate}}</h6>
-                                        <p-button [label]="'edit.text.audio.btnUpload' | translate" icon="pi pi-cloud-upload"
-                                            styleClass="p-button">
+                                        <p-button [label]="'edit.text.audio.btnUpload' | translate"
+                                            icon="pi pi-cloud-upload" styleClass="p-button">
                                         </p-button>
                                     </ngx-dropzone-label>
                                     <ngx-dropzone-preview *ngIf="file" (removed)="onRemove()" [removable]="true"
@@ -69,7 +69,8 @@
                                 </ngx-dropzone>
                                 <div class="buttons" *ngIf="file">
                                     <button (click)="onCancelSelection()" pButton pRipple type="button"
-                                        icon="pi pi-times" [label]="'edit.text.btnCancel' | translate" class="p-button-danger"></button>
+                                        icon="pi pi-times" [label]="'edit.text.btnCancel' | translate"
+                                        class="p-button-danger"></button>
                                     <!-- <button pButton pRipple type="button" label="Guardar" icon="pi pi-check"></button> -->
                                 </div>
                             </div>
@@ -79,23 +80,29 @@
 
                                 <div class="buttons-options">
                                     <button id="audio-recor" (click)="onGenerateAudio()" pButton pRipple type="button"
-                                        [label]="'edit.text.audio.btnGenerate' | translate" class="p-button-outlined"></button>
+                                        [label]="'edit.text.audio.btnGenerate' | translate"
+                                        class="p-button-outlined"></button>
                                     <button id="audio-recor" (click)="onRecorAudio()" pButton pRipple type="button"
-                                    [label]="'edit.text.audio.btnRecord' | translate" class="p-button-text"></button>
+                                        [label]="'edit.text.audio.btnRecord' | translate"
+                                        class="p-button-text"></button>
                                 </div>
                             </div>
 
                             <!-- Cambiar a componente de grabar sonido -->
 
                             <div class="record-audio" *ngIf="recordAudio">
-                                <ng-container *ngIf="permis; else parmisTemplate">
+                                <app-record (stopEvent)="recordFile($event)"></app-record>
+                                <!-- <ng-container *ngIf="permis; else parmisTemplate">
                                     <span>{{hourRecord}}:{{minRecord}}:{{secRecord}}</span>
                                     <div class="buttons-record">
-                                        <!-- pi-pause -->
-                                        <button [title]="rec ? ('edit.text.audio.record.pause' | translate) : ('edit.text.audio.record.record' | translate)" (click)="record()" pButton pRipple type="button"
+                                        
+                                        <button
+                                            [title]="rec ? ('edit.text.audio.record.pause' | translate) : ('edit.text.audio.record.record' | translate)"
+                                            (click)="record()" pButton pRipple type="button"
                                             [icon]="rec ? 'pi pi-pause' : 'pi pi-play'"
                                             class="p-button-rounded p-button-danger p-button-outlined"></button>
-                                        <button [title]="'edit.text.audio.record.save' | translate" (click)="stopRecord()" *ngIf="recording" pButton pRipple type="button"
+                                        <button [title]="'edit.text.audio.record.save' | translate"
+                                            (click)="stopRecord()" *ngIf="recording" pButton pRipple type="button"
                                             icon="pi pi-check"
                                             class="p-button-rounded p-button-success p-button-outlined"></button>
                                     </div>
@@ -112,11 +119,12 @@
                                 <ng-template #parmisTemplate>
                                     <p>{{permisText}}</p>
 
-                                </ng-template>
+                                </ng-template> -->
 
                                 <div class="buttons">
                                     <button (click)="onCancelSelection()" pButton pRipple type="button"
-                                        icon="pi pi-times" [label]="'edit.text.btnCancel' | translate" class="p-button-danger"></button>
+                                        icon="pi pi-times" [label]="'edit.text.btnCancel' | translate"
+                                        class="p-button-danger"></button>
                                 </div>
                             </div>
                         </div>
@@ -134,10 +142,11 @@
             <ng-container *ngIf="edit; else buttonTemplate">
                 <!-- file || !fileRecord ||  -->
                 <p-button [disabled]="(!htmlContent && (!fileRecord && !file)) || updateParagraph" (click)="onSave()"
-                    [label]="updateParagraph ? ('edit.text.btnSaving' | translate) : ('edit.text.btnSave' | translate)" icon="pi pi-check"></p-button>
+                    [label]="updateParagraph ? ('edit.text.btnSaving' | translate) : ('edit.text.btnSave' | translate)"
+                    icon="pi pi-check"></p-button>
 
-                <button (click)="edit = false" pButton pRipple type="button" icon="pi pi-times" [label]="'edit.text.btnCancel' | translate"
-                    class="p-button-danger"></button>
+                <button (click)="edit = false" pButton pRipple type="button" icon="pi pi-times"
+                    [label]="'edit.text.btnCancel' | translate" class="p-button-danger"></button>
             </ng-container>
             <ng-template #buttonTemplate>
                 <p-button (click)="editParagraph()" [label]="'edit.text.btnEdit' | translate" icon="pi pi-check">

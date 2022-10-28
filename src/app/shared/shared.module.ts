@@ -94,6 +94,8 @@ import { MomentPipe } from '../pipes/moment.pipe';
 import { PlayerComponent } from './player/player.component';
 import {BlockUIModule} from 'primeng/blockui';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RecordComponent } from './record/record.component';
+import { BlobsanitizerPipe } from "../pipes/blobsanitizer.pipe";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -108,7 +110,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BreadcrumbPublicComponent,
     NotfoundComponent,
     PlayerComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RecordComponent,
+    BlobsanitizerPipe
   ],
   exports: [
     BreadcrumbPublicComponent,
@@ -201,7 +205,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProgressSpinnerModule,
     PlayerComponent,
     BlockUIModule,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RecordComponent
   ],
   imports: [
     ProgressSpinnerModule,
@@ -288,7 +293,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TreeTableModule,
     VirtualScrollerModule,
     BlockUIModule,
-    TranslateModule
+    TranslateModule,
+    
   ],
 })
 export class SharedModule {}

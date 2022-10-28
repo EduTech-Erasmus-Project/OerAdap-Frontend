@@ -39,13 +39,13 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   public recordAudio: boolean = false;
   public fileRecord: File;
 
-  public hourRecord: number = 0;
-  public minRecord: number = 0;
-  public secRecord: number = 0;
+  // public hourRecord: number = 0;
+  // public minRecord: number = 0;
+  // public secRecord: number = 0;
 
-  public rec: boolean = false;
-  public recording: boolean = false;
-  public permis: boolean = true;
+  // public rec: boolean = false;
+  // public recording: boolean = false;
+  // public permis: boolean = true;
   public generateAudio: boolean = false;
 
   public audioURL: any;
@@ -116,15 +116,14 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   public messages: Message[];
 
   constructor(
-    private audioRecorderService: NgAudioRecorderService,
     private paragraphService: ParagraphService,
     private eventService: EventService,
     private languageService: LanguageService
   ) {
-    this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
-      // Handle Error
-      //console.log("recorderErrorCase", recorderErrorCase);
-    });
+    // this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
+    //   // Handle Error
+    //   //console.log("recorderErrorCase", recorderErrorCase);
+    // });
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
@@ -208,76 +207,77 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   onCancelSelection() {
     this.selectFile = true;
     this.recordAudio = false;
-    this.recording = false;
+    //this.recording = false;
+    this.fileRecord = undefined;
     this.onRemove();
   }
 
-  async record() {
-    this.rec = !this.rec;
-    if (this.recording) {
-      //console.log(this.audioRecorderService.getRecorderState())
-      if (this.rec) {
-        this.audioRecorderService.resume();
-      } else {
-        this.audioRecorderService.pause();
-      }
-    } else {
-      this.recording = true;
-      this.audioURL = undefined;
-      this.secRecord = 0;
-      this.minRecord = 0;
-      this.hourRecord = 0;
-      this.audioRecorderService.startRecording();
+  // async record() {
+  //   this.rec = !this.rec;
+  //   if (this.recording) {
+  //     //console.log(this.audioRecorderService.getRecorderState())
+  //     if (this.rec) {
+  //       this.audioRecorderService.resume();
+  //     } else {
+  //       this.audioRecorderService.pause();
+  //     }
+  //   } else {
+  //     this.recording = true;
+  //     this.audioURL = undefined;
+  //     this.secRecord = 0;
+  //     this.minRecord = 0;
+  //     this.hourRecord = 0;
+  //     this.audioRecorderService.startRecording();
 
-      this.interval = setInterval(() => {
-        //console.log("record status", RecorderState.PAUSED)
-        if (
-          RecorderState.PAUSED != this.audioRecorderService.getRecorderState()
-        ) {
-          this.secRecord += 1;
-          if (this.secRecord === 60) {
-            this.secRecord = 0;
-            this.minRecord += 1;
-          }
-          if (this.minRecord === 60) {
-            this.minRecord = 0;
-            this.hourRecord += 1;
-          }
-          if (this.hourRecord === 24) {
-            this.stopRecord();
-          }
-        }
-      }, 1000);
-    }
-  }
+  //     this.interval = setInterval(() => {
+  //       //console.log("record status", RecorderState.PAUSED)
+  //       if (
+  //         RecorderState.PAUSED != this.audioRecorderService.getRecorderState()
+  //       ) {
+  //         this.secRecord += 1;
+  //         if (this.secRecord === 60) {
+  //           this.secRecord = 0;
+  //           this.minRecord += 1;
+  //         }
+  //         if (this.minRecord === 60) {
+  //           this.minRecord = 0;
+  //           this.hourRecord += 1;
+  //         }
+  //         if (this.hourRecord === 24) {
+  //           this.stopRecord();
+  //         }
+  //       }
+  //     }, 1000);
+  //   }
+  // }
 
-  async stopRecord() {
-    clearInterval(this.interval);
-    this.audioRecorderService
-      .stopRecording(OutputFormat.WEBM_BLOB_URL)
-      .then(async (output) => {
-        //console.log(output)
-        this.rec = false;
-        this.recording = false;
-        this.audioURL = output;
-        this.fileRecord = await this.transforBlob(output);
-      })
-      .catch((errrorCase) => {
-        // Handle Error
-        console.log(errrorCase);
-      });
-  }
+  // async stopRecord() {
+  //   clearInterval(this.interval);
+  //   this.audioRecorderService
+  //     .stopRecording(OutputFormat.WEBM_BLOB_URL)
+  //     .then(async (output) => {
+  //       //console.log(output)
+  //       this.rec = false;
+  //       this.recording = false;
+  //       this.audioURL = output;
+  //       this.fileRecord = await this.transforBlob(output);
+  //     })
+  //     .catch((errrorCase) => {
+  //       // Handle Error
+  //       console.log(errrorCase);
+  //     });
+  // }
 
-  async transforBlob(ulr: any) {
-    try {
-      const response = await fetch(ulr);
-      const blob = await response.blob();
-      const file = new File([blob], "audio/mp3", { type: blob.type });
-      return file;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async transforBlob(ulr: any) {
+  //   try {
+  //     const response = await fetch(ulr);
+  //     const blob = await response.blob();
+  //     const file = new File([blob], "audio/mp3", { type: blob.type });
+  //     return file;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async editParagraph() {
     this.edit = !this.edit;
@@ -340,5 +340,9 @@ export class ParagraphComponent implements OnInit, OnDestroy {
       this.showErrorMessage(error.error?.message || error.error);
       this.paragraph.adaptation = !this.paragraph.adaptation;
     }
+  }
+
+  public recordFile(evt:any){
+    this.fileRecord = evt;
   }
 }

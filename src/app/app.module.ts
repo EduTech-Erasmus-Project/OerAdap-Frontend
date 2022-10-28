@@ -53,6 +53,7 @@ import { TokenRefInterceptor } from "./interceptors/token-ref.interceptor";
 import { NumeralModule } from "ngx-numeral";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
+
 @NgModule({
   imports: [
     BrowserModule,
