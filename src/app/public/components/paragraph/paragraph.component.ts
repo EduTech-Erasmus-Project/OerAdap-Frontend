@@ -7,20 +7,12 @@ import {
   OnDestroy,
 } from "@angular/core";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
-import {
-  NgAudioRecorderService,
-  OutputFormat,
-  RecorderState,
-} from "ng-audio-recorder";
 import { ParagraphService } from "src/app/services/paragraph.service";
-import { v4 as uuidv4 } from "uuid";
 import { Paragraph } from "../../../models/Page";
-import { Message, MessageService } from "primeng/api";
+import { Message } from "primeng/api";
 import { EventService } from "../../../services/event.service";
 import { Subscription } from "rxjs";
 import { LanguageService } from "src/app/services/language.service";
-
-declare var MediaRecorder: any;
 
 @Component({
   selector: "app-paragraph",
@@ -301,7 +293,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
       this.subscriptions.push(paragraphSub);
     }
   }
-  
+
   public async onGenerateAudio() {
     this.messages = [];
     this.generateAudio = true;
@@ -342,7 +334,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
     }
   }
 
-  public recordFile(evt:any){
+  public recordFile(evt: any) {
     this.fileRecord = evt;
   }
 }
