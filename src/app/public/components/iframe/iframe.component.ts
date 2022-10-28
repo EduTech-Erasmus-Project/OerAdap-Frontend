@@ -16,9 +16,7 @@ export class IframeComponent implements OnInit, OnDestroy {
 
   constructor(private eventService: EventService) {}
   ngOnDestroy(): void {
-    //console.log("unsuscribe iframe event")
     this.subscription.unsubscribe();
-
   }
 
   ngOnInit(): void {
@@ -26,24 +24,11 @@ export class IframeComponent implements OnInit, OnDestroy {
   }
 
   loadEvent(){
-    //.log("page", this.page)
     this.subscription = this.eventService.getEvent().subscribe((event) => {
       if (this.page.type === "adapted") {
-        //console.log("event refresh", this.page)
-
         var iframe: any = document.getElementById("web-view");
-        //iframe.contentWindow.location.reload();
-        //iframe.src = "";
-        //iframe.src = this.page.code;
-
         const url = iframe.src + '?timestamp=' + new Date().getTime()
-        //document.getElementById('my-iframe-id').src = url
         iframe.contentWindow.location.href = url;
-
-        //this.ngOnInit();
-
-        //window.location.reload();
-        //this.router.navigate([this.router.url])
       }
     });
   }

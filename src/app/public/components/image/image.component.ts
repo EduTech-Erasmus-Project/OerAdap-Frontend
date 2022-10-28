@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { EventService } from "src/app/services/event.service";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ImageService } from "src/app/services/image.service";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-image",
@@ -44,7 +45,8 @@ export class ImageComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private eventService: EventService,
     private confirmationService: ConfirmationService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private languageService: LanguageService
   ) {
     this.createForm();
   }
@@ -83,9 +85,9 @@ export class ImageComponent implements OnInit, OnDestroy {
     let sendDescription = await this.imageService
       .updateImage(this.answers, item)
       .subscribe(
-        (response) => {
+        async (response) => {
           if (response) {
-            this.showSuccess("Los datos se actualizaron con exito");
+            this.showSuccess(await this.languageService.get("edit.img.messages.success"));
             this.item.text = response.text;
             this.angForm.controls[item.toString()].setValue(new_text_alt);
             this.edit = false;
@@ -108,14 +110,12 @@ export class ImageComponent implements OnInit, OnDestroy {
   }
 
   public cliclEdit(texto) {
-    //console.log("cliclEdit " + texto);
     this.edit = true;
     this.textAux = texto;
   }
 
   cancel(item) {
     this.edit = false;
-    //console.log("cancel -" + this.angForm.get(item.toString()).value);
     this.angForm.controls[item.toString()].setValue(this.textAux);
   }
 
@@ -130,7 +130,6 @@ export class ImageComponent implements OnInit, OnDestroy {
   showSuccess(message) {
     this.messageService.add({
       severity: "success",
-      summary: "Success",
       detail: message,
     });
   }
@@ -149,14 +148,11 @@ export class ImageComponent implements OnInit, OnDestroy {
     this.messageService.clear();
     this.confirmationService.confirm({
       target: event.target,
-      message: "Esta seguro que desea guardar los cambios ?",
+      message: await this.languageService.get("edit.img.table.p1"),//"Esta seguro que desea guardar los cambios ?",
       icon: "pi pi-exclamation-triangle",
 
       accept: async () => {
         if (this.flag_text_table == false && this.table_result != "") {
-          // console.log('Se crea')
-
-          //Aceptar primera añadir tabla
           this.answers = {
             text_table: this.table_result,
             method: "transform-table",
@@ -215,14 +211,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             detail: "Porfavor genere una tabla antes de guardar",
           });
         }
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: "error",
-          summary: "Rejected",
-          detail: "You have rejected",
-        });
-      },
+      }
     });
   }
 
@@ -240,23 +229,18 @@ export class ImageComponent implements OnInit, OnDestroy {
         .updatePreviewImage({ preview: evt.checked }, item.id)
         .toPromise();
       this.eventService.emitEvent(true);
-      //console.log("update res", res);
     } catch (error) {
       this.showError("Error, " + error.error?.message || error.message);
     }
   }
 
   public async onChangeRevert() {
-    //console.log("revert", this.item.adaptation);
-
     try {
       this.messageService.clear();
       let res = await this.imageService
         .revertImage(this.item.id, { adaptation: this.item.adaptation })
         .toPromise();
       this.eventService.emitEvent(true);
-      
-      //console.log("update res", res);
     } catch (error) {
       this.showError("Error, " + error.error?.message || error.message);
       this.item.adaptation = !this.item.adaptation;

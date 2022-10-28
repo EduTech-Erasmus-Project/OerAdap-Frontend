@@ -167,7 +167,7 @@
         },
         "messages": {
             "msg1": "This Learning Object has already been adapted in this tool."
-         }
+        }
     },
     "api": {
         "title": "For quality education",
@@ -393,6 +393,172 @@
             "p3": "You are ready to start adapting your learning objects.",
             "videoTitle": "Download an adapted learning object.",
             "btn": "Download"
+        }
+    },
+    "edit": {
+        "select": "Page:",
+        "selectAria": "Select the page to edit",
+        "btnOpen": "Open in a new tab",
+        "btnOpenWindow": "Open in full screen",
+        "btnClouseWindow": "Close in full screen",
+        "textAdaptation": "Apply adaptation to this content:",
+        "tabs": {
+            "tab1": "Adapted learning object",
+            "tab2": "Original learning object",
+            "tab3": "All audio",
+            "tab4": "All images",
+            "tab5": "All videos",
+            "tab6": "Information",
+            "tab7": "Metadata"
+        },
+        "information": {
+            "title": "Information",
+            "section1": {
+                "title": "Learning object information",
+                "item1": "Title:",
+                "item2": "Author:",
+                "item3": "License:",
+                "item4": "Version:"
+            },
+            "section2": {
+                "title": "File Information",
+                "item1": "LO pages:",
+                "item2": "Images:",
+                "item3": "Paragraphs:",
+                "item4": "Videos:",
+                "item5": "Audio:"
+            },
+            "section3": {
+                "title": "Adaptability settings",
+                "item1": "Type of adaptation:",
+                "item2": "Optimization areas:",
+                "item3": "Adaptability Button",
+                "item4": "Audio",
+                "item5": "Images",
+                "item6": "Paragraphs",
+                "item7": "Videos"
+            },
+            "btnDownload": "Download adapted OA",
+            "infoDownload": {
+                "title": "Download Information",
+                "p1": "Adapted elements in the learning object:",
+                "pCount": "Adapted paragraphs:",
+                "imgCount": "Adapted images:",
+                "videoCount": "Adapted videos:",
+                "audioCount": "Adapted audios:",
+                "pagesCount": "Total pages of the Learning Object:",
+                "p2": "Did you finish adapting your Learning Object?",
+                "p3": "Remember that, once you have downloaded the adapted Learning Object by recommendation and do not create conflicts within the LO, we recommend that you verify if you have made the necessary changes before downloading it, we also recommend that you do not upload your adapted LO so as not to generate errors on the same learning object.",
+                "btnCancel": "No, Cancel",
+                "btnDownload": "Yes, Download"
+            }
+        },
+        "audio": {
+            "tab": "Audios",
+            "description": "Audio description:",
+            "btnGenerate": "Generate text",
+            "btnCreate": "Create text",
+            "btnCancel": "Cancel",
+            "btnEdit": "Edit",
+            "btnSave": "Save",
+            "loader": "Generating descriptive text...",
+            "empty": "This Learning Object has no audios.",
+            "messages": {
+                "success": "Description text successfully saved."
+            }
+        },
+        "img": {
+            "toast": "Preview image",
+            "tab": "Images",
+            "imgPreview": "Image Preview",
+            "description": "Image alt description:",
+            "btnEdit": "Edit description",
+            "btnCreateTable": "Create Table",
+            "btnSave": "Save",
+            "btnCancel": "Cancel",
+            "table": {
+                "title": "Create your own HTML table",
+                "description": "Click insert table to create a new table:",
+                "p1": "Are you sure you want to save the changes?",
+                "yes": "Yes",
+                "no": "No",
+                "messages": {
+                    "success": "Table saved successfully."
+                }
+            },
+            "loader": "Generating descriptive text...",
+            "empty": "This Learning Object has no images.",
+            "messages": {
+                "success": "Description text successfully saved."
+            }
+        },
+        "text": {
+            "tab": "Paragraphs",
+            "btnEdit": "Edit",
+            "btnCancel": "Cancel",
+            "btnSave": "Save",
+            "btnSaving": "Saving...",
+            "tabs": {
+                "tab1": "Easy Reading",
+                "tab2": "Audio"
+            },
+            "empty": "This Learning Object has no text paragraphs.",
+            "messages": {
+                "success": "Help text and audio have been added to the Learning Object."
+            },
+            "audio": {
+                "divider": "OR",
+                "audioDescription": "Current audio",
+                "file": "Drag or select a file.",
+                "btnUpload": "Select a file",
+                "btnGenerate": "Generate Audio",
+                "btnRecord": "Record an audio",
+                "loader": "Generating audio please wait...",
+                "record": {
+                    "pause": "Pause",
+                    "record": "Record",
+                    "save": "Save"
+                }
+            }
+        },
+        "video": {
+            "tab": "Videos",
+            "description": "Video Source: Video",
+            "notSubtitle": "This video has no subtitles",
+            "btnDownload": "Download video and subtitles",
+            "btnGenerate": "Generate subtitle",
+            "btnAdd": "Add subtitle",
+            "btnEdit": "Edit",
+            "btnRemove": "Remove",
+            "btnSave": "Save",
+            "empty": "This Learning Object has no videos.",
+            "divider": "OR",
+            "messages": {
+                "msgError1": "Video socket error",
+                "msgError2": "Please complete all fields.",
+                "msgError3": "Automatic subtitle generation is under development.",
+                "msgError4": "The video cannot be downloaded, ",
+                "msgError5": "The video source does not support or does not have translations but we are still developing.",
+                "msgError6": "The video source does not support or does not have translations.",
+                "msgSuccess1": "Subtitles have been generated automatically.",
+                "msgSuccess2": "The subtitle has been saved."
+            },
+            "socket": {
+                "msg1": "Downloading video…",
+                "msg2": "Video downloaded.",
+                "msg3": "Processing video…",
+                "msg4": "Downloading YouTube subtitle...",
+                "msg5": "Saving subtitles…",
+                "msg6": "Saving automatic subtitles…",
+                "msg7": "Video downloaded."
+            },
+            "transcript": {
+                "title": "Subtitle",
+                "progress": "Loading subtitle please wait...",
+                "sumary": "Warning",
+                "editing": "You are in subtitle file editing mode.",
+                "success": "Subtitle changes have been saved."
+            }
         }
     }
 }

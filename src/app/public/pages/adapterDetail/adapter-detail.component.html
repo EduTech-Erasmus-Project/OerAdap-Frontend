@@ -8,7 +8,7 @@
                         *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'">
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-user"></i> -->
-                            <span>Objeto de aprendizaje adaptado</span>
+                            <span>{{'edit.tabs.tab1' | translate}}</span>
                         </ng-template>
                         <app-webview (eventPage)="eventPage($event)" [pages]="learningObject?.pages_adapted">
                         </app-webview>
@@ -16,7 +16,7 @@
                     <p-tabPanel>
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-calendar"></i> -->
-                            <span>Objeto de aprendizaje original</span>
+                            <span>{{'edit.tabs.tab2' | translate}}</span>
                         </ng-template>
                         <app-webview (eventPage)="eventPage($event)" [pages]="learningObject?.pages_origin">
                         </app-webview>
@@ -24,7 +24,7 @@
                     <p-tabPanel>
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-calendar"></i> -->
-                            <span>Todos los audios</span>
+                            <span>{{'edit.tabs.tab3' | translate}}</span>
                         </ng-template>
                         <div class="list-content">
                             <div *ngIf="listAll" class="loader-spin">
@@ -32,14 +32,14 @@
                             </div>
                             <app-audio-content *ngIf="!listAll && audiosGroup?.length > 0" [audiosGroup]="audiosGroup">
                             </app-audio-content>
-                            <p *ngIf="!listAll && audiosGroup?.length == 0">Este Objeto de aprendizaje no tiene audios.
+                            <p *ngIf="!listAll && audiosGroup?.length == 0">{{'edit.audio.empty' | translate}}
                             </p>
                         </div>
                     </p-tabPanel>
                     <p-tabPanel>
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-calendar"></i> -->
-                            <span>Todas las imágenes</span>
+                            <span>{{'edit.tabs.tab4' | translate}}</span>
                         </ng-template>
                         <div class="list-content">
                             <div *ngIf="listAll" class="loader-spin">
@@ -47,14 +47,13 @@
                             </div>
                             <app-image-content *ngIf="!listAll && imagesGroup?.length > 0" [imagesGroup]="imagesGroup">
                             </app-image-content>
-                            <p *ngIf="!listAll && imagesGroup?.length == 0">Este Objeto de aprendizaje no tiene
-                                imágenes.</p>
+                            <p *ngIf="!listAll && imagesGroup?.length == 0">{{'edit.img.empty' | translate}}</p>
                         </div>
                     </p-tabPanel>
                     <p-tabPanel>
                         <ng-template pTemplate="header">
                             <!-- <i class="pi pi-calendar"></i> -->
-                            <span>Todos los videos</span>
+                            <span>{{'edit.tabs.tab5' | translate}}</span>
                         </ng-template>
                         <div class="list-content">
                             <div *ngIf="listAll" class="loader-spin">
@@ -62,7 +61,7 @@
                             </div>
                             <app-video-content *ngIf="!listAll && videos?.length > 0" [videos]="videos">
                             </app-video-content>
-                            <p *ngIf="!listAll && videos?.length == 0">Este Objeto de aprendizaje no tiene videos.</p>
+                            <p *ngIf="!listAll && videos?.length == 0">{{'edit.video.empty' | translate}}</p>
                         </div>
                     </p-tabPanel>
                 </p-tabView>
@@ -74,7 +73,7 @@
                     <p-tabPanel>
                         <ng-template pTemplate="header">
                             <i class="pi pi-exclamation-circle"></i>
-                            <span>Información</span>
+                            <span>{{'edit.tabs.tab6' | translate}}</span>
                         </ng-template>
                         <app-oa-info (eventAdaptabilit)="eventAdaptabilit($event)" [learningObject]="learningObject">
                         </app-oa-info>
@@ -82,7 +81,7 @@
                     <p-tabPanel header="Header II">
                         <ng-template pTemplate="header">
                             <i class="pi pi-sliders-h"></i>
-                            <span>Metadatos</span>
+                            <span>{{'edit.tabs.tab7' | translate}}</span>
                         </ng-template>
                         <app-oa-metadata [metadata]="learningObject.metadata"></app-oa-metadata>
                     </p-tabPanel>
@@ -206,10 +205,10 @@
     <ng-container
         *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'; else elseTemplate">
         <p-tabView (onChange)="onChangeTab($event)" styleClass="webview-container">
-            <p-tabPanel id="audio" header="Audios" *ngIf="audio">
+            <p-tabPanel id="audio" [header]="'edit.audio.tab' | translate" *ngIf="audio">
                 <ng-template pTemplate="header">
                     <i class="pi pi-play"></i>
-                    <span>Audios</span>
+                    <span>{{'edit.audio.tab' | translate}}</span>
                 </ng-template>
 
                 <div class="card-content">
@@ -218,13 +217,14 @@
                     </div>
                     <app-audio-content *ngIf="!loader && audiosGroup?.length > 0" [audiosGroup]="audiosGroup">
                     </app-audio-content>
-                    <h5 class="no-content" *ngIf="!loader && audiosGroup?.length == 0">Esta página no tiene audios.</h5>
+                    <h5 class="no-content" *ngIf="!loader && audiosGroup?.length == 0">{{'edit.audio.empty' |
+                        translate}}</h5>
                 </div>
             </p-tabPanel>
-            <p-tabPanel id="image" header="Imagenes" *ngIf="image">
+            <p-tabPanel id="image" [header]="'edit.img.tab' | translate" *ngIf="image">
                 <ng-template pTemplate="header">
                     <i class="pi pi-image"></i>
-                    <span>Imágenes</span>
+                    <span>{{'edit.img.tab' | translate}}</span>
                 </ng-template>
 
                 <div class="card-content">
@@ -233,7 +233,7 @@
                     </div>
                     <app-image-content *ngIf="!loader && imagesGroup?.length > 0" [imagesGroup]="imagesGroup">
                     </app-image-content>
-                    <h5 class="no-content" *ngIf="!loader && imagesGroup?.length == 0">Esta página no tiene imágenes.
+                    <h5 class="no-content" *ngIf="!loader && imagesGroup?.length == 0">{{'edit.img.empty' | translate}}
                     </h5>
                 </div>
 
@@ -244,10 +244,10 @@
                     <h5 class="no-content">Esta página no contiene imágenes</h5>
                 </ng-template> -->
             </p-tabPanel>
-            <p-tabPanel id="paragraph" header="Párrafos" *ngIf="paragraph">
+            <p-tabPanel id="paragraph" [header]="'edit.text.tab' | translate" *ngIf="paragraph">
                 <ng-template pTemplate="header">
                     <i class="pi pi-align-center"></i>
-                    <span>Párrafos</span>
+                    <span>{{'edit.text.tab' | translate}}</span>
                 </ng-template>
                 <div class="card-content">
                     <div *ngIf="loader" class="loader-spin">
@@ -255,7 +255,7 @@
                     </div>
                     <app-paragraph-content *ngIf="!loader && paragraphs?.length > 0" [paragraphs]="paragraphs">
                     </app-paragraph-content>
-                    <h5 class="no-content" *ngIf="!loader && paragraphs?.length == 0">Esta página no tiene párrafos.
+                    <h5 class="no-content" *ngIf="!loader && paragraphs?.length == 0">{{'edit.text.empty' | translate}}
                     </h5>
                 </div>
 
@@ -266,17 +266,18 @@
                     <h5 class="no-content">Esta página no contiene párrafos</h5>
                 </ng-template> -->
             </p-tabPanel>
-            <p-tabPanel id="video" header="Vídeos" *ngIf="video">
+            <p-tabPanel id="video" [header]="'edit.video.tab' | translate" *ngIf="video">
                 <ng-template pTemplate="header">
                     <i class="pi pi-video"></i>
-                    <span>Vídeos</span>
+                    <span>{{'edit.video.tab' | translate}}</span>
                 </ng-template>
                 <div class="card-content">
                     <div *ngIf="loader" class="loader-spin">
                         <p-progressSpinner></p-progressSpinner>
                     </div>
                     <app-video-content *ngIf="!loader && videos?.length > 0" [videos]="videos"></app-video-content>
-                    <h5 class="no-content" *ngIf="!loader && videos?.length == 0">Esta página no tiene vídeos.</h5>
+                    <h5 class="no-content" *ngIf="!loader && videos?.length == 0">{{'edit.video.empty' | translate}}
+                    </h5>
                 </div>
                 <!-- <ng-container *ngIf="videos?.length > 0; else videosTemplate">
                     <app-video-content [videos]="videos"></app-video-content>
