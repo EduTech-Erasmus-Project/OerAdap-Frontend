@@ -279,6 +279,8 @@
    "contact": {
       "title": "Contáctanos",
       "description": "Nos gustaría saber tu opinión, dudas o sugerencias o simplemente nos quiere saludar, nos encantaría atender su mensaje.",
+      "btnSend": "Enviar Mensaje",
+      "altImage": "Imagen de contacto",
       "form": {
          "name": "Nombre:",
          "email": "Email:",
