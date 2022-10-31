@@ -279,6 +279,8 @@
     "contact": {
         "title": "Contact us",
         "description": "We would like to know your opinion, doubts or suggestions or you just want to say hello, we would love to answer your message.",
+        "btnSend": "Send Message",
+        "altImage": "Contact Image",
         "form": {
             "name": "Name:",
             "email": "Email:",
@@ -305,7 +307,7 @@
             "p2": "In this guide we will show you how you can start on the platform to adapt your learning objects, the objective of this platform is to create adapted educational resources by implementing different adaptation techniques.",
             "p3": "In this brief introduction we will teach you how to upload a file, how to view its content, the adaptation of each section and how to download the learning object, throughout this guide you will have a description text and an image, gif or video of how to perform each of the activities on the platform.",
             "p4": "If you have questions or suggestions you can contact us by accessing the different links:",
-            "p5": "Who we are",
+            "p5": "About",
             "p6": "Contact us",
             "p7": "Let's get started.",
             "videoTitle": "Introduction to the OerAdap platform"
