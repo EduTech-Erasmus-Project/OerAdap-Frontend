@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 import * as CryptoJS from "crypto-js";
-import { environment } from "../../environments/environment.prod";
+import { environment } from "../../environments/environment";
 
 const secretKey = environment.cryptoSecretKey;
 
