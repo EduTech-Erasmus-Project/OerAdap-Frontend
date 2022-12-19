@@ -41,7 +41,8 @@
               "moment",
               "@ckeditor/ckeditor5-build-classic",
               "crypto-js",
-              "numeral"
+              "numeral",
+              "@ckeditor/ckeditor5-angular"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

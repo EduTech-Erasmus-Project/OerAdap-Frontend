@@ -441,6 +441,7 @@
                 "item7": "Videos"
             },
             "btnDownload": "Download adapted OA",
+            "btnSave": "Save OA to Repository",
             "infoDownload": {
                 "title": "Download Information",
                 "p1": "Adapted elements in the learning object:",
@@ -453,7 +454,10 @@
                 "p3": "Remember that, once you have downloaded the adapted Learning Object by recommendation and do not create conflicts within the LO, we recommend that you verify if you have made the necessary changes before downloading it, we also recommend that you do not upload your adapted LO so as not to generate errors on the same learning object.",
                 "btnCancel": "No, Cancel",
                 "btnDownload": "Yes, Download"
-            }
+            },
+            "messages": {
+                "successROA": "The file has been saved to the repository."
+             }
         },
         "audio": {
             "tab": "Audios",

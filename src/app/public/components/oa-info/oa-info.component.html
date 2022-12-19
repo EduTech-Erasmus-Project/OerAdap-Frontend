@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="content">
     <h6>{{'edit.information.section1.title' | translate}}</h6>
     <p *ngIf="learningObject?.oa_detail.title"><span>{{'edit.information.section1.item1' | translate}} </span>
@@ -59,10 +60,21 @@
     </div>
 
     <div class="button">
-        <p-button
-            [disabled]="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"
-            (click)="showResponsiveDialog()" icon="pi pi-cloud-download"
-            label="{{'edit.information.btnDownload' | translate}}"></p-button>
+        <ng-container *ngIf="learningObject.roa; else roaTemplate">
+            <p-button [disabled]="loader" (click)="onSaveROA()">
+                <i style="margin-right: 0.5em;" class="pi"
+                    [ngClass]="{'pi-spin pi-spinner': loader, 'pi-save': !loader}"></i> {{'edit.information.btnSave' |
+                translate}}
+            </p-button>
+        </ng-container>
+        <ng-template #roaTemplate>
+            <p-button
+                [disabled]="learningObject?.config_adaptability.method == 'automatic' && !learningObject?.complete_adaptation"
+                (click)="showResponsiveDialog()" icon="pi pi-cloud-download"
+                label="{{'edit.information.btnDownload' | translate}}">
+            </p-button>
+        </ng-template>
+
         <p-dialog
             *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'"
             [header]="'edit.information.infoDownload.title' | translate" [(visible)]="displayResponsive" [modal]="true"

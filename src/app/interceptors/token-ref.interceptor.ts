@@ -8,17 +8,27 @@ import {
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StorageService } from '../services/storage.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class TokenRefInterceptor implements HttpInterceptor {
 
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService, private activatedRoute:ActivatedRoute) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    request = this.addHeaders(request);
+    let ref = this.activatedRoute?.snapshot?.queryParams?.ref;
+    //console.log("params", this.activatedRoute?.snapshot?.queryParams);
+    let id = this.activatedRoute?.snapshot?.queryParams?.id;
+    if(ref && id){
+      let decode = decodeURIComponent(atob(ref))
+      request = this.addHeaders(request, decode);
+    }else{
+      request = this.addHeaders(request, this.storageService.getStorageItem("user_ref"));
+    }
+
     return next.handle(request).pipe(
       catchError((error: any) => {
         return next.handle(request);
@@ -26,8 +36,8 @@ export class TokenRefInterceptor implements HttpInterceptor {
     );
   }
 
-  addHeaders(request: HttpRequest<any>) {
-    let token_acces = this.storageService.getStorageItem("user_ref");
+  addHeaders(request: HttpRequest<any>, token: string) {
+    let token_acces = token;
     return request.clone({
       setHeaders: {
         Accept: 'application/json',
