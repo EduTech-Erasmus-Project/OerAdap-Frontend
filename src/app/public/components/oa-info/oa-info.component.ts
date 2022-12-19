@@ -155,6 +155,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       .getDownloadFileZip(this.learningObject.id, this.location)
       .subscribe(
         (response) => {
+          //console.log("paht_download", response);
           if (response) {
             this.downloadFile(response.path);
             this.displayResponsive = false;

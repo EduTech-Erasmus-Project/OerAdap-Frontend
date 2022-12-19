@@ -79,7 +79,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     );
 
     this.WS.onerror = async (event) => {
-      console.log("WebSocket error: " + event);
+      //console.log("WebSocket error: " + event);
       this.messages.push({
         severity: "error",
         summary: "Error",
