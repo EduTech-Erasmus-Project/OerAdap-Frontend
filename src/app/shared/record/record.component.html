@@ -1,0 +1,21 @@
+<ng-container *ngIf="permis; else parmisTemplate">
+    <span>{{hourRecord}}:{{minRecord}}:{{secRecord}}</span>
+    <div class="buttons-record">
+        <button
+            [title]="rec ? ('edit.text.audio.record.pause' | translate) : ('edit.text.audio.record.record' | translate)"
+            (click)="record()" pButton pRipple type="button" [icon]="rec ? 'pi pi-pause' : 'pi pi-play'"
+            class="p-button-rounded p-button-danger p-button-outlined"></button>
+        <button [title]="'edit.text.audio.record.save' | translate" (click)="stopRecord()" *ngIf="recording" pButton
+            pRipple type="button" icon="pi pi-check"
+            class="p-button-rounded p-button-success p-button-outlined"></button>
+    </div>
+    <div class="record-player" *ngIf="audioURL">
+        <audio id="recordPlayer" [src]="audioURL | blobsanitizer" class="audio" #recordPlayer controls preload="none">
+        </audio>
+        <!-- <a id="audioDownload" pButton pRipple #audioDownload type="button" icon="pi pi-download"
+            class="p-button-rounded p-button-primary p-button-outlined"></a> -->
+    </div>
+</ng-container>
+<ng-template #parmisTemplate>
+    <p>{{permisText}}</p>
+</ng-template>

@@ -51,9 +51,6 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     this.audio = this.getValueCheck("audio");
     this.button = this.getValueCheck("button");
     this.paragraph = this.getValueCheck("paragraph");
-
-    //console.log(this.config_adaptability);
-    //(this.learningObject);
   }
 
   getValueCheck(value: string) {
@@ -68,10 +65,6 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     } else if (this.learningObject.config_adaptability.method === "mixed") {
       return "Mixta";
     }
-  }
-
-  onChangeButton() {
-    //console.log(this.button);
   }
 
   private emittEvent() {
@@ -109,8 +102,6 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.navegador = "Other";
     }
-
-    //this.getLocation()
     this.learningObjectService
       .getPosition()
       .then((pos) => {
@@ -120,12 +111,6 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       .catch((error) => {
         console.log(error);
       });
-
-    this.location = {
-      browser: this.navegador,
-      longitude: this.longitude,
-      latitude: this.latitude,
-    };
 
     this.msgs = [];
     if (
@@ -138,7 +123,6 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       .getTagAdapted(this.learningObject.id)
       .subscribe((response) => {
         if (response) {
-          //console.log("response", response);
           this.tag_adapted = response;
           this.displayResponsive = true;
         }
@@ -146,17 +130,32 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     this.subscription.push(objetos_adaptados);
   }
 
+  // private getPosition(){
+  //   this.learningObjectService.getPosition().then((pos) => {
+  //     this.latitude = pos.lat;
+  //     this.longitude = pos.lng;
+  //   });
+  // }
+
   async descargar() {
     this.msgs = [];
 
     if (this.dounloadState) {
       return;
     }
+
+    this.location = {
+      browser: this.navegador,
+      longitude: this.longitude,
+      latitude: this.latitude,
+    };
+
     this.dounloadState = true;
     let paht_download = await this.learningObjectService
       .getDownloadFileZip(this.learningObject.id, this.location)
       .subscribe(
         (response) => {
+          //console.log("paht_download", response);
           if (response) {
             this.downloadFile(response.path);
             this.displayResponsive = false;

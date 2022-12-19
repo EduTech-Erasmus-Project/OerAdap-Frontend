@@ -1,10 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { MessageService, Message } from "primeng/api";
+import { Component, Input, OnInit } from "@angular/core";
+import { Message } from "primeng/api";
 import { Subscription } from "rxjs";
 import { AudioService } from "src/app/services/audio.service";
 import { EventService } from "src/app/services/event.service";
-import { LearningObjectService } from "src/app/services/learning-object.service";
-
+import { LanguageService } from "src/app/services/language.service";
 @Component({
   selector: "app-audio",
   templateUrl: "./audio.component.html",
@@ -34,12 +33,12 @@ export class AudioComponent implements OnInit {
   constructor(
     //     thisprivate learningObjectService: LearningObjectService,
     private eventService: EventService,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private languageSevice: LanguageService
   ) {}
 
   ngOnInit(): void {
     this.textEdit = this.item?.text;
-    //console.log("all audios", this.item);
   }
 
   cliclEdit(texto) {
@@ -54,8 +53,6 @@ export class AudioComponent implements OnInit {
     this.messages = [];
 
     this.generate_text = true;
-    //console.log(item.attributes[0].path_src);
-
     this.answers = {
       tag_page_learning_object: item.id,
       type: "audio",
@@ -66,15 +63,14 @@ export class AudioComponent implements OnInit {
       path_system: item.attributes[0].path_system,
     };
 
-    //console.log(this.answers);
-
     let generate_text_audio = await this.audioService
       .sentCreateAudio(this.answers)
       .subscribe(
-        (response) => {
-          //console.log("respuesta" + response);
+        async (response) => {
           if (response) {
-            this.showSuccess("Se genero la descripción del audio con exito");
+            this.showSuccess(
+              await this.languageSevice.get("edit.audio.messages.success")
+            );
             this.editTextArea = false;
             this.textEdit = response.text;
             this.item.text = this.textEdit;
@@ -82,12 +78,9 @@ export class AudioComponent implements OnInit {
             this.eventService.emitEvent(true);
           }
         },
-        (err) => {
+        async (err) => {
           console.log(err);
-          this.showError(
-            "Error al generar la descripción: " +
-              (err.error?.message || err.message)
-          );
+          this.showError("Error, " + (err.error?.message || err.message));
           this.generate_text = false;
           this.editTextArea = false;
         }
@@ -119,16 +112,15 @@ export class AudioComponent implements OnInit {
         .toPromise();
       if (response) {
         this.textEdit = response.text;
-        this.showSuccess("Los datos se actualizaron con exito");
+        this.showSuccess(
+          await this.languageSevice.get("edit.audio.messages.success")
+        );
         this.editTextArea = false;
         this.item.text = this.textEdit;
         this.eventService.emitEvent(true);
       }
     } catch (error) {
-      this.showError(
-        "Error al actualizar los datos, " + error.error?.message ||
-          error.message
-      );
+      this.showError("Error, " + error.error?.message || error.message);
     }
   }
 
@@ -145,8 +137,6 @@ export class AudioComponent implements OnInit {
       path_system: this.item.attributes[0].path_system,
     };
 
-    //console.log(this.answers);
-
     try {
       let audio = await this.audioService
         .sentCreateAudio(this.answers)
@@ -154,23 +144,23 @@ export class AudioComponent implements OnInit {
       if (audio) {
         //console.log(audios)
         this.textEdit = audio.text;
-        this.showSuccess("Los datos se agregaron con exito");
+        this.showSuccess(
+          await this.languageSevice.get("edit.audio.messages.success")
+        );
         this.editTextArea = false;
         this.edit = true;
         this.item.text = audio.text;
         this.eventService.emitEvent(true);
       }
     } catch (err) {
-      this.showError(
-        "Error al guardar los datos, " + err.error?.message || err.message
-      );
+      this.showError(err.error?.message || err.message);
     }
   }
 
   showError(message) {
     this.messages.push({
       severity: "error",
-      //summary: "Error",
+      summary: "Error",
       detail: message,
     });
   }
@@ -178,22 +168,17 @@ export class AudioComponent implements OnInit {
   showSuccess(message) {
     this.messages.push({
       severity: "success",
-      //summary: "Success",
       detail: message,
     });
   }
 
   public async onChangeRevert() {
-    //console.log("revert", this.item.adaptation);
-
     try {
       this.messages = [];
       let res = await this.audioService
         .revertAudio(this.item.id, { adaptation: this.item.adaptation })
         .toPromise();
       this.eventService.emitEvent(true);
-
-      //("update res", res);
     } catch (error) {
       this.showError("Error, " + error.error?.message || error.message);
       this.item.adaptation = !this.item.adaptation;

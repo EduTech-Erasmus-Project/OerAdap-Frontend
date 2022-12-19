@@ -7,19 +7,12 @@ import {
   OnDestroy,
 } from "@angular/core";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
-import {
-  NgAudioRecorderService,
-  OutputFormat,
-  RecorderState,
-} from "ng-audio-recorder";
 import { ParagraphService } from "src/app/services/paragraph.service";
-import { v4 as uuidv4 } from "uuid";
 import { Paragraph } from "../../../models/Page";
-import { Message, MessageService } from "primeng/api";
+import { Message } from "primeng/api";
 import { EventService } from "../../../services/event.service";
 import { Subscription } from "rxjs";
-
-declare var MediaRecorder: any;
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-paragraph",
@@ -38,15 +31,15 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   public recordAudio: boolean = false;
   public fileRecord: File;
 
-  public hourRecord: number = 0;
-  public minRecord: number = 0;
-  public secRecord: number = 0;
+  // public hourRecord: number = 0;
+  // public minRecord: number = 0;
+  // public secRecord: number = 0;
 
-  public rec: boolean = false;
-  public recording: boolean = false;
-  public permis: boolean = true;
-  public generateAudio:boolean = false;
-  // public permisText: string;
+  // public rec: boolean = false;
+  // public recording: boolean = false;
+  // public permis: boolean = true;
+  public generateAudio: boolean = false;
+
   public audioURL: any;
   private interval: any;
   public loaderAdapted: boolean = false;
@@ -115,14 +108,14 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   public messages: Message[];
 
   constructor(
-    private audioRecorderService: NgAudioRecorderService,
     private paragraphService: ParagraphService,
-    private eventService: EventService
+    private eventService: EventService,
+    private languageService: LanguageService
   ) {
-    this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
-      // Handle Error
-      //console.log("recorderErrorCase", recorderErrorCase);
-    });
+    // this.audioRecorderService.recorderError.subscribe((recorderErrorCase) => {
+    //   // Handle Error
+    //   //console.log("recorderErrorCase", recorderErrorCase);
+    // });
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
@@ -134,7 +127,7 @@ export class ParagraphComponent implements OnInit, OnDestroy {
 
   async onSave() {
     this.messages = [];
-    
+
     if (this.htmlContent || this.file || this.fileRecord) {
       //console.log("on save", this.file || this.fileRecord);
       this.updateParagraph = true;
@@ -160,26 +153,33 @@ export class ParagraphComponent implements OnInit, OnDestroy {
             //this.edit = false;
 
             if (this.messages.length <= 0) {
-              this.messages.push({
-                severity: "success",
-                //summary: "Guardado",
-                detail:
-                  "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-              });
+              this.showSuccessMessage();
               this.eventService.emitEvent(true);
             }
           },
           (err) => {
             console.log(err);
-            this.messages.push({
-              severity: "error",
-              summary: "Error",
-              detail: err,
-            });
+            this.showErrorMessage(err.error?.message || err.error);
           }
         );
       this.subscriptions.push(paragraphSub);
     }
+  }
+
+  private async showSuccessMessage() {
+    this.messages.push({
+      severity: "success",
+      //summary: "Guardado",
+      detail: await this.languageService.get("edit.text.messages.success"),
+    });
+  }
+
+  private showErrorMessage(message: string) {
+    this.messages.push({
+      severity: "error",
+      summary: "Error",
+      detail: message,
+    });
   }
 
   onSelect(evt) {
@@ -199,76 +199,77 @@ export class ParagraphComponent implements OnInit, OnDestroy {
   onCancelSelection() {
     this.selectFile = true;
     this.recordAudio = false;
-    this.recording = false;
+    //this.recording = false;
+    this.fileRecord = undefined;
     this.onRemove();
   }
 
-  async record() {
-    this.rec = !this.rec;
-    if (this.recording) {
-      //console.log(this.audioRecorderService.getRecorderState())
-      if (this.rec) {
-        this.audioRecorderService.resume();
-      } else {
-        this.audioRecorderService.pause();
-      }
-    } else {
-      this.recording = true;
-      this.audioURL = undefined;
-      this.secRecord = 0;
-      this.minRecord = 0;
-      this.hourRecord = 0;
-      this.audioRecorderService.startRecording();
+  // async record() {
+  //   this.rec = !this.rec;
+  //   if (this.recording) {
+  //     //console.log(this.audioRecorderService.getRecorderState())
+  //     if (this.rec) {
+  //       this.audioRecorderService.resume();
+  //     } else {
+  //       this.audioRecorderService.pause();
+  //     }
+  //   } else {
+  //     this.recording = true;
+  //     this.audioURL = undefined;
+  //     this.secRecord = 0;
+  //     this.minRecord = 0;
+  //     this.hourRecord = 0;
+  //     this.audioRecorderService.startRecording();
 
-      this.interval = setInterval(() => {
-        //console.log("record status", RecorderState.PAUSED)
-        if (
-          RecorderState.PAUSED != this.audioRecorderService.getRecorderState()
-        ) {
-          this.secRecord += 1;
-          if (this.secRecord === 60) {
-            this.secRecord = 0;
-            this.minRecord += 1;
-          }
-          if (this.minRecord === 60) {
-            this.minRecord = 0;
-            this.hourRecord += 1;
-          }
-          if (this.hourRecord === 24) {
-            this.stopRecord();
-          }
-        }
-      }, 1000);
-    }
-  }
+  //     this.interval = setInterval(() => {
+  //       //console.log("record status", RecorderState.PAUSED)
+  //       if (
+  //         RecorderState.PAUSED != this.audioRecorderService.getRecorderState()
+  //       ) {
+  //         this.secRecord += 1;
+  //         if (this.secRecord === 60) {
+  //           this.secRecord = 0;
+  //           this.minRecord += 1;
+  //         }
+  //         if (this.minRecord === 60) {
+  //           this.minRecord = 0;
+  //           this.hourRecord += 1;
+  //         }
+  //         if (this.hourRecord === 24) {
+  //           this.stopRecord();
+  //         }
+  //       }
+  //     }, 1000);
+  //   }
+  // }
 
-  async stopRecord() {
-    clearInterval(this.interval);
-    this.audioRecorderService
-      .stopRecording(OutputFormat.WEBM_BLOB_URL)
-      .then(async (output) => {
-        //console.log(output)
-        this.rec = false;
-        this.recording = false;
-        this.audioURL = output;
-        this.fileRecord = await this.transforBlob(output);
-      })
-      .catch((errrorCase) => {
-        // Handle Error
-        console.log(errrorCase);
-      });
-  }
+  // async stopRecord() {
+  //   clearInterval(this.interval);
+  //   this.audioRecorderService
+  //     .stopRecording(OutputFormat.WEBM_BLOB_URL)
+  //     .then(async (output) => {
+  //       //console.log(output)
+  //       this.rec = false;
+  //       this.recording = false;
+  //       this.audioURL = output;
+  //       this.fileRecord = await this.transforBlob(output);
+  //     })
+  //     .catch((errrorCase) => {
+  //       // Handle Error
+  //       console.log(errrorCase);
+  //     });
+  // }
 
-  async transforBlob(ulr: any) {
-    try {
-      const response = await fetch(ulr);
-      const blob = await response.blob();
-      const file = new File([blob], "audio/mp3", { type: blob.type });
-      return file;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async transforBlob(ulr: any) {
+  //   try {
+  //     const response = await fetch(ulr);
+  //     const blob = await response.blob();
+  //     const file = new File([blob], "audio/mp3", { type: blob.type });
+  //     return file;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   async editParagraph() {
     this.edit = !this.edit;
@@ -292,31 +293,25 @@ export class ParagraphComponent implements OnInit, OnDestroy {
       this.subscriptions.push(paragraphSub);
     }
   }
-  async onGenerateAudio() {
+
+  public async onGenerateAudio() {
     this.messages = [];
     this.generateAudio = true;
     let convertTextSub = await this.paragraphService
       .convertTextToAudio(this.paragraph.id)
-      .subscribe((res: any) => {
-        //console.log(res);
-        this.paragraphAdapted = res;
-        this.messages.push({
-          severity: "success",
-          //summary: "Guardado",
-          detail:
-            "Se ha agregado el texto y el audio de ayuda al Objeto de Aprendizaje.",
-        });
-        this.eventService.emitEvent(true);
-        this.generateAudio = false;
-      }, error => {
-        this.messages.push({
-          severity: "error",
-          //summary: "Guardado",
-          detail:
-            "Se produjo un error al generar el audio de ayuda.",
-        });
-        this.generateAudio = false;
-      });
+      .subscribe(
+        (res: any) => {
+          //console.log(res);
+          this.paragraphAdapted = res;
+          this.showSuccessMessage();
+          this.eventService.emitEvent(true);
+          this.generateAudio = false;
+        },
+        (error: any) => {
+          this.showErrorMessage(error.error?.message || error.error);
+          this.generateAudio = false;
+        }
+      );
     this.subscriptions.push(convertTextSub);
   }
 
@@ -326,19 +321,20 @@ export class ParagraphComponent implements OnInit, OnDestroy {
     try {
       this.messages = [];
       let res = await this.paragraphService
-        .revertText(this.paragraph.id, { adaptation: this.paragraph.adaptation })
+        .revertText(this.paragraph.id, {
+          adaptation: this.paragraph.adaptation,
+        })
         .toPromise();
       this.eventService.emitEvent(true);
 
       //console.log("update res", res);
     } catch (error) {
-      this.messages.push({
-        severity: "error",
-        //summary: "Guardado",
-        detail:
-        "Error, " + error.error?.message || error.message,
-      });
+      this.showErrorMessage(error.error?.message || error.error);
       this.paragraph.adaptation = !this.paragraph.adaptation;
     }
+  }
+
+  public recordFile(evt: any) {
+    this.fileRecord = evt;
   }
 }

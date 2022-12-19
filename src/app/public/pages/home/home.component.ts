@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private async loadData() {
     try {
       let res = await this.learningObjectService.getMetadataInfo().toPromise();
-      // console.log("res", res);
+      //console.log("res metadata", res);
       this.metadataInfo = res;
       this.loadChart();
     } catch (error) {

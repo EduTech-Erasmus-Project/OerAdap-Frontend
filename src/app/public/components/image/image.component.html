@@ -1,5 +1,5 @@
 <div class="p-mt-2" style="display: flex; align-items: center">
-    <p>Adaptación</p>
+    <p>{{'edit.textAdaptation' | translate}}</p>
     <p-inputSwitch (onChange)="onChangeRevert()" class="p-ml-1" [(ngModel)]="item.adaptation"></p-inputSwitch>
 </div>
 
@@ -10,7 +10,7 @@
 
     <div class="contenedor-desc-img" *ngIf="!item.text_table && !flag_text_table">
         <div class="fullscreen p-mb-1">
-            <p>Previsualización de imagen</p>
+            <p>{{'edit.img.imgPreview' | translate}}</p>
             <p-inputSwitch (onChange)="onChangeViewFullScreenImage($event, item)" class="p-ml-1"
                 [(ngModel)]="item.img_fullscreen"></p-inputSwitch>
         </div>
@@ -20,12 +20,12 @@
                     <!-- <div class="iono-eye">
                             <i class="pi pi-eye" id ="icono"></i>
                         </div> -->
-                    <img src="{{ item.link }}" alt="{{ item.text }}" pTooltip="Previsualizar imagen"
+                    <img src="{{ item.link }}" alt="{{ item.text }}" [pTooltip]="'edit.img.toast' | translate"
                         tooltipPosition="bottom" tabindex="1" />
                 </a>
             </div>
         </div>
-        <h6>Descripcion alt de la imagen :</h6>
+        <h6>{{'edit.img.description' | translate}}</h6>
         <div class="text-description" *ngIf="!edit">
             <p>{{ item.text }}</p>
         </div>
@@ -38,38 +38,36 @@
         <input style="width: 100%" type="text" formControlName="{{ item.id }}" pInputText />
     </form>
 
-    <p-dialog header="Crea tu propia tabla HMTL" [(visible)]="displayModal" [modal]="true" [style]="{ width: '70vw' }"
-        [draggable]="false" [resizable]="false">
+    <p-dialog [header]="'edit.img.table.title' | translate" [(visible)]="displayModal" [modal]="true"
+        [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
         <div class="conjunto-img-input">
             <div class="image-content-img">
                 <div class="photo-product">
                     <a href="{{ item.link }}" class="fancybox" data-lightbox="gallery1">
-                        <!-- <div class="iono-eye">
-                            <i class="pi pi-eye" id ="icono"></i>
-                        </div> -->
-                        <img src="{{ item.link }}" alt="{{ item.text }}" pTooltip="Previsualizar imagen"
+  
+                        <img src="{{ item.link }}" alt="{{ item.text }}" [pTooltip]="'edit.img.toast' | translate"
                             tooltipPosition="bottom" tabindex="1" />
                     </a>
                 </div>
             </div>
             <div class="create-table">
                 <label for="name" style="color: gray; padding: 10px 10px">
-                    Click en insertar tabla para crear una tabla nueva:</label>
+                    {{'edit.img.table.description' | translate}}</label>
                 <br />
                 <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="table_result"></ckeditor>
                 <p-messages></p-messages>
             </div>
         </div>
         <ng-template pTemplate="footer">
-            <div class="bt-list" style="display: flex">
-                <div class="btn-cancel">
-                    <button pButton pRipple type="button" label="Cancelar" class="p-button-danger"
-                        (click)="cancelGenerate()" icon="pi pi-times"></button>
-                </div>
+            <div class="bt-list" style="display: flex; align-items: center;">
                 <div class="btn-save">
                     <p-confirmPopup></p-confirmPopup>
-                    <button pButton pRipple icon="pi pi-check" (click)="confirm($event, item.id)" label="Guardar Tabla"
-                        styleClass="p-button-text"></button>
+                    <button pButton pRipple icon="pi pi-check" (click)="confirm($event, item.id)"
+                        [label]="'edit.img.btnSave' | translate" styleClass="p-button-text"></button>
+                </div>
+                <div class="btn-cancel">
+                    <button pButton pRipple type="button" [label]="'edit.img.btnCancel' | translate"
+                        class="p-button-danger" (click)="cancelGenerate()" icon="pi pi-times"></button>
                 </div>
             </div>
         </ng-template>
@@ -80,23 +78,25 @@
     <ng-template pTemplate="footer" class="container-buttons">
         <ng-container *ngIf="edit; else buttonTemplate" class="container-buttons">
             <div class="btn-sucessfull">
-                <p-button (click)="onSave(item.id)" label="Guardar" icon="pi pi-check"></p-button>
+                <p-button (click)="onSave(item.id)" [label]="'edit.img.btnSave' | translate" icon="pi pi-check">
+                </p-button>
             </div>
             <div class="btn-cancel">
-                <button pButton (click)="cancel(item.id)" pRipple type="button" label="Cancelar" class="p-button-danger"
-                    icon="pi pi-times"></button>
+                <button pButton (click)="cancel(item.id)" pRipple type="button"
+                    [label]="'edit.img.btnCancel' | translate" class="p-button-danger" icon="pi pi-times"></button>
             </div>
         </ng-container>
         <ng-template #buttonTemplate>
             <div class="principal-buttons" *ngIf="!item.text_table && !flag_text_table">
                 <div class="btn-sucessfull">
-                    <p-button (click)="cliclEdit(item.text)" label="Editar descripcion" icon="pi pi-check">
+                    <p-button (click)="cliclEdit(item.text)" [label]="'edit.img.btnEdit' | translate"
+                        icon="pi pi-check">
                     </p-button>
                 </div>
 
                 <div class="btn-sucessfull" *ngIf="!edit">
-                    <button pButton pRipple (click)="showModalDialog()" class="p-button-success" label="Crear Tabla"
-                        icon="pi pi-save"></button>
+                    <button pButton pRipple (click)="showModalDialog()" class="p-button-success"
+                        [label]="'edit.img.btnCreateTable' | translate" icon="pi pi-save"></button>
                 </div>
             </div>
             <div class="second-button" *ngIf="item.text_table || flag_text_table">

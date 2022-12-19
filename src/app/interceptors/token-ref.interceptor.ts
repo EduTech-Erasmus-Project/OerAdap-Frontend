@@ -18,13 +18,9 @@ export class TokenRefInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    //console.log('peticion http');
- 
     request = this.addHeaders(request);
-    
     return next.handle(request).pipe(
       catchError((error: any) => {
-        //console.log("interceptor error", error);
         return next.handle(request);
       })
     );

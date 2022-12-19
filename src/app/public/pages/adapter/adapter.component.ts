@@ -1,9 +1,7 @@
 import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import {
-  FormArray,
   UntypedFormBuilder,
-  FormControl,
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
@@ -12,7 +10,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StorageService } from "../../../services/storage.service";
 import { LearningObject } from "../../../models/LearningObject";
-import { Message, MessageService } from "primeng/api";
+import { Message } from "primeng/api";
 import { BreadcrumbService } from "src/app/services/breadcrumb.service";
 import { LanguageService } from "src/app/services/language.service";
 
@@ -30,11 +28,8 @@ export class AdapterComponent implements OnInit, OnDestroy {
   private navigateId: number;
   public learningObjects?: LearningObject[];
   private subscriptions: Subscription[] = [];
-
   public msgs: Message[] = [];
-
   public settingsForm: UntypedFormGroup;
-
   public checkboxs: Array<any>;
 
   constructor(
