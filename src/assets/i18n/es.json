@@ -440,6 +440,7 @@
             "item7": "Videos"
          },
          "btnDownload": "Descargar OA adaptado",
+         "btnSave": "Guardar OA en Repositorio",
          "infoDownload": {
             "title": "Información de descarga",
             "p1": "Elementos adaptados en el objeto de aprendizaje:",
@@ -452,6 +453,9 @@
             "p3": "Recuerda que, una vez descargado el Objeto de Aprendizaje adaptado por recomendación y no crear conflictos dentro del OA te recomendamos verificar si has hecho los cambios necesarios antes de descargarlo, tambien te recomendamos no subir tu OA adaptado para no generar errores sobre el mismo objeto de aprendizaje.",
             "btnCancel": "No, Cancelar",
             "btnDownload": "Si, Descargar"
+         },
+         "messages": {
+            "successROA": "Se ha guardado el archivo en el repositorio."
          }
       },
       "audio": {

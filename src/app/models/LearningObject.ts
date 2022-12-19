@@ -18,6 +18,7 @@ export interface LearningObject {
   paragraph_adaptation?: boolean;
   video_adaptation?: boolean;
   file_download?:string;
+  roa?:boolean;
 }
 
 export interface ConfigAdaptability {

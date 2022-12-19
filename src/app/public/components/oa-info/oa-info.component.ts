@@ -11,7 +11,9 @@ import {
 import { LearningObjectService } from "src/app/services/learning-object.service";
 import { LearningObject } from "../../../models/LearningObject";
 import { Subscription } from "rxjs";
-import { Message } from "primeng/api";
+import { Message, MessageService } from "primeng/api";
+import { ActivatedRoute } from "@angular/router";
+import { LanguageService } from "src/app/services/language.service";
 
 @Component({
   selector: "app-oa-info",
@@ -40,7 +42,25 @@ export class OaInfoComponent implements OnInit, OnDestroy {
   public dounloadState: boolean = false;
   public msgs: Message[];
 
-  constructor(private learningObjectService: LearningObjectService) {}
+  public loader: boolean = false;
+  private refKey?: string;
+  private refId?: number;
+
+  constructor(
+    private learningObjectService: LearningObjectService,
+    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService,
+    private languageService: LanguageService
+  ) {
+    //console.log("router", this.activatedRoute?.snapshot?.queryParams);
+    let ref = this.activatedRoute?.snapshot?.queryParams?.ref;
+    let id = this.activatedRoute?.snapshot?.queryParams?.id;
+    if (ref && id) {
+      this.refKey = decodeURIComponent(atob(ref));
+      this.refId = Number(decodeURIComponent(atob(id)));
+    }
+  }
+
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
@@ -51,6 +71,8 @@ export class OaInfoComponent implements OnInit, OnDestroy {
     this.audio = this.getValueCheck("audio");
     this.button = this.getValueCheck("button");
     this.paragraph = this.getValueCheck("paragraph");
+
+    //console.log("learningObject", this.learningObject);
   }
 
   getValueCheck(value: string) {
@@ -194,5 +216,44 @@ export class OaInfoComponent implements OnInit, OnDestroy {
   }
   onChangeParagraph() {
     this.emittEvent();
+  }
+
+  public async onSaveROA() {
+    try {
+      this.loader = true;
+      let response = await this.learningObjectService
+        .getDownloadFileZip(this.learningObject.id, this.location)
+        .toPromise();
+      //console.log("Download", response);
+
+      let data = {
+        key: this.refKey,
+        urlZip: response.path,
+        IdOa: this.refId,
+        IdOer: this.learningObject.id,
+      };
+      // console.log("data send ROA", data);
+      let resRoa:any = await this.learningObjectService.postROA(data).toPromise();
+      console.log("resRoa", resRoa);
+      this.messageService.add({
+        severity: "success",
+        detail: await this.languageService.get(
+          "edit.information.messages.successROA"
+        ), //"Se ha guardado el archivo en el repositorio.",
+      });
+      this.loader = false;
+      if(resRoa?.data){
+        console.log("url ", resRoa?.data?.roa_ref_url);
+        window.open(resRoa?.data?.roa_ref_url, "_blank");
+      }
+    } catch (error) {
+      this.loader = false;
+      console.log(error);
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: error.error?.message || error.message,
+      });
+    }
   }
 }

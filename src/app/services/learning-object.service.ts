@@ -9,6 +9,7 @@ const baseUrl = environment.baseUrl;
   providedIn: "root",
 })
 export class LearningObjectService {
+  private roa_api?: string = environment.repoUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -64,9 +65,11 @@ export class LearningObjectService {
       .pipe(map((data: any) => data));
   }
 
-  
-
   public getMetadataInfo() {
     return this.http.get(`${baseUrl}/metadata_info/`);
+  }
+
+  public postROA(data: any) {
+    return this.http.post(`${this.roa_api}/learning-object-oer/`, data);
   }
 }
