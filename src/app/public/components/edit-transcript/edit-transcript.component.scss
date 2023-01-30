@@ -1,0 +1,20 @@
+.spinner-progress {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.jsonToString {
+    white-space: pre;
+}
+
+.transcript-container {
+    width: 100%;
+    //overflow-x: hidden;
+}
+
+:host ::ng-deep .input-text {
+    width: 100%;
+}

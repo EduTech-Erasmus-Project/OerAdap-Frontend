@@ -1,0 +1,17 @@
+<div class="main-content p-grid guide-content">
+    <div class="p-col-12 p-md-6 p-lg-6">
+        <h1>{{'guide.video.title' | translate}}</h1>
+        <p>
+            {{'guide.video.p1' | translate}}
+        </p>
+        <p>
+            {{'guide.video.p2' | translate}}
+        </p>
+        <p>{{'guide.video.p3' | translate}}</p>
+        <p>{{'guide.video.p4' | translate}}</p>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-6">
+        <!-- <img loading="lazy" src="assets/gifs/video.gif" alt="Adaptar un video." /> -->
+        <video [title]="'guide.video.title' | translate" src="assets/videos/video.mp4" type="video/mp4" controls autoplay loop></video>
+    </div>
+</div>

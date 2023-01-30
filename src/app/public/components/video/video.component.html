@@ -1,0 +1,162 @@
+<div class="p-mt-2" style="display: flex; align-items: center">
+    <p>{{ "edit.textAdaptation" | translate }}</p>
+    <p-inputSwitch (onChange)="onChangeRevert()" class="p-ml-1" [(ngModel)]="video.adaptation"></p-inputSwitch>
+</div>
+
+<p-card #pnl [style]="{ 'margin-bottom': '2em' }">
+    <p-blockUI [target]="pnl" [blocked]="!video.adaptation">
+        <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
+    </p-blockUI>
+    
+    <p>
+        {{ "edit.video.description" | translate }}
+        <span>{{ video.attributes[0].source }}</span>
+    </p>
+
+    <ng-container *ngIf="video.attributes[0].source === 'local'; else videoTemplate">
+        <video style="width: 100%;" controls>
+            <source [src]="video.attributes[0].path_preview | urlsanitizer" type="video/mp4" />
+            Your browser does not support HTML video.
+        </video>
+    </ng-container>
+    <ng-template #videoTemplate>
+        <iframe class="video" [src]="video.attributes[0].path_preview | urlsanitizer"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms" title="Vista previa del video" controls
+            frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </ng-template>
+
+    <p-messages *ngIf="messages.length > 0" [(value)]="messages" [enableService]="false"></p-messages>
+    <p *ngIf="video.tags_adapted?.transcript?.length <= 0 && !video.adapting">
+        {{ "edit.video.notSubtitle" | translate }}
+    </p>
+
+    <div class="progres-download" *ngIf="video.adapting">
+        <div class="progress-bar">
+            <p-progressBar [value]="download?.data?.percent || 100"></p-progressBar>
+            <span class="ml-1">{{ download?.data?.eta_str || "00:00" }}</span>
+        </div>
+        <div class="status">
+            <p>{{ messageDownload }}</p>
+        </div>
+    </div>
+
+    <div class="content-subtitle" *ngIf="transcript?.length > 0">
+        <h5>Subtitulos</h5>
+        <ul>
+            <li *ngFor="let item of transcript">
+                <div class="description">
+                    <p>Idiaoma:</p>
+                    <span>{{ item.label }} - {{ item.srclang }}</span> <br />
+                    <span>{{ item.source }}</span>
+                </div>
+                <p-button (click)="showTranscript(item.id)" label="Ver" styleClass="p-button-sm"></p-button>
+                <!-- jsonToString(item.id) -->
+            </li>
+        </ul>
+    </div>
+
+    <!-- *ngIf="selectFile" -->
+    <div class="add-subtitle" *ngIf="!video.adapting">
+        <div class="content-buttons">
+            <!-- <ng-container *ngIf="loader || ; else spinnerTemplate">
+                <div class="spinner-progress">
+                    <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+                        strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+                    <p>{{video.adapting ? 'Generando':'Cargando'}} subtítulos por favor espere...</p>
+                </div>
+            </ng-container>
+            <ng-template #spinnerTemplate> -->
+
+            <p-button *ngIf="transcript?.length <= 0" [label]="
+          video.attributes[0].source != 'local'
+            ? ('edit.video.btnDownload' | translate)
+            : ('edit.video.btnGenerate' | translate)
+        " (onClick)="onGenerateSubtitle()">
+            </p-button>
+
+            <ng-container *ngIf="video.attributes[0].source === 'local'">
+                <span *ngIf="transcript?.length <= 0">{{
+                    "edit.video.divider" | translate
+                    }}</span>
+                <p-button [label]="'edit.video.btnAdd' | translate" (onClick)="addTranscription()"></p-button>
+            </ng-container>
+
+            <form [formGroup]="form" class="form-subtitle p-grid" (submit)="onSubmit()">
+                <ng-container [formGroup]="transcription"
+                    *ngFor="let transcription of transcriptions.controls; let i = index">
+                    <div class="p-col-12 p-md-5 p-lg-5">
+                        <p-dropdown formControlName="language" [options]="language" placeholder="Idioma"
+                            optionLabel="name" [showClear]="true" (onChange)="onChangeLanguage($event)">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col-12 p-md-5 p-lg-5">
+                        <!-- <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*"
+                                maxFileSize="1000000" chooseLabel="Seleccionar archivo"></p-fileUpload> -->
+                        <input class="file_upload" pButton formControlName="file" type="file" accept=".srt"
+                            (change)="onFileChange($event, i)" />
+                    </div>
+                    <div class="p-col-12 p-md-2 p-lg-2">
+                        <button [title]="'edit.video.btnRemove' | translate" (click)="removeTranscription(i)" pButton
+                            pRipple type="button" icon="pi pi-times"
+                            class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </ng-container>
+
+                <div *ngIf="transcriptions.controls.length > 0" class="p-col-12 p-md-12 p-lg-12">
+                    <p-button type="submit" icon="pi pi-save" [label]="'edit.video.btnSave' | translate"
+                        styleClass="p-button">
+                    </p-button>
+                </div>
+            </form>
+            <!-- </ng-template> -->
+        </div>
+    </div>
+
+    <!-- <ng-template pTemplate="footer">
+        <div class="footer-buttons" *ngIf="!video.adapting">
+            <p-button *ngIf="!selectFile" (click)="selectFile = true" label="Editar" icon="pi pi-check">
+            </p-button>
+            <button *ngIf="selectFile" (click)="onCancelSelection()" pButton pRipple type="button" icon="pi pi-times"
+                label="Cancelar" class="p-button-danger"></button>
+        </div>
+    </ng-template> -->
+</p-card>
+
+<p-dialog [header]="'edit.video.transcript.title' | translate" [(visible)]="displaySubtitle" *ngIf="displaySubtitle" [modal]="true"
+    [style]="{ width: '75vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+    <!-- <ng-container *ngIf="!loaderJson; else jsonTemplate">
+        <p class="jsonToString">{{jsonString}}</p>
+    </ng-container>
+    <ng-template #jsonTemplate>
+        <div class="spinner-progress">
+            <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+                animationDuration=".5s"></p-progressSpinner>
+            <p>Cargando subtítulo por favor espere...</p>
+        </div>
+    </ng-template>
+
+
+
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displaySubtitle=false" label="Cerrar" styleClass="p-button-text">
+        </p-button>
+    </ng-template> -->
+
+    <app-edit-transcript [transcriptId]="transcriptId" [onButtonEvt]="onButtonEvt"></app-edit-transcript>
+
+    <ng-template pTemplate="footer">
+        <p-button *ngIf="acctionTranscript == 'view'" icon="pi pi-pencil" (click)="emitButtonEvt('edit')" [label]="'edit.video.btnEdit' | translate"
+            styleClass="p-button-text">
+        </p-button>
+
+        <p-button *ngIf="acctionTranscript == 'edit'" icon="pi pi-save" (click)="emitButtonEvt('save')" [label]="'edit.video.btnSave' | translate"
+            styleClass="p-button-text">
+        </p-button>
+
+        <p-button icon="pi pi-times" (click)="displaySubtitle = false" label="Cerrar" styleClass="p-button-text">
+        </p-button>
+    </ng-template>
+</p-dialog>

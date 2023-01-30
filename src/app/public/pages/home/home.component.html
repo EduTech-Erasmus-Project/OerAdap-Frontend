@@ -1,0 +1,133 @@
+<div class="content p-grid">
+    <div class="p-col-12 p-md-6 p-lg-6 title main-content">
+        <h1>{{'home.title' | translate}}</h1>
+        <a [routerLink]="['/adapter']" pButton pRipple type="button" label="{{'home.btnInit' | translate}}" class="p-button-rounded"
+            styleClass="p-button-lg"></a>
+
+
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-6 img">
+        <img loading="lazy" src="assets/img/svg3.svg" alt="{{'home.altCover' | translate}}" tabindex="1">
+    </div>
+
+
+    <div class="p-col-12 p-md-12 p-lg-12 contact-us banner-count" style='background-image: url("assets/img/cdc.jpg");'>
+        <div class="bg">
+            <div class="banner-content">
+                <div class="p-grid">
+                    <div class="p-col-6 p-md-6 p-lg-3">
+                        <p class="text-count">
+                            <i class="pi pi-book" style="font-size: 0.8em"></i>
+                            {{toFormat(metadataInfo?.learning_object)}}
+                        </p>
+                        <p>{{'home.count.oa' | translate}}</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-2">
+                        <p class="text-count">
+                            <i class="pi pi-play" style="font-size: 0.8em"></i>
+                            {{toFormat(metadataInfo?.audio)}}
+                        </p>
+                        <p>{{'home.count.audio' | translate}}</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-2">
+                        <p class="text-count">
+                            <i class="pi pi-image" style="font-size: 0.8em"></i>
+                            {{toFormat(metadataInfo?.image)}}
+                        </p>
+                        <p>{{'home.count.img' | translate}}</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-2">
+                        <p class="text-count">
+                            <i class="pi pi-align-left" style="font-size: 0.8em"></i>
+                            {{toFormat(metadataInfo?.paragraphs)}}
+                        </p>
+                        <p>{{'home.count.text' | translate}}</p>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-3">
+                        <p class="text-count">
+                            <i class="pi pi-video" style="font-size: 0.8em"></i>
+                            {{toFormat(metadataInfo?.video)}}
+                        </p>
+                        <p>{{'home.count.video' | translate}}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content-information">
+        <svg class="wave-top" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#006CE1" fill-opacity="1" d="M0,128L1440,288L1440,320L0,320Z"></path>
+        </svg>
+        <div class="p-grid p-col-12 p-md-12 p-lg-12 information">
+
+            <div class="p-col-12 p-md-6 p-lg-6 information-image main-content">
+                <div class="video-content" style='background-image: url("assets/img/yannis.jpg");'>
+                    <!-- <img loading="lazy" src="assets/img/yannis.jpg" alt="Portada de video"> -->
+                    <div class="video-bg">
+                        <button title="{{'home.btnVideo' | translate}}" (click)="showModalDialog()" pButton pRipple type="button" icon="pi pi-play"
+                            class="p-button-rounded p-button-outlined " styleClass="p-button-lg"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-6 main-content text-cintent">
+                <p>{{'home.description' | translate}}</p>
+                <a [routerLink]="['/about-us']" pButton pRipple type="button" label="{{'home.btnMore' | translate}}"
+                    class="p-button-outlined p-button-rounded p-button-info btn-more-info" styleClass="p-button-lg"></a>
+            </div>
+        </div>
+        <svg class="wave-bott" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#006CE1" fill-opacity="1" d="M0,128L1440,288L1440,320L0,320Z"></path>
+        </svg>
+    </div>
+
+
+
+    <div class="p-col-12 p-md-12 p-lg-12 main-content text-info">
+        <h2>{{'home.tittleDescription2' | translate}}</h2>
+        <p>
+            {{'home.description2' | translate}}<br>
+            {{'home.description3' | translate}}
+        </p>
+    </div>
+
+
+    <div class="p-col-12 p-md-12 p-lg-12 contact-us" style='background-image: url("assets/img/cdc.jpg");'>
+        <div class="bg">
+            <div class="main-content">
+                <h3>
+                    {{'home.titleContact' | translate}}
+                </h3>
+                <p>{{'home.descriptionContact' | translate}}</p>
+                <a [routerLink]="['/contact']" pButton pRipple type="button" label="{{'home.btnContact' | translate}}"
+                    class="p-button-outlined p-button-rounded" styleClass="p-button-lg"></a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="metadataInfo?.countries?.length > 0" class=" p-col-12 p-md-12 p-lg-12 info-country">
+        <h3>
+            {{'home.infoView' | translate}}
+        </h3>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-6 p-lg-6 p-md-offset-3  p-lg-offset-3">
+                <p-chart type="pie" [data]="data" [options]="chartOptions" [style]="{'width': '100%'}"></p-chart>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+
+    <video width="100%" height="500"
+        src="https://edutech-project.org/wp-content/uploads/2021/05/conferencia-magistral-asistencia-tecnologica-a-la-accesibilidad-en-la-educacion_cEgYtmCx_CAbx.mp4"
+        controls></video>
+    <!-- <iframe width="100%" height="500" [src]="'https://edutech-project.org/wp-content/uploads/2021/05/conferencia-magistral-asistencia-tecnologica-a-la-accesibilidad-en-la-educacion_cEgYtmCx_CAbx.mp4' | urlsanitizer" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe> -->
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="{{'home.btnClouseVideo' | translate}}" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

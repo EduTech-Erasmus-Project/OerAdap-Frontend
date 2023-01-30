@@ -1,0 +1,24 @@
+<div class="main-content p-grid guide-content">
+    <div class="p-col-12 p-md-6 p-lg-6">
+        <h1>{{'guide.introduction.title' | translate}}</h1>
+        <p>
+            {{'guide.introduction.p1' | translate}}
+        </p>
+        <p>
+            {{'guide.introduction.p2' | translate}}
+        </p>
+        <p>
+            {{'guide.introduction.p3' | translate}}
+        </p>
+        <p>
+            {{'guide.introduction.p4' | translate}}
+            <a [routerLink]="[ '/about-us']">{{'guide.introduction.p5' | translate}}</a>, <a [routerLink]="[ '/contact']">{{'guide.introduction.p6' | translate}}</a>
+
+        </p>
+        <p>{{'guide.introduction.p7' | translate}}</p>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-6">
+        <!-- <img loading="lazy" src="assets/gifs/introduction.gif" alt="Introducción a la plataforma" /> -->
+        <video [title]="'guide.introduction.videoTitle' | translate" src="assets/videos/introducction.mp4" type="video/mp4" controls autoplay loop></video>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+.web-view {
+  .iframe {
+    width: 100%;
+    height: 68vh;
+  }
+
+  &:fullscreen {
+    //border: 2px solid #f00;
+    background-color: #fff;
+
+    .iframe {
+      width: 100%;
+      height: 94.5vh;
+    }
+  }
+
+  .controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+
+  }
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+
+  h5 {
+    margin: 0;
+    margin-right: 5px;
+
+  }
+}

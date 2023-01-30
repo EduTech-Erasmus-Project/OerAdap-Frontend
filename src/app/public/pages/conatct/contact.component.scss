@@ -1,0 +1,41 @@
+.contact-us {
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    .p-grid{
+        height: 100%;
+    }
+  }
+  
+  .p-grid {
+    margin: 0;
+  }
+  
+  .content-info {
+    padding: 10px;
+    //background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    overflow: visible;
+    text-align: left;
+    font-size: 1.2em;
+  }
+
+  .contact-forms{
+      margin: 25px 0;
+      .p-grid{
+          display: flex;
+          align-items: center;
+          justify-self: center;
+          textarea{
+              resize: vertical;
+              min-height: 100px;
+          }
+      }
+  }

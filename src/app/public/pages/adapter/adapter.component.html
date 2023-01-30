@@ -1,0 +1,191 @@
+<div class="main-content">
+    <div class="dop-zone p-grid ">
+        <div class="p-col-1 p-md-3 p-lg-3">
+        </div>
+        <div class="p-col-10 p-md-6 p-lg-6">
+            <ngx-dropzone *ngIf="!loader" (change)="onSelect($event)" accept=".zip">
+                <ngx-dropzone-label>
+                    <h4>{{'adapter.areaFile' | translate}}</h4>
+                    <p-button label="{{'adapter.btnFile' | translate}}" icon="pi pi-cloud-upload"
+                        styleClass="p-button-lg"></p-button>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview *ngIf="file" (removed)="onRemove()" [removable]="true"
+                    ngProjectAs="ngx-dropzone-preview" [file]="file">
+                    <ngx-dropzone-label>{{ file.name }}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+            <p-messages [(value)]="msgs" [enableService]="false"></p-messages>
+        </div>
+
+        <div class="p-col-1 p-md-3 p-lg-3">
+        </div>
+
+        <div class="p-col-12 p-md-12 p-lg-12 p-grid" *ngIf="file && !loader">
+            <!-- *ngIf="file && !loader" -->
+            <form class="p-col-12 p-md-6 p-lg-5" [formGroup]="settingsForm" (ngSubmit)="showConditionModal()">
+                <h6>{{'adapter.methods.title' | translate}}</h6>
+                <div class="methods">
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="method" value="handbook" inputId="handbook" formControlName="method">
+                        </p-radioButton>
+                        <label for="handbook">{{'adapter.methods.handbook.item' | translate}}</label>
+                    </div>
+                    <!-- <div class="p-field-radiobutton">
+                        <p-radioButton pTooltip="Esta funcionalidad está en desarrollo" [disabled]="true" name="method"
+                            value="automatic" inputId="automatic" formControlName="method">
+                        </p-radioButton>
+                        <label for="automatic">{{'adapter.methods.automatic.item' | translate}}</label>
+                    </div> -->
+                </div>
+                <h6>{{'adapter.areas.title' | translate}}</h6>
+                <div class="p-grid">
+
+                    <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let check of checkboxs; let i=index">
+                        <div class="p-field-checkbox">
+                            <p-checkbox formControlName="areas" [value]="check.value" [inputId]="check.value"
+                                (onChange)="onCheckChange($event, check)"></p-checkbox>
+                            <label [for]="check.value">{{check.name}}</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="button">
+                    <p-button type="submit" label="{{'adapter.btnUpload' | translate}}" icon="pi pi-cloud-upload">
+                    </p-button>
+                </div>
+
+                <!-- <p-button  (click)="onUpload()" label="Subir Este Archivo" icon="pi pi-cloud-upload">
+            </p-button> -->
+            </form>
+        </div>
+
+        <p-toast></p-toast>
+
+        <div class="p-grid loader-object">
+            <div class="spiner" *ngIf="loader">
+                <p-progressSpinner *ngIf="!navigateId"></p-progressSpinner>
+                <div class="progress">
+                    <p>{{'adapter.loaderUpload' | translate}}</p>
+                    <span><i [ngClass]="{'pi-spin pi-spinner': progress < 100, 'pi-check': progress >= 100}"
+                            class="pi"></i></span>
+                </div>
+                <ng-container *ngIf="settingsForm.get('method').value == 'automatic'">
+                    <div class="progress">
+                        <p>Procesando audios...</p> <span><i
+                                [ngClass]="{'pi-spin pi-spinner': !navigateId, 'pi-check': navigateId}"
+                                class="pi"></i></span>
+                    </div>
+                    <div class="progress">
+                        <p>Procesando imagenes...</p> <span><i
+                                [ngClass]="{'pi-spin pi-spinner': !navigateId, 'pi-check': navigateId}"
+                                class="pi"></i></span>
+                    </div>
+                    <div class="progress">
+                        <p>Procesando Párrafos...</p> <span><i
+                                [ngClass]="{'pi-spin pi-spinner': !navigateId, 'pi-check': navigateId}"
+                                class="pi"></i></span>
+                    </div>
+                    <div class="progress">
+                        <p>Procesando videos...</p> <span><i
+                                [ngClass]="{'pi-spin pi-spinner': !navigateId, 'pi-check': navigateId}"
+                                class="pi"></i></span>
+                    </div>
+                    <p>Este proceso puede tardar varios minutos, pude regresar más tarde el progreso de la adaptabilidad
+                        de tu objeto de aprendizaje puedes ver en la tarjeta inferior. Gracias</p>
+                </ng-container>
+
+
+                <p *ngIf="navigateId">{{'adapter.succeedUpload' | translate}}</p>
+                <ng-container *ngIf="settingsForm.get('method').value == 'automatic'; else loaderTemplate">
+                    <p-progressBar *ngIf="!navigateId" mode="indeterminate" [style]="{'height': '10px'}">
+                    </p-progressBar>
+                </ng-container>
+                <ng-template #loaderTemplate>
+                    <p-progressBar [style]="{'color': '#FFF'}" [value]="progress" color="danger"></p-progressBar>
+                </ng-template>
+
+                <div class="btn-next">
+                    <p-button *ngIf="navigateId" (click)="navigate()" type="submit"
+                        label="{{'adapter.btnNext' | translate}}" iconPos="right" icon="pi pi-angle-right"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *ngIf="upload" -->
+</div>
+
+
+
+<p-dialog header="{{'adapter.terms.title' | translate}}" [(visible)]="displayConditions" [style]="{width: '50vw'}">
+    <p>{{'adapter.terms.description1' | translate}}</p>
+    <p>{{'adapter.terms.description2' | translate}}</p>
+    <p>{{'adapter.terms.description3' | translate}}</p>
+    <p>{{'adapter.terms.description4' | translate}}</p>
+    <p>{{'adapter.terms.description5' | translate}}</p>
+    <p>{{'adapter.terms.description6' | translate}}</p>
+    <p>{{'adapter.terms.description7' | translate}}</p>
+    <p>{{'adapter.terms.description8' | translate}}</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayConditions=false" label="{{'adapter.terms.btnCancel' | translate}}"
+            styleClass="p-button-text">
+        </p-button>
+        <p-button icon="pi pi-check" (click)="onUpload()" label="{{'adapter.terms.btnAccept' | translate}}"
+            styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<div class="p-grid main-content" *ngIf="learningObjects?.length > 0">
+    <div class="p-col-12 p-md-12 p-lg-12 tittle">
+        <h3>{{'adapter.titleList' | translate}}</h3>
+    </div>
+
+
+    <div class="p-col-12 p-md-3 p-lg-3" *ngFor="let item of learningObjects; let i = index">
+        <p-card [header]="item.oa_detail.title">
+
+
+            <ng-container
+                *ngIf="item.config_adaptability.method == 'automatic' && !item.complete_adaptation; else progresTemplate">
+                <div class="progress">
+                    <p>Boton de adaptabilidad...</p> <span><i
+                            [ngClass]="{'pi-spin pi-spinner': !item.button_adaptation, 'pi-check': item.button_adaptation}"
+                            class="pi"></i></span>
+                </div>
+                <div class="progress">
+                    <p>Procesando audios...</p> <span><i
+                            [ngClass]="{'pi-spin pi-spinner': !item.audio_adaptation, 'pi-check': item.audio_adaptation}"
+                            class="pi"></i></span>
+                </div>
+                <div class="progress">
+                    <p>Procesando imagenes...</p> <span><i
+                            [ngClass]="{'pi-spin pi-spinner': !item.image_adaptation, 'pi-check': item.image_adaptation}"
+                            class="pi"></i></span>
+                </div>
+                <div class="progress">
+                    <p>Procesando Párrafos...</p> <span><i
+                            [ngClass]="{'pi-spin pi-spinner': !item.paragraph_adaptation, 'pi-check': item.paragraph_adaptation}"
+                            class="pi"></i></span>
+                </div>
+                <div class="progress">
+                    <p>Procesando videos...</p> <span><i
+                            [ngClass]="{'pi-spin pi-spinner': !item.video_adaptation, 'pi-check': item.video_adaptation}"
+                            class="pi"></i></span>
+                </div>
+            </ng-container>
+            <ng-template #progresTemplate>
+                <p>{{'adapter.card.create' | translate}} <span>{{item.created_at | moment}}</span></p>
+                <p>{{'adapter.card.expire' | translate}} <span>{{item.expires_at | moment}}</span></p>
+                <h5>{{'adapter.card.abstract' | translate}}</h5>
+                <p><span><strong>{{'adapter.card.type' | translate}} </strong></span>{{getmethod(i)}}</p>
+                <p><span><strong>{{'adapter.card.areas' | translate}} </strong></span>{{getareas(i)}}</p>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <p-button (click)="navigate(item.id)" label="{{'adapter.card.btnCardEdit' | translate}}"
+                    icon="pi pi-pencil"></p-button>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+
+<app-file-upload></app-file-upload>

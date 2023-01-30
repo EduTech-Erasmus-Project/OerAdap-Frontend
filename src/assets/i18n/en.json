@@ -1,0 +1,570 @@
+{
+    "menu": {
+        "home": "Home",
+        "api": "API",
+        "adapter": "Adapter",
+        "about": "About",
+        "contact": "Contact",
+        "guide": "User Guide",
+        "preference": "Display Preferences",
+        "terms": "Terms and conditions"
+    },
+    "footer": {
+        "title": "EduTech Project",
+        "copy": "All rights reserved",
+        "altLogo": "EduTech Logo",
+        "altLogo2": "Co-financed by the Erasmus+ program of the European Union",
+        "altLogo3": "UNESCO Chair of the Salesian Polytechnic University",
+        "select": "Select language",
+        "es": "Spanish",
+        "en": "English"
+    },
+    "terms": {
+        "title": "TERMS OF USE AND LEGAL CONDITIONS OF THE OERADAP PLATFORM",
+        "p1": "This project has been financed with the help of Erasmus+. The contents are the responsibility of its actor and in no way should be considered to reflect the official opinion of Erasmus+",
+        "section1": {
+            "subtitle": "Target",
+            "p1": "The Salesian Polytechnic University of the city of Cuenca with address Calle Vieja 12-30 and Elia Liut together with the research group of the UNESCO EduTech Chair has developed the platform called ROA, as a free and non-commercial platform for to any user and any academic level member. By accessing the platform and/or using it, the visitor accepts the following terms expressed in this document."
+        },
+        "section2": {
+            "subtitle": "Terms of use",
+            "p1": "Both the user who browses anonymously and the users registered on the site are subject to accept the following conditions of use of the website service:",
+            "l1": "The user agrees not to use the application for commercial purposes, or to carry out illegal activities, or to carry out activities that violate the rights of third parties.",
+            "l2": "The information provided is for the personal and unique use of the user who registers.",
+            "l3": "Information provided upon registration should be kept hidden and not shared with anyone.",
+            "l4": "All users must moderate comments on the site.",
+            "l5": "To download the learning object you will be asked for your location, you can share it with us or not, this data is statistical for the website, we do not store personal information such as geolocation, coordinate points, IP or device data, only data name of the country of location and the count of the resources that were made on the page."
+        },
+        "section3": {
+            "subtitle": "Use of cookies",
+            "p1": "The use of cookies to store information purely for reference to a record, no personal or visiting user information is stored."
+        },
+        "section4": {
+            "subtitle": "Use of information",
+            "p1": "The information provided when registering on the website is for the personal and sole use of the user who registers or uploads the data, the information provided when registering must be kept hidden and not shared with anyone, the The information provided when registering is for statistical purposes and for the user's personal use."
+        },
+        "section5": {
+            "subtitle": "Intellectual property",
+            "p1": "The content described on this platform is property of the Salesian Polytechnic University of the city of Cuenca with address Calle Vieja 12-30 and Elia Liut, the content of the platform is free to use and free for any visiting user and may be freely shared and distributed as long as the original source is cited.",
+            "p2": "The content that is uploaded to the platform can be modified, adapted, translated, reproduced, distributed, transmitted, exhibited, published or marketed, only if the uploader is the author of said content, the platform is not responsible for the content distributed by the author."
+        },
+        "section6": {
+            "subtitle": "Responsibility",
+            "p1": "The Salesian Polytechnic University of the city of Cuenca with address Calle Vieja 12-30 and Elia Liut is not responsible for the improper use of the platform, the content of the platform is free to use and free for any user , the content of the platform can be freely shared and distributed as long as the source of origin is cited."
+        },
+        "section7": {
+            "subtitle": "Modifications",
+            "p1": "The Salesian Polytechnic University of the city of Cuenca with address Calle Vieja 12-30 and Elia Liut reserves the right to modify the terms and conditions of use of the platform, as well as the privacy policy, at any time. time, so it is recommended to periodically review the terms and conditions of use of the platform."
+        },
+        "section8": {
+            "subtitle": "Privacy",
+            "p1": "The Salesian Polytechnic University does not store personal information of the users of this platform, the information provided when registering on the website is for the personal and sole use of the user who registers, and is obliged to keep it hidden and not share it with anyone since it is for the user's personal use."
+        }
+    },
+    "home": {
+        "title": "Improve online education with adapted educational resources, for education without borders.",
+        "altCover": "Cover Image",
+        "btnInit": "START NOW",
+        "count": {
+            "oa": "Adapted Learning Objects",
+            "audio": "Adapted audio",
+            "img": "Adapted images",
+            "video": "Adapted videos",
+            "text": "Adapted paragraphs"
+        },
+        "btnVideo": "Intro Video",
+        "btnCloseVideo": "Close",
+        "description": "OER It is a platform for adapting the accessibility of educational resources, learning objects are a great educational tool for this reason they must be available to the public so that each person can access these resources without any limitation , help build an education for all.",
+        "btnMore": "MORE INFORMATION",
+        "tittleDescription2": "Developed to improve the adaptation of educational resources",
+        "description2": "The adaptation of an educational resource helps improve educational quality, thousands of educational resources on the web are not adapted for all the people who can access these resources, so the limitation of understanding is not usable.",
+        "description3": "This is due to the lack of automated modeling tools for tailored educational resources.",
+        "titleContact": "Contact us",
+        "descriptionContact": "We would like to know your opinion about this project.",
+        "btnContact": "CONTACT US",
+        "infoView": "From where they have used our tool"
+    },
+    "adapter": {
+        "areaFile": "Drag or select a file.",
+        "btnFile": "Select a file",
+        "areas": {
+            "title": "Select the areas to automate.",
+            "all": "All",
+            "audio": {
+                "item": "Audio (Audio Description)",
+                "title": "Audio",
+                "description": "Allows the conversion of audio to a visual format, that is, in text, to facilitate the understanding of auditory resources through reading.",
+                "altImage": "Audio adaptability buttons"
+            },
+            "img": {
+                "item": "Image (Image Description)",
+                "title": "Images",
+                "description": "Allows you to add the description of the images of the learning object, this in order that all the images have a description following the HTML standards for accessibility.",
+                "altImage": "Adaptability buttons for images"
+            },
+            "video": {
+                "item": "Video (Video description)",
+                "title": "Video Subtitling",
+                "description": "Allows each video to be in an accessible player and have subtitles for a better understanding of them.",
+                "description1": "The subtitles can be generated automatically using artificial intelligence techniques or if the video is in a source like YouTube it will be possible to download the subtitles from this source, you can also create your own subtitles and upload them in a str file. ",
+                "altImage": "Adapted Video"
+            },
+            "text": {
+                "item": "Text paragraphs",
+                "title": "Text paragraphs",
+                "description": "Very large paragraphs of text can be unintelligible to many readers, so they are not fully usable. The optimization area of ​​this adapter focuses on large paragraphs of text to create easy reading using artificial intelligence techniques. and converting text to audio for better understanding.",
+                "description1": "The paragraph optimization area integrates a button to allow easy reading of this paragraph, also allows the integration of a button to convert the text to an audio, this can be an automatically generated audio, voice recording , or a previously recorded or generated audio that the person has.",
+                "altImage": "Adaptation of the alt attribute of the image."
+            },
+            "btn": {
+                "item": "Adaptability Button",
+                "title": "Accessibility Bar",
+                "description": "Allows the integration of the accessibility bar for a modification of the page of the learning object, with this bar you can modify the text size, font, background contrast with respect to the text.",
+                "description1": "By selecting the responsiveness button as part of the area to be optimized, the responsiveness bar will be embedded in all HTML pages of the learning object, to allow responsiveness of these pages by setting different parameters.",
+                "altImage": "Accessibility Bar."
+            }
+        },
+        "btnUpload": "Upload",
+        "terms": {
+            "title": "Terms and conditions of use.",
+            "description1": "The Salesian Polytechnic University together with the EduTech research group makes this platform available free of charge and non-profit, for the development of equitable education.",
+            "description2": "By accepting these terms and conditions of use of the application, the user voluntarily accepts the following terms:",
+            "description3": "The data recorded and collected from the learning object is destroyed within 24 hours, so the system does not save data from any learning object uploaded to the platform.",
+            "description4": "The data that is saved is only navigation information such as browser information and statistical data on the summary of what has been done in this application with the purpose of collecting statistical data to improve the application.",
+            "description5": "This system does not save personal data of any user who browses or uses this platform.",
+            "description6": "The uploaded files will not be shared with any public or private person or institution, in the same way the generated files belong only to the user of the current session that is browsing.",
+            "description7": "The user is responsible for uploading files only educational resources (Learning Objects), only compressed files with zip format are allowed.",
+            "description8": "To download the learning object you will be asked for your location, you can share it with us or not, this data is statistical for the website, we do not store personal information such as geolocation, coordinate points, ip or device data, only data name of the country of location and the count of the resources that were made on the page.",
+            "btnAccept": "Ok",
+            "btnCancel": "Cancel"
+        },
+        "loaderUpload": "Loading file...",
+        "succeedUpload": "Your file is ready to edit click continue to edit it",
+        "btnNext": "Next",
+        "titleList": "Recent Learning Objects",
+        "card": {
+            "create": "Created:",
+            "expire": "Expires:",
+            "abstract": "Adaptability Summary",
+            "type": "Type of adaptation:",
+            "areas": "Optimization areas:",
+            "btnCardEdit": "Continue Editing"
+        },
+        "methods": {
+            "title": "Adaptation Methods",
+            "handbook": {
+                "item": "Handbook",
+                "title": "Manual adaptation method",
+                "altImage": "Manual adaptation icon",
+                "description": "This adaptation method gives you the freedom to choose what to modify of the learning object according to your criteria, you can manually adapt the selected areas as you see fit to adapt each of them."
+            },
+            "automatic": {
+                "item": "Automatic",
+                "title": "Automatic adaptation method",
+                "altImage": "Auto-adaptive icon",
+                "description": "This adaptation method gives you the freedom to choose what to modify of the learning object according to your criteria, you can manually adapt the selected areas as you see fit to adapt each of them."
+            }
+        },
+        "messages": {
+            "msg1": "This Learning Object has already been adapted in this tool."
+        }
+    },
+    "api": {
+        "title": "For quality education",
+        "description": "We are a work team that offers its service arduously to the community with our knowledge within the different technological development environments, with exceptional skills willing to help with non-profit technological tools.",
+        "mission": {
+            "title": "Our mission",
+            "description": "Promote educational inclusion and diversity as catalysts for accessible technologies, quality, innovation and teamwork.",
+            "altImage": "Idea Icon"
+        },
+        "values": {
+            "title": "Our values",
+            "description": "Our values ​​are the most important for the development of accessible, innovative and quality technologies that contribute to the development of society.",
+            "value1": {
+                "title": "Teamwork",
+                "description": "Collaborative teamwork, creating responsible work groups willing to help society with technological support."
+            },
+            "value2": {
+                "title": "Innovation",
+                "description": "Development and efficient application of accessible technologies in Higher Education that contribute to inclusion, participation and employability."
+            },
+            "value3": {
+                "title": "Commitment",
+                "description": "Commitment to society with technological support for quality inclusive education, we are committed to providing innovative and quality technological tools that contribute to the development of society."
+            }
+        },
+        "team": {
+            "title": "OER ADAP Working Group",
+            "user1": {
+                "name": "Ing. Claudio Maldonado",
+                "description": "Front End - Back End Development",
+                "role": "Research Assistant",
+                "altImage": "Photo of Claudio Maldonado"
+            },
+            "user2": {
+                "name": "Ing. Edwin Marquez",
+                "description": "Front End - Back End Development",
+                "role": "Research Assistant",
+                "altImage": "Photo by Edwin Marquez"
+            },
+            "user3": {
+                "name": "Ing. Paola Ingavelez",
+                "description": "Researcher Teacher",
+                "role": "Teacher at the Salesian Polytechnic University, Cuenca",
+                "altImage": "Photo by Paola Ingavelez"
+            },
+            "user4": {
+                "name": "Eng. Angel Perez",
+                "description": "Researcher Teacher",
+                "role": "Teacher at the Salesian Polytechnic University, Cuenca",
+                "altImage": "Photo by Angel Perez"
+            }
+        }
+    },
+    "about": {
+        "section1": {
+            "title": "For quality education",
+            "description": "We are a work team that offers its service arduously to the community with our knowledge within the different technological development environments, with exceptional skills willing to help with non-profit technological tools."
+        },
+        "section2": {
+            "title": "Our mission",
+            "description": "Promote educational inclusion and diversity as catalysts for accessible technologies, quality, innovation and teamwork.",
+            "altImage": "Idea Icon"
+        },
+        "section3": {
+            "title": "Our values",
+            "description": "Our values ​​are the most important for the development of accessible, innovative and quality technologies that contribute to the development of society.",
+            "card1": {
+                "title": "Teamwork",
+                "description": "Collaborative teamwork, creating responsible work groups willing to help society with technological support."
+            },
+            "card2": {
+                "title": "Innovation",
+                "description": "Development and efficient application of accessible technologies in Higher Education that contribute to inclusion, participation and employability."
+            },
+            "card3": {
+                "title": "Commitment",
+                "description": "Commitment to society with technological support for quality inclusive education, we are committed to providing a better quality of life to all through quality technological tools."
+            }
+        },
+        "section4": {
+            "title": "Teamwork",
+            "description": "Collaborative teamwork, creating responsible work groups willing to help society with technological support.",
+            "card1": {
+                "title": "Ing. Claudio Maldonado",
+                "description": "Front End - Back End Development",
+                "role": "Research Assistant",
+                "altImage": "Photo of Claudio Maldonado"
+            },
+            "card2": {
+                "title": "Ing. Edwin Marquez",
+                "description": "Front End - Back End Development",
+                "role": "Research Assistant",
+                "altImage": "Photo by Edwin Marquez"
+            },
+            "card3": {
+                "title": "Ing. Paola Ingavelez",
+                "description": "Researcher Teacher",
+                "role": "Teacher at the Salesian Polytechnic University, Cuenca",
+                "altImage": "Photo by Paola Ingavelez"
+            },
+            "card4": {
+                "title": "Ing. Angel Perez",
+                "description": "Researcher Teacher",
+                "role": "Teacher at the Salesian Polytechnic University, Cuenca",
+                "altImage": "Photo by Angel Perez"
+            }
+        }
+    },
+    "contact": {
+        "title": "Contact us",
+        "description": "We would like to know your opinion, doubts or suggestions or you just want to say hello, we would love to answer your message.",
+        "btnSend": "Send Message",
+        "altImage": "Contact Image",
+        "form": {
+            "name": "Name:",
+            "email": "Email:",
+            "message": "Write a message:",
+            "button": "Submit"
+        },
+        "msg": {
+            "success": "Thank you for your message, we will contact you soon.",
+            "error": "Error sending message"
+        },
+        "validation": {
+            "name": "Please enter your name.",
+            "email": "Please enter your email.",
+            "emailValid": "Please enter a valid email.",
+            "message": "Please enter your message."
+        }
+    },
+    "guide": {
+        "btnBack": "Back",
+        "btnNext": "Next",
+        "introduction": {
+            "title": "Introduction",
+            "p1": "Welcome to the OerAdap platform user guide, in this guide we will show you how you can start on the platform to adapt your learning objects, the objective of this platform is to create adapted educational resources by implementing different adaptation techniques. ",
+            "p2": "In this guide we will show you how you can start on the platform to adapt your learning objects, the objective of this platform is to create adapted educational resources by implementing different adaptation techniques.",
+            "p3": "In this brief introduction we will teach you how to upload a file, how to view its content, the adaptation of each section and how to download the learning object, throughout this guide you will have a description text and an image, gif or video of how to perform each of the activities on the platform.",
+            "p4": "If you have questions or suggestions you can contact us by accessing the different links:",
+            "p5": "About",
+            "p6": "Contact us",
+            "p7": "Let's get started.",
+            "videoTitle": "Introduction to the OerAdap platform"
+        },
+        "upload": {
+            "title": "Upload a file",
+            "p1": "To upload a learning object is very easy, you can go to the Adapter section and select your zip file that contains the learning object files.",
+            "p2": "When you select your file, the different adaptation areas will be enabled, select the ones that suit your needs, we recommend leaving them all so you can have a better adaptation in your learning objects, if you have doubts about what each area does on the same page you can see the information about each area.",
+            "p3": "When you are ready you can click on the Upload button, read the privacy and license policies if you agree, click on accept and wait for the upload process.",
+            "p4": "Ready now you can explore the adaptation options.",
+            "btn": "Upload file",
+            "videoTitle": "Uploading a learning object to adapt on the platform."
+        },
+        "tour": {
+            "title": "Workspace",
+            "p1": "In this area you will find the different sections to adapt the learning object.",
+            "p2": "For the learning object preview you can access the Adapted Learning Object and Original Learning Object section.",
+            "p3": "To facilitate the editing of the areas you can access the All audios, All images and All videos section, this section will list all the resources of all the pages of the learning object, to save time in the search for each of these resources.",
+            "p4": "You can also search the content according to the page of the learning object, this content can be located by going to the Adapted Learning Object section and selecting the page you want to search for the content.",
+            "videoTitle": "OerAdap Platform Workspace"
+        },
+        "audio": {
+            "title": "Audio Adaptation",
+            "p1": "In this section we will see how to adapt an audio to generate an alternative reading paragraph.",
+            "p2": "To create a reading paragraph from the audio we can do it in two ways: automatically and manually.",
+            "btn": "Audio",
+            "section1": {
+                "title": "Generate paragraph automatically",
+                "p1": "To generate a paragraph automatically you ask to click on the generate text button, this option will create a paragraph of text from the audio using artificial intelligence, keep in mind that the generated audio may have errors or in In some cases when the audio has background noise, it may not be generated or may be generated incorrectly, but don't worry, you can edit at any time.",
+                "videoTitle": "Generate an alternate paragraph automatically"
+            },
+            "section2": {
+                "title": "Generate paragraph manually",
+                "p1": "To create a paragraph manually you can click on the Create button, the option will be enabled so that you can write your paragraph of text that will be used as an alternative mode in the video to be able to read this paragraph.",
+                "videoTitle": "Generate an alternate paragraph manually"
+            }
+        },
+        "image": {
+            "title": "Image Adaptation",
+            "p1": "In this section we will see how to adapt images to create different previews of it.",
+            "btn": "Images",
+            "section1": {
+                "title": "Edit description",
+                "p1": "The fundamental part of an image is its description, this help description is shown when the image is not available or the screen reader reads this description to read what the image is about, this description is inserted in the ALT of the image, to edit this description just click on the Edit description button and you can edit the description according to what the image is about.",
+                "videoTitle": "Edit image description"
+            },
+            "section2": {
+                "title": "Image Preview",
+                "p1": "To add a full screen preview to the image in the learning object you can check the image preview check, checking or unchecking will add or remove the full screen preview of the image in the learning object learning.",
+                "videoTitle": "Add Image Preview"
+            },
+            "section3": {
+                "title": "Create Tables of Contents",
+                "p1": "An interesting option that you have available is to be able to create a table, if your image is a data table, this option allows you to create a table manually, you can add the rows and columns you want to create your table .",
+                "videoTitle": "Create table of contents"
+            }
+        },
+        "paragraph": {
+            "title": "Text Paragraph Adaptation",
+            "p1": "In this section we will see how to adapt a paragraph of text to put an audio or an alternative paragraph.",
+            "btn": "Paragraphs",
+            "section1": {
+                "title": "Create alternate reading paragraph",
+                "p1": "To create an alternative reading paragraph you can click the edit button in the first easy reading section you can edit your paragraph that will be displayed as an alternative to the original paragraph in this alternative paragraph choose to use an easy reading to make the original paragraph much more understandable.",
+                "videoTitle": "Create Alternate Reading Paragraph"
+            },
+            "section2": {
+                "title": "Create Alternate Audio",
+                "p1": "You can also show an audio alternatively for the paragraph, to create an audio you can click on edit and in the Audio section, you have different alternatives to create an audio, you can upload an audio, you can record an audio or you can generate automatically, when creating an audio it will be shown in the learning object alternatively to listen to the text paragraph.",
+                "videoTitle": "Create or upload alternate audio."
+            }
+        },
+        "video": {
+            "title": "Video Adaptation",
+            "p1": "In this section we will see how to adapt a video to add an accessible player.",
+            "p2": "To adapt a video it is important to take into account the video source since not all sources provide subtitles, we recommend using YouTube or local videos, to download the video and add it to the player just click on the button Download video and subtitles or generate subtitles if the source is from a local video of the learning object, at the end of the process the new video or subtitles will be added to the learning object.",
+            "p3": "You can also add personal subtitles in STR format.",
+            "p4": "Ready, we're almost done.",
+            "btn": "Videos"
+        },
+        "download": {
+            "title": "Download the learning object",
+            "p1": "When downloading the adapted learning object make sure you have completed the desired changes and review the metadata that will be added to the learning object.",
+            "p2": "When you are ready you can click the Download Adapted OA button to see a summary of what has been done and proceed with the download, this could take a while so relax and wait for the process to finish.",
+            "p3": "You are ready to start adapting your learning objects.",
+            "videoTitle": "Download an adapted learning object.",
+            "btn": "Download"
+        }
+    },
+    "edit": {
+        "select": "Page:",
+        "selectAria": "Select the page to edit",
+        "btnOpen": "Open in a new tab",
+        "btnOpenWindow": "Open in full screen",
+        "btnClouseWindow": "Close in full screen",
+        "textAdaptation": "Apply adaptation to this content:",
+        "tabs": {
+            "tab1": "Adapted learning object",
+            "tab2": "Original learning object",
+            "tab3": "All audio",
+            "tab4": "All images",
+            "tab5": "All videos",
+            "tab6": "Information",
+            "tab7": "Metadata"
+        },
+        "information": {
+            "title": "Information",
+            "section1": {
+                "title": "Learning object information",
+                "item1": "Title:",
+                "item2": "Author:",
+                "item3": "License:",
+                "item4": "Version:"
+            },
+            "section2": {
+                "title": "File Information",
+                "item1": "LO pages:",
+                "item2": "Images:",
+                "item3": "Paragraphs:",
+                "item4": "Videos:",
+                "item5": "Audio:"
+            },
+            "section3": {
+                "title": "Adaptability settings",
+                "item1": "Type of adaptation:",
+                "item2": "Optimization areas:",
+                "item3": "Adaptability Button",
+                "item4": "Audio",
+                "item5": "Images",
+                "item6": "Paragraphs",
+                "item7": "Videos"
+            },
+            "btnDownload": "Download adapted OA",
+            "btnSave": "Save OA to Repository",
+            "infoDownload": {
+                "title": "Download Information",
+                "p1": "Adapted elements in the learning object:",
+                "pCount": "Adapted paragraphs:",
+                "imgCount": "Adapted images:",
+                "videoCount": "Adapted videos:",
+                "audioCount": "Adapted audios:",
+                "pagesCount": "Total pages of the Learning Object:",
+                "p2": "Did you finish adapting your Learning Object?",
+                "p3": "Remember that, once you have downloaded the adapted Learning Object by recommendation and do not create conflicts within the LO, we recommend that you verify if you have made the necessary changes before downloading it, we also recommend that you do not upload your adapted LO so as not to generate errors on the same learning object.",
+                "btnCancel": "No, Cancel",
+                "btnDownload": "Yes, Download"
+            },
+            "messages": {
+                "successROA": "The file has been saved to the repository."
+             }
+        },
+        "audio": {
+            "tab": "Audios",
+            "description": "Audio description:",
+            "btnGenerate": "Generate text",
+            "btnCreate": "Create text",
+            "btnCancel": "Cancel",
+            "btnEdit": "Edit",
+            "btnSave": "Save",
+            "loader": "Generating descriptive text...",
+            "empty": "This Learning Object has no audios.",
+            "messages": {
+                "success": "Description text successfully saved."
+            }
+        },
+        "img": {
+            "toast": "Preview image",
+            "tab": "Images",
+            "imgPreview": "Image Preview",
+            "description": "Image alt description:",
+            "btnEdit": "Edit description",
+            "btnCreateTable": "Create Table",
+            "btnSave": "Save",
+            "btnCancel": "Cancel",
+            "table": {
+                "title": "Create your own HTML table",
+                "description": "Click insert table to create a new table:",
+                "p1": "Are you sure you want to save the changes?",
+                "yes": "Yes",
+                "no": "No",
+                "messages": {
+                    "success": "Table saved successfully."
+                }
+            },
+            "loader": "Generating descriptive text...",
+            "empty": "This Learning Object has no images.",
+            "messages": {
+                "success": "Description text successfully saved."
+            }
+        },
+        "text": {
+            "tab": "Paragraphs",
+            "btnEdit": "Edit",
+            "btnCancel": "Cancel",
+            "btnSave": "Save",
+            "btnSaving": "Saving...",
+            "tabs": {
+                "tab1": "Easy Reading",
+                "tab2": "Audio"
+            },
+            "empty": "This Learning Object has no text paragraphs.",
+            "messages": {
+                "success": "Help text and audio have been added to the Learning Object."
+            },
+            "audio": {
+                "divider": "OR",
+                "audioDescription": "Current audio",
+                "file": "Drag or select a file.",
+                "btnUpload": "Select a file",
+                "btnGenerate": "Generate Audio",
+                "btnRecord": "Record an audio",
+                "loader": "Generating audio please wait...",
+                "record": {
+                    "pause": "Pause",
+                    "record": "Record",
+                    "save": "Save"
+                }
+            }
+        },
+        "video": {
+            "tab": "Videos",
+            "description": "Video Source: Video",
+            "notSubtitle": "This video has no subtitles",
+            "btnDownload": "Download video and subtitles",
+            "btnGenerate": "Generate subtitle",
+            "btnAdd": "Add subtitle",
+            "btnEdit": "Edit",
+            "btnRemove": "Remove",
+            "btnSave": "Save",
+            "empty": "This Learning Object has no videos.",
+            "divider": "OR",
+            "messages": {
+                "msgError1": "Video socket error",
+                "msgError2": "Please complete all fields.",
+                "msgError3": "Automatic subtitle generation is under development.",
+                "msgError4": "The video cannot be downloaded, ",
+                "msgError5": "The video source does not support or does not have translations but we are still developing.",
+                "msgError6": "The video source does not support or does not have translations.",
+                "msgSuccess1": "Subtitles have been generated automatically.",
+                "msgSuccess2": "The subtitle has been saved."
+            },
+            "socket": {
+                "msg1": "Downloading video…",
+                "msg2": "Video downloaded.",
+                "msg3": "Processing video…",
+                "msg4": "Downloading YouTube subtitle...",
+                "msg5": "Saving subtitles…",
+                "msg6": "Saving automatic subtitles…",
+                "msg7": "Video downloaded."
+            },
+            "transcript": {
+                "title": "Subtitle",
+                "progress": "Loading subtitle please wait...",
+                "sumary": "Warning",
+                "editing": "You are in subtitle file editing mode.",
+                "success": "Subtitle changes have been saved."
+            }
+        }
+    }
+}
