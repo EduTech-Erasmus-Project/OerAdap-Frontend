@@ -234,7 +234,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       };
       // console.log("data send ROA", data);
       let resRoa:any = await this.learningObjectService.postROA(data).toPromise();
-      console.log("resRoa", resRoa);
+      //console.log("resRoa", resRoa);
       this.messageService.add({
         severity: "success",
         detail: await this.languageService.get(
@@ -243,7 +243,7 @@ export class OaInfoComponent implements OnInit, OnDestroy {
       });
       this.loader = false;
       if(resRoa?.data){
-        console.log("url ", resRoa?.data?.roa_ref_url);
+        //console.log("url ", resRoa?.data?.roa_ref_url);
         window.open(resRoa?.data?.roa_ref_url, "_blank");
       }
     } catch (error) {
