@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  serverWs: 'wss://oeradap.edutech-project.org/ws',
-  baseUrl: 'https://oeradap.edutech-project.org/api',
-  cryptoSecretKey: "@OER-ADAP-E45SJkshWnn10Sk_ASjNHS856SOLSJMLAS2@",
-  repoUrl: 'https://repositorio.edutech-project.org/api/v1'
+  serverWs: 'ws://34.224.255.163/ws',
+  baseUrl: 'http://34.224.255.163/api',
+  cryptoSecretKey: "p:jG4.@B.]/rFw{RVp-mU6&8e=e%2U<)",
+  repoUrl: 'http://23.22.88.68/api/v1'
 };
