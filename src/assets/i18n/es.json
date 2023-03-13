@@ -539,7 +539,7 @@
          "empty": "Este Objeto de aprendizaje no tiene videos.",
          "divider": "O",
          "messages": {
-            "msgError1": "Error en el socket de video, ",
+            "msgError1": "Error en el socket de video.",
             "msgError2": "Por favor, complete todos los campos.",
             "msgError3": "La generación de subtitulado automática está en desarrollo.",
             "msgError4": "El video no se puede descargar",
@@ -558,9 +558,11 @@
             "msg7": "Video descargado."
          },
          "transcript": {
+            "subtitle": "Subtítulos",
+            "language": "Idioma:",
             "title": "Subtítulo",
             "progress": "Cargando subtítulo por favor espere...",
-            "summary": "Advertencia",
+            "sumary": "Advertencia",
             "editing": "Está en el modo de edición de archivos de subtítulos.",
             "success": "Los cambios de subtítulos han sido guardados."
          }
