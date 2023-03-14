@@ -558,6 +558,8 @@
             "msg7": "Video descargado."
          },
          "transcript": {
+            "subtitle": "Subtítulos",
+            "language": "Idioma:",
             "title": "Subtítulo",
             "progress": "Cargando subtítulo por favor espere...",
             "summary": "Advertencia",

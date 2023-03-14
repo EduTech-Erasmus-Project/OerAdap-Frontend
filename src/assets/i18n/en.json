@@ -559,6 +559,8 @@
                 "msg7": "Video downloaded."
             },
             "transcript": {
+                "subtitle": "Subtitle",
+                "language": "Language:",
                 "title": "Subtitle",
                 "progress": "Loading subtitle please wait...",
                 "sumary": "Warning",

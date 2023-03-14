@@ -43,11 +43,11 @@
     </div>
 
     <div class="content-subtitle" *ngIf="transcript?.length > 0">
-        <h5>Subtitulos</h5>
+        <h5>{{ "edit.video.transcript.subtitle" | translate }}</h5>
         <ul>
             <li *ngFor="let item of transcript">
                 <div class="description">
-                    <p>Idioma:</p>
+                    <p>{{ "edit.video.transcript.language" | translate }}</p>
                     <span>{{ item.label }} - {{ item.srclang }}</span> <br />
                     <span>{{ item.source }}</span>
                 </div>
