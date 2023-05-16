@@ -7,7 +7,7 @@
     <p-blockUI [target]="pnl" [blocked]="!video.adaptation">
         <i class="pi pi-lock" style="font-size: 3rem; color: white"></i>
     </p-blockUI>
-    
+
     <p>
         {{ "edit.video.description" | translate }}
         <span>{{ video.attributes[0].source }}</span>
@@ -124,8 +124,8 @@
     </ng-template> -->
 </p-card>
 
-<p-dialog [header]="'edit.video.transcript.title' | translate" [(visible)]="displaySubtitle" *ngIf="displaySubtitle" [modal]="true"
-    [style]="{ width: '75vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog [header]="'edit.video.transcript.title' | translate" [(visible)]="displaySubtitle" *ngIf="displaySubtitle"
+    [modal]="true" [style]="{ width: '75vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
     <!-- <ng-container *ngIf="!loaderJson; else jsonTemplate">
         <p class="jsonToString">{{jsonString}}</p>
     </ng-container>
@@ -148,12 +148,12 @@
     <app-edit-transcript [transcriptId]="transcriptId" [onButtonEvt]="onButtonEvt"></app-edit-transcript>
 
     <ng-template pTemplate="footer">
-        <p-button *ngIf="acctionTranscript == 'view'" icon="pi pi-pencil" (click)="emitButtonEvt('edit')" [label]="'edit.video.btnEdit' | translate"
-            styleClass="p-button-text">
+        <p-button *ngIf="acctionTranscript == 'view'" icon="pi pi-pencil" (click)="emitButtonEvt('edit')"
+            [label]="'edit.video.btnEdit' | translate" styleClass="p-button-text">
         </p-button>
 
-        <p-button *ngIf="acctionTranscript == 'edit'" icon="pi pi-save" (click)="emitButtonEvt('save')" [label]="'edit.video.btnSave' | translate"
-            styleClass="p-button-text">
+        <p-button *ngIf="acctionTranscript == 'edit'" icon="pi pi-save" (click)="emitButtonEvt('save')"
+            [label]="'edit.video.btnSave' | translate" styleClass="p-button-text">
         </p-button>
 
         <p-button icon="pi pi-times" (click)="displaySubtitle = false" label="Cerrar" styleClass="p-button-text">
