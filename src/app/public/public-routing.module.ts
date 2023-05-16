@@ -26,7 +26,6 @@ const routes: Routes = [
           breadcrumb: "Términos y condiciones",
         },
       },
-     
       {
         path: "about-us",
         loadChildren: () =>
@@ -63,9 +62,14 @@ const routes: Routes = [
         path: "guide",
         loadChildren: () =>
           import("./pages/guide/guide.module").then((m) => m.GuideModule),
-          data: {
-            breadcrumb: "Guia de Usuario",
-          },
+        data: {
+          breadcrumb: "Guia de Usuario",
+        },
+      },
+      {
+        path: "delete",
+        loadChildren: () =>
+          import("./pages/delete/delete.module").then((m) => m.DeleteModule),
       },
     ],
   },

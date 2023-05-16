@@ -72,4 +72,8 @@ export class LearningObjectService {
   public postROA(data: any) {
     return this.http.post(`${this.roa_api}/learning-object-oer/`, data);
   }
+
+  public delete(params: any) {
+    return this.http.get(`${baseUrl}/delete/`, { params });
+  }
 }

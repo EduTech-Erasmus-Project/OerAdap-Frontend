@@ -1,0 +1,16 @@
+<div class="main-content animate__animated animate__fadeIn">
+    <ng-container *ngIf="loader; else elseTemplate">
+        <div>
+            <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" 
+                animationDuration=".5s"></p-progressSpinner>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <div class="terms-content">
+            <h2>DELETE SUCCESS</h2>
+            <p>{{resum}} files delete.</p>
+            <p>Thank you for using our service.</p>
+        </div>
+    </ng-template>
+
+</div>

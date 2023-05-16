@@ -26,29 +26,35 @@ export class WebviewComponent implements OnInit {
 
   //private mensajeID: string;
 
-  constructor() {}
+  constructor() {
+    console.log("constructor");
+  }
 
   ngOnInit(): void {
-    //console.log("pages", this.pages)
+    console.log("pages", this.pages);
     // this.learningObjectService.sendMessageObservable.subscribe((mensaje) => {
     //   this.mensajeID = mensaje;
     // });
 
     //filter pages website
-    let pages_website = this.filterPage("website_") 
+    let pages_website = this.filterPage("website_");
     // this.pages.filter((page) => {
-    //   let pageSplit = page.preview_path.split("/")
+    //   let pageSplit = page?.preview_path.split("/")
     //   return pageSplit[pageSplit.length-1].includes("website");
     // });
 
-    if(pages_website.length > 0){
+    console.log("pages_website", pages_website);
+
+    if (pages_website.length > 0) {
       this.pages = pages_website;
     }
 
     //filter page index
-    let filterPageIndex = this.filterPage("index.html") 
+    let filterPageIndex = this.filterPage("index.html");
+
+    console.log("filterPageIndex", filterPageIndex);
     // this.pages.filter((page) =>{
-    //   let pageSplit = page.preview_path.split("/")
+    //   let pageSplit = page?.preview_path.split("/")
     //   return pageSplit[pageSplit.length-1].includes("index.html");
     // });
 
@@ -56,18 +62,17 @@ export class WebviewComponent implements OnInit {
 
     if (filterPageIndex.length > 0) {
       this.selectedPage = filterPageIndex[0];
-    }else{
+    } else {
       this.selectedPage = this.pages[0];
     }
     //this.learningObjectService.sendMessage(this.selectedPage.id);
   }
 
   private filterPage(filter: string) {
-    return this.pages.filter((page) =>{
-      let pageSplit = page.preview_path.split("/")
-      return pageSplit[pageSplit.length-1].includes(filter);
+    return this.pages.filter((page) => {
+      let pageSplit = page?.preview_path.split("/");
+      return pageSplit[pageSplit.length - 1].includes(filter);
     });
-
   }
 
   public openFullscreen() {
@@ -100,5 +105,4 @@ export class WebviewComponent implements OnInit {
     //console.log("Es el id",this.mensajeID)
     //this.learningObjectService.sendMessage(this.mensajeID);
   }
-
 }

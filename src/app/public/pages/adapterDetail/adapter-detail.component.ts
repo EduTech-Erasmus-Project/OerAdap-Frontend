@@ -96,12 +96,12 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       .getLearningObject(this.id)
       .subscribe(
         (res: any) => {
-          //console.log("learningObject", res);
+          console.log("learningObject", res);
           this.learningObject = res;
 
           //filter pages website
           let pages_website = res.pages_adapted.filter((page) => {
-            let pageSplit = page.preview_path.split("/");
+            let pageSplit = page?.preview_path.split("/");
             return pageSplit[pageSplit.length - 1].includes("website");
           });
 
@@ -111,11 +111,11 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
 
           //filter page index
           let filterIndex = res.pages_adapted.filter((page) => {
-            let pageSplit = page.preview_path.split("/");
+            let pageSplit = page?.preview_path.split("/");
             return pageSplit[pageSplit.length - 1].includes("index.html");
           });
 
-          this.currentPageId = filterIndex[0]?.id || res.pages_adapted[0].id;
+          this.currentPageId = filterIndex[0]?.id || res.pages_adapted[0]?.id;
           this.image = this.getValueCheck("image");
           this.video = this.getValueCheck("video");
           this.audio = this.getValueCheck("audio");
