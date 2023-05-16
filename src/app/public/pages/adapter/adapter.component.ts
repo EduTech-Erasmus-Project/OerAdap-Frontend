@@ -168,6 +168,12 @@ export class AdapterComponent implements OnInit, OnDestroy {
               "Error",
               await this.languageService.get("adapter.messages.msg1")
             );
+          }else{
+            this.showMessage(
+              "error",
+              "Error",
+              err.error?.message || err.message
+            );
           }
           this.upload = false;
           this.loader = false;

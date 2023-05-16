@@ -99,14 +99,8 @@ h6 {
     margin: 2px;
 }
 
-:host ::ng-deep .p-card {
-    z-index: auto !important;
-    
-}
-
 :host ::ng-deep .p-card .p-card-footer {
     display: flex;
-
 }
 
 .text-description {
@@ -185,7 +179,7 @@ h6 {
 
 :host ::ng-deep .p-card {
     position: relative !important;
-    z-index: 1 !important;
+    z-index: auto !important;
 }
 
 :host ::ng-deep .p-blockui {
