@@ -5,7 +5,7 @@
         <div class="p-col-10 p-md-6 p-lg-6">
             <ngx-dropzone *ngIf="!loader" (change)="onSelect($event)" accept=".zip">
                 <ngx-dropzone-label>
-                    <h4>{{'adapter.areaFile' | translate}}</h4>
+                    <p>{{'adapter.areaFile' | translate}}</p>
                     <p-button label="{{'adapter.btnFile' | translate}}" icon="pi pi-cloud-upload"
                         styleClass="p-button-lg"></p-button>
                 </ngx-dropzone-label>
@@ -23,7 +23,7 @@
         <div class="p-col-12 p-md-12 p-lg-12 p-grid" *ngIf="file && !loader">
             <!-- *ngIf="file && !loader" -->
             <form class="p-col-12 p-md-6 p-lg-5" [formGroup]="settingsForm" (ngSubmit)="showConditionModal()">
-                <h6>{{'adapter.methods.title' | translate}}</h6>
+                <p style="font-weight: bold;">{{'adapter.methods.title' | translate}}</p>
                 <div class="methods">
                     <div class="p-field-radiobutton">
                         <p-radioButton name="method" value="handbook" inputId="handbook" formControlName="method">
@@ -37,7 +37,7 @@
                         <label for="automatic">{{'adapter.methods.automatic.item' | translate}}</label>
                     </div> -->
                 </div>
-                <h6>{{'adapter.areas.title' | translate}}</h6>
+                <p style="font-weight: bold;">{{'adapter.areas.title' | translate}}</p>
                 <div class="p-grid">
 
                     <div class="p-col-12 p-md-6 p-lg-6" *ngFor="let check of checkboxs; let i=index">
@@ -136,7 +136,7 @@
 
 <div class="p-grid main-content" *ngIf="learningObjects?.length > 0">
     <div class="p-col-12 p-md-12 p-lg-12 tittle">
-        <h3>{{'adapter.titleList' | translate}}</h3>
+        <h2>{{'adapter.titleList' | translate}}</h2>
     </div>
 
 
@@ -175,7 +175,7 @@
             <ng-template #progresTemplate>
                 <p>{{'adapter.card.create' | translate}} <span>{{item.created_at | moment}}</span></p>
                 <p>{{'adapter.card.expire' | translate}} <span>{{item.expires_at | moment}}</span></p>
-                <h5>{{'adapter.card.abstract' | translate}}</h5>
+                <p style="font-weight: bold;">{{'adapter.card.abstract' | translate}}</p>
                 <p><span><strong>{{'adapter.card.type' | translate}} </strong></span>{{getmethod(i)}}</p>
                 <p><span><strong>{{'adapter.card.areas' | translate}} </strong></span>{{getareas(i)}}</p>
             </ng-template>
