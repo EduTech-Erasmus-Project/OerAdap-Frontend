@@ -6,7 +6,7 @@
     </div>
     <div class="controls">
         <div class="dropdown">
-            <h5>{{'edit.select' | translate}} </h5>
+            <p class="p-mr-2" style="font-weight: bold; font-size: 1.2em;">{{'edit.select' | translate}} </p>
             <p-dropdown (onChange)="onChange($event)" [options]="pages" [(ngModel)]="selectedPage" optionLabel="title"
                 [showClear]="true"></p-dropdown>
         </div>
