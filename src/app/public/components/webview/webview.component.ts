@@ -27,11 +27,11 @@ export class WebviewComponent implements OnInit {
   //private mensajeID: string;
 
   constructor() {
-    console.log("constructor");
+    //console.log("constructor");
   }
 
   ngOnInit(): void {
-    console.log("pages", this.pages);
+    //console.log("pages", this.pages);
     // this.learningObjectService.sendMessageObservable.subscribe((mensaje) => {
     //   this.mensajeID = mensaje;
     // });
@@ -43,7 +43,7 @@ export class WebviewComponent implements OnInit {
     //   return pageSplit[pageSplit.length-1].includes("website");
     // });
 
-    console.log("pages_website", pages_website);
+    //console.log("pages_website", pages_website);
 
     if (pages_website.length > 0) {
       this.pages = pages_website;
@@ -52,7 +52,7 @@ export class WebviewComponent implements OnInit {
     //filter page index
     let filterPageIndex = this.filterPage("index.html");
 
-    console.log("filterPageIndex", filterPageIndex);
+    //console.log("filterPageIndex", filterPageIndex);
     // this.pages.filter((page) =>{
     //   let pageSplit = page?.preview_path.split("/")
     //   return pageSplit[pageSplit.length-1].includes("index.html");

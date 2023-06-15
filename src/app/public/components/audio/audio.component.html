@@ -10,9 +10,10 @@
 
     <div class="audio_src" *ngFor="let data of item.attributes">
         <!-- <app-player [path_src]="data.path_src"></app-player> -->
-        <audio controls>
+        
+        <audio controls >
             <source [src]="data.path_src | urlsanitizer" />
-        </audio>
+        </audio> 
     </div>
    
     <div class="view_text"  >

@@ -45,6 +45,7 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
   public loader: boolean = false;
 
   public dataTabPanel?: any;
+  public activeIndex: number = 0;
 
   constructor(
     private route: ActivatedRoute,

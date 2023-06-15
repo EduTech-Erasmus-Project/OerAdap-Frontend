@@ -160,7 +160,10 @@ export class AdapterComponent implements OnInit, OnDestroy {
           }
         },
         async (err) => {
-          console.log(err);
+          this.upload = false;
+          this.loader = false;
+          this.progress = 0;
+          console.log("upload error", err);
           //console.log("settingsForm", this.settingsForm);
           if (err.error?.code === "object_adapted") {
             this.showMessage(
@@ -168,16 +171,17 @@ export class AdapterComponent implements OnInit, OnDestroy {
               "Error",
               await this.languageService.get("adapter.messages.msg1")
             );
-          }else{
+            return;
+          }
+          if (err.error?.code === "object_format_invalid") {
             this.showMessage(
               "error",
               "Error",
-              err.error?.message || err.message
+              "Formato de archivo invalido."//await this.languageService.get("adapter.messages.msg1")
             );
+            return;
           }
-          this.upload = false;
-          this.loader = false;
-          this.progress = 0;
+          this.showMessage("error", "Error", err.error?.message || err.message);
 
           return;
         }

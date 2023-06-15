@@ -3,7 +3,7 @@
     <div class="p-grid oa-info">
         <div class="p-col-12 p-md-8 p-lg-9">
             <div class="card">
-                <p-tabView (onChange)="onChangeWebview($event)" styleClass="webview-container">
+                <p-tabView [(activeIndex)]="activeIndex" (onChange)="onChangeWebview($event)" styleClass="webview-container">
                     <p-tabPanel
                         *ngIf="(learningObject?.config_adaptability.method == 'automatic' && learningObject?.complete_adaptation) || learningObject?.config_adaptability.method != 'automatic'">
                         <ng-template pTemplate="header">
@@ -18,7 +18,7 @@
                             <!-- <i class="pi pi-calendar"></i> -->
                             <span>{{'edit.tabs.tab2' | translate}}</span>
                         </ng-template>
-                        <app-webview (eventPage)="eventPage($event)" [pages]="learningObject?.pages_origin">
+                        <app-webview *ngIf="activeIndex === 1" (eventPage)="eventPage($event)" [pages]="learningObject?.pages_origin">
                         </app-webview>
                     </p-tabPanel>
                     <p-tabPanel>
@@ -142,60 +142,6 @@
             <p-skeleton height="50%" styleClass="p-mb-2"></p-skeleton>
         </div>
     </div>
-    <!-- Begin skeleton  -->
-    <!-- <div class="p-grid skeleton">
-        <div class="p-col-12 p-md-8 p-lg-9">
-            <div class="custom-skeleton p-p-12">
-                <p-skeleton width="100%" height="70vh"></p-skeleton>
-                <div class="p-d-flex p-jc-between p-mt-3">
-                    <p-skeleton width="4rem" height="2rem"></p-skeleton>
-                    <p-skeleton width="4rem" height="2rem"></p-skeleton>
-                </div>
-                <div class="p-field p-col-12 p-md-12">
-                    <div class="p-grid">
-                        <div class="p-col-12 p-md-3 p-lg-3">
-                            <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                        </div>
-                        <div class="p-col-12 p-md-3 p-lg-3">
-                            <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                        </div>
-                        <div class="p-col-12 p-md-3 p-lg-3">
-                            <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                        </div>
-                        <div class="p-col-12 p-md-3 p-lg-3">
-                            <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                        </div>
-                        <div class="p-col-12 p-md-3 p-lg-3">
-                            <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                        </div>
-                    </div>
-                    <p-skeleton width="100%" styleClass="p-mb-2"></p-skeleton>
-                    <p-skeleton width="75%" styleClass="p-mb-2"></p-skeleton>
-                    <p-skeleton height="50%" styleClass="p-mb-2"></p-skeleton>
-                </div>
-            </div>
-        </div>
-        <div class="p-col-12 p-md-8 p-lg-3 m-5">
-            <div class="p-grid">
-                <div class="p-col-12 p-md-6 p-lg-6">
-                    <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                </div>
-                <div class="p-col-12 p-md-6 p-lg-6">
-                    <p-skeleton width="10rem" height="2rem"></p-skeleton>
-                </div>
-            </div>
-            <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="70%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="5%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="100%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="90%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="50%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="60%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="40%" styleClass="p-mb-2"></p-skeleton>
-            <p-skeleton width="20%" styleClass="p-mb-2"></p-skeleton>
-        </div>
-    </div> -->
-    <!-- End skeleton  -->
 </ng-template>
 
 
@@ -217,8 +163,8 @@
                     </div>
                     <app-audio-content *ngIf="!loader && audiosGroup?.length > 0" [audiosGroup]="audiosGroup">
                     </app-audio-content>
-                    <h5 class="no-content" *ngIf="!loader && audiosGroup?.length == 0">{{'edit.audio.empty' |
-                        translate}}</h5>
+                    <p style="font-weight: bold; font-size: 1.2em;" class="no-content" *ngIf="!loader && audiosGroup?.length == 0">{{'edit.audio.empty' |
+                        translate}}</p>
                 </div>
             </p-tabPanel>
             <p-tabPanel id="image" [header]="'edit.img.tab' | translate" *ngIf="image">
@@ -233,8 +179,8 @@
                     </div>
                     <app-image-content *ngIf="!loader && imagesGroup?.length > 0" [imagesGroup]="imagesGroup">
                     </app-image-content>
-                    <h5 class="no-content" *ngIf="!loader && imagesGroup?.length == 0">{{'edit.img.empty' | translate}}
-                    </h5>
+                    <p style="font-weight: bold; font-size: 1.2em;" class="no-content" *ngIf="!loader && imagesGroup?.length == 0">{{'edit.img.empty' | translate}}
+                    </p>
                 </div>
 
                 <!-- <ng-container *ngIf="!nFoundImage; else imagesTemplate">
@@ -255,8 +201,8 @@
                     </div>
                     <app-paragraph-content *ngIf="!loader && paragraphs?.length > 0" [paragraphs]="paragraphs">
                     </app-paragraph-content>
-                    <h5 class="no-content" *ngIf="!loader && paragraphs?.length == 0">{{'edit.text.empty' | translate}}
-                    </h5>
+                    <p style="font-weight: bold; font-size: 1.2em;" class="no-content" *ngIf="!loader && paragraphs?.length == 0">{{'edit.text.empty' | translate}}
+                    </p>
                 </div>
 
                 <!-- <ng-container *ngIf="paragraphs?.length > 0; else paragraphsTemplate">
@@ -276,8 +222,8 @@
                         <p-progressSpinner></p-progressSpinner>
                     </div>
                     <app-video-content *ngIf="!loader && videos?.length > 0" [videos]="videos"></app-video-content>
-                    <h5 class="no-content" *ngIf="!loader && videos?.length == 0">{{'edit.video.empty' | translate}}
-                    </h5>
+                    <p style="font-weight: bold; font-size: 1.2em;" class="no-content" *ngIf="!loader && videos?.length == 0">{{'edit.video.empty' | translate}}
+                    </p>
                 </div>
                 <!-- <ng-container *ngIf="videos?.length > 0; else videosTemplate">
                     <app-video-content [videos]="videos"></app-video-content>
