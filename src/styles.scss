@@ -7,8 +7,8 @@ $gutter: 0.5rem; //for primeflex grid system
 @import "../node_modules/@fullcalendar/core/main.min.css";
 @import "../node_modules/@fullcalendar/daygrid/main.min.css";
 @import "../node_modules/@fullcalendar/timegrid/main.min.css";
+@import "../node_modules/animate.css/animate.min";
 @import "assets/demo/flags/flags.css";
-@import "~animate.css/animate.min";
 
 .main-content {
   padding: 0 75px;
