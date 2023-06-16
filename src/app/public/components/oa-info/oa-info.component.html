@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="content">
-    <h6>{{'edit.information.section1.title' | translate}}</h6>
+    <h2>{{'edit.information.section1.title' | translate}}</h2>
     <p *ngIf="learningObject?.oa_detail.title"><span>{{'edit.information.section1.item1' | translate}} </span>
         {{learningObject?.oa_detail.title}}</p>
     <p *ngIf="learningObject?.oa_detail.author"><span>{{'edit.information.section1.item2' | translate}} </span>
@@ -9,13 +9,13 @@
         {{learningObject?.oa_detail.license}}</p>
     <p *ngIf="learningObject?.oa_detail.version"><span>{{'edit.information.section1.item4' | translate}} </span>
         {{learningObject?.oa_detail.version}}</p>
-    <h6>{{'edit.information.section2.title' | translate}}</h6>
+    <h2>{{'edit.information.section2.title' | translate}}</h2>
     <p><span>{{'edit.information.section2.item1' | translate}} </span> {{learningObject?.file_detail.pages}}</p>
     <p><span>{{'edit.information.section2.item2' | translate}} </span> {{learningObject?.file_detail.images}}</p>
     <p><span>{{'edit.information.section2.item3' | translate}} </span> {{learningObject?.file_detail.paragraphs}}</p>
     <p><span>{{'edit.information.section2.item4' | translate}} </span> {{learningObject?.file_detail.videos}}</p>
     <p><span>{{'edit.information.section2.item5' | translate}} </span> {{learningObject?.file_detail.audios}}</p>
-    <h6>{{'edit.information.section3.title' | translate}}</h6>
+    <h2>{{'edit.information.section3.title' | translate}}</h2>
     <p><span>{{'edit.information.section3.item1' | translate}} </span> {{method}}</p>
     <p><span>{{'edit.information.section3.item2' | translate}}</span></p>
     <div class="content-switch" *ngIf="getValueCheck('button')">
