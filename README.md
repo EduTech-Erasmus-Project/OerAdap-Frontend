@@ -1,30 +1,63 @@
 # OER ADAP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1
+[Angular CLI](https://github.com/angular/angular-cli) version 15.2.8
 
-## Install
+## Pre-requisito
+- [Node JS y npm](https://nodejs.org/)
+- [Angular CLI](https://angular.io/)
 
-Run `npm install --force` to install dependencies.
-## Development server
+```
+npm install -g @angular/cli
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Instalación de librerias
 
-## Code scaffolding
+`npm install --force`
+## Ejecutar un servidor de desarrollo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Ejecutar `ng serve`
+Por defecto se ejecuta en `http://localhost:4200/`. 
 
-## Build
+## Crear un componente
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Ejecutar `ng generate component component-name` para generar un nuevo componente. También puedes usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Running unit tests
+## Compilar app
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Ejecutar `ng build` para compilar la aplicacion. Tambien puedes usar `ng build --configuration=production` para usar el enviroment de producción.
 
-## Running end-to-end tests
+## Estructura del proyecto
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+- e2e
+- node_modules
+- public
+- src
+  - app
+    - interceptors
+    - models
+    - pipes
+    - public
+      - components
+        - audio //card de adaptación audio 
+        - edit-transcript //modal de transcripcion
+        - file-upload //componente de carga de archivo
+        - iframe //componente iframe
+        - image //card de adaptación imagen 
+        - oa-info //componente información de oa
+        - oa-metadata //componentente de listado d emetadatos
+        - paragraph //card de adaptacón de parrafos
+        - video //card de adaptación de video
+        - webview //componente de previsualización de oa
+      - containers
+        - audio-content //contenedor de componentes de audio
+        - image-content //contenedor de componentes de imagenes
+        - paragraph-content //contenedor de componentes de parrafos
+        - video-content //contenedor de componentes de videos
+      - pages
+    - services
+    - shared
+  - assets
+  - enviroments
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
