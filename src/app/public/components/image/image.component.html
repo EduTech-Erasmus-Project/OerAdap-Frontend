@@ -98,6 +98,20 @@
                     <button pButton pRipple (click)="showModalDialog()" class="p-button-success"
                         [label]="'edit.img.btnCreateTable' | translate" icon="pi pi-save"></button>
                 </div>
+
+                <div class="btn-sucessfull"  *ngIf="(item.image_map == null || item.image_map == '') && editMapImageBoolean == false">
+                    <button pButton pRipple class="p-button-success" label="{{'adapter.areas.img.createMapImage' | translate}}"
+                        (click)="createMapImage = true;addImageCanvas()" icon="pi pi-save">
+                    </button>
+                </div>
+                
+                <div class="second-button-edit-map" *ngIf="editMapImageBoolean == true">
+                    <div class="btn-sucessfull">
+                        <p-button (click)="editaCanvas()" label="{{'adapter.areas.img.editarMapImage' | translate}}" icon="pi pi-check">
+                        </p-button>
+                    </div>
+                </div>
+                
             </div>
             <div class="second-button" *ngIf="item.text_table || flag_text_table">
                 <div class="btn-sucessfull">
@@ -105,6 +119,39 @@
                     </p-button>
                 </div>
             </div>
+
+            
+            
         </ng-template>
     </ng-template>
 </p-card>
+
+<p-dialog [header]="editMapImageBoolean == true ? ('adapter.areas.img.editarMapImage' | translate):('adapter.areas.img.createMapImage' | translate)" [(visible)]="createMapImage" [modal]="true" [style]="{ width: '70vw' }"
+    id="modalImageMap" [draggable]="false" [resizable]="false">
+    <div #dialog>
+        <div style="display: grid; grid-template-columns: repeat(1,1fr); gap: 1rem">
+            <label for="name">{{"adapter.areas.img.selectFigure" | translate}}</label>
+            <p-dropdown [options]="figures" [(ngModel)]="figureMapImage" placeholder="{{'adapter.areas.img.selectInfo' | translate}}"
+                optionLabel="name" optionValue="code" (onChange)="resetMessage()"></p-dropdown>
+                <small class="p-error" *ngIf="figureMapImageBoolean" >{{"adapter.areas.img.errorSelect" | translate}}</small>
+        </div>
+        <div id="separador">
+            <div class="container-title-button" style="width:  100%; display: flex; flex-wrap: wrap;padding-top:1em;padding-bottom: 1em; ">
+                <h3>{{"adapter.areas.img.desciptionMap" | translate}}</h3> 
+                <button pButton pRipple label="{{'adapter.areas.img.goBack' | translate}}" icon="pi pi-replay" class="p-button-danger" (click)="removeItemOld()" [disabled]="figureMapImage == ''" style="margin-left: auto;"></button>
+            </div>
+            <div id="containerCanvas" style="overflow-y: scroll; overflow-x: scroll; position: relative;">
+                <canvas #myCanvas id="camvas" style="border: 1px solid" (mousedown)="onMouseDown($event)"
+                    (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)">
+                </canvas>
+            </div>
+            <div class="button-container" style="text-align: center;">
+                <button pButton pRipple label="{{'adapter.areas.img.saveMap' | translate}} " icon="pi pi-check" class="p-button-success" [disabled]="arrayTextArea.length == 0"
+                (click)="guardar()" style="margin-left: auto;"></button>
+
+            </div>
+        </div>
+    </div>
+
+    <p-messages></p-messages>
+</p-dialog>

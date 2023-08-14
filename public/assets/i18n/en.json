@@ -101,7 +101,19 @@
                 "item": "Image (Image Description)",
                 "title": "Images",
                 "description": "Allows you to add the description of the images of the learning object, this in order that all the images have a description following the HTML standards for accessibility.",
-                "altImage": "Adaptability buttons for images"
+                "altImage": "Adaptability buttons for images",
+
+                "createMapImage": "Create Map Image",
+                "editarMapImage": "Edit image map",
+                "saveMap": "Save Image Map",
+                "errorSelect": "You must select a figure",
+                "selectFigure": "Select a figure type below:",
+                "desciptionMap": "Draw the figures",
+                "selectInfo": "Select a figure",
+                "goBack": "Go Back",
+                "saveMapSuccess":"The image map was saved successfully", 
+                "update Success":"The image map was updated successfully", 
+                "errorMapImage":"Error adding image map"
             },
             "video": {
                 "item": "Video (Video description)",

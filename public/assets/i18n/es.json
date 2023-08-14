@@ -101,7 +101,19 @@
             "item": "Imagen (Descripción de imagen)",
             "title": "Imágenes",
             "description": "Permite agregar la descripción de las imágenes del objeto de aprendizaje, esto con la finalidad de que todas las imágenes se encuentren con una descripción siguiendo los estándares HTML para la accesibilidad.",
-            "altImage": "Botones de adaptabilidad para las imágenes"
+            "altImage": "Botones de adaptabilidad para las imágenes",
+
+            "createMapImage":"Crear mapa de imagen",
+            "editarMapImage":"Editar mapa de imagen",
+            "saveMap":"Guardar mapa de imagen",
+            "errorSelect":"Debe seleccionar una figura",
+            "selectFigure":"Seleccione un tipo de figura a continuación:",
+            "desciptionMap":"Dibuje las figuras",
+            "selectInfo":"Seleccione una figura",
+            "goBack":"Regresar atras",
+            "saveMapSuccess":"Se guardo el mapa de imagen correctamente",
+            "udpateSuccess":"Se actualizo el mapa de imagen correctamente",
+            "errorMapImage":"Error al agregar mapa de imagen"
          },
          "video": {
             "item": "Video (Descripción de video)",
