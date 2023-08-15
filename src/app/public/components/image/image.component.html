@@ -105,7 +105,7 @@
                     </button>
                 </div>
                 
-                <div class="second-button-edit-map" *ngIf="editMapImageBoolean == true">
+                <div class="second-button-edit-map" *ngIf="(item.image_map != null || item.image_map != '') && editMapImageBoolean == true">
                     <div class="btn-sucessfull">
                         <p-button (click)="editaCanvas()" label="{{'adapter.areas.img.editarMapImage' | translate}}" icon="pi pi-check">
                         </p-button>

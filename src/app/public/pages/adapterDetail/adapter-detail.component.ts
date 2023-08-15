@@ -97,7 +97,6 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
       .getLearningObject(this.id)
       .subscribe(
         (res: any) => {
-          console.log("learningObject", res);
           this.learningObject = res;
 
           //filter pages website
@@ -123,9 +122,6 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
           this.paragraph = this.getValueCheck("paragraph");
 
           let areas = res.config_adaptability.areas.sort();
-
-          //console.log("areas sort", areas);
-
           this.dataTabPanel = areas
             .filter((area) => area != "all" && area != "button")
             .map((area, idx) => {
@@ -134,10 +130,6 @@ export class AdapterDetailComponent implements OnInit, OnDestroy {
                 name: area,
               };
             });
-          //console.log(this.image);
-          //console.log(this.video);
-          //console.log(this.audio);
-          //console.log(this.paragraph);
           let data = this.getDataTabPanel(0);
           this.reLoadData(data.name);
 

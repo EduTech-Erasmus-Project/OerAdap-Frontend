@@ -98,6 +98,17 @@ export class ImageComponent implements OnInit, OnDestroy, AfterContentChecked {
   }
 
   ngOnInit(): void {
+    
+    if(this.item.image_map != null && this.item.image_map !=""){
+      this.editMapImageBoolean=true;
+      this.arrayTextArea = JSON.parse(this.item.image_map_reference_data)
+      let data_reference = JSON.parse(this.item.image_map_reference_coordinates);
+      this.cordenadasx = data_reference.cordenadasx;
+      this.cordenadasy = data_reference.cordenadasy;
+      this.arrayTextAreaValue = data_reference.labels;
+    }
+
+
     if (this.item.text_table) {
       this.table_result = this.item.text_table;
       this.flag_text_table = true;

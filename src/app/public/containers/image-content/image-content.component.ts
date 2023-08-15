@@ -27,6 +27,9 @@ export class ImageContentComponent implements OnInit {
         text_table: image.tags_adapted.text_table,
         img_fullscreen: image.tags_adapted.img_fullscreen,
         adaptation: image.adaptation,
+        image_map: image.tags_adapted.image_map,
+        image_map_reference_data: image.tags_adapted.image_map_reference_data,
+        image_map_reference_coordinates: image.tags_adapted.image_map_reference_coordinates
       };
     });
     //console.log("exit");
