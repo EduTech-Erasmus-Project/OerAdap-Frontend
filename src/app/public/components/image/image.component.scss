@@ -185,3 +185,47 @@ h6 {
 :host ::ng-deep .p-blockui {
     z-index: 100 !important;
 }
+
+@media (min-height: 70vw ) and (min-width: 598px) {
+    :host::ng-deep .p-dialog {
+        width: 80% !important;
+        height: 90% !important;
+    }
+    :host::ng-deep .p-dialog-content{
+        padding: 5px !important;
+        width: 100%;
+        height: 92.1%;
+    }
+}
+
+
+@media (min-height: 50vw) and  (min-width: 678px) {
+    :host::ng-deep .p-dialog{
+        width: 80% !important;
+        height: 90% !important;
+       
+    }
+    :host::ng-deep .p-dialog-content{
+        padding: 5px !important;
+        width: 100%;
+        height: 89.99%;
+    }
+}
+
+@media (min-height: 476px) and  (min-width: 592px) {
+    :host::ng-deep .p-dialog{
+        width: 80% !important;
+        height: 90% !important;
+       
+    }
+    :host::ng-deep .p-dialog-content{
+        padding: 5px !important;
+        width: 100%;
+        height: 84.99%;
+    }
+}
+
+
+:host::ng-deep .p-dialog{
+    border: none !important;
+}
