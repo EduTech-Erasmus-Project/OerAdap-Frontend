@@ -10,6 +10,7 @@ import { UploadComponent } from "./components/upload/upload.component";
 import { VideoComponent } from "./components/video/video.component";
 
 import { GuideComponent } from "./guide.component";
+import { ExelearningComponent } from "./components/exelearning/exelearning.component";
 
 const routes: Routes = [
   {
@@ -19,7 +20,14 @@ const routes: Routes = [
       breadcrumb: null,
     },
     children: [
-      { path: "", redirectTo: "introduction", pathMatch: "full" },
+      { path: "", redirectTo: "eXeLearning", pathMatch: "full" },
+      {
+        path: "eXeLearning",
+        component: ExelearningComponent,
+        data: {
+          breadcrumb: "exeLearning",
+        },
+      },
       {
         path: "introduction",
         component: IntroductionComponent,

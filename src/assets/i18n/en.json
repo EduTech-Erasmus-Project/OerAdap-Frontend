@@ -314,6 +314,11 @@
     "guide": {
         "btnBack": "Back",
         "btnNext": "Next",
+        "exelearning":{
+            "title":"File format",
+            "description": "The tool accepts learning objects with <span>IMS</span> or <span>SCORM</span> packaging. This type of packaging is used since <span>SCORM</span> focuses on support for <span>LMS</span> and tracking, while <span>IMS</span> provides flexibility and broad interoperability. The choice of using one or the other or both will depend on the specific needs and objectives of the organization in terms of online education and training.",
+            "header":"What are the formats accepted within the tool?"
+        },
         "introduction": {
             "title": "Introduction",
             "p1": "Welcome to the OerAdap platform user guide, in this guide we will show you how you can start on the platform to adapt your learning objects, the objective of this platform is to create adapted educational resources by implementing different adaptation techniques. ",

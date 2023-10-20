@@ -314,6 +314,11 @@
    "guide": {
       "btnBack": "Atras",
       "btnNext": "Siguiente",
+      "exelearning":{
+         "title":"Formato de archivos aceptados",
+         "description": "La herramienta acepta objetos de aprendizaje con empaquetado <span>IMS</span> o <span>SCORM</span>. Se usa este tipo de empaquetados ya que <span>SCORM</span> se centra en la compatibilidad con <span>LMS</span> y el seguimiento, mientras que <span>IMS</span> proporciona flexibilidad y una amplia interoperabilidad. La elección de utilizar uno u otro o ambos dependerá de las necesidades específicas y los objetivos de la organización en términos de educación y formación en línea.",
+         "header":"Cuales son los formatos aceptados dentro de la herramienta ?"
+      },
       "introduction": {
          "title": "Introducción",
          "p1": "Bienvenido a la guía de usuario de la plataforma OerAdap, en esta guía te mostraremos como puedes comenzar en la plataforma para adaptar tus objetos de aprendizaje, el objetivo de esta plataforma es crear recursos educativos adaptados implementando diferentes técnicas de adaptación.",

@@ -33,6 +33,11 @@ export class GuideComponent implements OnInit {
     this.items = [
       {
         label:
+          (await this.languageService.get("guide.exelearning.title")) || "",
+        routerLink: "eXeLearning",
+      },
+      {
+        label:
           (await this.languageService.get("guide.introduction.title")) || "",
         routerLink: "introduction",
       },

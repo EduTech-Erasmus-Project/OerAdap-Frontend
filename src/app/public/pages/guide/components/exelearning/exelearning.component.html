@@ -1,0 +1,22 @@
+<div class="main-content p-grid guide-content">
+    <div class="p-col-12 p-md-6 p-lg-6 ">
+       <div class="title">
+        <h2>{{'guide.exelearning.title'|translate}}</h2>
+       </div>
+        <label>
+            {{'guide.exelearning.header'|translate}}
+        </label>
+        <br>
+    <p [innerHTML]="'guide.exelearning.description'|translate">
+            
+        </p>
+        <div class="imageClass">
+            <img src="assets/img/learningObject.png" alt="Imagen referente a los objetos de aprendizaje">
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6 p-lg-6">
+        <!-- <img loading="lazy" src="assets/gifs/introduction.gif" alt="Introducción a la plataforma" /> -->
+        <video [title]="'guide.introduction.videoTitle' | translate" src="assets/videos/introducction.mp4"
+            type="video/mp4" controls loop></video>
+    </div>
+</div>

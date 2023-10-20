@@ -10,6 +10,7 @@ import { TourComponent } from './tour/tour.component';
 import { RouterModule } from '@angular/router';
 import { DownloadComponent } from './download/download.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ExelearningComponent } from './exelearning/exelearning.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     VideoComponent,
     TourComponent,
     DownloadComponent,
+    ExelearningComponent,
   ],
   imports: [
     CommonModule,
